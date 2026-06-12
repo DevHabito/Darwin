@@ -1,0 +1,32 @@
+DARWIN — Relatório de Sono/Consolidação
+====================================================
+gerado_em: 2026-04-27T22:08:31+00:00
+ciclos: 2
+
+ANTES
+- sigma: 0.8727
+- energy: 0.6064
+- info_self: 0.4740
+- info_external: 2.0524
+- latency: 1.5632
+- pain: 0.3500
+- wellbeing: 1.0020
+
+DEPOIS
+- sigma: 3.2533
+- energy: 0.9264
+- info_self: 0.3671
+- info_external: 0.6436
+- latency: 1.2165
+- pain: 0.0169
+- wellbeing: 1.5387
+
+CASOS SINTÉTICOS PRIORITÁRIOS PARA REVALIDAÇÃO FÍSICA
+1. triangle_A>square_A | condição=topo_desalinhado | prioridade=7
+2. triangle_A>square_B | condição=topo_desalinhado | prioridade=7
+3. square_A>triangle_A | condição=superficie_inclinada | prioridade=4
+4. square_B>triangle_A | condição=superficie_inclinada | prioridade=4
+5. triangle_A>square_A | condição=toque_leve | prioridade=4
+6. triangle_A>square_B | condição=toque_leve | prioridade=4
+7. square_A>triangle_A | condição=triangulo_girado | prioridade=2
+8. square_B>triangle_A | condição=triangulo_girado | prioridade=2

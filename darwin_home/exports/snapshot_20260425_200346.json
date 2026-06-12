@@ -1,0 +1,193 @@
+{
+  "exported_at": "2026-04-25T23:03:46+00:00",
+  "self_model": {
+    "id": 1,
+    "name": "Darwin",
+    "version": "0.1",
+    "mission": "Aprender mantendo estabilidade relacional.",
+    "core_principles": [
+      "preservar estabilidade",
+      "aprender com erro",
+      "buscar grounding",
+      "desenvolver antes de nomear",
+      "evitar repetição de padrões perigosos"
+    ],
+    "created_at": "2026-04-25T21:06:21+00:00",
+    "updated_at": "2026-04-25T21:06:21+00:00"
+  },
+  "current_state": {
+    "sigma": 1.5181633925787341,
+    "energy": 0.975,
+    "info_self": 0.357,
+    "info_external": 0.5209999999999999,
+    "latency": 1.039,
+    "pain_signal": 3.0,
+    "wellbeing_signal": 0.8
+  },
+  "policy": {
+    "threat_sensitivity": 1.0,
+    "fork_sensitivity": 1.0,
+    "win_sensitivity": 1.2400000000000002,
+    "explore_bias": 0.7,
+    "center_bias": 0.9900000000000001,
+    "corner_bias": 0.8,
+    "line_bias": 1.0200000000000002
+  },
+  "recent_episodes": [
+    {
+      "id": 14,
+      "timestamp": "2026-04-25T23:03:39+00:00",
+      "module": "nursery_v1",
+      "context": "nursery_v1 | action=fit | target_a=blue_cube | target_b=slot_square",
+      "action_taken": "fit:blue_cube:slot_square",
+      "outcome": "success",
+      "lesson": "blue_cube encaixou corretamente em slot_square.",
+      "sigma_before": 5.714285714285714,
+      "sigma_after": 1.5181633925787341
+    },
+    {
+      "id": 13,
+      "timestamp": "2026-04-25T23:00:38+00:00",
+      "module": "nursery_v1",
+      "context": "nursery_v1 | action=fit | target_a=blue_cube | target_b=slot_square",
+      "action_taken": "fit:blue_cube:slot_square",
+      "outcome": "success",
+      "lesson": "blue_cube encaixou corretamente em slot_square.",
+      "sigma_before": 5.714285714285714,
+      "sigma_after": 1.5181633925787341
+    },
+    {
+      "id": 12,
+      "timestamp": "2026-04-25T22:15:29+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "5 -> 1 -> 3 -> 8",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 2.651461154668567,
+      "sigma_after": 2.089025500910747
+    },
+    {
+      "id": 11,
+      "timestamp": "2026-04-25T22:14:49+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "5 -> 3 -> 8 -> 1",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 2.089025500910747,
+      "sigma_after": 2.651461154668567
+    },
+    {
+      "id": 10,
+      "timestamp": "2026-04-25T22:05:07+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "1 -> 7 -> 6 -> 8",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 1.8224573780129332,
+      "sigma_after": 2.089025500910747
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-04-25T22:04:31+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=O | darwin=X",
+      "action_taken": "5 -> 1 -> 7 -> 4",
+      "outcome": "win",
+      "lesson": "reforçou padrões que levaram à vitória",
+      "sigma_before": 2.1957640301543617,
+      "sigma_after": 1.8224573780129332
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-04-25T22:01:09+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "5 -> 4 -> 3 -> 9",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 2.089025500910747,
+      "sigma_after": 2.1957640301543617
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-04-25T21:47:53+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "1 -> 7 -> 6 -> 8",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 1.2408088235294117,
+      "sigma_after": 2.089025500910747
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-04-25T21:46:57+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "1 -> 7 -> 4",
+      "outcome": "win",
+      "lesson": "reforçou padrões que levaram à vitória",
+      "sigma_before": 2.4999999999999996,
+      "sigma_after": 1.2408088235294117
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-04-25T21:45:07+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=O | darwin=X",
+      "action_taken": "5 -> 3 -> 4 -> 9 -> 2",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 1.8224573780129332,
+      "sigma_after": 2.4999999999999996
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-04-25T21:44:37+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=O | darwin=X",
+      "action_taken": "5 -> 7 -> 1 -> 4",
+      "outcome": "win",
+      "lesson": "reforçou padrões que levaram à vitória",
+      "sigma_before": 2.089025500910747,
+      "sigma_after": 1.8224573780129332
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-04-25T21:44:02+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "5 -> 4 -> 3 -> 8",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 2.651461154668567,
+      "sigma_after": 2.089025500910747
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-04-25T21:43:26+00:00",
+      "module": "tic_tac_toe",
+      "context": "tic_tac_toe | humano=X | darwin=O",
+      "action_taken": "5 -> 1 -> 6 -> 7",
+      "outcome": "draw",
+      "lesson": "empate estável; ajustou levemente a construção de linhas",
+      "sigma_before": 1.32,
+      "sigma_after": 2.651461154668567
+    },
+    {
+      "id": 1,
+      "timestamp": "2026-04-25T21:06:21+00:00",
+      "module": "bootstrap",
+      "context": "criação inicial do Darwin Home",
+      "action_taken": "bootstrap do espaço persistente local",
+      "outcome": "success",
+      "lesson": "Darwin agora possui uma casa persistente e não precisa reiniciar do zero.",
+      "sigma_before": 1.0,
+      "sigma_after": 1.32
+    }
+  ],
+  "dangerous_patterns": []
+}

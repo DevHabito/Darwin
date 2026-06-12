@@ -1,0 +1,461 @@
+from __future__ import annotations
+
+"""
+DARWIN — Freeze Baseline v47.7 Stable
+
+Congela o estado atual da v47.7 depois da micro-rotina de resolução de tensão.
+
+Este script cria uma baseline segura contendo:
+- darwin_v61_nursery_v47.py
+- darwin_tension_persistence_v47.py
+- ferramentas v47/v47.5/v47.6/v47.6.1/v47.7 de diagnóstico, teste e painel
+- banco darwin_home/darwin.db
+- snapshots/exports/backups relevantes
+- manifest.json com hashes SHA256 e resumo SQLite
+- README_BASELINE.txt
+
+Importante:
+- Não altera arquivos originais.
+- Não roda o Darwin.
+- Não modifica o banco.
+- Use antes de começar qualquer v47.8/v48 comportamental.
+
+Uso:
+    py darwin_freeze_v47_7_stable.py
+
+Teste seco:
+    py darwin_freeze_v47_7_stable.py --dry-run
+
+Incluir logs, se houver:
+    py darwin_freeze_v47_7_stable.py --include-logs
+"""
+
+import argparse
+import hashlib
+import json
+import shutil
+import sqlite3
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+PROJECT_ROOT = Path.cwd()
+DARWIN_HOME = PROJECT_ROOT / "darwin_home"
+BASELINES_DIR = PROJECT_ROOT / "baselines"
+
+REQUIRED_FILES = [
+    "darwin_v61_nursery_v47.py",
+    "darwin_tension_persistence_v47.py",
+    "darwin_home.py",
+]
+
+OPTIONAL_FILES = [
+    # v47 base tooling
+    "darwin_prepare_v47.py",
+    "darwin_integrate_v47_persistence.py",
+    "darwin_check_v47_tensions.py",
+    "darwin_v47_smoke_test_tension.py",
+    "darwin_v47_2_multi_tension_test.py",
+    "darwin_tension_dashboard_v47.py",
+
+    # patches v47
+    "darwin_patch_v47_1_hygiene.py",
+    "darwin_patch_v47_3_1_persistence_fixes.py",
+    "darwin_patch_v47_4_menu_dashboard.py",
+
+    # v47.5
+    "darwin_patch_v47_5_rehydrate_tensions.py",
+    "darwin_v47_5_rehydration_test.py",
+
+    # v47.6
+    "darwin_patch_v47_6_executive_commitment.py",
+    "darwin_v47_6_commitment_test.py",
+
+    # v47.6.1 repair/panel
+    "darwin_patch_v47_6_1_commitment_panel.py",
+    "darwin_repair_v47_6_1_panel.py",
+    "darwin_v47_6_1_commitment_panel_test.py",
+
+    # v47.7
+    "darwin_patch_v47_7_resolution_routine.py",
+    "darwin_v47_7_resolution_routine_test.py",
+
+    # manifests and guides
+    "v47_preparation_manifest.json",
+    "v47_persistence_integration_manifest.json",
+    "v47_1_hygiene_manifest.json",
+    "v47_3_1_persistence_fixes_manifest.json",
+    "v47_4_menu_dashboard_manifest.json",
+    "v47_5_rehydrate_tensions_manifest.json",
+    "v47_6_executive_commitment_manifest.json",
+    "v47_6_1_commitment_panel_manifest.json",
+    "v47_6_1_panel_repair_manifest.json",
+    "v47_7_resolution_routine_manifest.json",
+    "V47_NEXT_STEPS.txt",
+
+    # v46/v47 context modules
+    "darwin_v61_nursery_v46.py",
+    "darwin_memory_graph.py",
+    "darwin_memory_graph_v2.py",
+    "darwin_memory_graph_layers.py",
+    "darwin_memory_graph_layers_v2.py",
+    "darwin_memory_graph_layers_v3.py",
+    "darwin_memory_graph_png.py",
+    "darwin_physical_manual_nursery.py",
+    "darwin_physical_variation_nursery.py",
+    "darwin_physical_variation_oracle_nursery.py",
+    "darwin_sleep_auto_guard.py",
+    "darwin_sleep_consolidation.py",
+    "darwin_phase1_bootstrap.py",
+]
+
+HOME_ITEMS = [
+    "darwin.db",
+    "snapshots",
+    "exports",
+    "backups",
+]
+
+
+README_TEXT = """DARWIN — Baseline v47.7 Stable
+===============================
+
+Esta baseline representa o marco estável da v47.7:
+
+- memória executiva persistente de tensões;
+- tabelas tension_cases, tension_events, tension_probes, tension_outcomes;
+- integração da persistência no agente;
+- teste de tensão única;
+- teste de múltiplas tensões concorrentes;
+- painel executivo externo;
+- painel executivo integrado ao menu do Darwin;
+- correções de identidade v47, closure_deficit=0.0 e preempção inicial;
+- reidratação de tensões abertas no boot;
+- restauração de active_tension_id a partir da memória persistente;
+- comando 10r para relatório de reidratação executiva;
+- compromisso executivo real: tensão reidratada influencia o próximo passo autônomo;
+- comando 10c para mostrar dívida executiva ativa antes da primeira decisão;
+- micro-rotina de resolução de tensão;
+- tabelas tension_resolution_routines e tension_resolution_steps;
+- comando 10m para visualizar a micro-rotina ativa.
+
+Regra:
+NÃO editar esta baseline diretamente.
+NÃO rodar experimentos dentro desta baseline.
+Use-a apenas como ponto de retorno, auditoria e preservação histórica.
+
+Próximo desenvolvimento sugerido:
+começar v47.8/v48 a partir da pasta operacional atual, não desta baseline.
+
+Direção natural:
+fazer a micro-rotina deixar de executar apenas predict/validate direto
+e passar a escolher entre comparar, sondar, consolidar, enfraquecer, arquivar ou pedir nova experiência.
+"""
+
+
+def now_stamp() -> str:
+    return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_UTC")
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def print_status(kind: str, message: str) -> None:
+    print(f"[{kind:<7}] {message}")
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def ensure_project_root() -> None:
+    missing = []
+    for filename in REQUIRED_FILES:
+        if not (PROJECT_ROOT / filename).exists():
+            missing.append(filename)
+
+    db = DARWIN_HOME / "darwin.db"
+    if not db.exists():
+        missing.append("darwin_home/darwin.db")
+
+    if missing:
+        raise FileNotFoundError(
+            "Arquivos essenciais não encontrados na pasta atual:\n"
+            + "\n".join(f"- {item}" for item in missing)
+            + "\n\nRode este script dentro da pasta darwin_local."
+        )
+
+
+def sqlite_summary(db_path: Path) -> dict[str, Any]:
+    summary: dict[str, Any] = {
+        "status": "not_found",
+        "db_file": str(db_path),
+        "tables": {},
+        "v47_migration_present": False,
+        "open_tension_cases": 0,
+        "open_resolution_routines": 0,
+    }
+
+    if not db_path.exists():
+        return summary
+
+    summary["status"] = "ok"
+
+    conn = sqlite3.connect(db_path)
+    try:
+        rows = conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+        ).fetchall()
+
+        table_names = [name for (name,) in rows]
+
+        for name in table_names:
+            try:
+                count = conn.execute(f"SELECT COUNT(*) FROM {name}").fetchone()[0]
+                summary["tables"][name] = int(count)
+            except Exception:
+                summary["tables"][name] = None
+
+        if "darwin_schema_migrations" in table_names:
+            try:
+                row = conn.execute(
+                    """
+                    SELECT COUNT(*)
+                    FROM darwin_schema_migrations
+                    WHERE name='v47_tension_persistence_schema'
+                    """
+                ).fetchone()
+                summary["v47_migration_present"] = bool(row and int(row[0]) > 0)
+            except Exception:
+                summary["v47_migration_present"] = False
+
+        if "tension_cases" in table_names:
+            try:
+                row = conn.execute(
+                    """
+                    SELECT COUNT(*)
+                    FROM tension_cases
+                    WHERE status NOT IN ('closed', 'archived', 'stale')
+                    """
+                ).fetchone()
+                summary["open_tension_cases"] = int(row[0]) if row else 0
+            except Exception:
+                summary["open_tension_cases"] = 0
+
+        if "tension_resolution_routines" in table_names:
+            try:
+                row = conn.execute(
+                    """
+                    SELECT COUNT(*)
+                    FROM tension_resolution_routines
+                    WHERE status='active'
+                    """
+                ).fetchone()
+                summary["open_resolution_routines"] = int(row[0]) if row else 0
+            except Exception:
+                summary["open_resolution_routines"] = 0
+
+    finally:
+        conn.close()
+
+    return summary
+
+
+def copy_file(src: Path, dst: Path, dry_run: bool, manifest: dict[str, Any], label: str = "") -> None:
+    rel = src.relative_to(PROJECT_ROOT)
+
+    if not src.exists():
+        print_status("AUSENTE", str(rel))
+        manifest["missing"].append(str(rel))
+        return
+
+    if dry_run:
+        print_status("DRYRUN", f"copiaria {rel}")
+        return
+
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dst)
+
+    item = {
+        "source": str(src),
+        "dest": str(dst),
+        "size": src.stat().st_size,
+        "sha256": sha256_file(src),
+    }
+    if label:
+        item["label"] = label
+    manifest["files"].append(item)
+
+    print_status("OK", str(rel))
+
+
+def copy_dir(src: Path, dst: Path, dry_run: bool, manifest: dict[str, Any], include_logs: bool = False) -> None:
+    rel = src.relative_to(PROJECT_ROOT)
+
+    if not src.exists():
+        print_status("AUSENTE", str(rel))
+        manifest["missing"].append(str(rel))
+        return
+
+    if not src.is_dir():
+        copy_file(src, dst, dry_run, manifest)
+        return
+
+    if rel.as_posix().endswith("logs") and not include_logs:
+        print_status("PULOU", f"{rel} (use --include-logs para incluir)")
+        return
+
+    if dry_run:
+        count = sum(1 for p in src.rglob("*") if p.is_file())
+        print_status("DRYRUN", f"copiaria diretório {rel} -> {count} arquivo(s)")
+        return
+
+    if dst.exists():
+        shutil.rmtree(dst)
+    shutil.copytree(src, dst)
+
+    file_count = 0
+    total_bytes = 0
+    for path in dst.rglob("*"):
+        if path.is_file():
+            file_count += 1
+            total_bytes += path.stat().st_size
+
+    manifest["directories"].append(
+        {
+            "source": str(src),
+            "dest": str(dst),
+            "files": file_count,
+            "bytes": total_bytes,
+        }
+    )
+
+    print_status("DIR", f"{rel} -> {file_count} arquivo(s)")
+
+
+def make_zip(baseline_dir: Path, dry_run: bool) -> Path:
+    zip_base = baseline_dir
+    zip_path = baseline_dir.with_suffix(".zip")
+
+    if dry_run:
+        print_status("DRYRUN", f"criaria ZIP: {zip_path}")
+        return zip_path
+
+    if zip_path.exists():
+        zip_path.unlink()
+
+    shutil.make_archive(str(zip_base), "zip", root_dir=baseline_dir)
+    print()
+    print(f"ZIP criado: {zip_path}")
+    return zip_path
+
+
+def write_readme_and_manifest(baseline_dir: Path, manifest: dict[str, Any], dry_run: bool) -> None:
+    if dry_run:
+        print_status("DRYRUN", "criaria README_BASELINE.txt e manifest.json")
+        return
+
+    (baseline_dir / "README_BASELINE.txt").write_text(README_TEXT, encoding="utf-8")
+
+    db_path = DARWIN_HOME / "darwin.db"
+    manifest["sqlite_summary"] = sqlite_summary(db_path)
+    manifest["created_at"] = now_iso()
+
+    (baseline_dir / "manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    print_status("OK", "README_BASELINE.txt")
+    print_status("OK", "manifest.json")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Congela baseline estável Darwin v47.7.")
+    parser.add_argument("--dry-run", action="store_true", help="Mostra o que seria feito sem escrever arquivos.")
+    parser.add_argument("--include-logs", action="store_true", help="Inclui darwin_home/logs se existir.")
+    args = parser.parse_args()
+
+    baseline_name = f"baseline_v47_7_stable_{now_stamp()}"
+    baseline_dir = BASELINES_DIR / baseline_name
+
+    print("=" * 72)
+    print("DARWIN — FREEZE BASELINE v47.7 STABLE")
+    print("=" * 72)
+    print(f"Raiz do projeto: {PROJECT_ROOT}")
+    print(f"Destino:         {baseline_dir}")
+    print(f"Dry-run:         {args.dry_run}")
+    print()
+
+    ensure_project_root()
+
+    manifest: dict[str, Any] = {
+        "baseline": "v47.7_stable",
+        "project_root": str(PROJECT_ROOT),
+        "baseline_dir": str(baseline_dir),
+        "files": [],
+        "directories": [],
+        "missing": [],
+        "sqlite_summary": {},
+    }
+
+    source_dir = baseline_dir / "source_files"
+    home_dir = baseline_dir / "darwin_home"
+
+    print("Arquivos essenciais:")
+    for filename in REQUIRED_FILES:
+        copy_file(PROJECT_ROOT / filename, source_dir / filename, args.dry_run, manifest, label="required")
+
+    print()
+    print("Arquivos opcionais:")
+    for filename in OPTIONAL_FILES:
+        src = PROJECT_ROOT / filename
+        if src.exists():
+            copy_file(src, source_dir / filename, args.dry_run, manifest, label="optional")
+        else:
+            print_status("AUSENTE", filename)
+
+    print()
+    print("darwin_home/")
+    for item in HOME_ITEMS:
+        src = DARWIN_HOME / item
+        dst = home_dir / item
+        if src.is_dir():
+            copy_dir(src, dst, args.dry_run, manifest, include_logs=args.include_logs)
+        else:
+            copy_file(src, dst, args.dry_run, manifest)
+
+    logs_src = DARWIN_HOME / "logs"
+    if logs_src.exists():
+        copy_dir(logs_src, home_dir / "logs", args.dry_run, manifest, include_logs=args.include_logs)
+
+    write_readme_and_manifest(baseline_dir, manifest, args.dry_run)
+    zip_path = make_zip(baseline_dir, args.dry_run)
+
+    if not args.dry_run:
+        summary = manifest["sqlite_summary"]
+        print()
+        print("Resumo SQLite:")
+        print(f"- status: {summary.get('status')}")
+        print(f"- v47_migration_present: {summary.get('v47_migration_present')}")
+        print(f"- open_tension_cases: {summary.get('open_tension_cases')}")
+        print(f"- open_resolution_routines: {summary.get('open_resolution_routines')}")
+        for table, count in summary.get("tables", {}).items():
+            print(f"- table:{table}: {count}")
+
+        print()
+        print(f"Baseline v47.7 congelada com sucesso em: {baseline_dir}")
+        print(f"Pacote ZIP: {zip_path}")
+        print("Próximo passo: iniciar v47.8/v48 a partir da pasta operacional atual, não desta baseline.")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

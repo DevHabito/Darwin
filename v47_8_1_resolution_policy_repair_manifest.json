@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-04-29T22:14:35+00:00",
+  "repair": "v47.8.1_resolution_policy_safe_repair",
+  "restored_from": "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_v47_8_20260429_220808_UTC.py",
+  "repair_backup": "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_repair_v47_8_1_20260429_221434_UTC.py",
+  "changes": 4,
+  "file": "C:\\Users\\Felipe\\Desktop\\darwin_local\\darwin_v61_nursery_v47.py",
+  "hashes": {
+    "C:\\Users\\Felipe\\Desktop\\darwin_local\\darwin_v61_nursery_v47.py": "a6cce5203128d044a1eebbfccab41ef9835e72ebb7ff27d46506d10b12364f98",
+    "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_v47_8_20260429_220808_UTC.py": "4adb736b8298f99d21fe8eea6da87524deb17e8ee26500587744cd4510c3c79d",
+    "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_repair_v47_8_1_20260429_221434_UTC.py": "eadc5760c4387080dc6f4820deb6b340aa822dab09dfdeb4ddc7d431e3fb9bd4"
+  }
+}

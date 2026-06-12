@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-04-29T22:24:34+00:00",
+  "patch": "v47.9_compare_context_operator",
+  "changes": 5,
+  "file": "C:\\Users\\Felipe\\Desktop\\darwin_local\\darwin_v61_nursery_v47.py",
+  "backup": "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_v47_9_20260429_222433_UTC.py",
+  "hashes": {
+    "C:\\Users\\Felipe\\Desktop\\darwin_local\\darwin_v61_nursery_v47.py": "0b47a16d95359589b8579f9f0ac231421038eab8ba0211a267967aaa27915ff5",
+    "C:\\Users\\Felipe\\Desktop\\darwin_local\\v47_patch_backups\\darwin_v61_nursery_v47_pre_v47_9_20260429_222433_UTC.py": "a6cce5203128d044a1eebbfccab41ef9835e72ebb7ff27d46506d10b12364f98"
+  }
+}

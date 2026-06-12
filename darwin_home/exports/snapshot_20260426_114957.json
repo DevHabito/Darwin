@@ -1,0 +1,369 @@
+{
+  "exported_at": "2026-04-26T14:49:57+00:00",
+  "self_model": {
+    "id": 1,
+    "name": "Darwin",
+    "version": "0.1",
+    "mission": "Aprender mantendo estabilidade relacional.",
+    "core_principles": [
+      "preservar estabilidade",
+      "aprender com erro",
+      "buscar grounding",
+      "desenvolver antes de nomear",
+      "evitar repetição de padrões perigosos"
+    ],
+    "created_at": "2026-04-25T21:06:21+00:00",
+    "updated_at": "2026-04-25T21:06:21+00:00"
+  },
+  "current_state": {
+    "sigma": 2.3386461341168276,
+    "energy": 1.0,
+    "info_self": 0.258,
+    "info_external": 1.1311999999999998,
+    "latency": 1.3115999999999992,
+    "pain_signal": 0.0,
+    "wellbeing_signal": 2.447808159790544
+  },
+  "policy": {
+    "threat_sensitivity": 1.0,
+    "fork_sensitivity": 1.0,
+    "win_sensitivity": 1.2400000000000002,
+    "explore_bias": 0.7,
+    "center_bias": 0.9900000000000001,
+    "corner_bias": 0.8,
+    "line_bias": 1.0200000000000002
+  },
+  "recent_episodes": [
+    {
+      "id": 82,
+      "timestamp": "2026-04-26T14:49:19+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=consolidate | target_a=self | target_b=None",
+      "action_taken": "consolidate:self",
+      "outcome": "success",
+      "lesson": "Entrou em consolidação: reduziu carga externa, reorganizou memória recente e recuperou estabilidade.",
+      "sigma_before": 1.6067740275897981,
+      "sigma_after": 2.3386461341168276
+    },
+    {
+      "id": 81,
+      "timestamp": "2026-04-26T14:49:18+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=fit | target_a=blue_cube | target_b=slot_square",
+      "action_taken": "fit:blue_cube:slot_square",
+      "outcome": "success",
+      "lesson": "blue_cube encaixou corretamente em slot_square.",
+      "sigma_before": 1.7845972245230763,
+      "sigma_after": 1.6067740275897981
+    },
+    {
+      "id": 80,
+      "timestamp": "2026-04-26T14:49:18+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=observe | target_a=blue_cube | target_b=None",
+      "action_taken": "observe:blue_cube",
+      "outcome": "success",
+      "lesson": "Observou blue_cube e percebeu cor=azul, forma=square, categoria=block.",
+      "sigma_before": 1.9698711287526787,
+      "sigma_after": 1.7845972245230763
+    },
+    {
+      "id": 79,
+      "timestamp": "2026-04-26T14:49:17+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=green_cylinder | target_b=None",
+      "action_taken": "touch:green_cylinder",
+      "outcome": "success",
+      "lesson": "Tocou green_cylinder; o objeto responde como algo que pode rolar.",
+      "sigma_before": 2.1647327750318968,
+      "sigma_after": 1.9698711287526787
+    },
+    {
+      "id": 78,
+      "timestamp": "2026-04-26T14:49:16+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=consolidate | target_a=self | target_b=None",
+      "action_taken": "consolidate:self",
+      "outcome": "success",
+      "lesson": "Entrou em consolidação: reduziu carga externa, reorganizou memória recente e recuperou estabilidade.",
+      "sigma_before": 1.4865455077346055,
+      "sigma_after": 2.1647327750318968
+    },
+    {
+      "id": 77,
+      "timestamp": "2026-04-26T14:49:14+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=stack | target_a=green_cylinder | target_b=blue_cube",
+      "action_taken": "stack:green_cylinder:blue_cube",
+      "outcome": "success",
+      "lesson": "blue_cube ficou estável sobre green_cylinder.",
+      "sigma_before": 1.6367056519861467,
+      "sigma_after": 1.4865455077346055
+    },
+    {
+      "id": 76,
+      "timestamp": "2026-04-26T14:49:13+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=fit | target_a=red_ball | target_b=slot_circle",
+      "action_taken": "fit:red_ball:slot_circle",
+      "outcome": "success",
+      "lesson": "red_ball encaixou corretamente em slot_circle.",
+      "sigma_before": 1.825845631638875,
+      "sigma_after": 1.6367056519861467
+    },
+    {
+      "id": 75,
+      "timestamp": "2026-04-26T14:49:12+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=yellow_triangle | target_b=None",
+      "action_taken": "touch:yellow_triangle",
+      "outcome": "success",
+      "lesson": "Tocou yellow_triangle; o objeto resiste ao rolamento fácil.",
+      "sigma_before": 1.996030587483992,
+      "sigma_after": 1.825845631638875
+    },
+    {
+      "id": 74,
+      "timestamp": "2026-04-26T14:49:11+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=observe | target_a=blue_cube | target_b=None",
+      "action_taken": "observe:blue_cube",
+      "outcome": "success",
+      "lesson": "Observou blue_cube e percebeu cor=azul, forma=square, categoria=block.",
+      "sigma_before": 2.2248356742436934,
+      "sigma_after": 1.996030587483992
+    },
+    {
+      "id": 73,
+      "timestamp": "2026-04-26T14:49:10+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=blue_cube | target_b=None",
+      "action_taken": "touch:blue_cube",
+      "outcome": "success",
+      "lesson": "Tocou blue_cube; o objeto resiste ao rolamento fácil.",
+      "sigma_before": 2.4545529715762275,
+      "sigma_after": 2.2248356742436934
+    },
+    {
+      "id": 72,
+      "timestamp": "2026-04-26T14:49:09+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=observe | target_a=red_ball | target_b=None",
+      "action_taken": "observe:red_ball",
+      "outcome": "success",
+      "lesson": "Observou red_ball e percebeu cor=vermelho, forma=circle, categoria=toy.",
+      "sigma_before": 2.770397665118666,
+      "sigma_after": 2.4545529715762275
+    },
+    {
+      "id": 71,
+      "timestamp": "2026-04-26T14:49:08+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=fit | target_a=yellow_triangle | target_b=slot_triangle",
+      "action_taken": "fit:yellow_triangle:slot_triangle",
+      "outcome": "success",
+      "lesson": "yellow_triangle encaixou corretamente em slot_triangle.",
+      "sigma_before": 3.2075905636323783,
+      "sigma_after": 2.770397665118666
+    },
+    {
+      "id": 70,
+      "timestamp": "2026-04-26T14:49:07+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=green_cylinder | target_b=None",
+      "action_taken": "touch:green_cylinder",
+      "outcome": "success",
+      "lesson": "Tocou green_cylinder; o objeto responde como algo que pode rolar.",
+      "sigma_before": 3.6440243003806536,
+      "sigma_after": 3.2075905636323783
+    },
+    {
+      "id": 69,
+      "timestamp": "2026-04-26T14:49:06+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=observe | target_a=blue_cube | target_b=None",
+      "action_taken": "observe:blue_cube",
+      "outcome": "success",
+      "lesson": "Observou blue_cube e percebeu cor=azul, forma=square, categoria=block.",
+      "sigma_before": 4.246285786231744,
+      "sigma_after": 3.6440243003806536
+    },
+    {
+      "id": 68,
+      "timestamp": "2026-04-26T14:49:05+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=blue_cube | target_b=None",
+      "action_taken": "touch:blue_cube",
+      "outcome": "success",
+      "lesson": "Tocou blue_cube; o objeto resiste ao rolamento fácil.",
+      "sigma_before": 4.894651280358395,
+      "sigma_after": 4.246285786231744
+    },
+    {
+      "id": 67,
+      "timestamp": "2026-04-26T14:49:04+00:00",
+      "module": "nursery_v5",
+      "context": "nursery_v5 | action=touch | target_a=yellow_triangle | target_b=None",
+      "action_taken": "touch:yellow_triangle",
+      "outcome": "success",
+      "lesson": "Tocou yellow_triangle; o objeto resiste ao rolamento fácil.",
+      "sigma_before": 5.714285714285714,
+      "sigma_after": 4.894651280358395
+    },
+    {
+      "id": 66,
+      "timestamp": "2026-04-26T14:08:34+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=consolidate | target_a=self | target_b=None",
+      "action_taken": "consolidate:self",
+      "outcome": "success",
+      "lesson": "Entrou em consolidação: reduziu carga externa, reorganizou memória recente e recuperou estabilidade.",
+      "sigma_before": 1.370945783137493,
+      "sigma_after": 1.9517843268408013
+    },
+    {
+      "id": 65,
+      "timestamp": "2026-04-26T14:08:30+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=observe | target_a=yellow_triangle | target_b=None",
+      "action_taken": "observe:yellow_triangle",
+      "outcome": "success",
+      "lesson": "Observou yellow_triangle e percebeu cor=amarelo, forma=triangle, categoria=block.",
+      "sigma_before": 1.5031419672422508,
+      "sigma_after": 1.370945783137493
+    },
+    {
+      "id": 64,
+      "timestamp": "2026-04-26T14:08:28+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=stack | target_a=yellow_triangle | target_b=green_cylinder",
+      "action_taken": "stack:yellow_triangle:green_cylinder",
+      "outcome": "success",
+      "lesson": "green_cylinder ficou estável sobre yellow_triangle.",
+      "sigma_before": 1.6590866486726994,
+      "sigma_after": 1.5031419672422508
+    },
+    {
+      "id": 63,
+      "timestamp": "2026-04-26T14:08:27+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=stack | target_a=red_ball | target_b=yellow_triangle",
+      "action_taken": "stack:red_ball:yellow_triangle",
+      "outcome": "friction",
+      "lesson": "A pilha yellow_triangle sobre red_ball ficou instável.",
+      "sigma_before": 1.898596671730365,
+      "sigma_after": 1.6590866486726994
+    },
+    {
+      "id": 62,
+      "timestamp": "2026-04-26T14:08:26+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=touch | target_a=red_ball | target_b=None",
+      "action_taken": "touch:red_ball",
+      "outcome": "success",
+      "lesson": "Tocou red_ball; o objeto responde como algo que pode rolar.",
+      "sigma_before": 2.0889595596035195,
+      "sigma_after": 1.898596671730365
+    },
+    {
+      "id": 61,
+      "timestamp": "2026-04-26T14:08:26+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=consolidate | target_a=self | target_b=None",
+      "action_taken": "consolidate:self",
+      "outcome": "success",
+      "lesson": "Entrou em consolidação: reduziu carga externa, reorganizou memória recente e recuperou estabilidade.",
+      "sigma_before": 1.4449646882747218,
+      "sigma_after": 2.0889595596035195
+    },
+    {
+      "id": 60,
+      "timestamp": "2026-04-26T14:08:25+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=observe | target_a=green_cylinder | target_b=None",
+      "action_taken": "observe:green_cylinder",
+      "outcome": "success",
+      "lesson": "Observou green_cylinder e percebeu cor=verde, forma=cylinder, categoria=block.",
+      "sigma_before": 1.5906054358269932,
+      "sigma_after": 1.4449646882747218
+    },
+    {
+      "id": 59,
+      "timestamp": "2026-04-26T14:08:24+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=fit | target_a=blue_cube | target_b=slot_square",
+      "action_taken": "fit:blue_cube:slot_square",
+      "outcome": "success",
+      "lesson": "blue_cube encaixou corretamente em slot_square.",
+      "sigma_before": 1.7820737189095317,
+      "sigma_after": 1.5906054358269932
+    },
+    {
+      "id": 58,
+      "timestamp": "2026-04-26T14:08:23+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=stack | target_a=green_cylinder | target_b=red_ball",
+      "action_taken": "stack:green_cylinder:red_ball",
+      "outcome": "friction",
+      "lesson": "A pilha red_ball sobre green_cylinder ficou instável.",
+      "sigma_before": 2.0536524218256527,
+      "sigma_after": 1.7820737189095317
+    },
+    {
+      "id": 57,
+      "timestamp": "2026-04-26T14:08:22+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=observe | target_a=red_ball | target_b=None",
+      "action_taken": "observe:red_ball",
+      "outcome": "success",
+      "lesson": "Observou red_ball e percebeu cor=vermelho, forma=circle, categoria=toy.",
+      "sigma_before": 2.3007774730099397,
+      "sigma_after": 2.0536524218256527
+    },
+    {
+      "id": 56,
+      "timestamp": "2026-04-26T14:08:21+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=consolidate | target_a=self | target_b=None",
+      "action_taken": "consolidate:self",
+      "outcome": "success",
+      "lesson": "Entrou em consolidação: reduziu carga externa, reorganizou memória recente e recuperou estabilidade.",
+      "sigma_before": 1.5585400834377332,
+      "sigma_after": 2.3007774730099397
+    },
+    {
+      "id": 55,
+      "timestamp": "2026-04-26T14:08:21+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=touch | target_a=red_ball | target_b=None",
+      "action_taken": "touch:red_ball",
+      "outcome": "success",
+      "lesson": "Tocou red_ball; o objeto responde como algo que pode rolar.",
+      "sigma_before": 1.7083899556868531,
+      "sigma_after": 1.5585400834377332
+    },
+    {
+      "id": 54,
+      "timestamp": "2026-04-26T14:08:20+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=stack | target_a=red_ball | target_b=green_cylinder",
+      "action_taken": "stack:red_ball:green_cylinder",
+      "outcome": "friction",
+      "lesson": "A pilha green_cylinder sobre red_ball ficou instável.",
+      "sigma_before": 1.9691057450110883,
+      "sigma_after": 1.7083899556868531
+    },
+    {
+      "id": 53,
+      "timestamp": "2026-04-26T14:08:19+00:00",
+      "module": "nursery_v4",
+      "context": "nursery_v4 | action=fit | target_a=red_ball | target_b=slot_circle",
+      "action_taken": "fit:red_ball:slot_circle",
+      "outcome": "success",
+      "lesson": "red_ball encaixou corretamente em slot_circle.",
+      "sigma_before": 2.233443193149681,
+      "sigma_after": 1.9691057450110883
+    }
+  ],
+  "dangerous_patterns": []
+}
