@@ -29,8 +29,12 @@ O v49.34 inicia oculto e fica escutando em segundo plano:
 - use `Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat` para iniciar o guardiao junto com o Windows;
 - use `Desinstalar_Darwin_Acordar_Com_Voz_Do_Windows.bat` para remover a inicializacao automatica.
 
-O Windows precisa ter um reconhecedor de fala instalado. Se nao tiver, execute `Abrir_Darwin_Reparo_Voz.bat`.
-O guardiao verifica isso antes de se esconder: quando a voz nao esta pronta, ele mostra os botoes `Reparar voz` e `Testar voz`. Instale o pacote de fala em portugues do Brasil antes de adicionar o guardiao a inicializacao do Windows.
+O guardiao usa `System.Speech` quando ha um reconhecedor classico e a API
+moderna `Windows.Media.SpeechRecognition` no Windows 11. Execute
+`Reparar_Darwin_Voz_Windows.bat` uma vez para instalar `Speech pt-BR`,
+verificar microfone e consentimento de fala online e ativar a inicializacao.
+Quando a voz nao esta pronta, a janela permanece aberta com os botoes
+`Reparar voz` e `Testar voz`.
 
 ## Checkers principais
 

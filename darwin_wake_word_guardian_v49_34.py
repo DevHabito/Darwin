@@ -20,8 +20,10 @@ Uso:
 """
 
 import argparse
+import ctypes
 import json
 import math
+import os
 import queue
 import random
 import sqlite3
@@ -52,6 +54,55 @@ WAKE_WORDS = {"darwin", "dauin", "darvim", "darvin"}
 SLEEP_HINTS = {"mimir", "dormir", "descansar", "sono"}
 GOOD_NIGHT_HINTS = {"boa noite"}
 VALID_RZS = {"continue", "narrow_focus", "replay_memory", "consolidate", "pause_for_stability"}
+_INSTANCE_MUTEX: int | None = None
+
+
+def acquire_single_instance() -> bool:
+    global _INSTANCE_MUTEX
+    if os.name != "nt":
+        return True
+    kernel32 = ctypes.windll.kernel32
+    kernel32.CreateMutexW.restype = ctypes.c_void_p
+    handle = kernel32.CreateMutexW(None, False, "Local\\DarwinWakeGuardianV4934")
+    if not handle:
+        return True
+    _INSTANCE_MUTEX = int(handle)
+    if kernel32.GetLastError() == 183:
+        ctypes.windll.user32.MessageBoxW(
+            None,
+            "O guardiao do Darwin ja esta ativo em segundo plano.",
+            "Darwin Wake Guardian",
+            0x40,
+        )
+        return False
+    return True
+
+
+def cleanup_orphaned_listener_processes() -> None:
+    if os.name != "nt":
+        return
+    script = r"""
+$currentProcessId = $PID
+Get-CimInstance Win32_Process |
+    Where-Object {
+        $_.Name -eq 'powershell.exe' -and
+        $_.ProcessId -ne $currentProcessId -and
+        $_.CommandLine -match 'DarwinWakeGuardianV4934'
+    } |
+    ForEach-Object {
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
+"""
+    try:
+        subprocess.run(
+            ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", script],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=6,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+    except Exception:
+        pass
 
 
 def now() -> str:
@@ -522,6 +573,7 @@ class WakeGuardianApp:
             self.on_error,
             culture=culture,
             min_confidence=min_confidence,
+            listener_role="DarwinWakeGuardianV4934",
         )
         self.speech = SpeechEngine(self.start_speaking, self.stop_speaking, self.core.companion.store, self.core.companion.session_id)
         self.status = "dormindo: diga Darwin"
@@ -613,14 +665,15 @@ class WakeGuardianApp:
         return True
 
     def open_voice_repair(self) -> None:
-        script = Path(__file__).with_name("darwin_real_voice_repair_wizard_v49_25.py")
+        installer = Path(__file__).with_name("Reparar_Darwin_Voz_Windows.bat")
         try:
-            subprocess.Popen(
-                [sys.executable, str(script)],
-                cwd=str(script.parent),
-                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-            )
-            self.write("Sistema", "Assistente de reparo de voz aberto.")
+            if installer.exists() and os.name == "nt":
+                os.startfile(str(installer))  # type: ignore[attr-defined]
+                self.write("Sistema", "Instalador de voz aberto. Confirme a janela de administrador.")
+                return
+            script = Path(__file__).with_name("darwin_real_voice_repair_wizard_v49_25.py")
+            subprocess.Popen([sys.executable, str(script)], cwd=str(script.parent))
+            self.write("Sistema", "Assistente de diagnostico de voz aberto.")
         except Exception as exc:
             self.write("Sistema", f"Nao consegui abrir o reparo de voz: {exc}")
 
@@ -807,6 +860,9 @@ def main() -> int:
         summary = core.self_test()
         print_summary(summary, args.details)
         return 0 if summary.get("wake_guardian_ready") else 1
+    if not acquire_single_instance():
+        return 0
+    cleanup_orphaned_listener_processes()
     app = WakeGuardianApp(show=args.show, culture=args.culture, min_confidence=args.min_confidence)
     app.run()
     return 0

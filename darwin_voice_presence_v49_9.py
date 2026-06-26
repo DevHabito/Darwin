@@ -200,6 +200,7 @@ class WindowsSpeechListener:
         *,
         culture: str = "pt-BR",
         min_confidence: float = 0.30,
+        listener_role: str = "DarwinVoicePresence",
     ) -> None:
         self.on_ready = on_ready
         self.on_result = on_result
@@ -207,6 +208,7 @@ class WindowsSpeechListener:
         self.on_error = on_error
         self.culture = culture
         self.min_confidence = min_confidence
+        self.listener_role = "".join(ch for ch in listener_role if ch.isalnum()) or "DarwinVoicePresence"
         self.proc: subprocess.Popen[str] | None = None
         self.thread: threading.Thread | None = None
         self.stop_requested = False
@@ -234,11 +236,13 @@ class WindowsSpeechListener:
 
     def _script(self) -> str:
         return rf"""
-Add-Type -AssemblyName System.Speech
 $ErrorActionPreference = 'Stop'
+$darwinListenerRole = '{self.listener_role}'
 $preferred = '{self.culture}'
 $minConfidence = {self.min_confidence:.3f}
 $recognizer = $null
+
+Add-Type -AssemblyName System.Speech
 try {{
     $culture = [System.Globalization.CultureInfo]::GetCultureInfo($preferred)
     $recognizer = New-Object System.Speech.Recognition.SpeechRecognitionEngine($culture)
@@ -254,28 +258,90 @@ if ($recognizer -eq $null) {{
         }}
     }}
 }}
-if ($recognizer -eq $null) {{
-    [Console]::Out.WriteLine('ERROR|NO_RECOGNIZER|Nenhum reconhecedor de fala instalado no Windows.')
+if ($recognizer -ne $null) {{
+    $grammar = New-Object System.Speech.Recognition.DictationGrammar
+    $grammar.Name = 'DarwinDictation'
+    $recognizer.LoadGrammar($grammar)
+    $recognizer.SetInputToDefaultAudioDevice()
+    $recognizer.BabbleTimeout = [TimeSpan]::FromSeconds(1.5)
+    $recognizer.InitialSilenceTimeout = [TimeSpan]::FromSeconds(7)
+    $recognizer.EndSilenceTimeout = [TimeSpan]::FromMilliseconds(900)
+    $cultureName = $recognizer.RecognizerInfo.Culture.Name
+    $recName = $recognizer.RecognizerInfo.Name
+    [Console]::Out.WriteLine("READY|$cultureName|$recName")
     [Console]::Out.Flush()
-    exit 2
+    while ($true) {{
+        try {{
+            $result = $recognizer.Recognize([TimeSpan]::FromSeconds(8))
+            if ($result -ne $null) {{
+                $text = ($result.Text -replace '\r?\n', ' ').Trim()
+                $confidence = [double]$result.Confidence
+                if ($text.Length -gt 0 -and $confidence -ge $minConfidence) {{
+                    [Console]::Out.WriteLine(("RESULT|{{0:N3}}|{{1}}" -f $confidence, $text))
+                    [Console]::Out.Flush()
+                }} elseif ($text.Length -gt 0) {{
+                    [Console]::Out.WriteLine(("LOWCONF|{{0:N3}}|{{1}}" -f $confidence, $text))
+                    [Console]::Out.Flush()
+                }}
+            }}
+        }} catch {{
+            $message = $_.Exception.Message -replace '\r?\n', ' '
+            [Console]::Out.WriteLine("ERROR|RECOGNIZE|$message")
+            [Console]::Out.Flush()
+            Start-Sleep -Milliseconds 500
+        }}
+    }}
+    exit 0
 }}
-$grammar = New-Object System.Speech.Recognition.DictationGrammar
-$grammar.Name = 'DarwinDictation'
-$recognizer.LoadGrammar($grammar)
-$recognizer.SetInputToDefaultAudioDevice()
-$recognizer.BabbleTimeout = [TimeSpan]::FromSeconds(1.5)
-$recognizer.InitialSilenceTimeout = [TimeSpan]::FromSeconds(7)
-$recognizer.EndSilenceTimeout = [TimeSpan]::FromMilliseconds(900)
-$cultureName = $recognizer.RecognizerInfo.Culture.Name
-$recName = $recognizer.RecognizerInfo.Name
-[Console]::Out.WriteLine("READY|$cultureName|$recName")
-[Console]::Out.Flush()
-while ($true) {{
-    try {{
-        $result = $recognizer.Recognize([TimeSpan]::FromSeconds(8))
-        if ($result -ne $null) {{
+
+# Windows 11 installs pt-BR as a WinRT recognizer. System.Speech may still
+# report zero recognizers, so Darwin uses the modern API as its real fallback.
+Add-Type -AssemblyName System.Runtime.WindowsRuntime
+[Windows.Media.SpeechRecognition.SpeechRecognizer, Windows.Media.SpeechRecognition, ContentType=WindowsRuntime] | Out-Null
+[Windows.Globalization.Language, Windows.Globalization, ContentType=WindowsRuntime] | Out-Null
+
+function Wait-WinRtOperation {{
+    param($Operation, [Type]$ResultType)
+    $method = [System.WindowsRuntimeSystemExtensions].GetMethods() |
+        Where-Object {{
+            $_.Name -eq 'AsTask' -and
+            $_.IsGenericMethod -and
+            $_.GetParameters().Count -eq 1
+        }} |
+        Select-Object -First 1
+    $task = $method.MakeGenericMethod($ResultType).Invoke($null, @($Operation))
+    $task.Wait()
+    return $task.Result
+}}
+
+try {{
+    $language = New-Object Windows.Globalization.Language($preferred)
+    $probeRecognizer = New-Object Windows.Media.SpeechRecognition.SpeechRecognizer($language)
+    $compile = Wait-WinRtOperation ($probeRecognizer.CompileConstraintsAsync()) ([Windows.Media.SpeechRecognition.SpeechRecognitionCompilationResult])
+    if ($compile.Status.ToString() -ne 'Success') {{
+        throw "Falha ao compilar reconhecimento WinRT: $($compile.Status)"
+    }}
+    $probeRecognizer.Dispose()
+    [Console]::Out.WriteLine("READY|$preferred|Windows Media SpeechRecognizer")
+    [Console]::Out.Flush()
+    while ($true) {{
+        $turnRecognizer = $null
+        try {{
+            # A new one-shot recognizer per turn avoids a Windows 11 state in
+            # which a second RecognizeAsync call can remain pending forever.
+            $turnRecognizer = New-Object Windows.Media.SpeechRecognition.SpeechRecognizer($language)
+            $turnCompile = Wait-WinRtOperation ($turnRecognizer.CompileConstraintsAsync()) ([Windows.Media.SpeechRecognition.SpeechRecognitionCompilationResult])
+            if ($turnCompile.Status.ToString() -ne 'Success') {{
+                throw "Falha ao preparar turno WinRT: $($turnCompile.Status)"
+            }}
+            $result = Wait-WinRtOperation ($turnRecognizer.RecognizeAsync()) ([Windows.Media.SpeechRecognition.SpeechRecognitionResult])
             $text = ($result.Text -replace '\r?\n', ' ').Trim()
-            $confidence = [double]$result.Confidence
+            $confidence = switch ($result.Confidence.ToString()) {{
+                'High' {{ 0.92 }}
+                'Medium' {{ 0.72 }}
+                'Low' {{ 0.48 }}
+                default {{ 0.25 }}
+            }}
             if ($text.Length -gt 0 -and $confidence -ge $minConfidence) {{
                 [Console]::Out.WriteLine(("RESULT|{{0:N3}}|{{1}}" -f $confidence, $text))
                 [Console]::Out.Flush()
@@ -283,13 +349,22 @@ while ($true) {{
                 [Console]::Out.WriteLine(("LOWCONF|{{0:N3}}|{{1}}" -f $confidence, $text))
                 [Console]::Out.Flush()
             }}
+        }} catch {{
+            $message = $_.Exception.Message -replace '\r?\n', ' '
+            [Console]::Out.WriteLine("ERROR|WINRT_RECOGNIZE|$message")
+            [Console]::Out.Flush()
+            Start-Sleep -Milliseconds 500
+        }} finally {{
+            if ($turnRecognizer -ne $null) {{
+                $turnRecognizer.Dispose()
+            }}
         }}
-    }} catch {{
-        $message = $_.Exception.Message -replace '\r?\n', ' '
-        [Console]::Out.WriteLine("ERROR|RECOGNIZE|$message")
-        [Console]::Out.Flush()
-        Start-Sleep -Milliseconds 500
     }}
+}} catch {{
+    $message = $_.Exception.Message -replace '\r?\n', ' '
+    [Console]::Out.WriteLine("ERROR|NO_RECOGNIZER|$message")
+    [Console]::Out.Flush()
+    exit 2
 }}
 """
 

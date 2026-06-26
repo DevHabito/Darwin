@@ -479,6 +479,32 @@ try {
     } catch {
       Write-Output ("AUDIO_INPUT_ERROR={0}" -f ($_.Exception.Message -replace '\r?\n', ' '))
     }
+  } else {
+    try {
+      Add-Type -AssemblyName System.Runtime.WindowsRuntime
+      [Windows.Media.SpeechRecognition.SpeechRecognizer, Windows.Media.SpeechRecognition, ContentType=WindowsRuntime] | Out-Null
+      [Windows.Globalization.Language, Windows.Globalization, ContentType=WindowsRuntime] | Out-Null
+      $supported = @([Windows.Media.SpeechRecognition.SpeechRecognizer]::SupportedTopicLanguages)
+      $ptbr = @($supported | Where-Object { $_.LanguageTag -eq "pt-BR" })
+      if ($ptbr.Count -gt 0) {
+        $language = New-Object Windows.Globalization.Language("pt-BR")
+        $winrt = New-Object Windows.Media.SpeechRecognition.SpeechRecognizer($language)
+        $winrt.Dispose()
+        Write-Output "RECOGNIZER_COUNT=1"
+        Write-Output "RECOGNIZER=pt-BR|Windows Media SpeechRecognizer|True"
+        $privacy = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy" -ErrorAction SilentlyContinue
+        $microphone = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone" -ErrorAction SilentlyContinue
+        if ($privacy.HasAccepted -eq 1 -and $microphone.Value -eq "Allow") {
+          Write-Output "DEFAULT_AUDIO_INPUT=OK"
+        } elseif ($privacy.HasAccepted -ne 1) {
+          Write-Output "AUDIO_INPUT_ERROR=Ative Reconhecimento de fala online em Privacidade e seguranca > Fala."
+        } else {
+          Write-Output "AUDIO_INPUT_ERROR=Permita o acesso ao microfone nas configuracoes de privacidade."
+        }
+      }
+    } catch {
+      Write-Output ("AUDIO_INPUT_ERROR={0}" -f ($_.Exception.Message -replace '\r?\n', ' '))
+    }
   }
 } catch {
   Write-Output ("SYSTEM_SPEECH_ERROR={0}" -f ($_.Exception.Message -replace '\r?\n', ' '))
