@@ -144,6 +144,15 @@ def diagnose(details: bool = False) -> dict[str, Any]:
         sleep_events = [e for e in events if str(e.get("event_kind") or "") == "sleep_phrase_detected"]
         reply_events = [e for e in events if str(e.get("event_kind") or "") in {"companion_voice_turn", "wake_and_reply"}]
         ignored_events = [e for e in events if str(e.get("event_kind") or "") == "ignored_sleeping_noise"]
+        short_sleep_events = [
+            e for e in sleep_events
+            if str(e.get("recognized_text") or "").strip().lower() == "dorme"
+        ]
+        sleeping_sleep_events = [
+            e for e in sleep_events
+            if str(e.get("recognized_text") or "").strip().lower() == "darwin dormir"
+            and e.get("state_before") == "sleeping"
+        ]
         rzs = {str(e.get("rzs_decision") or "") for e in events if e.get("rzs_decision")}
 
         checks = {
@@ -151,6 +160,8 @@ def diagnose(details: bool = False) -> dict[str, Any]:
             "completed_session": bool(session_id and payload.get("wake_guardian_ready") is True),
             "wake_word_opens_presence": len(wake_events) >= 2 and all(e.get("state_after") == "awake" for e in wake_events),
             "sleep_phrase_returns_to_rest": len(sleep_events) >= 1 and sleep_events[-1].get("state_after") == "sleeping",
+            "short_sleep_command_accepted": bool(short_sleep_events) and short_sleep_events[-1].get("state_after") == "sleeping",
+            "sleep_command_while_sleeping_stays_asleep": bool(sleeping_sleep_events) and sleeping_sleep_events[-1].get("state_after") == "sleeping",
             "sleeping_noise_ignored": len(ignored_events) >= 1 and all(e.get("state_after") == "sleeping" for e in ignored_events[:1]),
             "companion_replied": len(reply_events) >= 1 and any(str(e.get("response_text") or "") for e in reply_events),
             "causal_order_valid": check_order(events),
@@ -198,6 +209,8 @@ def print_report(result: dict[str, Any], details: bool = False) -> None:
         "completed_session": "sessao completa e pronta",
         "wake_word_opens_presence": "palavra Darwin acorda e abre presenca",
         "sleep_phrase_returns_to_rest": "frase de mimir volta ao descanso",
+        "short_sleep_command_accepted": "comando curto Dorme e aceito quando acordado",
+        "sleep_command_while_sleeping_stays_asleep": "Darwin dormir nao acorda quem ja esta dormindo",
         "sleeping_noise_ignored": "ruido dormindo e ignorado",
         "companion_replied": "companion respondeu enquanto acordado",
         "causal_order_valid": "ordem causal acordar/conversar/dormir valida",

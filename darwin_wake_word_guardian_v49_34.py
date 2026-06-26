@@ -51,7 +51,7 @@ WG_EVENTS = "wake_guardian_events_v49_34"
 WG_HANDOFFS = "wake_guardian_handoffs_v49_34"
 
 WAKE_WORDS = {"darwin", "dauin", "darvim", "darvin"}
-SLEEP_HINTS = {"mimir", "dormir", "descansar", "sono"}
+SLEEP_HINTS = {"mimir", "mimi", "dormir", "dorme", "durma", "descansar", "descansa", "sono"}
 GOOD_NIGHT_HINTS = {"boa noite"}
 VALID_RZS = {"continue", "narrow_focus", "replay_memory", "consolidate", "pause_for_stability"}
 _INSTANCE_MUTEX: int | None = None
@@ -139,13 +139,30 @@ def has_wake_word(text: str) -> bool:
     return bool(words & WAKE_WORDS)
 
 
-def is_sleep_phrase(text: str) -> bool:
+def has_sleep_intent(text: str) -> bool:
     n = normalize(text)
-    if not has_wake_word(n):
-        return False
-    if any(hint in n for hint in SLEEP_HINTS):
+    words = n.split()
+    if any(word in SLEEP_HINTS for word in words):
         return True
-    return any(hint in n for hint in GOOD_NIGHT_HINTS)
+    if any(word.startswith(("dorm", "mim")) for word in words):
+        return True
+    compact = "".join(ch for ch in n if ch.isalnum())
+    return "mmir" in compact or any(hint in n for hint in GOOD_NIGHT_HINTS)
+
+
+def is_sleep_phrase(text: str, *, allow_without_wake: bool = False) -> bool:
+    n = normalize(text)
+    if not has_sleep_intent(n):
+        return False
+    if has_wake_word(n) or any(hint in n for hint in GOOD_NIGHT_HINTS):
+        return True
+    words = n.split()
+    return allow_without_wake and (
+        len(words) <= 4
+        or n.startswith("hora de ")
+        or n.startswith("ta na hora de ")
+        or n.startswith("esta na hora de ")
+    )
 
 
 def cleaned_command(text: str) -> str:
@@ -442,7 +459,13 @@ class WakeGuardianCore:
         response_text = ""
         n = normalize(text)
 
-        if before == "sleeping" and has_wake_word(n):
+        sleep_phrase = is_sleep_phrase(text, allow_without_wake=before == "awake")
+
+        if before == "sleeping" and sleep_phrase:
+            event_kind = "sleep_phrase_detected"
+            action_key = "sleep_close_presence"
+            response_text = "Tudo bem, Felipe. Continuo descansando ate voce me chamar."
+        elif before == "sleeping" and has_wake_word(n):
             self.state = "awake"
             command = cleaned_command(text)
             if command and len(command.split()) >= 2:
@@ -457,7 +480,7 @@ class WakeGuardianCore:
         elif before == "sleeping":
             event_kind = "ignored_sleeping_noise"
             action_key = "ignored_sleeping_noise"
-        elif is_sleep_phrase(text):
+        elif sleep_phrase:
             event_kind = "sleep_phrase_detected"
             action_key = "sleep_close_presence"
             self.state = "sleeping"
@@ -482,7 +505,7 @@ class WakeGuardianCore:
                 "source": source,
                 "normalized": n,
                 "wake_word_detected": has_wake_word(n),
-                "sleep_phrase_detected": is_sleep_phrase(text),
+                "sleep_phrase_detected": sleep_phrase,
                 "background_listener_required": True,
                 "opens_visible_window": action_key in {"wake_open_companion", "wake_open_companion_and_answer"},
                 "self_test_never_uses_microphone": self.mode == "self_test",
@@ -542,6 +565,9 @@ class WakeGuardianCore:
             ("Darwin como voce esta agora", 0.90),
             ("ta na hora de mimir Darwin", 0.93),
             ("qual seu status", 0.88),
+            ("Darwin", 0.95),
+            ("Dorme", 0.92),
+            ("Darwin dormir", 0.91),
             ("Darwin", 0.95),
         ]
         for text, confidence in samples:
@@ -731,6 +757,10 @@ class WakeGuardianApp:
                     state=self.core.state,
                     payload={"message": str(payload), "repair_module": "darwin_real_voice_repair_wizard_v49_25.py"},
                 )
+            elif kind == "restart_listener":
+                self.listener.restart()
+                self.status = "dormindo: diga Darwin" if self.core.state == "sleeping" else "acordado: pode falar comigo"
+                self.write("Sistema", "Microfone renovado depois da fala do Darwin.")
         self.root.after(80, self.drain_events)
 
     def handle_speech(self, speech: RecognizedSpeech) -> None:
@@ -776,10 +806,14 @@ class WakeGuardianApp:
     def start_speaking(self, text: str) -> None:
         self.speaking = True
         self.speech_text = text
+        self.listener.set_paused(True)
+        self.listener.stop()
+        self.listener_started = False
 
     def stop_speaking(self) -> None:
         self.speaking = False
         self.speech_text = ""
+        self.events.put(("restart_listener", None))
 
     def speech_energy(self) -> float:
         if not self.speaking or not self.speech_text:

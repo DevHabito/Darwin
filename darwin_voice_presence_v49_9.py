@@ -231,12 +231,24 @@ class WindowsSpeechListener:
                 pass
         self.proc = None
 
+    def restart(self) -> None:
+        self.stop()
+        previous = self.thread
+        if previous and previous.is_alive() and previous is not threading.current_thread():
+            previous.join(timeout=2.0)
+        self.thread = None
+        self.proc = None
+        self.paused = False
+        self.start()
+
     def set_paused(self, paused: bool) -> None:
         self.paused = paused
 
     def _script(self) -> str:
         return rf"""
 $ErrorActionPreference = 'Stop'
+[Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $darwinListenerRole = '{self.listener_role}'
 $preferred = '{self.culture}'
 $minConfidence = {self.min_confidence:.3f}
@@ -375,6 +387,8 @@ try {{
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 bufsize=1,
             )
         except Exception as exc:
