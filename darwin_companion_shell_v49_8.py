@@ -31,6 +31,7 @@ from tkinter import ttk
 from typing import Any
 
 from darwin_basic_language_core_v49_36 import BasicLanguageCore, BasicLanguageReply, LanguageMatch
+from darwin_contextual_language_learning_v49_37 import ContextualLanguageLearner, ContextualMatch, ContextualReply
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
 
@@ -582,6 +583,8 @@ class CompanionCore:
         self.turn = 0
         self.basic_language = BasicLanguageCore(self.store.db_path, seed=seed if seed is not None else 4936)
         self.basic_language.start_session(self.session_id, mode)
+        self.contextual_language = ContextualLanguageLearner(self.store.db_path, seed=seed if seed is not None else 4937)
+        self.contextual_language.start_session(self.session_id, mode)
         self.counts_before = self.store.protected_counts()
         self.store.start_session(self.session_id, mode, self.counts_before)
 
@@ -605,6 +608,8 @@ class CompanionCore:
         return "open_dialogue"
 
     def focus_key(self, intent: str, hits: list[MemoryHit], geometry: GeometrySummary) -> str:
+        if intent.startswith("context_"):
+            return f"language_learning:{intent}"
         if intent.startswith("basic_"):
             return f"language:{intent}"
         if intent == "geometry_memory" and geometry.scenario_id:
@@ -621,11 +626,15 @@ class CompanionCore:
         state = self.store.current_state()
         word_count = max(1, len(tokens(text)))
         novelty = 0.25 if hits else 0.62
+        conflict = 0.18
         if intent in {"companion_direction", "next_milestone"}:
             novelty += 0.18
         if intent.startswith("basic_"):
             novelty = min(novelty, 0.28)
-        conflict = 0.18
+        if intent.startswith("context_"):
+            novelty = 0.52
+            if "correct" in intent:
+                conflict += 0.18
         if any(w in normalize(text) for w in ("errar", "erro", "medo", "falha", "instavel")):
             conflict += 0.30
         memory_pressure = clamp((5 - len(hits)) / 5.0 + (0.10 if geometry.nodes == 0 else 0.0))
@@ -728,15 +737,31 @@ class CompanionCore:
         self.turn += 1
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
-        language_match: LanguageMatch | None = self.basic_language.match(user_text)
-        intent = language_match.intent if language_match is not None else self.classify_intent(user_text)
+        context_match: ContextualMatch | None = self.contextual_language.match(
+            user_text, self.session_id, allow_unknown=False
+        )
+        language_match: LanguageMatch | None = None if context_match is not None else self.basic_language.match(user_text)
+        if context_match is not None:
+            intent = context_match.intent
+        elif language_match is not None:
+            intent = language_match.intent
+        else:
+            intent = self.classify_intent(user_text)
+            if intent == "open_dialogue":
+                context_match = self.contextual_language.match(user_text, self.session_id, allow_unknown=True)
+                if context_match is not None:
+                    intent = context_match.intent
         focus = self.focus_key(intent, hits, geometry)
         x = self.rzs_input(user_text, hits, geometry, intent)
         assessment = self.rzs.classify(x)
         y = self.rzs.apply_action_model(x, assessment.decision)
         sigma_after = self.rzs.sigma(y)
+        context_reply: ContextualReply | None = None
         language_reply: BasicLanguageReply | None = None
-        if language_match is not None:
+        if context_match is not None:
+            context_reply = self.contextual_language.respond(context_match, self.session_id, assessment.decision)
+            text = context_reply.text + (f" {context_reply.asked_back}" if context_reply.asked_back else "")
+        elif language_match is not None:
             language_reply = self.basic_language.respond(language_match, self.session_id, assessment.decision)
             text = language_reply.text + (f" {language_reply.asked_back}" if language_reply.asked_back else "")
         else:
@@ -763,7 +788,18 @@ class CompanionCore:
         )
         self.store.log_dialogue(reply)
         self.store.log_voice(self.session_id, dialogue_id, "speech_planned", text)
-        if language_match is not None and language_reply is not None:
+        if context_match is not None and context_reply is not None:
+            self.contextual_language.record_turn(
+                self.session_id,
+                dialogue_id,
+                user_text,
+                context_match,
+                context_reply,
+                assessment.decision,
+                assessment.sigma,
+                sigma_after,
+            )
+        elif language_match is not None and language_reply is not None:
             self.basic_language.record_turn(
                 self.session_id,
                 dialogue_id,
@@ -785,6 +821,7 @@ class CompanionCore:
         }
         self.store.complete_session(self.session_id, self.mode, self.counts_before, counts_after, payload)
         self.basic_language.complete_session(self.session_id, self.mode)
+        self.contextual_language.complete_session(self.session_id, self.mode)
         return {"session_id": self.session_id, **payload}
 
 

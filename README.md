@@ -19,6 +19,7 @@ py darwin_controlled_autonomous_executor_v49_32.py
 py darwin_rzs_elcl_regge_geometry_v49_33.py
 py darwin_wake_word_guardian_v49_34.py
 py darwin_basic_language_core_v49_36.py --self-test --details
+py darwin_contextual_language_learning_v49_37.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -46,6 +47,18 @@ estado e descanso consultam o SQLite; o Darwin tambem faz perguntas de volta.
 ```powershell
 py darwin_basic_language_core_v49_36.py --self-test --details
 py darwin_check_v49_36_basic_language.py --details
+```
+
+## Aprendizagem de palavras
+
+O v49.37 mantem contexto entre turnos, pergunta o significado de palavras
+desconhecidas, aceita definicoes, exemplos e correcoes e recupera o conceito
+em outra sessao. Uma palavra so entra na memoria semantica depois de evidencia
+repetida.
+
+```powershell
+py darwin_contextual_language_learning_v49_37.py --self-test --details
+py darwin_check_v49_37_contextual_language.py --details
 ```
 
 ## Checkers principais
