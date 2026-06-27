@@ -18,6 +18,7 @@ Ou rode direto com Python:
 py darwin_controlled_autonomous_executor_v49_32.py
 py darwin_rzs_elcl_regge_geometry_v49_33.py
 py darwin_wake_word_guardian_v49_34.py
+py darwin_basic_language_core_v49_36.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -35,6 +36,17 @@ moderna `Windows.Media.SpeechRecognition` no Windows 11. Execute
 verificar microfone e consentimento de fala online e ativar a inicializacao.
 Quando a voz nao esta pronta, a janela permanece aberta com os botoes
 `Reparar voz` e `Testar voz`.
+
+## Vocabulario basico
+
+O v49.36 integra ao `CompanionCore` perguntas sobre nome, estado, sentimento
+e sono, junto com sinonimos e respostas basicas do Felipe. As respostas sobre
+estado e descanso consultam o SQLite; o Darwin tambem faz perguntas de volta.
+
+```powershell
+py darwin_basic_language_core_v49_36.py --self-test --details
+py darwin_check_v49_36_basic_language.py --details
+```
 
 ## Checkers principais
 

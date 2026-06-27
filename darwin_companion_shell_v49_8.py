@@ -30,6 +30,7 @@ from pathlib import Path
 from tkinter import ttk
 from typing import Any
 
+from darwin_basic_language_core_v49_36 import BasicLanguageCore, BasicLanguageReply, LanguageMatch
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
 
@@ -579,10 +580,15 @@ class CompanionCore:
         self.session_id = f"V498-{int(time.time()) % 10_000_000}-{suffix(self.rng)}"
         self.mode = mode
         self.turn = 0
+        self.basic_language = BasicLanguageCore(self.store.db_path, seed=seed if seed is not None else 4936)
+        self.basic_language.start_session(self.session_id, mode)
         self.counts_before = self.store.protected_counts()
         self.store.start_session(self.session_id, mode, self.counts_before)
 
     def classify_intent(self, text: str) -> str:
+        basic = self.basic_language.match(text)
+        if basic is not None:
+            return basic.intent
         t = normalize(text)
         if any(w in t for w in ("status", "estado", "diagnostico", "como voce esta", "como esta")):
             return "status"
@@ -599,6 +605,8 @@ class CompanionCore:
         return "open_dialogue"
 
     def focus_key(self, intent: str, hits: list[MemoryHit], geometry: GeometrySummary) -> str:
+        if intent.startswith("basic_"):
+            return f"language:{intent}"
         if intent == "geometry_memory" and geometry.scenario_id:
             return f"geometry:{geometry.scenario_id}"
         if intent == "rzs_explain":
@@ -615,6 +623,8 @@ class CompanionCore:
         novelty = 0.25 if hits else 0.62
         if intent in {"companion_direction", "next_milestone"}:
             novelty += 0.18
+        if intent.startswith("basic_"):
+            novelty = min(novelty, 0.28)
         conflict = 0.18
         if any(w in normalize(text) for w in ("errar", "erro", "medo", "falha", "instavel")):
             conflict += 0.30
@@ -718,13 +728,19 @@ class CompanionCore:
         self.turn += 1
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
-        intent = self.classify_intent(user_text)
+        language_match: LanguageMatch | None = self.basic_language.match(user_text)
+        intent = language_match.intent if language_match is not None else self.classify_intent(user_text)
         focus = self.focus_key(intent, hits, geometry)
         x = self.rzs_input(user_text, hits, geometry, intent)
         assessment = self.rzs.classify(x)
         y = self.rzs.apply_action_model(x, assessment.decision)
         sigma_after = self.rzs.sigma(y)
-        text = self.compose(user_text, intent, focus, assessment.decision, hits, geometry)
+        language_reply: BasicLanguageReply | None = None
+        if language_match is not None:
+            language_reply = self.basic_language.respond(language_match, self.session_id, assessment.decision)
+            text = language_reply.text + (f" {language_reply.asked_back}" if language_reply.asked_back else "")
+        else:
+            text = self.compose(user_text, intent, focus, assessment.decision, hits, geometry)
         stability = clamp(min(1.0, sigma_after / 2.6))
         arousal = clamp(0.30 + len(user_text) / 260.0 + (0.16 if assessment.decision in {"narrow_focus", "replay_memory"} else 0.0))
         valence = clamp(0.54 + (0.12 if hits or geometry.nodes else -0.04) - (0.08 if assessment.decision == "pause_for_stability" else 0.0))
@@ -747,6 +763,17 @@ class CompanionCore:
         )
         self.store.log_dialogue(reply)
         self.store.log_voice(self.session_id, dialogue_id, "speech_planned", text)
+        if language_match is not None and language_reply is not None:
+            self.basic_language.record_turn(
+                self.session_id,
+                dialogue_id,
+                user_text,
+                language_match,
+                language_reply,
+                assessment.decision,
+                assessment.sigma,
+                sigma_after,
+            )
         return reply
 
     def complete(self) -> dict[str, Any]:
@@ -757,6 +784,7 @@ class CompanionCore:
             "protected_sources_unchanged": counts_after == self.counts_before,
         }
         self.store.complete_session(self.session_id, self.mode, self.counts_before, counts_after, payload)
+        self.basic_language.complete_session(self.session_id, self.mode)
         return {"session_id": self.session_id, **payload}
 
 
