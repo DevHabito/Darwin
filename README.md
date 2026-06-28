@@ -20,6 +20,7 @@ py darwin_rzs_elcl_regge_geometry_v49_33.py
 py darwin_wake_word_guardian_v49_34.py
 py darwin_basic_language_core_v49_36.py --self-test --details
 py darwin_contextual_language_learning_v49_37.py --self-test --details
+py darwin_autonomous_activity_choice_v49_38.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -59,6 +60,19 @@ repetida.
 ```powershell
 py darwin_contextual_language_learning_v49_37.py --self-test --details
 py darwin_check_v49_37_contextual_language.py --details
+```
+
+## Escolha autonoma de atividades
+
+O v49.38 permite perguntar ao Darwin se ele quer jogar ou fazer alguma
+atividade. O convite nao escolhe por ele: memoria afetiva, curiosidade,
+aprendizagem, energia, novidade, repeticao e RZS calculam uma competicao entre
+jogo da memoria, musica, historias, desenho de formulas, conversa e descanso.
+Somente no guardiao de voz real a opcao vencedora pode abrir sua janela.
+
+```powershell
+py darwin_autonomous_activity_choice_v49_38.py --self-test --details
+py darwin_check_v49_38_activity_choice.py --details
 ```
 
 ## Checkers principais

@@ -30,6 +30,7 @@ from pathlib import Path
 from tkinter import ttk
 from typing import Any
 
+from darwin_autonomous_activity_choice_v49_38 import AutonomousActivityChoiceCore
 from darwin_basic_language_core_v49_36 import BasicLanguageCore, BasicLanguageReply, LanguageMatch
 from darwin_contextual_language_learning_v49_37 import ContextualLanguageLearner, ContextualMatch, ContextualReply
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
@@ -585,6 +586,9 @@ class CompanionCore:
         self.basic_language.start_session(self.session_id, mode)
         self.contextual_language = ContextualLanguageLearner(self.store.db_path, seed=seed if seed is not None else 4937)
         self.contextual_language.start_session(self.session_id, mode)
+        self.activity_choice = AutonomousActivityChoiceCore(
+            self.store.db_path, seed=seed if seed is not None else 4938
+        )
         self.counts_before = self.store.protected_counts()
         self.store.start_session(self.session_id, mode, self.counts_before)
 
@@ -737,6 +741,36 @@ class CompanionCore:
         self.turn += 1
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
+        if self.activity_choice.is_invitation(user_text):
+            activity = self.activity_choice.deliberate(
+                user_text,
+                self.session_id,
+                scenario_kind="live",
+                live=self.mode == "wake_guardian_gui",
+            )
+            selected_activity = next(
+                candidate for candidate in activity.candidates if candidate.key == activity.selected_key
+            )
+            reply = CompanionReply(
+                session_id=self.session_id,
+                dialogue_id=dialogue_id,
+                user_text=user_text,
+                reply_text=activity.response_text,
+                intent="autonomous_activity_choice",
+                focus_key=f"activity_choice:{activity.selected_key}",
+                rzs_decision=activity.rzs_decision,
+                sigma_before=activity.sigma_before,
+                sigma_after=activity.sigma_after,
+                memory_hits=hits,
+                geometry=geometry,
+                affect_valence=clamp(0.56 + selected_activity.affect * 0.18),
+                affect_arousal=clamp(0.28 + activity.energy * 0.32),
+                affect_stability=clamp(activity.sigma_after / 2.6),
+                style_rule=self.style_rule(activity.rzs_decision),
+            )
+            self.store.log_dialogue(reply)
+            self.store.log_voice(self.session_id, dialogue_id, "speech_planned", reply.reply_text)
+            return reply
         context_match: ContextualMatch | None = self.contextual_language.match(
             user_text, self.session_id, allow_unknown=False
         )
