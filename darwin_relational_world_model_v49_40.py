@@ -183,7 +183,23 @@ class WorldModelStore:
             )
 
     def upsert_experience(self, experience: WorldExperience) -> None:
+        features_json = js(experience.features)
+        payload_json = js({"normalized_world_experience": True})
         with self.connect() as conn:
+            current = conn.execute(
+                f"""
+                SELECT features_json, observed_value, payload_json
+                FROM {EXPERIENCES} WHERE experience_id=?
+                """,
+                (experience.experience_id,),
+            ).fetchone()
+            if (
+                current
+                and str(current["features_json"]) == features_json
+                and abs(float(current["observed_value"]) - experience.observed_value) < 1e-12
+                and str(current["payload_json"]) == payload_json
+            ):
+                return
             conn.execute(
                 f"""
                 INSERT INTO {EXPERIENCES}
@@ -195,12 +211,15 @@ class WorldModelStore:
                     features_json=excluded.features_json,
                     observed_value=excluded.observed_value,
                     payload_json=excluded.payload_json
+                WHERE features_json<>excluded.features_json
+                   OR observed_value<>excluded.observed_value
+                   OR payload_json<>excluded.payload_json
                 """,
                 (
                     now(), experience.experience_id, experience.domain,
-                    js(experience.features), experience.observed_value,
+                    features_json, experience.observed_value,
                     experience.source_table, experience.source_row_id,
-                    js({"normalized_world_experience": True}),
+                    payload_json,
                 ),
             )
 
@@ -221,7 +240,20 @@ class WorldModelStore:
 
     def replace_relations(self, relations: dict[str, tuple[float, int, float]]) -> None:
         with self.connect() as conn:
+            existing = {
+                str(row["feature_key"]): row
+                for row in conn.execute(f"SELECT * FROM {RELATIONS}").fetchall()
+            }
             for key, (weight, count, confidence) in relations.items():
+                current = existing.get(key)
+                if (
+                    current
+                    and abs(float(current["relation_weight"]) - weight) < 1e-12
+                    and int(current["evidence_count"]) == count
+                    and abs(float(current["confidence"]) - confidence) < 1e-12
+                    and str(current["payload_json"]) == js({"method": "centered_slope"})
+                ):
+                    continue
                 conn.execute(
                     f"""
                     INSERT INTO {RELATIONS}
@@ -234,6 +266,10 @@ class WorldModelStore:
                         evidence_count=excluded.evidence_count,
                         confidence=excluded.confidence,
                         payload_json=excluded.payload_json
+                    WHERE relation_weight<>excluded.relation_weight
+                       OR evidence_count<>excluded.evidence_count
+                       OR confidence<>excluded.confidence
+                       OR payload_json<>excluded.payload_json
                     """,
                     (key, now(), weight, count, confidence, js({"method": "centered_slope"})),
                 )
