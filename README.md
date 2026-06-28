@@ -23,6 +23,7 @@ py darwin_contextual_language_learning_v49_37.py --self-test --details
 py darwin_autonomous_activity_choice_v49_38.py --self-test --details
 py darwin_activity_outcome_learning_v49_39.py --self-test --details
 py darwin_relational_world_model_v49_40.py --self-test --details
+py darwin_predictive_goal_planner_v49_41.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -100,6 +101,18 @@ de atividades e continuam submetidas ao RZS.
 ```powershell
 py darwin_relational_world_model_v49_40.py --self-test --details
 py darwin_check_v49_40_relational_world_model.py --details
+```
+
+## Objetivos e planejamento
+
+O v49.41 transforma incerteza, preferencias, erros de previsao e energia em
+objetivos concorrentes. O RZS escolhe ou bloqueia o objetivo, e cada objetivo
+gera etapas causais e uma condicao explicita de parada. Pergunte
+`Darwin, qual seu objetivo agora?`.
+
+```powershell
+py darwin_predictive_goal_planner_v49_41.py --self-test --details
+py darwin_check_v49_41_predictive_goal_planner.py --details
 ```
 
 ## Checkers principais

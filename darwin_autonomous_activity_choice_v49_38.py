@@ -27,6 +27,7 @@ from darwin_activity_outcome_learning_v49_39 import (
     ActivityOutcomeLearningCore,
     ObservedActivityOutcome,
 )
+from darwin_predictive_goal_planner_v49_41 import PredictiveGoalPlanner
 from darwin_relational_world_model_v49_40 import RelationalWorldModel
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
@@ -537,6 +538,7 @@ class AutonomousActivityChoiceCore:
         self.outcome_learning = ActivityOutcomeLearningCore(self.store.db_path, seed=seed + 1)
         self.world_model = RelationalWorldModel(self.store.db_path, seed=seed + 2)
         self.world_model.refresh_historical()
+        self.goal_planner = PredictiveGoalPlanner(self.store.db_path, seed=seed + 3)
 
     @staticmethod
     def is_invitation(text: str) -> bool:
@@ -787,6 +789,16 @@ class AutonomousActivityChoiceCore:
         state = self.store.current_state()
         energy = clamp(state["energy"] if energy_override is None else energy_override)
         candidates = self.build_candidates(energy, self.store.evidence(), component_overrides, use_live_history)
+        active_goal = self.goal_planner.choose_goal(
+            session_id,
+            scenario_kind=f"activity_support:{scenario_kind}",
+            energy_override=energy,
+        )
+        for candidate in candidates:
+            candidate.evidence["active_goal"] = active_goal.goal_key
+            candidate.evidence["goal_target"] = active_goal.target_activity
+            if candidate.key == active_goal.target_activity:
+                candidate.utility += 0.025
         rzs_decision, sigma_before, sigma_after = self._rzs_assess(energy, candidates, state["latency"])
         self._regulate(candidates, rzs_decision)
         selected = max(candidates, key=lambda item: (item.regulated_utility, item.key))

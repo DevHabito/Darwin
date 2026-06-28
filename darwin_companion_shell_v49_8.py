@@ -33,6 +33,7 @@ from typing import Any
 from darwin_autonomous_activity_choice_v49_38 import AutonomousActivityChoiceCore
 from darwin_basic_language_core_v49_36 import BasicLanguageCore, BasicLanguageReply, LanguageMatch
 from darwin_contextual_language_learning_v49_37 import ContextualLanguageLearner, ContextualMatch, ContextualReply
+from darwin_predictive_goal_planner_v49_41 import PredictiveGoalPlanner
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
 
@@ -589,6 +590,9 @@ class CompanionCore:
         self.activity_choice = AutonomousActivityChoiceCore(
             self.store.db_path, seed=seed if seed is not None else 4938
         )
+        self.goal_planner = PredictiveGoalPlanner(
+            self.store.db_path, seed=seed if seed is not None else 4941
+        )
         self.counts_before = self.store.protected_counts()
         self.store.start_session(self.session_id, mode, self.counts_before)
 
@@ -742,6 +746,28 @@ class CompanionCore:
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
         self.activity_choice.poll_outcomes()
+        if self.goal_planner.is_goal_question(user_text):
+            goal = self.goal_planner.choose_goal(self.session_id, scenario_kind="live_dialogue")
+            reply = CompanionReply(
+                session_id=self.session_id,
+                dialogue_id=dialogue_id,
+                user_text=user_text,
+                reply_text=self.goal_planner.explain(goal),
+                intent="predictive_goal_explanation",
+                focus_key=f"goal:{goal.goal_key}:{goal.target_activity}",
+                rzs_decision=goal.rzs_decision,
+                sigma_before=goal.sigma_before,
+                sigma_after=goal.sigma_after,
+                memory_hits=hits,
+                geometry=geometry,
+                affect_valence=0.62,
+                affect_arousal=0.42,
+                affect_stability=clamp(goal.sigma_after / 2.6),
+                style_rule=self.style_rule(goal.rzs_decision),
+            )
+            self.store.log_dialogue(reply)
+            self.store.log_voice(self.session_id, dialogue_id, "speech_planned", reply.reply_text)
+            return reply
         if self.activity_choice.is_outcome_question(user_text):
             reflection_text, outcome = self.activity_choice.outcome_reflection()
             decision = str(outcome["rzs_decision"]) if outcome else "replay_memory"
