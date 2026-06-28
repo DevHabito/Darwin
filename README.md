@@ -22,6 +22,7 @@ py darwin_basic_language_core_v49_36.py --self-test --details
 py darwin_contextual_language_learning_v49_37.py --self-test --details
 py darwin_autonomous_activity_choice_v49_38.py --self-test --details
 py darwin_activity_outcome_learning_v49_39.py --self-test --details
+py darwin_relational_world_model_v49_40.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -87,6 +88,18 @@ Depois da atividade, pergunte `Darwin, voce gostou?`.
 ```powershell
 py darwin_activity_outcome_learning_v49_39.py --self-test --details
 py darwin_check_v49_39_activity_outcome_learning.py --details
+```
+
+## Modelo de mundo relacional
+
+O v49.40 traduz jogo, musica, historia, desenho, conversa e descanso para
+propriedades comuns. Assim, uma relacao aprendida em um dominio pode contribuir
+para prever outro dominio. As previsoes de valor e incerteza entram na escolha
+de atividades e continuam submetidas ao RZS.
+
+```powershell
+py darwin_relational_world_model_v49_40.py --self-test --details
+py darwin_check_v49_40_relational_world_model.py --details
 ```
 
 ## Checkers principais

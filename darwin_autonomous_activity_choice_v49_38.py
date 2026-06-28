@@ -27,6 +27,7 @@ from darwin_activity_outcome_learning_v49_39 import (
     ActivityOutcomeLearningCore,
     ObservedActivityOutcome,
 )
+from darwin_relational_world_model_v49_40 import RelationalWorldModel
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
 
@@ -120,6 +121,8 @@ class ActivityCandidate:
     learning_gain: float
     energy_fit: float
     preference_prior: float
+    world_prediction: float
+    world_confidence: float
     repetition_penalty: float
     utility: float
     regulated_utility: float = 0.0
@@ -532,6 +535,8 @@ class AutonomousActivityChoiceCore:
         self.active_process: subprocess.Popen[Any] | None = None
         self.counter = 0
         self.outcome_learning = ActivityOutcomeLearningCore(self.store.db_path, seed=seed + 1)
+        self.world_model = RelationalWorldModel(self.store.db_path, seed=seed + 2)
+        self.world_model.refresh_historical()
 
     @staticmethod
     def is_invitation(text: str) -> bool:
@@ -582,6 +587,7 @@ class AutonomousActivityChoiceCore:
             learning_gain = clamp(spec.learning_potential * (0.62 + novelty * 0.38))
             energy_fit = clamp(1.0 - abs(energy - spec.energy_target))
             prior, preference_refs = self._preference_prior(spec.key, preference_rows)
+            world = self.world_model.predict_activity(spec.key, energy)
             learned = dict(learned_preferences.get(spec.key, {}))
             learned_confidence = clamp(learned.get("confidence", 0.0))
             if learned:
@@ -600,6 +606,8 @@ class AutonomousActivityChoiceCore:
                 "learning_gain": learning_gain,
                 "energy_fit": energy_fit,
                 "preference_prior": prior,
+                "world_prediction": world.predicted_value,
+                "world_confidence": world.confidence,
                 "repetition_penalty": repetition,
             }
             for component, value in overrides.get(spec.key, {}).items():
@@ -607,12 +615,13 @@ class AutonomousActivityChoiceCore:
                     values[component] = clamp(value) if component != "repetition_penalty" else max(0.0, float(value))
             utility = (
                 0.19 * values["affect"]
-                + 0.15 * values["curiosity"]
+                + 0.14 * values["curiosity"]
                 + 0.13 * values["stability"]
                 + 0.15 * values["learning_gain"]
                 + 0.14 * values["energy_fit"]
-                + 0.10 * values["novelty"]
-                + 0.14 * values["preference_prior"]
+                + 0.09 * values["novelty"]
+                + 0.11 * values["preference_prior"]
+                + 0.04 * values["world_prediction"] * values["world_confidence"]
                 - values["repetition_penalty"]
             )
             result.append(
@@ -624,7 +633,8 @@ class AutonomousActivityChoiceCore:
                     utility=utility,
                     source_tables=list(item.get("sources", []))
                     + (["affective_preferences_v49_17"] if preference_refs else [])
-                    + (["activity_learned_preferences_v49_39"] if learned else []),
+                    + (["activity_learned_preferences_v49_39"] if learned else [])
+                    + (["world_experiences_v49_40"] if world.contributors else []),
                     evidence={
                         **dict(item.get("details", {})),
                         "preference_refs": preference_refs,
