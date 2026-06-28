@@ -23,6 +23,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from darwin_activity_outcome_learning_v49_39 import (
+    ActivityOutcomeLearningCore,
+    ObservedActivityOutcome,
+)
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
 
@@ -419,6 +423,19 @@ class ActivityChoiceStore:
                 ).fetchall()
                 preferences = [dict(row) for row in rows]
             base["_preferences"] = {"rows": preferences}
+            learned_preferences: dict[str, dict[str, Any]] = {}
+            if self.table_exists(conn, "activity_learned_preferences_v49_39"):
+                rows = conn.execute(
+                    """
+                    SELECT activity_key, preference_estimate, evidence_count, confidence
+                    FROM activity_learned_preferences_v49_39
+                    """
+                ).fetchall()
+                learned_preferences = {
+                    str(row["activity_key"]): dict(row)
+                    for row in rows
+                }
+            base["_learned_preferences"] = learned_preferences
         return base
 
     def record(
@@ -514,6 +531,7 @@ class AutonomousActivityChoiceCore:
         self.project_dir = self.store.db_path.resolve().parent.parent
         self.active_process: subprocess.Popen[Any] | None = None
         self.counter = 0
+        self.outcome_learning = ActivityOutcomeLearningCore(self.store.db_path, seed=seed + 1)
 
     @staticmethod
     def is_invitation(text: str) -> bool:
@@ -554,6 +572,7 @@ class AutonomousActivityChoiceCore:
         overrides = overrides or {}
         recent = self.store.recent_choices() if use_live_history else []
         preference_rows = list(evidence.get("_preferences", {}).get("rows", []))
+        learned_preferences = dict(evidence.get("_learned_preferences", {}))
         result: list[ActivityCandidate] = []
         for spec in ACTIVITIES:
             item = evidence[spec.key]
@@ -563,6 +582,14 @@ class AutonomousActivityChoiceCore:
             learning_gain = clamp(spec.learning_potential * (0.62 + novelty * 0.38))
             energy_fit = clamp(1.0 - abs(energy - spec.energy_target))
             prior, preference_refs = self._preference_prior(spec.key, preference_rows)
+            learned = dict(learned_preferences.get(spec.key, {}))
+            learned_confidence = clamp(learned.get("confidence", 0.0))
+            if learned:
+                learned_weight = learned_confidence * 0.68
+                prior = (
+                    prior * (1.0 - learned_weight)
+                    + clamp(learned.get("preference_estimate", 0.50)) * learned_weight
+                )
             repetition = sum(1 for key in recent[:3] if key == spec.key) * 0.12
             values = {
                 "affect": clamp(item.get("affect", 0.50)),
@@ -596,8 +623,13 @@ class AutonomousActivityChoiceCore:
                     evidence_count=count,
                     utility=utility,
                     source_tables=list(item.get("sources", []))
-                    + (["affective_preferences_v49_17"] if preference_refs else []),
-                    evidence={**dict(item.get("details", {})), "preference_refs": preference_refs},
+                    + (["affective_preferences_v49_17"] if preference_refs else [])
+                    + (["activity_learned_preferences_v49_39"] if learned else []),
+                    evidence={
+                        **dict(item.get("details", {})),
+                        "preference_refs": preference_refs,
+                        "outcome_preference": learned,
+                    },
                     **values,
                 )
             )
@@ -665,6 +697,7 @@ class AutonomousActivityChoiceCore:
         decision_id: str,
         candidate: ActivityCandidate,
         live: bool,
+        rzs_decision: str,
     ) -> tuple[bool, str]:
         if not candidate.script_name:
             status = "internal_activity"
@@ -698,6 +731,13 @@ class AutonomousActivityChoiceCore:
                 session_id, decision_id, candidate, True, True, False, int(self.active_process.pid), status, {},
             )
             return False, status
+        observation_id = self.outcome_learning.arm(
+            decision_id,
+            session_id,
+            candidate.key,
+            candidate.regulated_utility,
+            rzs_decision,
+        )
         flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
         try:
             self.active_process = subprocess.Popen(
@@ -713,6 +753,7 @@ class AutonomousActivityChoiceCore:
             )
             return True, status
         except OSError as exc:
+            self.outcome_learning.cancel(observation_id, str(exc))
             status = "launch_error"
             self.store.record_dispatch(
                 session_id, decision_id, candidate, True, True, False, 0, status, {"error": str(exc)},
@@ -730,6 +771,7 @@ class AutonomousActivityChoiceCore:
         component_overrides: dict[str, dict[str, float]] | None = None,
         use_live_history: bool = True,
     ) -> ActivityChoiceReply:
+        self.outcome_learning.poll_pending()
         self.counter += 1
         decision_id = f"act:{session_id}:{int(time.time() * 1000)}:{self.counter:03d}"
         state = self.store.current_state()
@@ -743,7 +785,9 @@ class AutonomousActivityChoiceCore:
             session_id, decision_id, scenario_kind, invitation, energy, candidates, selected,
             rzs_decision, sigma_before, sigma_after, reason,
         )
-        launched, dispatch_status = self._dispatch(session_id, decision_id, selected, live)
+        launched, dispatch_status = self._dispatch(
+            session_id, decision_id, selected, live, rzs_decision
+        )
         if selected.key == "rest":
             text = f"Hoje eu prefiro descansar um pouco. {reason}."
         elif selected.key == "conversation":
@@ -771,6 +815,15 @@ class AutonomousActivityChoiceCore:
             dispatch_status=dispatch_status,
             candidates=candidates,
         )
+
+    def poll_outcomes(self) -> list[ObservedActivityOutcome]:
+        return self.outcome_learning.poll_pending()
+
+    def is_outcome_question(self, text: str) -> bool:
+        return self.outcome_learning.is_reflection_question(text)
+
+    def outcome_reflection(self) -> tuple[str, dict[str, Any] | None]:
+        return self.outcome_learning.latest_reflection()
 
 
 def run_self_test(details: bool = False) -> dict[str, Any]:

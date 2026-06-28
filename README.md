@@ -21,6 +21,7 @@ py darwin_wake_word_guardian_v49_34.py
 py darwin_basic_language_core_v49_36.py --self-test --details
 py darwin_contextual_language_learning_v49_37.py --self-test --details
 py darwin_autonomous_activity_choice_v49_38.py --self-test --details
+py darwin_activity_outcome_learning_v49_39.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -73,6 +74,19 @@ Somente no guardiao de voz real a opcao vencedora pode abrir sua janela.
 ```powershell
 py darwin_autonomous_activity_choice_v49_38.py --self-test --details
 py darwin_check_v49_38_activity_choice.py --details
+```
+
+## Aprendizagem pelo resultado
+
+O v49.39 observa a conclusao real da atividade que o v49.38 abriu. Ele compara
+o valor previsto com conforto, curiosidade, estabilidade, erros, correcoes ou
+eficiencia registrados pelo aplicativo. O erro de previsao atualiza uma
+preferencia operacional, regulada pelo RZS, que participa da proxima escolha.
+Depois da atividade, pergunte `Darwin, voce gostou?`.
+
+```powershell
+py darwin_activity_outcome_learning_v49_39.py --self-test --details
+py darwin_check_v49_39_activity_outcome_learning.py --details
 ```
 
 ## Checkers principais

@@ -741,6 +741,34 @@ class CompanionCore:
         self.turn += 1
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
+        self.activity_choice.poll_outcomes()
+        if self.activity_choice.is_outcome_question(user_text):
+            reflection_text, outcome = self.activity_choice.outcome_reflection()
+            decision = str(outcome["rzs_decision"]) if outcome else "replay_memory"
+            sigma_before = safe_float(outcome["sigma_before"], 1.80) if outcome else 1.80
+            sigma_after = safe_float(outcome["sigma_after"], 2.10) if outcome else 2.10
+            activity_key = str(outcome["activity_key"]) if outcome else "none"
+            observed = safe_float(outcome["observed_value"], 0.50) if outcome else 0.50
+            reply = CompanionReply(
+                session_id=self.session_id,
+                dialogue_id=dialogue_id,
+                user_text=user_text,
+                reply_text=reflection_text,
+                intent="activity_outcome_reflection",
+                focus_key=f"activity_outcome:{activity_key}",
+                rzs_decision=decision,
+                sigma_before=sigma_before,
+                sigma_after=sigma_after,
+                memory_hits=hits,
+                geometry=geometry,
+                affect_valence=clamp(0.35 + observed * 0.48),
+                affect_arousal=clamp(0.28 + abs(observed - 0.50) * 0.38),
+                affect_stability=clamp(sigma_after / 2.6),
+                style_rule=self.style_rule(decision),
+            )
+            self.store.log_dialogue(reply)
+            self.store.log_voice(self.session_id, dialogue_id, "speech_planned", reply.reply_text)
+            return reply
         if self.activity_choice.is_invitation(user_text):
             activity = self.activity_choice.deliberate(
                 user_text,
