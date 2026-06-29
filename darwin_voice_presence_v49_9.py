@@ -390,6 +390,7 @@ try {{
                 encoding="utf-8",
                 errors="replace",
                 bufsize=1,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except Exception as exc:
             self.on_error(f"Falha ao iniciar reconhecimento de voz: {exc}")

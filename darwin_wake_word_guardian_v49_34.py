@@ -583,13 +583,17 @@ class WakeGuardianApp:
     BLUE = "#58b0ff"
     GREEN = "#84e6a2"
     SLEEP = "#24364a"
+    IDLE_BG = "#101416"
+    IDLE_PANEL = "#171c1e"
+    IDLE_ACCENT = "#76c7b7"
+    IDLE_WARM = "#d6aa62"
 
     def __init__(self, *, show: bool = False, culture: str = "pt-BR", min_confidence: float = 0.25) -> None:
         self.root = tk.Tk()
         self.root.title("Darwin Wake Guardian v49.34")
         self.root.geometry("940x700")
         self.root.configure(bg=self.BG)
-        self.root.protocol("WM_DELETE_WINDOW", self.sleep_window)
+        self.root.protocol("WM_DELETE_WINDOW", self.on_window_close)
         self.core = WakeGuardianCore(mode="gui")
         self.events: queue.Queue[tuple[str, Any]] = queue.Queue()
         self.listener = WindowsSpeechListener(
@@ -610,6 +614,7 @@ class WakeGuardianApp:
         self.tick = 0.0
         self.last_heard = ""
         self.last_action = ""
+        self.idle_mode = False
         self.build_ui()
         self.start_listener_if_ready(show_window=show)
         self.root.after(80, self.drain_events)
@@ -644,6 +649,12 @@ class WakeGuardianApp:
         ttk.Button(bar, text="Reparar voz", command=self.open_voice_repair).pack(side="left", padx=6, pady=10)
         ttk.Button(bar, text="Testar voz", command=lambda: self.start_listener_if_ready(show_window=True)).pack(side="left", padx=6, pady=10)
         ttk.Button(bar, text="Sair guardiao", command=self.quit).pack(side="left", padx=6, pady=10)
+        self.idle_canvas = tk.Canvas(
+            self.root,
+            bg=self.IDLE_BG,
+            highlightthickness=1,
+            highlightbackground="#2c3538",
+        )
         self.write("Sistema", "Verificando o reconhecedor de fala e o microfone do Windows.")
 
     def start_listener_if_ready(self, *, show_window: bool) -> bool:
@@ -687,7 +698,7 @@ class WakeGuardianApp:
         if show_window:
             self.show_window()
         else:
-            self.root.withdraw()
+            self.show_idle_presence()
         return True
 
     def open_voice_repair(self) -> None:
@@ -746,7 +757,7 @@ class WakeGuardianApp:
                 if self.core.state == "awake":
                     self.write("Sistema", f"Ouvi baixo: {speech.text} ({speech.confidence:.2f})")
             elif kind == "error":
-                self.root.deiconify()
+                self.show_window()
                 self.status = "erro no reconhecimento de voz"
                 self.write("Sistema", str(payload))
                 self.core.store.log_session(
@@ -792,6 +803,11 @@ class WakeGuardianApp:
             self.status = "dormindo: diga Darwin"
 
     def show_window(self) -> None:
+        self.idle_mode = False
+        self.idle_canvas.place_forget()
+        self.root.title("Darwin Wake Guardian v49.34")
+        self.root.resizable(True, True)
+        self.root.geometry("940x700")
         self.root.deiconify()
         self.root.lift()
         self.root.attributes("-topmost", True)
@@ -801,7 +817,25 @@ class WakeGuardianApp:
         self.core.state = "sleeping"
         self.status = "dormindo: diga Darwin"
         self.speech.stop()
-        self.root.withdraw()
+        self.show_idle_presence()
+
+    def show_idle_presence(self) -> None:
+        self.idle_mode = True
+        width, height = 460, 220
+        screen_width = self.root.winfo_screenwidth()
+        x = max(24, screen_width - width - 34)
+        self.root.title("Darwin - Em repouso")
+        self.root.resizable(False, False)
+        self.root.geometry(f"{width}x{height}+{x}+54")
+        self.root.deiconify()
+        self.idle_canvas.place(x=0, y=0, relwidth=1, relheight=1)
+        self.root.attributes("-topmost", False)
+
+    def on_window_close(self) -> None:
+        if self.idle_mode or self.core.state == "sleeping":
+            self.root.iconify()
+        else:
+            self.sleep_window()
 
     def start_speaking(self, text: str) -> None:
         self.speaking = True
@@ -824,6 +858,10 @@ class WakeGuardianApp:
 
     def animate(self) -> None:
         self.tick += 0.035
+        if self.idle_mode:
+            self.animate_idle()
+            self.root.after(40, self.animate)
+            return
         self.canvas.delete("all")
         w = max(640, self.canvas.winfo_width())
         h = max(420, self.canvas.winfo_height())
@@ -856,6 +894,55 @@ class WakeGuardianApp:
             )
         )
         self.root.after(40, self.animate)
+
+    def animate_idle(self) -> None:
+        c = self.idle_canvas
+        c.delete("all")
+        width = max(1, c.winfo_width())
+        height = max(1, c.winfo_height())
+        pulse = 0.5 + 0.5 * math.sin(self.tick * 1.35)
+        cx, cy = 96, height / 2
+        radius = 39 + pulse * 4
+        for offset, color in ((18, "#24312f"), (10, "#2d4540")):
+            r = radius + offset
+            c.create_oval(cx - r, cy - r, cx + r, cy + r, outline=color, width=2)
+        c.create_oval(
+            cx - radius, cy - radius, cx + radius, cy + radius,
+            fill=self.IDLE_PANEL, outline=self.IDLE_ACCENT, width=3,
+        )
+        inner = 12 + pulse * 2
+        c.create_oval(
+            cx - inner, cy - inner, cx + inner, cy + inner,
+            fill=self.IDLE_ACCENT, outline="",
+        )
+
+        state = self.core.companion.store.current_state()
+        mic_ready = self.listener_started and not self.listener.paused
+        mic_color = self.IDLE_ACCENT if mic_ready else self.IDLE_WARM
+        c.create_text(
+            174, 55, text="DARWIN", anchor="w",
+            fill="#edf3f0", font=("Segoe UI", 19, "bold"),
+        )
+        c.create_text(
+            174, 87, text="EM REPOUSO", anchor="w",
+            fill="#aab5b0", font=("Segoe UI", 10, "bold"),
+        )
+        c.create_oval(174, 118, 184, 128, fill=mic_color, outline="")
+        c.create_text(
+            194, 123,
+            text="Microfone ativo" if mic_ready else "Reconectando microfone",
+            anchor="w", fill="#d5ded9", font=("Segoe UI", 10),
+        )
+        c.create_text(
+            174, 158,
+            text=f"Energia {state['energy']:.2f}    RZS {state['sigma']:.2f}",
+            anchor="w", fill="#8f9c96", font=("Consolas", 9),
+        )
+        c.create_line(174, 181, width - 28, 181, fill="#2b3336")
+        c.create_text(
+            174, 199, text="presenca local  |  memoria protegida",
+            anchor="w", fill="#6f7d77", font=("Segoe UI", 8),
+        )
 
     def quit(self) -> None:
         self.core.finish()

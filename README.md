@@ -44,6 +44,14 @@ verificar microfone e consentimento de fala online e ativar a inicializacao.
 Quando a voz nao esta pronta, a janela permanece aberta com os botoes
 `Reparar voz` e `Testar voz`.
 
+Enquanto o Darwin esta em repouso, o v49.44 mostra uma presenca compacta com
+orbe, microfone, energia e RZS. Os processos PowerShell de reconhecimento ficam
+sem janela de console.
+
+```powershell
+py darwin_check_v49_44_professional_idle_presence.py --details
+```
+
 ## Vocabulario basico
 
 O v49.36 integra ao `CompanionCore` perguntas sobre nome, estado, sentimento

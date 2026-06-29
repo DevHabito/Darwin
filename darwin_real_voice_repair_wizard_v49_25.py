@@ -517,6 +517,7 @@ try {
                 capture_output=True,
                 text=True,
                 timeout=timeout,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except Exception as exc:
             return VoiceProbe(False, False, 0, [], False, False, str(exc), 99, "", str(exc))
@@ -607,6 +608,7 @@ $recognizer.Dispose()
                 capture_output=True,
                 text=True,
                 timeout=seconds + 12,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except Exception as exc:
             return {"status": "failed", "recognized": [], "confidences": [], "stdout": "", "stderr": str(exc), "returncode": 99}
