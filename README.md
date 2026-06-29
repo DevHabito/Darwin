@@ -24,6 +24,7 @@ py darwin_autonomous_activity_choice_v49_38.py --self-test --details
 py darwin_activity_outcome_learning_v49_39.py --self-test --details
 py darwin_relational_world_model_v49_40.py --self-test --details
 py darwin_predictive_goal_planner_v49_41.py --self-test --details
+py darwin_goal_execution_loop_v49_42.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -113,6 +114,18 @@ gera etapas causais e uma condicao explicita de parada. Pergunte
 ```powershell
 py darwin_predictive_goal_planner_v49_41.py --self-test --details
 py darwin_check_v49_41_predictive_goal_planner.py --details
+```
+
+## Execucao de objetivos
+
+O v49.42 acompanha o plano ate uma evidencia real. Uma atividade alinhada fica
+aguardando seu resultado; uma escolha diferente provoca replanejamento; e
+objetivos internos podem ser concluidos sem inventar resultado externo.
+Use `Darwin, comece seu objetivo`.
+
+```powershell
+py darwin_goal_execution_loop_v49_42.py --self-test --details
+py darwin_check_v49_42_goal_execution_loop.py --details
 ```
 
 ## Checkers principais

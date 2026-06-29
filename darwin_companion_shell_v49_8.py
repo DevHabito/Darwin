@@ -33,6 +33,7 @@ from typing import Any
 from darwin_autonomous_activity_choice_v49_38 import AutonomousActivityChoiceCore
 from darwin_basic_language_core_v49_36 import BasicLanguageCore, BasicLanguageReply, LanguageMatch
 from darwin_contextual_language_learning_v49_37 import ContextualLanguageLearner, ContextualMatch, ContextualReply
+from darwin_goal_execution_loop_v49_42 import GoalExecutionLoop
 from darwin_predictive_goal_planner_v49_41 import PredictiveGoalPlanner
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
@@ -593,6 +594,9 @@ class CompanionCore:
         self.goal_planner = PredictiveGoalPlanner(
             self.store.db_path, seed=seed if seed is not None else 4941
         )
+        self.goal_executor = GoalExecutionLoop(
+            self.store.db_path, seed=seed if seed is not None else 4942
+        )
         self.counts_before = self.store.protected_counts()
         self.store.start_session(self.session_id, mode, self.counts_before)
 
@@ -745,7 +749,48 @@ class CompanionCore:
         self.turn += 1
         dialogue_id = f"dlg:{self.session_id}:{self.turn:04d}"
         hits, geometry = self.store.query_memory(self.session_id, dialogue_id, user_text)
-        self.activity_choice.poll_outcomes()
+        learned_outcomes = self.activity_choice.poll_outcomes()
+        self.goal_executor.observe_outcomes(learned_outcomes)
+        if self.goal_executor.is_start_request(user_text):
+            goal = self.goal_planner.choose_goal(self.session_id, scenario_kind="live_execution")
+            execution = self.goal_executor.start(
+                self.session_id, scenario_kind="live", goal=goal
+            )
+            activity_text = ""
+            if goal.target_activity not in {"conversation", "rest"}:
+                activity = self.activity_choice.deliberate(
+                    "Darwin quer fazer uma atividade para executar seu objetivo",
+                    self.session_id,
+                    scenario_kind="goal_execution",
+                    live=self.mode == "wake_guardian_gui",
+                )
+                execution = self.goal_executor.bind_activity(
+                    execution.execution_id,
+                    activity.selected_key,
+                    activity.decision_id,
+                    activity.launched,
+                )
+                activity_text = " " + activity.response_text
+            reply = CompanionReply(
+                session_id=self.session_id,
+                dialogue_id=dialogue_id,
+                user_text=user_text,
+                reply_text=execution.message + activity_text,
+                intent="goal_execution_start",
+                focus_key=f"goal_execution:{execution.execution_id}",
+                rzs_decision=goal.rzs_decision,
+                sigma_before=goal.sigma_before,
+                sigma_after=goal.sigma_after,
+                memory_hits=hits,
+                geometry=geometry,
+                affect_valence=0.61,
+                affect_arousal=0.48,
+                affect_stability=clamp(goal.sigma_after / 2.6),
+                style_rule=self.style_rule(goal.rzs_decision),
+            )
+            self.store.log_dialogue(reply)
+            self.store.log_voice(self.session_id, dialogue_id, "speech_planned", reply.reply_text)
+            return reply
         if self.goal_planner.is_goal_question(user_text):
             goal = self.goal_planner.choose_goal(self.session_id, scenario_kind="live_dialogue")
             reply = CompanionReply(
