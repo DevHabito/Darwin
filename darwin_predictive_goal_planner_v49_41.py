@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from darwin_intrinsic_motivation_core_v49_43 import IntrinsicMotivationCore
 from darwin_relational_world_model_v49_40 import ACTIVITY_FEATURES, RelationalWorldModel
 from darwin_rzs_nervous_system_v49_3 import RZSFormal, RZSInput
 
@@ -233,6 +234,7 @@ class PredictiveGoalPlanner:
         self.rzs = RZSFormal()
         self.rng = random.Random(seed)
         self.counter = 0
+        self.motivation = IntrinsicMotivationCore(db_path, seed=seed + 2)
 
     def candidates(
         self,
@@ -371,6 +373,16 @@ class PredictiveGoalPlanner:
         state = self.store.state()
         energy = clamp(state["energy"] if energy_override is None else energy_override)
         candidates = self.candidates(energy, uncertainty_override, negative_surprise_override)
+        motivation = self.motivation.assess(
+            session_id,
+            scenario_kind=f"goal_support:{scenario_kind}",
+            energy_override=energy,
+            record=scenario_kind == "live",
+        )
+        for candidate in candidates:
+            if candidate.goal_key == motivation.suggested_goal:
+                candidate.score += 0.06
+                candidate.reason += f"; motivacao {motivation.drive_key}"
         rzs_decision, sigma_before, sigma_after = self._rzs(energy, candidates, state["latency"])
         if rzs_decision == "pause_for_stability":
             selected = next(item for item in candidates if item.goal_key == "restore_stability")

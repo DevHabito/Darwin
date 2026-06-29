@@ -25,6 +25,7 @@ py darwin_activity_outcome_learning_v49_39.py --self-test --details
 py darwin_relational_world_model_v49_40.py --self-test --details
 py darwin_predictive_goal_planner_v49_41.py --self-test --details
 py darwin_goal_execution_loop_v49_42.py --self-test --details
+py darwin_intrinsic_motivation_core_v49_43.py --self-test --details
 ```
 
 ## Acordar por voz
@@ -126,6 +127,18 @@ Use `Darwin, comece seu objetivo`.
 ```powershell
 py darwin_goal_execution_loop_v49_42.py --self-test --details
 py darwin_check_v49_42_goal_execution_loop.py --details
+```
+
+## Motivacoes e valores
+
+O v49.43 transforma incerteza, erro, energia, continuidade relacional,
+autonomia e coerencia em impulsos concorrentes. Valores so emergem depois de
+evidencia repetida em mais de um contexto. Pergunte
+`Darwin, o que te motiva agora?`.
+
+```powershell
+py darwin_intrinsic_motivation_core_v49_43.py --self-test --details
+py darwin_check_v49_43_intrinsic_motivation.py --details
 ```
 
 ## Checkers principais
