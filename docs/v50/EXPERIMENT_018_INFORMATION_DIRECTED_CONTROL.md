@@ -4,7 +4,7 @@ Pre-registered: 2026-08-02
 
 Hypothesis: H50-L13
 
-Status: pre-registered; implementation and evaluation not started
+Status: implementation complete; development selection frozen; final seeds not run
 
 ## Gap
 
@@ -127,6 +127,23 @@ Every candidate receives exactly 1,280 interactions. Development selects the
 highest mean cumulative reward on `24000–24031`; ties prefer lower final
 combined transition-plus-reward MAE and then the shorter block. The selected
 length is frozen in the experiment record before any final seed is run.
+
+### Frozen development result
+
+The implementation, structural tests, analytic mixture check, causal checks,
+snapshot replay, and complete repository suite passed before the registered
+development seeds were first run. The observed selection table is:
+
+| Block length | Mean reward | Mean combined model error |
+| ---: | ---: | ---: |
+| 4 | `0.248095703125` | `0.09496670350677167` |
+| 8 | `0.2681640625` | `0.10413314174106464` |
+| 16 | `0.28017578125` | `0.11127019898615996` |
+
+The frozen block length is therefore **16 actions**. The choice follows the
+registered primary reward ranking. The lower model error of block length 4
+cannot override that ranking because error was only the first tie-breaker.
+Final seeds `24100–24199` had not been run when this result was recorded.
 
 ## Baselines
 
