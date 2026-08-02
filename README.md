@@ -131,6 +131,11 @@ The hypothesis is
 The next hypothesis has not been registered. H50-L12 final seeds will not be
 recycled, and no successor will be evaluated before receiving a new protocol,
 new seed families, and a falsifiable reason for changing the controller.
+The pre-registered
+[failure audit](docs/v50/EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
+will first measure when posterior sampling changes the action, its internal
+posterior-mean cost, and whether order or parameter sampling is the larger
+decision channel.
 
 ## Contributing
 

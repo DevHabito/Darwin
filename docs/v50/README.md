@@ -31,6 +31,9 @@ are written before final evaluation whenever a held-out result is claimed.
 | H50-L11 | [015 — learned context and reward](EXPERIMENT_015_LEARNED_CONTEXT_REWARD_PLANNING.md) | Refuted |
 | H50-L12 | [016 — online posterior-sampling control](EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md) | Refuted |
 
+The [H50-L12 failure audit](EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
+is a pre-registered diagnostic. It does not introduce or evaluate H50-L13.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
