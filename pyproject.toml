@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "darwin-v50"
+version = "0.1.0"
+description = "Evidence-first causal kernel for the Darwin cognitive architecture laboratory"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "DevHabito"}]
+dependencies = ["cryptography>=42"]
+
+[project.scripts]
+darwin-cognitive-lab = "darwin_v50.cognitive_evaluation:main"
+darwin-drift-lab = "darwin_v50.drift_evaluation:main"
+darwin-run-length-lab = "darwin_v50.run_length_evaluation:main"
+darwin-regime-memory-lab = "darwin_v50.regime_memory_evaluation:main"
+darwin-arbitration-lab = "darwin_v50.adaptive_arbitration_evaluation:main"
+darwin-episodic-context-lab = "darwin_v50.episodic_context_evaluation:main"
+darwin-predictive-planning-lab = "darwin_v50.predictive_planning_evaluation:main"
+darwin-learned-context-lab = "darwin_v50.learned_context_evaluation:main"
+darwin-temporal-lab = "darwin_v50.temporal_evaluation:main"
+darwin-uncertainty-lab = "darwin_v50.uncertainty_evaluation:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
