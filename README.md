@@ -156,6 +156,16 @@ adversarial families. That establishes benchmark sensitivity only: Darwin has
 not yet learned the prior from source worlds or used transferred knowledge to
 control a target. H50-L14 remains unregistered.
 
+The subsequent
+[source-learned development run](docs/v50/EXPERIMENT_021_SOURCE_LEARNED_PRIOR_DEVELOPMENT.md)
+estimated a prior from chosen outcomes in 16 source tasks. Its compatibility
+gate retained a `0.1622840` related-target log-loss gain while reducing large
+ungated negative transfer to losses of `0.0028053` and `0.0044137`. The source
+budget was 32 times the target budget, the leading configuration was not
+reliably separated from the runner-up, and persistence and causal controls are
+still missing. This is development evidence, not a passed capability;
+H50-L14 remains unregistered.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

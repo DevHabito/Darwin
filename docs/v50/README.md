@@ -67,6 +67,13 @@ from source observations and combine it with scratch learning through an online
 compatibility gate. It has no confirmatory pass rule and cannot promote
 H50-L14.
 
+The development grid selected 16 source tasks, eight cycles, and initial source
+weight `0.5`. Related log-loss improvement was `0.1622840`; the gate limited
+unrelated and adversarial losses to `0.0028053` and `0.0044137`. The source
+budget was 2,048 interactions, 32 times the target budget, and the top two
+configurations were not cleanly separated by a post-selection bootstrap.
+H50-L14 remains unregistered.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

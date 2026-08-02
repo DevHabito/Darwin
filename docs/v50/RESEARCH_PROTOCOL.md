@@ -299,6 +299,14 @@ sensitive to prior compatibility. The evaluator supplied the oracle prior, so
 this is not evidence that Darwin learned or transferred it. H50-L14 remains
 unregistered.
 
+[Experiment 021](EXPERIMENT_021_SOURCE_LEARNED_PRIOR_DEVELOPMENT.md) then fit a
+Beta-Binomial prior from source observations only. Its selected compatibility
+gate improved related-target log loss by `0.1622840` while limiting unrelated
+and adversarial losses to `0.0028053` and `0.0044137`. This required 2,048
+source interactions for 64 target interactions. The top-two selection interval
+crossed zero, and confirmatory controls and persistence are not implemented.
+Decision: development only; H50-L14 remains unregistered.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

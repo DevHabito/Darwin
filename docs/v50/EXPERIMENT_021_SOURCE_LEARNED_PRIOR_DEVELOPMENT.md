@@ -1,8 +1,8 @@
 # Experiment 021 — source-learned prior development
 
-Status: pre-registered development selection. Development seeds had not been
-run when this document and evaluator were committed. This is not H50-L14 and
-has no confirmatory pass rule.
+Status: development selection completed. The protocol and evaluator were
+committed as `488bf85` before the grid run. This is not H50-L14 and has no
+confirmatory pass rule.
 
 ## Development question
 
@@ -141,4 +141,45 @@ H50-L14 may be considered only if a frozen candidate can later add:
 
 ## Result
 
-Not run at pre-registration time.
+The 18 configurations were evaluated once on development seeds `27000–27031`.
+The frozen rule selected:
+
+- 16 source tasks;
+- eight balanced cycles per source task;
+- initial source weight `0.5`;
+- 2,048 source interactions for 64 target interactions.
+
+The selected configuration produced these mean log-loss improvements over
+scratch:
+
+| Predictor | Related | Unrelated | Adversarial |
+| --- | ---: | ---: | ---: |
+| Learned prior with gate | `0.1622840` | `-0.0028053` | `-0.0044137` |
+| Learned prior without gate | `0.1679871` | `-0.2167923` | `-0.3605912` |
+| Naive pooled source counts | `0.1669304` | `-0.2709335` | `-0.4369891` |
+| Evaluator oracle | `0.1744282` | `-0.1968349` | `-0.3441606` |
+
+The gate preserved most of the related-task improvement while sharply reducing
+negative transfer. Its mean final source weight was `0.9999966` on related
+targets, `0.0520974` on unrelated targets, and effectively zero on adversarial
+targets.
+
+The result also exposes two costs that cannot be omitted:
+
+1. source training used 32 times as many interactions as target evaluation;
+2. the gate reduced but did not eliminate incompatible-target loss.
+
+The runner-up used the same source budget with initial weight `0.25`. A
+post-selection paired bootstrap on the contaminated development worlds put the
+selected-minus-runner-up robust-score difference at `0.0005886`, with interval
+`[-0.0005756, 0.0027837]`. The deterministic selection rule chose `0.5`, but
+the data do not resolve it as reliably better than `0.25`.
+
+Decision: **configuration selected for further engineering only**. H50-L14 is
+not registered. Before a confirmatory hypothesis, the selected mechanism still
+needs a source-shuffled causal control, snapshot replay, and independently
+calibrated thresholds. The development seeds are contaminated and retired from
+confirmatory use.
+
+The machine-readable record, including all 18 ranked configurations, is
+[`results/EXPERIMENT_021_DEVELOPMENT_AGGREGATE.json`](results/EXPERIMENT_021_DEVELOPMENT_AGGREGATE.json).
