@@ -311,6 +311,14 @@ Post-development implementation added a source-shuffled prior control and
 replay-checked gated-model snapshots. Snapshot prior digests are integrity
 checks, not authentication. No confirmatory seed was used for these changes.
 
+[Experiment 022](EXPERIMENT_022_TRANSFER_CALIBRATION.md) froze the candidate and
+passed all nine independent calibration margins on seeds `27500–27531`.
+Related log-loss improvement was `0.1595617`, candidate-minus-shuffled was
+`0.1643268`, and oracle-gap closure was `0.9456677`. Unrelated and adversarial
+improvements remained negative at `-0.0060205` and `-0.0050725`, within the
+registered `-0.01` tolerance. Decision: H50-L14 may now be pre-registered, but
+no capability has passed.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

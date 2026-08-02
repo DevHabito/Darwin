@@ -1,8 +1,8 @@
 # Experiment 022 — frozen transfer calibration
 
-Status: pre-registered calibration. Calibration seeds had not been run when
-this document and evaluator were committed. This is not H50-L14 and cannot
-establish a capability.
+Status: calibration eligibility passed. The protocol and evaluator were
+committed as `ae6ee33` before the calibration run. This is not H50-L14 and does
+not establish a capability.
 
 ## Purpose
 
@@ -85,4 +85,31 @@ personhood.
 
 ## Result
 
-Not run at pre-registration time.
+Calibration seeds `27500–27531` were run once after pre-registration. Every
+eligibility rule passed.
+
+| Metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related gated improvement | `0.1595617` | [`0.1434855`, `0.1752002`] |
+| Related candidate minus shuffled | `0.1643268` | [`0.1484299`, `0.1798033`] |
+| Related oracle-gap closure | `0.9456677` | [`0.9257626`, `0.9644836`] |
+| Unrelated gated improvement | `-0.0060205` | [`-0.0077414`, `-0.0044656`] |
+| Adversarial gated improvement | `-0.0050725` | [`-0.0059595`, `-0.0042155`] |
+| Related simultaneous win rate | `1.0` | [`1.0`, `1.0`] |
+
+Mean final source weight was `0.9999000` for related targets, `0.0035624` for
+unrelated targets, and effectively zero for adversarial targets. All registered
+weight intervals cleared their margins.
+
+Decision: **eligible to pre-register H50-L14**. This means only that the frozen
+candidate and decision thresholds may now be written down before new final
+seeds are used. It is not a capability pass. The calibration seeds are
+contaminated and retired from confirmatory use.
+
+The gate did not eliminate negative transfer. Mean predictive loss remained
+`0.0060205` worse than scratch on unrelated targets and `0.0050725` worse on
+adversarial targets. Source training still cost 2,048 interactions per family,
+32 times the 64-interaction target evaluation.
+
+The machine-readable result is
+[`results/EXPERIMENT_022_CALIBRATION_AGGREGATE.json`](results/EXPERIMENT_022_CALIBRATION_AGGREGATE.json).

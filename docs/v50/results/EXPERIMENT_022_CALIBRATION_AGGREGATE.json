@@ -1,0 +1,79 @@
+{
+  "bootstrap_samples": 5000,
+  "bootstrap_seed": 28000,
+  "capability_claim": false,
+  "criteria": {
+    "adversarial_improvement_low_at_least_minus_0_01": true,
+    "adversarial_source_weight_high_at_most_0_05": true,
+    "oracle_gap_closure_low_at_least_0_80": true,
+    "related_improvement_low_at_least_0_12": true,
+    "related_simultaneous_win_rate_low_at_least_0_75": true,
+    "related_source_weight_low_at_least_0_95": true,
+    "related_vs_shuffled_low_at_least_0_10": true,
+    "unrelated_improvement_low_at_least_minus_0_01": true,
+    "unrelated_source_weight_high_at_most_0_20": true
+  },
+  "eligible_for_h50_l14_registration": true,
+  "h50_l14_registered": false,
+  "metrics": {
+    "adversarial_final_source_weight": {
+      "high": 1.59767924143238e-15,
+      "low": 1.3073761660730086e-17,
+      "mean": 5.863789021027532e-16
+    },
+    "adversarial_gated_improvement": {
+      "high": -0.004215495564622421,
+      "low": -0.005959503219569454,
+      "mean": -0.005072544910856968
+    },
+    "related_candidate_minus_shuffled": {
+      "high": 0.17980329812218138,
+      "low": 0.14842994083656205,
+      "mean": 0.1643267921638337
+    },
+    "related_final_source_weight": {
+      "high": 0.9999999239008472,
+      "low": 0.9997051865333755,
+      "mean": 0.9998999510973814
+    },
+    "related_gated_improvement": {
+      "high": 0.1752001578213443,
+      "low": 0.14348551717818842,
+      "mean": 0.15956167857897194
+    },
+    "related_oracle_gap_closure": {
+      "high": 0.9644835774031623,
+      "low": 0.9257625902341476,
+      "mean": 0.9456676791747775
+    },
+    "related_simultaneous_win_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "unrelated_final_source_weight": {
+      "high": 0.010667976271291695,
+      "low": 5.581580564874761e-07,
+      "mean": 0.0035624219404429463
+    },
+    "unrelated_gated_improvement": {
+      "high": -0.00446559273970586,
+      "low": -0.0077413873176397675,
+      "mean": -0.006020460643216274
+    }
+  },
+  "seeds": [
+    27500, 27501, 27502, 27503, 27504, 27505, 27506, 27507,
+    27508, 27509, 27510, 27511, 27512, 27513, 27514, 27515,
+    27516, 27517, 27518, 27519, 27520, 27521, 27522, 27523,
+    27524, 27525, 27526, 27527, 27528, 27529, 27530, 27531
+  ],
+  "selected_configuration": {
+    "initial_source_weight": 0.5,
+    "source_cycles": 8,
+    "source_interactions": 2048,
+    "source_tasks": 16,
+    "target_interactions": 64
+  },
+  "status": "calibration-only"
+}

@@ -84,6 +84,12 @@ candidate and pre-registers independent calibration margins. Calibration may
 make a confirmatory H50-L14 protocol eligible, but cannot itself promote the
 capability.
 
+All nine calibration margins passed. Related improvement was `0.1595617`, the
+candidate beat the source-shuffled control by `0.1643268`, and it closed
+`0.9456677` of the oracle gap. Negative transfer remained measurable at
+`0.0060205` and `0.0050725`. The result makes H50-L14 eligible for
+pre-registration; it is not a capability pass.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

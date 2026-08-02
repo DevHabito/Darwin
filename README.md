@@ -166,6 +166,14 @@ reliably separated from the runner-up, and persistence and causal controls are
 still missing. This is development evidence, not a passed capability;
 H50-L14 remains unregistered.
 
+Independent
+[calibration](docs/v50/EXPERIMENT_022_TRANSFER_CALIBRATION.md) subsequently
+passed all nine frozen eligibility margins. The candidate closed `0.9456677`
+of the evaluator-oracle gap and beat a source-shuffled control, but retained
+small measurable losses on incompatible targets and a 32-to-1 source/target
+interaction ratio. This permits pre-registration of H50-L14; it still does not
+establish a transfer capability.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
