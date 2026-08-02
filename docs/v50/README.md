@@ -119,9 +119,11 @@ lower bound. The benchmark is refuted, learned-candidate development remains
 blocked, and H50-L15 remains unregistered.
 
 [Experiment 026](EXPERIMENT_026_CONTEXTUAL_CONTROL_FAILURE_AUDIT.md)
-pre-registers a fresh-seed diagnostic that separates expected action value
-from realized binary reward noise. It has no promotion rule and cannot reverse
-Experiment 025.
+used fresh seeds to separate expected action value from realized binary reward
+noise. Expected reward improved in `0.984375` of worlds, while realized and
+simultaneous wins occurred in `0.890625`; `0.09375` had an expected win without
+a realized win. This is consistent with finite-reward variation, but the audit
+has no promotion rule and Experiment 025 remains refuted.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

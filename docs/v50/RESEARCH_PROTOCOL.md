@@ -375,6 +375,11 @@ diagnostic repetition on fresh related seeds `31000–31127`. It compares the
 sign of realized reward with evaluator-only expected reward improvement under
 the unchanged policy. The audit has no pass or promotion rule.
 
+The audit found a `0.984375` expected-reward win rate and a `0.890625`
+realized/simultaneous win rate. In `0.09375` of worlds, expected reward improved
+without a positive realized difference. This is consistent with finite binary
+reward noise contributing to the miss, but cannot reverse Experiment 025.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
