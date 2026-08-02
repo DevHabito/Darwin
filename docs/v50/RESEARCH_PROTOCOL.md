@@ -241,6 +241,12 @@ parameter disagreement persisted.
 Decision: diagnostic only; no capability promoted. The audit seeds are retired.
 See [Experiment 017](EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md).
 
+Protocol deviation: Experiment 017 said its diagnostic seeds would not choose
+H50-L13's algorithm, but its parameter-channel result subsequently motivated
+the H50-L13 design. The audit is therefore adaptive design evidence, not
+independent controller evidence. H50-L13's disjoint final refutation remains
+valid; a pass would have required another independent confirmation.
+
 ### H50-L13 — information-directed online control
 
 H50-L13 is pre-registered to test a blockwise Monte Carlo approximation of

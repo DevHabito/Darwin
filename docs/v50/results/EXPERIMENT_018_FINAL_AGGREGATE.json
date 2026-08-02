@@ -45,6 +45,7 @@
   "improvement_vs_posterior_sampling": 0.008218749999999997,
   "improvement_vs_random": 0.1590078125,
   "limitations": [
+    "H50-L13 was adaptively designed from an Experiment 017 diagnostic despite that audit's original separation rule.",
     "The candidate is a finite-sample blockwise approximation, not exact IDS.",
     "Published IDS or RL regret bounds do not transfer to this evaluator.",
     "The environment is synthetic, stationary, binary, and tabular.",

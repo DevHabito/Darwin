@@ -15,6 +15,17 @@ worlds. In its last two quarters, context-order mismatch and order-channel
 action disagreement were zero, while parameter sampling still changed
 `10.5078125%` and `8.06640625%` of actions.
 
+### Design-provenance deviation
+
+Experiment 017 originally prohibited using its diagnostic seeds to choose
+H50-L13's algorithm. H50-L13 nevertheless used the audit's parameter-channel
+finding to motivate action-targeted information-directed control. This adaptive
+design step violates that separation and is retained as a limitation.
+
+The final H50-L13 seeds remained disjoint and were run once, so the deviation
+does not invalidate the observed refutation. It would have prevented treating a
+pass as independent confirmation without another untouched experiment.
+
 H50-L13 asks:
 
 > Can Darwin direct exploration toward information about the current optimal

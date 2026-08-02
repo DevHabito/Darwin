@@ -189,6 +189,19 @@ The aggregate output is stored in
 Seeds `23200–23231` are retired and will not be reused for controller selection
 or confirmation.
 
+## Post-run protocol deviation
+
+The frozen interpretation rules stated that these diagnostic seeds would not be
+used to choose H50-L13's algorithm. H50-L13 was subsequently designed around
+the audit's parameter-channel diagnosis. That is a protocol deviation and is
+recorded here rather than silently rewriting the original rule.
+
+The deviation does not rescue or alter H50-L13's refuted final result. Its final
+seeds remained disjoint and held out. It does mean the audit must be treated as
+adaptive design evidence for H50-L13, not as independent support for that
+controller. A positive H50-L13 result would have required a new independent
+confirmation before promotion.
+
 ## Integrity checks
 
 - The candidate implementation and random streams remain unchanged.
