@@ -46,6 +46,8 @@ does not turn a partial win into a pass when a pre-registered criterion misses.
 | H50-L9 | Does episodic action memory improve bandit feedback enough? | Refuted |
 | H50-L10 | Can learned finite-history dynamics support multistep planning? | Passed locally |
 | H50-L11 | Can learned order and reward produce robust stochastic planning? | Refuted |
+| H50-L12 | Does online posterior sampling beat registered learned controls? | Refuted |
+| H50-L13 | Does information-directed control remove that exploration cost? | Refuted |
 
 “Passed locally” means the implementation met its registered thresholds under
 the repository's own automated evaluator. It is E1 evidence, not independent
@@ -137,6 +139,14 @@ The subsequent
 ruled out block staleness as the dominant explanation but could not distinguish
 posterior-ensemble effects from the randomized mixture strongly enough to
 justify another controller. H50-L14 is not registered.
+
+The next research gate is
+[cross-world transfer](docs/v50/RESEARCH_NOTE_CROSS_WORLD_TRANSFER.md). Current
+agents discard their learned prior when a new world begins, while the existing
+world generator does not contain an aligned task-family structure that would
+make naive pooling meaningful. The note defines the benchmark and
+negative-transfer checks that must pass before a new capability hypothesis can
+be registered. It reports no new experimental result.
 
 ## Contributing
 

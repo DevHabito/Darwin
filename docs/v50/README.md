@@ -43,6 +43,16 @@ replicated the deficit and ruled out block staleness as the dominant channel,
 but could not resolve ensemble versus mixture dominance. H50-L14 is not
 registered.
 
+## Next research gate
+
+The [cross-world transfer note](RESEARCH_NOTE_CROSS_WORLD_TRANSFER.md) examines
+the next architectural limit: every current world starts with an uninformative,
+world-local prior. The note rejects direct archive pooling and an immediate
+successor-feature or neural implementation. It specifies the benchmark
+validation, related-task assumptions, and negative-transfer controls required
+before H50-L14 can be registered. It is a design record, not experimental
+evidence.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

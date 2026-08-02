@@ -277,6 +277,20 @@ Decision: diagnostic only; channel dominance unresolved. H50-L14 is not
 registered. Audit seeds are retired. See
 [Experiment 019](EXPERIMENT_019_INFORMATION_DIRECTED_FAILURE_AUDIT.md).
 
+### Cross-world transfer gate
+
+The current online model creates independent `Beta(1, 1)` priors and a new
+archive for every world. Existing worlds randomize both actionable dynamics and
+reward mappings, so their shared marginal structure does not by itself provide
+useful aligned transfer.
+
+The next research step is therefore a benchmark prerequisite, not H50-L14. It
+must define an explicit related-task family, show that an oracle family prior
+has an early-target advantage on related but not unrelated targets, and include
+negative-transfer controls. Only then may a hierarchical prior candidate and
+final seed families be pre-registered. See the
+[cross-world transfer research gate](RESEARCH_NOTE_CROSS_WORLD_TRANSFER.md).
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
