@@ -13,6 +13,7 @@ from darwin_v50.cross_world_transfer_lab import (
     require_disjoint_seed_sets,
     transfer_cell_keys,
 )
+from darwin_v50.learned_context_lab import CONTEXT_ACTIONS
 from darwin_v50.models import ValidationError
 
 
@@ -155,6 +156,30 @@ class TransferTaskAndPriorTests(unittest.TestCase):
             (updated.transition_probability, updated.reward_probability),
             (0.5, 0.5),
         )
+
+    def test_peek_compares_actions_without_creating_evidence(self) -> None:
+        model = PrequentialTransferModel(
+            world_id=self.world_specification.world_id,
+            prior=TransferPrior.scratch(),
+        )
+        context, action = transfer_cell_keys()[0]
+        other_action = next(
+            candidate for candidate in CONTEXT_ACTIONS
+            if candidate != action
+        )
+        first = model.peek(context, action)
+        second = model.peek(context, other_action)
+        self.assertEqual(first.index, 0)
+        self.assertEqual(second.index, 0)
+        self.assertIsNone(model.pending)
+        self.assertEqual(model.archive, ())
+        with self.assertRaises(ValidationError):
+            model.observe(
+                AlignedTransferTask(
+                    self.world_specification,
+                    outcome_seed=26214,
+                ).act(context, action)
+            )
 
     def test_observation_cannot_cross_worlds_or_actions(self) -> None:
         model = PrequentialTransferModel(

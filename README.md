@@ -191,6 +191,13 @@ known-alignment predictive prior transfer. It remains a synthetic tabular E1
 result: source training costs 32 times the target budget, negative transfer is
 limited rather than eliminated, and policy or reward transfer was not tested.
 
+The next gate is deliberately narrower than reinforcement learning. The
+[contextual reward transfer note](docs/v50/RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md)
+defines an exogenous-context bandit in which prediction can affect a chosen
+action and immediate reward. [Experiment 025](docs/v50/EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md)
+pre-registers an oracle-only sensitivity check. H50-L15 is not registered, and
+no learned reward-transfer result is claimed.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

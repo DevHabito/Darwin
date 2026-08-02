@@ -525,15 +525,13 @@ class GatedTransferModel:
             raise ValidationError("gated model archives disagree")
         return self._source.archive
 
-    def forecast(
-        self, context: ContextState, action: str
+    def _combine(
+        self,
+        source: TransferForecast,
+        scratch: TransferForecast,
     ) -> TransferForecast:
-        if self._pending is not None:
-            raise ValidationError("pending gated forecast must be observed")
-        source = self._source.forecast(context, action)
-        scratch = self._scratch.forecast(context, action)
         weight = self.source_weight
-        combined = TransferForecast(
+        return TransferForecast(
             world_id=self.world_id,
             index=source.index,
             context=source.context,
@@ -547,6 +545,25 @@ class GatedTransferModel:
                 + (1.0 - weight) * scratch.reward_probability
             ),
         )
+
+    def peek(
+        self, context: ContextState, action: str
+    ) -> TransferForecast:
+        if self._pending is not None:
+            raise ValidationError("pending gated forecast must be observed")
+        return self._combine(
+            self._source.peek(context, action),
+            self._scratch.peek(context, action),
+        )
+
+    def forecast(
+        self, context: ContextState, action: str
+    ) -> TransferForecast:
+        if self._pending is not None:
+            raise ValidationError("pending gated forecast must be observed")
+        source = self._source.forecast(context, action)
+        scratch = self._scratch.forecast(context, action)
+        combined = self._combine(source, scratch)
         self._pending = (combined, source, scratch)
         return combined
 

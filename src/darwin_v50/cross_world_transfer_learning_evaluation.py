@@ -285,7 +285,7 @@ class TransferLearningDevelopmentReport:
         }
 
 
-def _target_family(
+def target_family_for_condition(
     *,
     source: TransferFamilySpecification,
     seed: int,
@@ -334,7 +334,7 @@ def evaluate_learning_world(
     )
     learned_prior = learn_transfer_prior(source_evidence)
     pooled_prior = pooled_source_prior(source_evidence)
-    target_family = _target_family(
+    target_family = target_family_for_condition(
         source=source_family,
         seed=normalized_seed,
         condition=condition,

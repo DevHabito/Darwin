@@ -16,6 +16,7 @@ from darwin_v50.cross_world_transfer_learning import (
     pooled_source_prior,
     permuted_transfer_prior,
 )
+from darwin_v50.learned_context_lab import CONTEXT_ACTIONS
 from darwin_v50.models import ValidationError
 
 
@@ -212,6 +213,19 @@ class CompatibilityGateTests(unittest.TestCase):
             GatedTransferModel.from_snapshot(
                 '{"schema":1,"schema":1}'
             )
+
+    def test_peek_does_not_change_gate_or_archive(self) -> None:
+        model = GatedTransferModel(
+            world_id="gate-test-world",
+            source_prior=self.source_prior,
+            initial_source_weight=0.5,
+        )
+        before = model.to_snapshot()
+        for action in CONTEXT_ACTIONS:
+            forecast = model.peek(self.context, action)
+            self.assertEqual(forecast.action, action)
+        self.assertEqual(model.to_snapshot(), before)
+        self.assertEqual(model.source_weight, 0.5)
 
 
 if __name__ == "__main__":

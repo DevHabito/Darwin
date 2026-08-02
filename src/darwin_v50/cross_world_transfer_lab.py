@@ -504,7 +504,7 @@ class PrequentialTransferModel:
     def pending(self) -> TransferForecast | None:
         return self._pending
 
-    def forecast(
+    def peek(
         self, context: ContextState, action: str
     ) -> TransferForecast:
         if self._pending is not None:
@@ -514,7 +514,7 @@ class PrequentialTransferModel:
         key = (context, validated_action)
         counts = self._counts[key]
         prior = self.prior.cell(context, validated_action)
-        forecast = TransferForecast(
+        return TransferForecast(
             world_id=self.world_id,
             index=len(self._archive),
             context=context,
@@ -536,6 +536,11 @@ class PrequentialTransferModel:
                 + counts[3]
             ),
         )
+
+    def forecast(
+        self, context: ContextState, action: str
+    ) -> TransferForecast:
+        forecast = self.peek(context, action)
         self._pending = forecast
         return forecast
 

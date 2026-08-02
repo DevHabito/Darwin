@@ -350,6 +350,20 @@ transfer in the synthetic tabular family. This is E1 local evidence and does
 not establish policy transfer, reward improvement, unknown alignment, or
 general lifelong learning.
 
+### Contextual reward transfer gate
+
+The next question is restricted to immediate action selection under exogenous
+contexts. It is a contextual bandit, not multistep control. H50-L15 remains
+unregistered.
+
+[Experiment 025](EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md) pre-registers
+an evaluator-only oracle sensitivity check on seeds `30300–30331`. It freezes
+64 target interactions, epsilon `0.10`, paired reward and pseudo-regret
+comparisons, 5,000 bootstrap resamples, and ten conjunctive criteria before any
+validation execution. Passing it can only authorize learned-candidate
+development. See the
+[contextual reward transfer gate](RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md).
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

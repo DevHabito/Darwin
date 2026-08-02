@@ -105,6 +105,18 @@ algorithm or threshold change. It passed all 12 criteria in one clean run.
 H50-L14 is therefore passed locally at E1 for the narrow known-alignment
 predictive-transfer claim.
 
+## Next research gate
+
+H50-L14 did not test whether better prediction changes an action or earns
+reward. The [contextual reward transfer note](RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md)
+therefore narrows the next step to an exogenous-context bandit. H50-L15 is not
+registered.
+
+[Experiment 025](EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md) pre-registers
+an evaluator-only oracle sensitivity check on fresh validation seeds. A pass
+would permit development of a source-learned decision candidate; it would not
+be evidence that Darwin already transfers a policy or improves reward.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
