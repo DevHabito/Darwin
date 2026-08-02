@@ -317,12 +317,18 @@ class AlignedTransferTask:
         specification: TransferWorldSpecification,
         *,
         outcome_seed: int,
+        public_world_id: str | None = None,
     ) -> None:
         if not isinstance(specification, TransferWorldSpecification):
             raise ValidationError("transfer world specification is invalid")
         validated_seed = _validate_seed(outcome_seed, "outcome seed")
+        if public_world_id is None:
+            public_world_id = specification.world_id
+        if not isinstance(public_world_id, str) or not public_world_id:
+            raise ValidationError("public world id is invalid")
         self.specification = specification
         self.outcome_seed = validated_seed
+        self.world_id = public_world_id
         self._rng = random.Random(validated_seed ^ TRANSFER_OUTCOME_XOR_MASK)
         self._index = 0
 
@@ -333,7 +339,7 @@ class AlignedTransferTask:
         validated_action = _validate_action(action)
         cell = self.specification.cell(context, validated_action)
         observation = TransferObservation(
-            world_id=self.specification.world_id,
+            world_id=self.world_id,
             index=self._index,
             context=context,
             action=validated_action,

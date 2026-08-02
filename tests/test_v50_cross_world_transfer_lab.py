@@ -101,6 +101,21 @@ class TransferTaskAndPriorTests(unittest.TestCase):
         self.assertEqual(second.index, 1)
         self.assertNotIn("counterfactual", first.__dataclass_fields__)
 
+    def test_task_can_hide_evaluator_seed_identity(self) -> None:
+        task = AlignedTransferTask(
+            self.world_specification,
+            outcome_seed=26213,
+            public_world_id="opaque-task",
+        )
+        context, action = transfer_cell_keys()[0]
+        observation = task.act(context, action)
+        self.assertEqual(observation.world_id, "opaque-task")
+        self.assertNotIn(str(self.family.seed), observation.world_id)
+        self.assertNotIn(
+            str(self.world_specification.world_seed),
+            observation.world_id,
+        )
+
     def test_oracle_prior_matches_hidden_family_distribution(self) -> None:
         prior = TransferPrior.oracle(self.family)
         self.assertTrue(prior.provenance.startswith("evaluator-oracle"))

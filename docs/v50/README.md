@@ -61,6 +61,12 @@ family prior helped on every related validation world and harmed incompatible
 targets. This validates the benchmark, not Darwin's ability to learn or
 transfer the prior. H50-L14 remains unregistered.
 
+[Experiment 021](EXPERIMENT_021_SOURCE_LEARNED_PRIOR_DEVELOPMENT.md)
+pre-registers the next development step: estimate a Beta-Binomial prior only
+from source observations and combine it with scratch learning through an online
+compatibility gate. It has no confirmatory pass rule and cannot promote
+H50-L14.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

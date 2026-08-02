@@ -221,6 +221,12 @@ The first prerequisite is specified in
 evaluator-only oracle to test benchmark sensitivity before any learned-prior
 candidate is introduced.
 
+After that benchmark passed, the source-only estimator and compatibility-gate
+development grid were specified in
+[Experiment 021](EXPERIMENT_021_SOURCE_LEARNED_PRIOR_DEVELOPMENT.md). This stage
+selects a configuration on development tasks and still cannot support a
+capability claim.
+
 ## Primary sources
 
 - Wilson, A., Fern, A., and Tadepalli, P. (2012),
