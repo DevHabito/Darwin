@@ -148,6 +148,14 @@ make naive pooling meaningful. The note defines the benchmark and
 negative-transfer checks that must pass before a new capability hypothesis can
 be registered. It reports no new experimental result.
 
+The first prerequisite
+[benchmark](docs/v50/EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md) has now
+passed locally. An evaluator-only exact family prior improved early prediction
+on every related validation world and was decisively harmful on unrelated and
+adversarial families. That establishes benchmark sensitivity only: Darwin has
+not yet learned the prior from source worlds or used transferred knowledge to
+control a target. H50-L14 remains unregistered.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

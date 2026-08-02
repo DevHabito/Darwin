@@ -291,6 +291,14 @@ negative-transfer controls. Only then may a hierarchical prior candidate and
 final seed families be pre-registered. See the
 [cross-world transfer research gate](RESEARCH_NOTE_CROSS_WORLD_TRANSFER.md).
 
+[Experiment 020](EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md) passed this
+prerequisite on validation seeds `27100–27131`. Related log-loss improvement
+was `0.1591006`, while unrelated and adversarial improvements were
+`-0.1984957` and `-0.3781785`. The result shows that the synthetic benchmark is
+sensitive to prior compatibility. The evaluator supplied the oracle prior, so
+this is not evidence that Darwin learned or transferred it. H50-L14 remains
+unregistered.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

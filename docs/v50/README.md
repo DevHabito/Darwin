@@ -56,8 +56,10 @@ evidence.
 The first prerequisite is pre-registered as
 [Experiment 020](EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md). It tests
 whether an evaluator-only oracle can distinguish related from incompatible
-families. Even a pass would validate the benchmark, not Darwin's ability to
-learn or transfer the prior.
+families. The benchmark passed all registered sensitivity rules: the exact
+family prior helped on every related validation world and harmed incompatible
+targets. This validates the benchmark, not Darwin's ability to learn or
+transfer the prior. H50-L14 remains unregistered.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

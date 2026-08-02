@@ -1,8 +1,8 @@
 # Experiment 020 — cross-world transfer benchmark sensitivity
 
-Status: pre-registered benchmark validation. No validation result had been run
-when this section was committed. This is not H50-L14 and cannot establish a
-transfer capability.
+Status: passed benchmark sensitivity locally. The pre-registration and
+evaluator were committed as `1bf0dd9` before the validation run. This is not
+H50-L14 and does not establish a transfer capability.
 
 ## Question
 
@@ -133,4 +133,29 @@ capability.
 
 ## Result
 
-Not run at pre-registration time.
+Validation seeds `27100–27131` were run once after pre-registration. All eight
+rules passed.
+
+| Condition | Log-loss improvement, 95% interval | Brier improvement, 95% interval | Log-loss win rate |
+| --- | ---: | ---: | ---: |
+| Related | `0.1591006` [`0.1467310`, `0.1712626`] | `0.0649069` [`0.0607942`, `0.0690467`] | `1.0` |
+| Unrelated | `-0.1984957` [`-0.2362528`, `-0.1614127`] | `-0.0813457` [`-0.0963305`, `-0.0662869`] | `0.03125` |
+| Adversarial | `-0.3781785` [`-0.3935068`, `-0.3619505`] | `-0.1713448` [`-0.1779082`, `-0.1645517`] | `0.0` |
+
+The related interval cleared both positive margins and the oracle won all 32
+related worlds. The unrelated and adversarial intervals were entirely
+negative, clearing the registered incompatibility margins. Determinism,
+balanced coverage, prequential ordering, and cross-world rejection tests also
+passed.
+
+Decision: **passed benchmark sensitivity locally**. The benchmark can expose
+the advantage of the exact compatible family prior and the damage of applying
+that same prior to incompatible families.
+
+This is a property of the evaluator and generator. The oracle did not infer the
+prior from source observations, and no policy used it to earn reward. H50-L14
+remains unregistered. Validation seeds are retired from any altered benchmark
+claim and from future final evaluation.
+
+The machine-readable aggregate is
+[`results/EXPERIMENT_020_VALIDATION_AGGREGATE.json`](results/EXPERIMENT_020_VALIDATION_AGGREGATE.json).
