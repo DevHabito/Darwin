@@ -216,6 +216,11 @@ H50-L14 may be registered only after:
 If any prerequisite fails, record that failure and change the benchmark only on
 new seed families. Do not turn the prerequisite run into a capability result.
 
+The first prerequisite is specified in
+[Experiment 020](EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md). It uses an
+evaluator-only oracle to test benchmark sensitivity before any learned-prior
+candidate is introduced.
+
 ## Primary sources
 
 - Wilson, A., Fern, A., and Tadepalli, P. (2012),

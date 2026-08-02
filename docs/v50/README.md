@@ -53,6 +53,12 @@ validation, related-task assumptions, and negative-transfer controls required
 before H50-L14 can be registered. It is a design record, not experimental
 evidence.
 
+The first prerequisite is pre-registered as
+[Experiment 020](EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md). It tests
+whether an evaluator-only oracle can distinguish related from incompatible
+families. Even a pass would validate the benchmark, not Darwin's ability to
+learn or transfer the prior.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
