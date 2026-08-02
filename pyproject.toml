@@ -24,6 +24,7 @@ darwin-temporal-lab = "darwin_v50.temporal_evaluation:main"
 darwin-uncertainty-lab = "darwin_v50.uncertainty_evaluation:main"
 darwin-online-posterior-lab = "darwin_v50.online_posterior_evaluation:main"
 darwin-posterior-audit = "darwin_v50.online_posterior_diagnostics:main"
+darwin-information-directed-lab = "darwin_v50.information_directed_evaluation:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

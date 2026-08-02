@@ -66,3 +66,11 @@ H50-L12 tested one part of that boundary: online action selection while the
 transition and reward model was still being learned. It was refuted because
 accurate posterior learning did not translate into the registered cumulative
 control advantage.
+
+The H50-L12 failure audit localized the persistent action perturbations to
+sampled transition and reward parameters after context order had converged.
+H50-L13 now provides an unevaluated blockwise information-directed controller.
+It estimates regret and mutual information about the current posterior-optimal
+action from 16 tabular posterior models, then selects a two-action mixture. This
+is a finite-sample engineering approximation, not an implementation of a
+published regret theorem.

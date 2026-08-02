@@ -160,6 +160,10 @@ from .online_posterior_lab import (
     OutcomeCounts,
     ProbabilityTableModel,
 )
+from .information_directed_lab import (
+    InformationDirectedAgent,
+    InformationDirectedDecision,
+)
 from .models import (
     ComparisonCondition,
     ComparisonOperator,
@@ -233,6 +237,8 @@ __all__ = [
     "INTERACTIVE_TTY_CHANNEL",
     "InteractiveConsentGate",
     "InformationDecision",
+    "InformationDirectedAgent",
+    "InformationDirectedDecision",
     "IsolationAssessment",
     "IsolationMechanism",
     "IsolationPolicyError",
