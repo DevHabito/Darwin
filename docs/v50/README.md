@@ -112,10 +112,11 @@ reward. The [contextual reward transfer note](RESEARCH_NOTE_CONTEXTUAL_REWARD_TR
 therefore narrows the next step to an exogenous-context bandit. H50-L15 is not
 registered.
 
-[Experiment 025](EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md) pre-registers
-an evaluator-only oracle sensitivity check on fresh validation seeds. A pass
-would permit development of a source-learned decision candidate; it would not
-be evidence that Darwin already transfers a policy or improves reward.
+[Experiment 025](EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md) tested an
+evaluator-only oracle sensitivity check on fresh validation seeds. Nine of ten
+criteria passed, but the related simultaneous-win interval missed its frozen
+lower bound. The benchmark is refuted, learned-candidate development remains
+blocked, and H50-L15 remains unregistered.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

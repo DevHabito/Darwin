@@ -195,8 +195,9 @@ The next gate is deliberately narrower than reinforcement learning. The
 [contextual reward transfer note](docs/v50/RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md)
 defines an exogenous-context bandit in which prediction can affect a chosen
 action and immediate reward. [Experiment 025](docs/v50/EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md)
-pre-registers an oracle-only sensitivity check. H50-L15 is not registered, and
-no learned reward-transfer result is claimed.
+then passed nine of ten frozen oracle-sensitivity rules, but failed the related
+simultaneous-win interval. The benchmark is refuted, H50-L15 is not registered,
+and no learned reward-transfer result is claimed.
 
 ## Contributing
 

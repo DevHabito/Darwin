@@ -364,6 +364,12 @@ validation execution. Passing it can only authorize learned-candidate
 development. See the
 [contextual reward transfer gate](RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md).
 
+The validation was executed once after commit `793c686`. Nine criteria passed,
+including positive related reward and pseudo-regret intervals, but the related
+simultaneous-win interval was [`0.65625`, `0.9375`] against a frozen lower bound
+of `0.75`. Decision: **refuted benchmark**. Candidate development is blocked,
+the validation seeds are retired, and H50-L15 remains unregistered.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

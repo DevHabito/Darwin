@@ -1,8 +1,8 @@
 # Experiment 025 — contextual decision benchmark sensitivity
 
-Status: pre-registered benchmark validation. Validation seeds had not been run
-when this document, evaluator, and frozen criteria were committed. This is not
-H50-L15 and cannot establish a learned transfer capability.
+Status: refuted benchmark. Validation seeds had not been run when this
+document, evaluator, and frozen criteria were committed as `793c686`. This is
+not H50-L15 and does not establish a learned transfer capability.
 
 ## Question
 
@@ -126,4 +126,32 @@ capability.
 
 ## Result
 
-Not run at pre-registration time.
+Validation seeds `30300–30331` were executed once after pre-registration. Nine
+of ten criteria passed. The related simultaneous-win interval missed its frozen
+lower bound, so the benchmark is refuted.
+
+| Metric | Mean | 95% interval | Frozen rule | Result |
+| --- | ---: | ---: | ---: | --- |
+| Related reward improvement | `1.9375` | [`1.4375`, `2.46875`] | low `>= 1.0` | pass |
+| Related pseudo-regret reduction | `1.826751` | [`1.354262`, `2.337514`] | low `>= 0.75` | pass |
+| Related preferred-action improvement | `0.128906` | [`0.097656`, `0.160156`] | low `>= 0.05` | pass |
+| Related simultaneous-win rate | `0.8125` | [`0.65625`, `0.9375`] | low `>= 0.75` | **fail** |
+| Unrelated reward improvement | `-1.0` | [`-2.0625`, `0.0`] | high `<= 0.0` | pass |
+| Unrelated pseudo-regret reduction | `-1.096078` | [`-2.206544`, `-0.158017`] | high `<= 0.0` | pass |
+| Adversarial reward improvement | `-10.46875` | [`-11.5`, `-9.46875`] | high `<= -2.0` | pass |
+| Adversarial pseudo-regret reduction | `-11.229672` | [`-11.932057`, `-10.518452`] | high `<= -5.0` | pass |
+
+Causal archive and opaque-identity rates were both `1.0`.
+
+Decision: **refuted benchmark**. The aggregate related effect is positive, but
+the pre-registered robustness rule requires stronger evidence that reward and
+pseudo-regret improve together across worlds. The favorable nine-criterion
+subset is not promoted. Validation seeds are retired, candidate development is
+blocked, and H50-L15 remains unregistered.
+
+The unrelated reward interval ends exactly at its permitted upper boundary,
+which is additional evidence that the mismatch behavior is not comfortably
+separated under this policy.
+
+The machine-readable record is
+[`results/EXPERIMENT_025_VALIDATION_AGGREGATE.json`](results/EXPERIMENT_025_VALIDATION_AGGREGATE.json).
