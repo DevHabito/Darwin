@@ -48,6 +48,7 @@ does not turn a partial win into a pass when a pre-registered criterion misses.
 | H50-L11 | Can learned order and reward produce robust stochastic planning? | Refuted |
 | H50-L12 | Does online posterior sampling beat registered learned controls? | Refuted |
 | H50-L13 | Does information-directed control remove that exploration cost? | Refuted |
+| H50-L14 | Can source observations improve prediction in aligned related worlds while gating mismatch? | Passed locally |
 
 “Passed locally” means the implementation met its registered thresholds under
 the repository's own automated evaluator. It is E1 evidence, not independent
@@ -184,8 +185,11 @@ pending a fresh independent confirmation.
 
 That exact
 [independent confirmation](docs/v50/EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
-is now pre-registered on fresh seeds `29500–29599`, with no algorithm or
-threshold change. No confirmation result is claimed before its one-time run.
+passed all 12 frozen criteria on fresh seeds `29500–29599` in one clean run,
+with no algorithm or threshold change. H50-L14 therefore passes locally for
+known-alignment predictive prior transfer. It remains a synthetic tabular E1
+result: source training costs 32 times the target budget, negative transfer is
+limited rather than eliminated, and policy or reward transfer was not tested.
 
 ## Contributing
 

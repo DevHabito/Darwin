@@ -1,7 +1,9 @@
 # Experiment 024 — independent H50-L14 confirmation
 
-Status: pre-registered independent confirmation. Confirmation seeds had not
-been run when this document and seed constants were committed.
+Status: passed in a fresh-seed local confirmation. The confirmation protocol
+and fresh seed constants were committed as `dc155c0` before execution. Here,
+"independent" means independent seeds and a separate execution, not an
+external replication.
 
 ## Purpose
 
@@ -75,4 +77,33 @@ consciousness, personhood, AGI, or a Diana-like brain.
 
 ## Result
 
-Not run at pre-registration time.
+Seeds `29500–29599` were executed once after pre-registration. All 12 criteria
+passed.
+
+| Metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related gated improvement | `0.1643499` | [`0.1577842`, `0.1705710`] |
+| Related candidate minus shuffled | `0.1686076` | [`0.1621155`, `0.1747192`] |
+| Related oracle-gap closure | `0.9234612` | [`0.9115316`, `0.9345420`] |
+| Unrelated gated improvement | `-0.0042322` | [`-0.0051118`, `-0.0031601`] |
+| Adversarial gated improvement | `-0.0043924` | [`-0.0048629`, `-0.0039235`] |
+| Related simultaneous win rate | `1.0` | [`1.0`, `1.0`] |
+
+Mean final source weight was `0.9999982` on related targets, `0.0184735` on
+unrelated targets, and effectively zero on adversarial targets. Causal archive,
+snapshot round trip, and public identity rates were `1.0`. The local kernel
+accepted the observation and marked the full conjunction satisfied.
+
+Decision: **H50-L14 passed locally**. Together with the supportive numerical
+result from Experiment 023, this clean fresh-seed local run supports the narrow
+claim that a source-learned prior transfers predictive information to held-out
+related tasks with known alignment while an online gate limits, but does not
+eliminate, incompatible transfer.
+
+The source cost remains 2,048 interactions for 64 target interactions. The
+candidate still loses `0.0042322` and `0.0043924` relative to scratch on
+unrelated and adversarial targets. No policy or cumulative reward improvement
+was tested.
+
+The machine-readable record is
+[`results/EXPERIMENT_024_INDEPENDENT_CONFIRMATION_AGGREGATE.json`](results/EXPERIMENT_024_INDEPENDENT_CONFIRMATION_AGGREGATE.json).

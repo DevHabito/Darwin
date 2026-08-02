@@ -340,7 +340,15 @@ pre-registered independent confirmation is required. See Experiment 023.
 [Experiment 024](EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
 freezes an exact independent repetition on seeds `29500–29599` with bootstrap
 seed `30100`. No method or threshold changed after Experiment 023. Status:
-registered, not run.
+all 12 criteria passed in one clean execution. Related improvement was
+`0.1643499`, candidate-minus-shuffled was `0.1686076`, and oracle-gap closure
+was `0.9234612`. Unrelated and adversarial improvements were `-0.0042322` and
+`-0.0043924`, within the registered tolerance. Integrity rates were `1.0`.
+
+Decision: **H50-L14 passed locally** for known-alignment predictive prior
+transfer in the synthetic tabular family. This is E1 local evidence and does
+not establish policy transfer, reward improvement, unknown alignment, or
+general lifelong learning.
 
 ## Standing safety boundary
 

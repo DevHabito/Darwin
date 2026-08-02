@@ -92,7 +92,7 @@ pre-registration; it is not a capability pass.
 
 | Hypothesis | Experiment | Result |
 | --- | --- | --- |
-| H50-L14 | [023 — known-alignment predictive transfer](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md) | Numerical pass; confirmation required |
+| H50-L14 | [023 — known-alignment predictive transfer](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md) and [024 — independent confirmation](EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md) | Passed locally |
 
 H50-L14 passed all 12 numerical criteria, but the output wrapper failed after
 the first completed run and the exact evaluator was repeated to recover the
@@ -101,7 +101,9 @@ promotion is withheld until a fresh independent confirmation.
 
 [Experiment 024](EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
 pre-registers that exact confirmation on fresh seeds `29500–29599`, without any
-algorithm or threshold change. Status: registered, not run.
+algorithm or threshold change. It passed all 12 criteria in one clean run.
+H50-L14 is therefore passed locally at E1 for the narrow known-alignment
+predictive-transfer claim.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
