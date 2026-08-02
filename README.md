@@ -174,11 +174,13 @@ small measurable losses on incompatible targets and a 32-to-1 source/target
 interaction ratio. This permits pre-registration of H50-L14; it still does not
 establish a transfer capability.
 
-H50-L14 is now
-[pre-registered](docs/v50/EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md)
-with 100 untouched final family seeds and 12 conjunctive criteria. It claims
-only known-alignment predictive prior transfer in the synthetic tabular family.
-No final result has been run or claimed at pre-registration time.
+H50-L14's
+[confirmatory run](docs/v50/EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md)
+met all 12 numerical criteria. Its first result wrapper failed after evaluation
+but before exposing metrics, so the exact evaluator was repeated to recover the
+output. Because that violated the literal one-run rule, the result is recorded
+as supportive but procedurally inconclusive. Capability promotion is withheld
+pending a fresh independent confirmation.
 
 ## Contributing
 

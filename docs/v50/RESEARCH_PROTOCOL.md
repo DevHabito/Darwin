@@ -328,7 +328,14 @@ related transition-and-reward prediction while a Bayesian compatibility gate
 limits loss on unrelated and adversarial targets. Final seeds are
 `28500–28599`; 12 behavioral and integrity criteria are conjunctive.
 
-Status: registered, not run. No H50-L14 capability result exists yet.
+All 12 numerical criteria passed on final seeds `28500–28599`. The first
+completed execution produced no visible metrics because the result wrapper
+raised `AttributeError`; the exact deterministic evaluator was repeated without
+any adaptive change to recover its output. This made the final execution count
+two and violated the literal one-run rule.
+
+Decision: numerical support recorded, capability promotion withheld. A fresh,
+pre-registered independent confirmation is required. See Experiment 023.
 
 ## Standing safety boundary
 

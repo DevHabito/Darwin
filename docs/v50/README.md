@@ -92,11 +92,12 @@ pre-registration; it is not a capability pass.
 
 | Hypothesis | Experiment | Result |
 | --- | --- | --- |
-| H50-L14 | [023 — known-alignment predictive transfer](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md) | Registered, not run |
+| H50-L14 | [023 — known-alignment predictive transfer](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md) | Numerical pass; confirmation required |
 
-H50-L14 freezes the learned prior, compatibility gate, source-shuffled control,
-100 final family seeds, and 12 conjunctive criteria. No final result is claimed
-before that one-time run.
+H50-L14 passed all 12 numerical criteria, but the output wrapper failed after
+the first completed run and the exact evaluator was repeated to recover the
+unseen result. Because this violated the literal one-run rule, capability
+promotion is withheld until a fresh independent confirmation.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

@@ -1,0 +1,105 @@
+{
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 29100,
+  "criteria": {
+    "adversarial_improvement_low_at_least_minus_0_01": true,
+    "adversarial_source_weight_high_at_most_0_05": true,
+    "causal_archive_rate_equals_1": true,
+    "oracle_gap_closure_low_at_least_0_80": true,
+    "public_identity_rate_equals_1": true,
+    "related_improvement_low_at_least_0_12": true,
+    "related_simultaneous_win_rate_low_at_least_0_75": true,
+    "related_source_weight_low_at_least_0_95": true,
+    "related_vs_shuffled_low_at_least_0_10": true,
+    "snapshot_round_trip_rate_equals_1": true,
+    "unrelated_improvement_low_at_least_minus_0_01": true,
+    "unrelated_source_weight_high_at_most_0_20": true
+  },
+  "decision": "independent_confirmation_required",
+  "evidence_level": "E1_LOCAL_AUTOMATED_EVALUATOR_WITH_OPERATIONAL_DEVIATION",
+  "final_seeds": [
+    28500, 28501, 28502, 28503, 28504, 28505, 28506, 28507, 28508, 28509,
+    28510, 28511, 28512, 28513, 28514, 28515, 28516, 28517, 28518, 28519,
+    28520, 28521, 28522, 28523, 28524, 28525, 28526, 28527, 28528, 28529,
+    28530, 28531, 28532, 28533, 28534, 28535, 28536, 28537, 28538, 28539,
+    28540, 28541, 28542, 28543, 28544, 28545, 28546, 28547, 28548, 28549,
+    28550, 28551, 28552, 28553, 28554, 28555, 28556, 28557, 28558, 28559,
+    28560, 28561, 28562, 28563, 28564, 28565, 28566, 28567, 28568, 28569,
+    28570, 28571, 28572, 28573, 28574, 28575, 28576, 28577, 28578, 28579,
+    28580, 28581, 28582, 28583, 28584, 28585, 28586, 28587, 28588, 28589,
+    28590, 28591, 28592, 28593, 28594, 28595, 28596, 28597, 28598, 28599
+  ],
+  "integrity": {
+    "causal_archive_rate": 1.0,
+    "public_identity_rate": 1.0,
+    "snapshot_round_trip_rate": 1.0
+  },
+  "kernel": {
+    "accepted": true,
+    "condition_satisfied": true,
+    "goal_status": "succeeded",
+    "reason": "condition_satisfied"
+  },
+  "metrics": {
+    "adversarial_final_source_weight": {
+      "high": 3.8824830913339715e-16,
+      "low": 6.901999753000925e-18,
+      "mean": 1.433197727388433e-16
+    },
+    "adversarial_gated_improvement": {
+      "high": -0.0042615072358870906,
+      "low": -0.005224979182163592,
+      "mean": -0.00475257697001984
+    },
+    "related_candidate_minus_shuffled": {
+      "high": 0.1750908712466831,
+      "low": 0.16267847427528012,
+      "mean": 0.16894498914209033
+    },
+    "related_final_source_weight": {
+      "high": 0.999999974180522,
+      "low": 0.9999996164133185,
+      "mean": 0.9999998437450313
+    },
+    "related_gated_improvement": {
+      "high": 0.17021565086731505,
+      "low": 0.15790071586250912,
+      "mean": 0.16411945408439352
+    },
+    "related_oracle_gap_closure": {
+      "high": 0.9447894185628395,
+      "low": 0.9208945852323184,
+      "mean": 0.9330069738458657
+    },
+    "related_simultaneous_win_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "unrelated_final_source_weight": {
+      "high": 0.021480566744882527,
+      "low": 1.556822706483874e-05,
+      "mean": 0.007379554099222089
+    },
+    "unrelated_gated_improvement": {
+      "high": -0.0045766335194651385,
+      "low": -0.006336842008667187,
+      "mean": -0.005445927114908116
+    }
+  },
+  "numerical_decision": "all_12_criteria_passed",
+  "operational_deviation": {
+    "adaptive_change_after_first_run": false,
+    "description": "The first evaluator execution completed, then result serialization raised AttributeError before any metric was printed or inspected. The exact evaluator was repeated without code, seed, threshold, or configuration changes to recover the deterministic output.",
+    "final_seed_execution_count": 2,
+    "promotion_withheld": true
+  },
+  "selected_configuration": {
+    "initial_source_weight": 0.5,
+    "source_cycles": 8,
+    "source_interactions": 2048,
+    "source_tasks": 16,
+    "target_interactions": 64
+  },
+  "status": "confirmatory_metrics_supportive_procedure_inconclusive"
+}

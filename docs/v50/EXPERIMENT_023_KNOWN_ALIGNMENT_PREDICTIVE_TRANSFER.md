@@ -1,7 +1,8 @@
 # Experiment 023 — H50-L14 known-alignment predictive transfer
 
-Status: pre-registered confirmatory experiment. Final seeds had not been run
-when this document, evaluator, and decision rule were committed.
+Status: all numerical criteria passed, but capability promotion is withheld
+pending independent confirmation because of a disclosed output-recovery rerun.
+The pre-registration was committed as `1256909` before either execution.
 
 ## H50-L14 capability claim
 
@@ -151,4 +152,39 @@ consciousness, personhood, AGI, or a brain comparable to Diana from
 
 ## Result
 
-Not run at pre-registration time.
+All 12 registered numerical and integrity rules passed on seeds
+`28500–28599`.
+
+| Metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related gated improvement | `0.1641195` | [`0.1579007`, `0.1702157`] |
+| Related candidate minus shuffled | `0.1689450` | [`0.1626785`, `0.1750909`] |
+| Related oracle-gap closure | `0.9330070` | [`0.9208946`, `0.9447894`] |
+| Unrelated gated improvement | `-0.0054459` | [`-0.0063368`, `-0.0045766`] |
+| Adversarial gated improvement | `-0.0047526` | [`-0.0052250`, `-0.0042615`] |
+| Related simultaneous win rate | `1.0` | [`1.0`, `1.0`] |
+
+Causal archive, snapshot round trip, and public identity rates were all `1.0`.
+The local kernel accepted the observation and marked its Boolean conjunction
+satisfied.
+
+### Operational deviation
+
+The first final evaluator execution completed, but the wrapper then attempted
+to serialize a nonexistent `ObservationResult.evidence` attribute. It raised
+`AttributeError` before printing or exposing any metric. The exact evaluator
+was repeated to recover the output, with no code, seed, threshold,
+configuration, or method change and no first-run metric available for adaptive
+choice.
+
+This does not introduce observed-result tuning, and the evaluator is
+deterministic. It nevertheless violates the literal one-execution rule for
+final seeds. Seeds `28500–28599` were executed twice and are retired.
+
+Decision: **numerical criteria passed; H50-L14 promotion withheld until an
+independent, pre-registered confirmation on fresh seeds**. This is stricter
+than the local kernel's state and prevents an operational recovery from being
+silently represented as a clean confirmation.
+
+The machine-readable record is
+[`results/EXPERIMENT_023_FINAL_AGGREGATE.json`](results/EXPERIMENT_023_FINAL_AGGREGATE.json).
