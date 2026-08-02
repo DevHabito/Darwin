@@ -128,14 +128,16 @@ it did not reduce cumulative regret against the registered online baselines.
 The hypothesis is
 [refuted](docs/v50/EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
 
-The next hypothesis has not been registered. H50-L12 final seeds will not be
-recycled, and no successor will be evaluated before receiving a new protocol,
-new seed families, and a falsifiable reason for changing the controller.
+H50-L12 final seeds will not be recycled. Its successor received a new
+protocol, disjoint seed families, and a falsifiable reason for changing the
+controller before implementation or evaluation began.
 The pre-registered
 [failure audit](docs/v50/EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
-will first measure when posterior sampling changes the action, its internal
-posterior-mean cost, and whether order or parameter sampling is the larger
-decision channel.
+replicated the deficit on fresh diagnostic worlds and found that transition and
+reward parameter sampling, rather than context-order sampling, was the dominant
+action-change channel. The next hypothesis is now
+[pre-registered](docs/v50/EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md), but
+it has not been implemented or evaluated.
 
 ## Contributing
 

@@ -30,9 +30,12 @@ are written before final evaluation whenever a held-out result is claimed.
 | H50-L10 | [014 — predictive history planning](EXPERIMENT_014_PREDICTIVE_HISTORY_PLANNING.md) | Passed locally |
 | H50-L11 | [015 — learned context and reward](EXPERIMENT_015_LEARNED_CONTEXT_REWARD_PLANNING.md) | Refuted |
 | H50-L12 | [016 — online posterior-sampling control](EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md) | Refuted |
+| H50-L13 | [018 — information-directed online control](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md) | Pre-registered |
 
 The [H50-L12 failure audit](EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
-is a pre-registered diagnostic. It does not introduce or evaluate H50-L13.
+replicated the reward deficit and localized persistent action changes to
+transition and reward parameter sampling. [H50-L13](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md)
+is pre-registered and has not been implemented or evaluated.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

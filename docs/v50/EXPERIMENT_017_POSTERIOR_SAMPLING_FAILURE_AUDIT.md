@@ -4,7 +4,7 @@ Pre-registered: 2026-08-02
 
 Experiment class: diagnostic follow-up to H50-L12
 
-Status: pre-registered; implementation and diagnostic run not started
+Status: diagnostic run complete
 
 ## Why this audit exists
 
@@ -147,6 +147,47 @@ Interpretation is limited to these pre-declared statements:
 5. No controller for H50-L13 will be named until the audit is complete. Any
    later hypothesis must receive disjoint development and final seed families
    and its own pre-registration.
+
+## Diagnostic result
+
+The frozen evaluator was first executed on all 32 diagnostic seeds after its
+invariance tests and the complete repository test suite passed. The reward
+deficit was replicated diagnostically, the model-implied sampling cost was
+resolved above zero, and the parameter channel was dominant under the frozen
+rules.
+
+| Full-run metric | Mean | 95% bootstrap interval |
+| --- | ---: | ---: |
+| Candidate reward | `0.2894042969` | `[0.2326171875, 0.3483160400]` |
+| Certainty-equivalent reward | `0.3056640625` | `[0.2500958252, 0.3633068848]` |
+| Candidate minus certainty reward | `-0.0162597656` | `[-0.0219726562, -0.0104248047]` |
+| Sampled/MAP action disagreement | `0.1340332031` | `[0.1033447266, 0.1653814697]` |
+| Parameter-channel disagreement | `0.1313232422` | `[0.1016589355, 0.1619140625]` |
+| Order-channel disagreement | `0.0044677734` | `[0.0017083740, 0.0077880859]` |
+| Parameter minus order channel | `0.1268554688` | `[0.0987304688, 0.1559826660]` |
+| Mean MAP-Q opportunity cost | `0.0115821635` | `[0.0094276849, 0.0137454283]` |
+| Conditional MAP-Q opportunity cost | `0.0987154695` | `[0.0857337010, 0.1133172905]` |
+| Mean order-posterior entropy | `0.0772549999` | `[0.0655286339, 0.0898839318]` |
+
+The result was not confined to early exploration. The paired reward interval
+was below zero in every quarter. By quarters three and four, sampled-order/MAP
+order mismatch and order-channel action disagreement were exactly zero across
+the audit worlds. Mean order entropy had fallen to `0.0000082733` and
+`0.0000031748`, yet parameter sampling still changed `10.5078125%` and
+`8.06640625%` of actions. The corresponding reward differences remained
+`-0.0154296875` and `-0.0106445313`.
+
+This supports a narrow diagnosis: after context order was effectively
+identified, sampling transition and reward parameters continued to perturb the
+policy and incurred positive cost under the candidate's own posterior-mean
+model. It does not prove the reward of an unchosen action or establish that all
+posterior sampling is harmful. The paired realized reward result and the Q
+proxy are separate observations.
+
+The aggregate output is stored in
+[`results/EXPERIMENT_017_DIAGNOSTIC_AGGREGATE.json`](results/EXPERIMENT_017_DIAGNOSTIC_AGGREGATE.json).
+Seeds `23200–23231` are retired and will not be reused for controller selection
+or confirmation.
 
 ## Integrity checks
 

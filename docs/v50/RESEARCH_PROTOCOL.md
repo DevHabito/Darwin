@@ -229,6 +229,30 @@ simultaneous learned-baseline win rate was `0.04` against `0.60`.
 Decision: **refuted**. Final seeds `22100–22199` are retired. See
 [Experiment 016](EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
 
+### H50-L12 failure audit
+
+Fresh diagnostic seeds `23200–23231` reproduced the candidate's reward deficit:
+candidate minus certainty-equivalent reward was `-0.0162597656`, with a 95%
+paired bootstrap interval of `[-0.0219726562, -0.0104248047]`. The parameter
+channel changed `0.1313232422` of actions, against `0.0044677734` for the order
+channel. In quarters three and four, the order channel was exactly zero while
+parameter disagreement persisted.
+
+Decision: diagnostic only; no capability promoted. The audit seeds are retired.
+See [Experiment 017](EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md).
+
+### H50-L13 — information-directed online control
+
+H50-L13 is pre-registered to test a blockwise Monte Carlo approximation of
+information-directed sampling. It targets information about the current
+posterior-optimal action and must improve on certainty-equivalent,
+posterior-sampling, epsilon-greedy, and random baselines under a conjunctive
+held-out decision rule.
+
+Status: **pre-registered; not implemented or evaluated**. Development seeds
+`24000–24031` and final seeds `24100–24199` remain untouched. See
+[Experiment 018](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
