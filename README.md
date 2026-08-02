@@ -132,6 +132,11 @@ It learned the hidden tabular model, improved on posterior sampling, and reached
 certainty-equivalent control and failed the registered simultaneous-win rule,
 so it is
 [refuted](docs/v50/EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
+The subsequent
+[failure audit](docs/v50/EXPERIMENT_019_INFORMATION_DIRECTED_FAILURE_AUDIT.md)
+ruled out block staleness as the dominant explanation but could not distinguish
+posterior-ensemble effects from the randomized mixture strongly enough to
+justify another controller. H50-L14 is not registered.
 
 ## Contributing
 

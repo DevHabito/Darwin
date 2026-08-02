@@ -264,6 +264,19 @@ margin, and won all learned-baseline comparisons in only `0.14` of worlds.
 Decision: **refuted**. Final seeds `24100–24199` are retired. See
 [Experiment 018](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
 
+### H50-L13 failure audit
+
+Diagnostic seeds `25200–25231` reproduced the candidate's deficit against
+certainty-equivalent control at `-0.0062255859`, with a 95% paired bootstrap
+interval of `[-0.0102294922, -0.0019287109]`. Mean disagreement was
+`0.0312744141` for block staleness, `0.0522460938` for the posterior ensemble,
+and `0.0556640625` for the information-directed mixture. Both ensemble and
+mixture exceeded staleness, but their paired difference included zero.
+
+Decision: diagnostic only; channel dominance unresolved. H50-L14 is not
+registered. Audit seeds are retired. See
+[Experiment 019](EXPERIMENT_019_INFORMATION_DIRECTED_FAILURE_AUDIT.md).
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

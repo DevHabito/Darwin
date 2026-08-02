@@ -75,3 +75,8 @@ regret and mutual information about the current posterior-optimal action from
 single-model posterior sampling but remained below certainty-equivalent control
 and was refuted. The controller remains a finite-sample engineering
 approximation, not an implementation of a published regret theorem.
+
+The H50-L13 failure audit reproduced its deficit and found that block staleness
+was smaller than both posterior-ensemble and randomized-mixture disagreement.
+It could not resolve which of the latter two dominated over the full run. No
+successor controller is registered from that inconclusive attribution.

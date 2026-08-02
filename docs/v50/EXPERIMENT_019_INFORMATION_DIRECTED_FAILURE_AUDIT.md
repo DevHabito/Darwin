@@ -4,7 +4,7 @@ Pre-registered: 2026-08-02
 
 Experiment class: diagnostic follow-up to H50-L13
 
-Status: pre-registered; implementation and diagnostic run not started
+Status: diagnostic run complete
 
 ## Why this audit exists
 
@@ -155,6 +155,55 @@ This audit has no pass/fail result and cannot promote a capability.
   archive.
 - Wrong trace lengths, duplicate seeds, non-finite metrics, invalid mixtures,
   altered candidate rewards, or counterfactual archive fields fail closed.
+
+## Diagnostic result
+
+The frozen evaluator was executed once on all 32 diagnostic seeds after the
+instrumentation-invariance test and complete repository suite passed. The
+H50-L13 reward deficit was replicated diagnostically and its model-implied
+decision cost was resolved above zero. No disagreement channel met the frozen
+global dominance rule.
+
+| Full-run metric | Mean | 95% bootstrap interval |
+| --- | ---: | ---: |
+| Candidate minus certainty reward | `-0.0062255859` | `[-0.0102294922, -0.0019287109]` |
+| Total action disagreement | `0.1023193359` | `[0.0790771484, 0.1262213135]` |
+| Staleness channel | `0.0312744141` | `[0.0249755859, 0.0380371094]` |
+| Ensemble channel | `0.0522460938` | `[0.0391839600, 0.0657232666]` |
+| Mixture channel | `0.0556640625` | `[0.0428955078, 0.0688726807]` |
+| Mixture minus ensemble | `0.0034179687` | `[-0.0008544922, 0.0073730469]` |
+| Mixture minus staleness | `0.0243896484` | `[0.0166015625, 0.0327148438]` |
+| Ensemble minus staleness | `0.0209716797` | `[0.0129144287, 0.0294927979]` |
+| Mean current-MAP Q cost | `0.0075750263` | `[0.0065378159, 0.0086619302]` |
+| Conditional current-MAP Q cost | `0.0982262086` | `[0.0835901778, 0.1130749014]` |
+
+Both mixture and ensemble disagreement were resolved above staleness, but their
+paired difference included zero. The only permitted full-run conclusion is
+therefore **dominance unresolved**.
+
+The time profile is informative but remains secondary:
+
+| Quarter | Reward difference | Staleness | Ensemble | Mixture | Current-MAP Q cost |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | `-0.0072265625` | `0.0994140625` | `0.1102539063` | `0.0977539063` | `0.0194730683` |
+| 2 | `-0.0098632812` | `0.0183593750` | `0.0500000000` | `0.0547851563` | `0.0052785244` |
+| 3 | `-0.0047851562` | `0.0048828125` | `0.0271484375` | `0.0394531250` | `0.0031759039` |
+| 4 | `-0.0030273438` | `0.0024414063` | `0.0215820313` | `0.0306640625` | `0.0023726087` |
+
+By quarter four, mean context-order entropy was `0.0000088483` and staleness
+changed only `0.244140625%` of actions. Ensemble and mixture disagreement
+persisted at `2.158203125%` and `3.06640625%`. Mixture exceeded both other
+channels under the quarter-four intervals, but quarter evidence cannot override
+the unresolved registered full-run comparison.
+
+The result rules out block staleness as the dominant full-run mechanism under
+this attribution, but it does not distinguish ensemble approximation from the
+information-directed action mixture strongly enough to justify a unique
+controller change. H50-L14 is therefore **not registered** from this audit.
+
+The aggregate output is stored in
+[`results/EXPERIMENT_019_DIAGNOSTIC_AGGREGATE.json`](results/EXPERIMENT_019_DIAGNOSTIC_AGGREGATE.json).
+Seeds `25200–25231` are retired and cannot become development or final evidence.
 
 ## Evidence ceiling
 
