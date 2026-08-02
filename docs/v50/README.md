@@ -74,6 +74,11 @@ budget was 2,048 interactions, 32 times the target budget, and the top two
 configurations were not cleanly separated by a post-selection bootstrap.
 H50-L14 remains unregistered.
 
+After selection, a fixed source-prior permutation was added as a causal control
+and the gated model gained replay-checked snapshots. Snapshot prior digests
+detect unilateral changes but are not authenticated signatures. These are
+engineering prerequisites, not new behavioral evidence.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

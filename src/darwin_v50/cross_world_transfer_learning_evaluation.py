@@ -36,6 +36,7 @@ from .cross_world_transfer_learning import (
     GatedTransferModel,
     collect_source_family_evidence,
     learn_transfer_prior,
+    permuted_transfer_prior,
     pooled_source_prior,
 )
 from .learned_context_lab import ContextState
@@ -132,6 +133,7 @@ class TransferLearningWorldScore:
     learned: PredictorScore
     gated: PredictorScore
     pooled: PredictorScore
+    shuffled: PredictorScore
     oracle: PredictorScore
     final_source_weight: float
 
@@ -147,7 +149,13 @@ class TransferLearningWorldScore:
             raise ValidationError("final source weight is invalid")
 
     def log_loss_improvement(self, predictor: str) -> float:
-        if predictor not in ("learned", "gated", "pooled", "oracle"):
+        if predictor not in (
+            "learned",
+            "gated",
+            "pooled",
+            "shuffled",
+            "oracle",
+        ):
             raise ValidationError("predictor name is invalid")
         return self.scratch.log_loss - getattr(self, predictor).log_loss
 
@@ -206,6 +214,10 @@ class DevelopmentConfigurationReport:
             },
             "pooled_log_loss_improvement": {
                 condition: self.mean_improvement(condition, "pooled")
+                for condition in TRANSFER_CONDITIONS
+            },
+            "shuffled_log_loss_improvement": {
+                condition: self.mean_improvement(condition, "shuffled")
                 for condition in TRANSFER_CONDITIONS
             },
             "oracle_log_loss_improvement": {
@@ -343,6 +355,11 @@ def evaluate_learning_world(
             world_id=public_world_id,
             prior=pooled_prior,
         ),
+        "shuffled": GatedTransferModel(
+            world_id=public_world_id,
+            source_prior=permuted_transfer_prior(learned_prior, offset=1),
+            initial_source_weight=configuration.initial_source_weight,
+        ),
         "oracle": PrequentialTransferModel(
             world_id=public_world_id,
             prior=TransferPrior.oracle(source_family),
@@ -382,6 +399,7 @@ def evaluate_learning_world(
         learned=scores["learned"],
         gated=scores["gated"],
         pooled=scores["pooled"],
+        shuffled=scores["shuffled"],
         oracle=scores["oracle"],
         final_source_weight=gated.source_weight,
     )

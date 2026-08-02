@@ -35,6 +35,7 @@ class TransferLearningDevelopmentTests(unittest.TestCase):
         )
         self.assertEqual(first, repeated)
         self.assertEqual(self.small_configuration.source_interactions, 256)
+        self.assertTrue(math_is_finite(first.shuffled.log_loss))
 
     def test_configuration_report_balances_all_conditions(self) -> None:
         report = evaluate_development_configuration(

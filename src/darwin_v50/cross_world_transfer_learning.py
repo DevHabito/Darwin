@@ -8,6 +8,8 @@ infrastructure and does not register H50-L14.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
+import json
 import math
 from typing import Iterable
 
@@ -25,7 +27,7 @@ from .cross_world_transfer_lab import (
     transfer_cell_keys,
 )
 from .learned_context_lab import ContextState
-from .models import ValidationError
+from .models import ValidationError, canonical_json
 
 
 SOURCE_CONCENTRATION_CANDIDATES = (
@@ -305,8 +307,173 @@ def pooled_source_prior(
     )
 
 
+def permuted_transfer_prior(
+    prior: TransferPrior, *, offset: int = 1
+) -> TransferPrior:
+    """Causal control that preserves priors but breaks their cell alignment."""
+
+    if not isinstance(prior, TransferPrior):
+        raise ValidationError("permuted prior is invalid")
+    if (
+        isinstance(offset, bool)
+        or not isinstance(offset, int)
+        or not 1 <= offset < len(prior.cells)
+    ):
+        raise ValidationError("prior permutation offset is invalid")
+    return TransferPrior(
+        provenance=f"permuted:{offset}:{prior.provenance}",
+        cells=tuple(
+            TransferCellPrior(
+                context=context,
+                action=action,
+                transition=prior.cells[
+                    (index + offset) % len(prior.cells)
+                ].transition,
+                reward=prior.cells[
+                    (index + offset) % len(prior.cells)
+                ].reward,
+            )
+            for index, (context, action) in enumerate(transfer_cell_keys())
+        ),
+    )
+
+
+def _strict_json(raw: str) -> object:
+    if not isinstance(raw, str):
+        raise ValidationError("snapshot must be text")
+
+    def reject_duplicates(pairs: list[tuple[str, object]]) -> dict[str, object]:
+        result: dict[str, object] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValidationError("snapshot contains a duplicate key")
+            result[key] = value
+        return result
+
+    try:
+        return json.loads(
+            raw,
+            object_pairs_hook=reject_duplicates,
+            parse_constant=lambda value: (_ for _ in ()).throw(
+                ValidationError(f"snapshot contains {value}")
+            ),
+        )
+    except ValidationError:
+        raise
+    except (TypeError, ValueError, json.JSONDecodeError) as error:
+        raise ValidationError("snapshot is not strict JSON") from error
+
+
+def _prior_to_dict(prior: TransferPrior) -> dict[str, object]:
+    return {
+        "provenance": prior.provenance,
+        "cells": [
+            {
+                "context": list(cell.context),
+                "action": cell.action,
+                "transition": {
+                    "alpha": cell.transition.alpha,
+                    "beta": cell.transition.beta,
+                },
+                "reward": {
+                    "alpha": cell.reward.alpha,
+                    "beta": cell.reward.beta,
+                },
+            }
+            for cell in prior.cells
+        ],
+    }
+
+
+def _prior_digest(prior: TransferPrior) -> str:
+    return hashlib.sha256(
+        canonical_json(_prior_to_dict(prior)).encode("utf-8")
+    ).hexdigest()
+
+
+def _beta_prior_from_dict(raw: object, field: str) -> BetaPrior:
+    if not isinstance(raw, dict) or set(raw) != {"alpha", "beta"}:
+        raise ValidationError(f"snapshot {field} prior is invalid")
+    return BetaPrior(
+        alpha=raw.get("alpha"),  # type: ignore[arg-type]
+        beta=raw.get("beta"),  # type: ignore[arg-type]
+    )
+
+
+def _prior_from_dict(raw: object) -> TransferPrior:
+    if not isinstance(raw, dict) or set(raw) != {"provenance", "cells"}:
+        raise ValidationError("snapshot source prior is invalid")
+    rows = raw.get("cells")
+    if not isinstance(rows, list):
+        raise ValidationError("snapshot prior cells must be a list")
+    cells: list[TransferCellPrior] = []
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != {
+            "context",
+            "action",
+            "transition",
+            "reward",
+        }:
+            raise ValidationError("snapshot prior cell is invalid")
+        context = row.get("context")
+        if not isinstance(context, list):
+            raise ValidationError("snapshot prior context is invalid")
+        cells.append(
+            TransferCellPrior(
+                context=tuple(context),  # type: ignore[arg-type]
+                action=row.get("action"),  # type: ignore[arg-type]
+                transition=_beta_prior_from_dict(
+                    row.get("transition"), "transition"
+                ),
+                reward=_beta_prior_from_dict(row.get("reward"), "reward"),
+            )
+        )
+    return TransferPrior(
+        provenance=raw.get("provenance"),  # type: ignore[arg-type]
+        cells=tuple(cells),
+    )
+
+
+def _observation_to_dict(
+    observation: TransferObservation,
+) -> dict[str, object]:
+    return {
+        "world_id": observation.world_id,
+        "index": observation.index,
+        "context": list(observation.context),
+        "action": observation.action,
+        "next_observation": observation.next_observation,
+        "reward": observation.reward,
+    }
+
+
+def _observation_from_dict(raw: object) -> TransferObservation:
+    if not isinstance(raw, dict) or set(raw) != {
+        "world_id",
+        "index",
+        "context",
+        "action",
+        "next_observation",
+        "reward",
+    }:
+        raise ValidationError("snapshot observation is invalid")
+    context = raw.get("context")
+    if not isinstance(context, list):
+        raise ValidationError("snapshot observation context is invalid")
+    return TransferObservation(
+        world_id=raw.get("world_id"),  # type: ignore[arg-type]
+        index=raw.get("index"),  # type: ignore[arg-type]
+        context=tuple(context),  # type: ignore[arg-type]
+        action=raw.get("action"),  # type: ignore[arg-type]
+        next_observation=raw.get("next_observation"),  # type: ignore[arg-type]
+        reward=raw.get("reward"),  # type: ignore[arg-type]
+    )
+
+
 class GatedTransferModel:
     """Bayesian mixture of a source-learned model and scratch learning."""
+
+    SNAPSHOT_SCHEMA = 1
 
     def __init__(
         self,
@@ -324,6 +491,7 @@ class GatedTransferModel:
             raise ValidationError("initial source weight must be within (0, 1)")
         self.world_id = world_id
         self.source_prior = source_prior
+        self.source_prior_digest = _prior_digest(source_prior)
         self.initial_source_weight = float(initial_source_weight)
         self._log_source_weight = math.log(self.initial_source_weight)
         self._log_scratch_weight = math.log(1.0 - self.initial_source_weight)
@@ -415,3 +583,72 @@ class GatedTransferModel:
         self._scratch.observe(observation)
         self._pending = None
         self._weight_history.append(self.source_weight)
+
+    def _snapshot_dict(self) -> dict[str, object]:
+        return {
+            "schema": self.SNAPSHOT_SCHEMA,
+            "configuration": {
+                "world_id": self.world_id,
+                "initial_source_weight": self.initial_source_weight,
+                "source_prior": _prior_to_dict(self.source_prior),
+                "source_prior_digest": self.source_prior_digest,
+            },
+            "archive": [
+                _observation_to_dict(item) for item in self.archive
+            ],
+            "derived": {
+                "source_weight": self.source_weight,
+                "weight_history": list(self.weight_history),
+            },
+        }
+
+    def to_snapshot(self) -> str:
+        if self._pending is not None:
+            raise ValidationError("cannot snapshot a pending gated forecast")
+        return canonical_json(self._snapshot_dict())
+
+    @classmethod
+    def from_snapshot(cls, raw: str) -> "GatedTransferModel":
+        parsed = _strict_json(raw)
+        if not isinstance(parsed, dict) or set(parsed) != {
+            "schema",
+            "configuration",
+            "archive",
+            "derived",
+        } or parsed.get("schema") != cls.SNAPSHOT_SCHEMA:
+            raise ValidationError("unsupported gated transfer snapshot")
+        configuration = parsed.get("configuration")
+        if not isinstance(configuration, dict) or set(configuration) != {
+            "world_id",
+            "initial_source_weight",
+            "source_prior",
+            "source_prior_digest",
+        }:
+            raise ValidationError("gated snapshot configuration is invalid")
+        source_prior = _prior_from_dict(configuration.get("source_prior"))
+        if configuration.get("source_prior_digest") != _prior_digest(
+            source_prior
+        ):
+            raise ValidationError("gated snapshot prior digest disagrees")
+        model = cls(
+            world_id=configuration.get("world_id"),  # type: ignore[arg-type]
+            source_prior=source_prior,
+            initial_source_weight=configuration.get(
+                "initial_source_weight"
+            ),  # type: ignore[arg-type]
+        )
+        archive = parsed.get("archive")
+        if not isinstance(archive, list):
+            raise ValidationError("gated snapshot archive must be a list")
+        for row in archive:
+            observation = _observation_from_dict(row)
+            model.forecast(observation.context, observation.action)
+            model.observe(observation)
+        try:
+            if canonical_json(parsed) != canonical_json(model._snapshot_dict()):
+                raise ValidationError(
+                    "gated snapshot does not match causal replay"
+                )
+        except (TypeError, ValueError) as error:
+            raise ValidationError("gated snapshot is not finite") from error
+        return model

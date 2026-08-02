@@ -307,6 +307,10 @@ source interactions for 64 target interactions. The top-two selection interval
 crossed zero, and confirmatory controls and persistence are not implemented.
 Decision: development only; H50-L14 remains unregistered.
 
+Post-development implementation added a source-shuffled prior control and
+replay-checked gated-model snapshots. Snapshot prior digests are integrity
+checks, not authentication. No confirmatory seed was used for these changes.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

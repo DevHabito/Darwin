@@ -183,3 +183,24 @@ confirmatory use.
 
 The machine-readable record, including all 18 ranked configurations, is
 [`results/EXPERIMENT_021_DEVELOPMENT_AGGREGATE.json`](results/EXPERIMENT_021_DEVELOPMENT_AGGREGATE.json).
+
+## Post-development engineering
+
+No development or validation claim was rerun for these changes.
+
+- A fixed cyclic permutation of the learned cell priors now provides the
+  source-shuffled causal control. It preserves the fitted Beta distributions
+  while breaking their context-action alignment.
+- The gated model now has a strict JSON snapshot. It stores the learned prior,
+  provenance, target observation archive, initial mixture weight, derived
+  weight history, and current source weight.
+- Restoration recomputes target counts and mixture weights by causal replay and
+  rejects a pending forecast, duplicate JSON keys, non-finite values, and
+  derived state that disagrees with replay.
+- A SHA-256 digest detects unilateral or accidental changes to the serialized
+  source prior. It is not a signature or authentication boundary; an actor who
+  can replace both prior and digest still controls the snapshot.
+
+On test-only seeds, the selected candidate's related improvement was `0.1521059`
+and the source-shuffled control's was `-0.0049915`. This is implementation
+evidence from contaminated test seeds, not a confirmatory causal result.
