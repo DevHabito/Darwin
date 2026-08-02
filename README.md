@@ -122,22 +122,16 @@ Existing local state is left untouched by this change.
 
 ## Latest research result
 
-H50-L12 tested whether Darwin could learn and act in one continuous stream with
-posterior-sampling control. The agent learned the hidden tabular model well, but
-it did not reduce cumulative regret against the registered online baselines.
-The hypothesis is
-[refuted](docs/v50/EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
-
-H50-L12 final seeds will not be recycled. Its successor received a new
-protocol, disjoint seed families, and a falsifiable reason for changing the
-controller before implementation or evaluation began.
 The pre-registered
 [failure audit](docs/v50/EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
 replicated the deficit on fresh diagnostic worlds and found that transition and
 reward parameter sampling, rather than context-order sampling, was the dominant
-action-change channel. The next hypothesis is now
-[pre-registered](docs/v50/EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md), but
-it has not been implemented or evaluated.
+action-change channel. H50-L13 then tested an information-directed alternative.
+It learned the hidden tabular model, improved on posterior sampling, and reached
+`0.9760` of oracle reward in the final quarter. It remained below
+certainty-equivalent control and failed the registered simultaneous-win rule,
+so it is
+[refuted](docs/v50/EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
 
 ## Contributing
 

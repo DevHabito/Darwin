@@ -4,7 +4,7 @@ Pre-registered: 2026-08-02
 
 Hypothesis: H50-L13
 
-Status: implementation complete; development selection frozen; final seeds not run
+Status: final evaluation complete; **refuted**
 
 ## Gap
 
@@ -194,6 +194,51 @@ Every criterion must pass on `24100–24199`:
 Any failed criterion refutes H50-L13. Learning the model cannot compensate for
 poor reward, and beating posterior sampling cannot compensate for failing
 certainty-equivalent control.
+
+## Final evaluation
+
+The final seeds `24100–24199` were run once with the frozen 16-action block.
+H50-L13 is **refuted**. Twelve of fifteen registered checks passed; three
+failed.
+
+| Criterion | Required | Observed | Result |
+| --- | ---: | ---: | --- |
+| Candidate/oracle total reward ratio | `>= 0.80` | `0.8983215638` | Pass |
+| Candidate/oracle final-quarter ratio | `>= 0.90` | `0.9760024613` | Pass |
+| Improvement over certainty-equivalent | `>= 0.005` | `-0.0071796875` | **Fail** |
+| Improvement over posterior sampling | `>= 0.010` | `0.0082187500` | **Fail** |
+| Improvement over epsilon-greedy | `>= 0.005` | `0.0144453125` | Pass |
+| Improvement over uniform random | `>= 0.050` | `0.1590078125` | Pass |
+| Simultaneous learned-baseline win rate | `>= 0.60` | `0.14` | **Fail** |
+| Exact MAP-order recovery | `>= 0.70` | `1.0` | Pass |
+| Mean posterior mass on true order | `>= 0.65` | `0.9999999834` | Pass |
+| Transition MAE | `<= 0.08` | `0.0610330266` | Pass |
+| Reward MAE | `<= 0.08` | `0.0478065858` | Pass |
+| Finite diagnostic rate | `1.0` | `1.0` | Pass |
+| Archive retention | `1.0` | `1.0` | Pass |
+| Snapshot replay | `1.0` | `1.0` | Pass |
+| Causal-field rate | `1.0` | `1.0` | Pass |
+
+The candidate earned mean reward `0.274296875`, above same-cadence posterior
+sampling (`0.266078125`) and epsilon-greedy (`0.2598515625`), but below
+certainty-equivalent control (`0.2814765625`). Its `0.00821875` improvement over
+posterior sampling did not reach the registered `0.010` minimum. It strictly
+beat all three learned baselines in only 14 of 100 worlds.
+
+The agent nevertheless recovered all 100 context orders, learned transition and
+reward probabilities within their error limits, reached `0.9760024613` of
+oracle reward in the final quarter, and retained finite information diagnostics
+throughout. These are secondary observations inside a refuted hypothesis; they
+cannot override the failed reward criteria.
+
+The generator produced 99 unique latent world structures. Structural
+uniqueness was not a registered decision criterion, so this collision is
+retained as a limitation rather than removed after inspection.
+
+The machine-readable aggregate is stored in
+[`results/EXPERIMENT_018_FINAL_AGGREGATE.json`](results/EXPERIMENT_018_FINAL_AGGREGATE.json).
+Final seeds `24100–24199` are retired and will not be reused to promote a
+modified information-directed controller.
 
 ## Persistence and integrity requirements
 

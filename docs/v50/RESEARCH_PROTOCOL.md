@@ -249,8 +249,13 @@ posterior-optimal action and must improve on certainty-equivalent,
 posterior-sampling, epsilon-greedy, and random baselines under a conjunctive
 held-out decision rule.
 
-Status: **pre-registered; not implemented or evaluated**. Development seeds
-`24000–24031` and final seeds `24100–24199` remain untouched. See
+The selected 16-action controller earned `0.274296875`, improved by
+`0.00821875` over same-cadence posterior sampling, and reached `0.9760024613` of
+oracle final-quarter reward. It remained `0.0071796875` below
+certainty-equivalent control, missed the registered `0.010` posterior-sampling
+margin, and won all learned-baseline comparisons in only `0.14` of worlds.
+
+Decision: **refuted**. Final seeds `24100–24199` are retired. See
 [Experiment 018](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
 
 ## Standing safety boundary

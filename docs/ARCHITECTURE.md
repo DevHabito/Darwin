@@ -69,8 +69,9 @@ control advantage.
 
 The H50-L12 failure audit localized the persistent action perturbations to
 sampled transition and reward parameters after context order had converged.
-H50-L13 now provides an unevaluated blockwise information-directed controller.
-It estimates regret and mutual information about the current posterior-optimal
-action from 16 tabular posterior models, then selects a two-action mixture. This
-is a finite-sample engineering approximation, not an implementation of a
-published regret theorem.
+H50-L13 evaluated a blockwise information-directed controller. It estimated
+regret and mutual information about the current posterior-optimal action from
+16 tabular posterior models, then selected a two-action mixture. It improved on
+single-model posterior sampling but remained below certainty-equivalent control
+and was refuted. The controller remains a finite-sample engineering
+approximation, not an implementation of a published regret theorem.
