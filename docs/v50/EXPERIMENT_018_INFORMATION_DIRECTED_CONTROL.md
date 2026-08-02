@@ -107,6 +107,12 @@ infinity otherwise. Ties prefer lower expected regret and then higher `amber`
 probability. The action is drawn from the selected mixture using a stream that
 is independent of posterior model draws and environment outcomes.
 
+If every feasible mixture has an infinite ratio, the same tie rules select the
+lowest-regret mixture, its ratio is recorded as `null`, and that decision counts
+against the registered finite-diagnostic rate. Aggregate mean ratio excludes
+`null` decisions and is `null` if none are finite. This fallback changes no
+decision criterion: the final finite-diagnostic rate must still equal `1.0`.
+
 This construction introduces no exploration bonus, oracle stopping rule, or
 learned neural component. `K = 16` is a fixed computational approximation, not
 a claimed optimal sample count.
