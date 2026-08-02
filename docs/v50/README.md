@@ -79,6 +79,11 @@ and the gated model gained replay-checked snapshots. Snapshot prior digests
 detect unilateral changes but are not authenticated signatures. These are
 engineering prerequisites, not new behavioral evidence.
 
+[Experiment 022](EXPERIMENT_022_TRANSFER_CALIBRATION.md) freezes the selected
+candidate and pre-registers independent calibration margins. Calibration may
+make a confirmatory H50-L14 protocol eligible, but cannot itself promote the
+capability.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
