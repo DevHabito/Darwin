@@ -90,6 +90,14 @@ candidate beat the source-shuffled control by `0.1643268`, and it closed
 `0.0060205` and `0.0050725`. The result makes H50-L14 eligible for
 pre-registration; it is not a capability pass.
 
+| Hypothesis | Experiment | Result |
+| --- | --- | --- |
+| H50-L14 | [023 — known-alignment predictive transfer](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md) | Registered, not run |
+
+H50-L14 freezes the learned prior, compatibility gate, source-shuffled control,
+100 final family seeds, and 12 conjunctive criteria. No final result is claimed
+before that one-time run.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

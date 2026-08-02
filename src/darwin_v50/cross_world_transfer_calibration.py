@@ -224,28 +224,10 @@ def _bootstrap_intervals(
     return result
 
 
-def run_transfer_calibration(
-    *,
-    seeds: Iterable[int],
-    bootstrap_seed: int = TRANSFER_CALIBRATION_BOOTSTRAP_SEED,
-    bootstrap_samples: int = TRANSFER_CALIBRATION_BOOTSTRAP_SAMPLES,
-) -> TransferCalibrationReport:
-    normalized = require_disjoint_seed_sets(calibration=seeds)["calibration"]
-    worlds = tuple(
-        evaluate_learning_world(
-            seed=seed,
-            condition=condition,
-            configuration=TRANSFER_SELECTED_CONFIGURATION,
-        )
-        for seed in normalized
-        for condition in TRANSFER_CONDITIONS
-    )
-    metrics = _bootstrap_intervals(
-        _rows_by_condition(worlds),
-        seed=bootstrap_seed,
-        samples=bootstrap_samples,
-    )
-    criteria = {
+def transfer_calibration_criteria(
+    metrics: dict[str, CalibrationInterval],
+) -> dict[str, bool]:
+    return {
         "related_improvement_low_at_least_0_12": (
             metrics["related_gated_improvement"].low
             >= MINIMUM_RELATED_IMPROVEMENT
@@ -283,6 +265,30 @@ def run_transfer_calibration(
             >= MINIMUM_SIMULTANEOUS_WIN_RATE
         ),
     }
+
+
+def run_transfer_calibration(
+    *,
+    seeds: Iterable[int],
+    bootstrap_seed: int = TRANSFER_CALIBRATION_BOOTSTRAP_SEED,
+    bootstrap_samples: int = TRANSFER_CALIBRATION_BOOTSTRAP_SAMPLES,
+) -> TransferCalibrationReport:
+    normalized = require_disjoint_seed_sets(calibration=seeds)["calibration"]
+    worlds = tuple(
+        evaluate_learning_world(
+            seed=seed,
+            condition=condition,
+            configuration=TRANSFER_SELECTED_CONFIGURATION,
+        )
+        for seed in normalized
+        for condition in TRANSFER_CONDITIONS
+    )
+    metrics = _bootstrap_intervals(
+        _rows_by_condition(worlds),
+        seed=bootstrap_seed,
+        samples=bootstrap_samples,
+    )
+    criteria = transfer_calibration_criteria(metrics)
     return TransferCalibrationReport(
         seeds=normalized,
         bootstrap_seed=bootstrap_seed,

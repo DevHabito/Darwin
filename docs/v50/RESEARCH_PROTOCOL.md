@@ -319,6 +319,17 @@ improvements remained negative at `-0.0060205` and `-0.0050725`, within the
 registered `-0.01` tolerance. Decision: H50-L14 may now be pre-registered, but
 no capability has passed.
 
+### H50-L14 — known-alignment predictive transfer
+
+H50-L14 is pre-registered in
+[Experiment 023](EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md). It
+tests whether a prior learned from 16 aligned source tasks improves held-out
+related transition-and-reward prediction while a Bayesian compatibility gate
+limits loss on unrelated and adversarial targets. Final seeds are
+`28500–28599`; 12 behavioral and integrity criteria are conjunctive.
+
+Status: registered, not run. No H50-L14 capability result exists yet.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

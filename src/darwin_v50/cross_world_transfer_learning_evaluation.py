@@ -136,6 +136,9 @@ class TransferLearningWorldScore:
     shuffled: PredictorScore
     oracle: PredictorScore
     final_source_weight: float
+    causal_archive_valid: bool
+    snapshot_round_trip_valid: bool
+    public_identity_valid: bool
 
     def __post_init__(self) -> None:
         if self.condition not in TRANSFER_CONDITIONS:
@@ -147,6 +150,15 @@ class TransferLearningWorldScore:
             or not 0.0 <= self.final_source_weight <= 1.0
         ):
             raise ValidationError("final source weight is invalid")
+        if any(
+            not isinstance(value, bool)
+            for value in (
+                self.causal_archive_valid,
+                self.snapshot_round_trip_valid,
+                self.public_identity_valid,
+            )
+        ):
+            raise ValidationError("learning world integrity flags are invalid")
 
     def log_loss_improvement(self, predictor: str) -> float:
         if predictor not in (
@@ -392,6 +404,14 @@ def evaluate_learning_world(
         )
         for name in models
     }
+    snapshot = gated.to_snapshot()
+    restored = GatedTransferModel.from_snapshot(snapshot)
+    causal_archive_valid = (
+        len(gated.archive) == len(schedule)
+        and tuple(item.index for item in gated.archive)
+        == tuple(range(len(schedule)))
+        and all(item.world_id == public_world_id for item in gated.archive)
+    )
     return TransferLearningWorldScore(
         seed=normalized_seed,
         condition=condition,
@@ -402,6 +422,13 @@ def evaluate_learning_world(
         shuffled=scores["shuffled"],
         oracle=scores["oracle"],
         final_source_weight=gated.source_weight,
+        causal_archive_valid=causal_archive_valid,
+        snapshot_round_trip_valid=(restored.to_snapshot() == snapshot),
+        public_identity_valid=(
+            public_world_id == "target-task"
+            and str(source_family.seed) not in public_world_id
+            and str(specification.world_seed) not in public_world_id
+        ),
     )
 
 
