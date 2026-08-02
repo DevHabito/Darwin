@@ -218,12 +218,15 @@ Decision: **refuted**. See
 
 ### H50-L12 — online posterior-sampling control
 
-The next hypothesis removes the fixed random training phase. A posterior-sampling
-agent must learn context order, dynamics, and reward while acting, and must
-reduce cumulative regret against equal-budget online baselines.
+The hypothesis removed the fixed random training phase. The posterior-sampling
+agent learned context order, dynamics, and reward while acting. It recovered
+the exact order in `0.96` of worlds and reached `0.9564634` of oracle reward in
+the final quarter, but cumulative exploration cost remained too high. Mean
+reward was `0.016421875` below certainty-equivalent control, improvement over
+epsilon-greedy was only `0.0033671875` against a required `0.005`, and the
+simultaneous learned-baseline win rate was `0.04` against `0.60`.
 
-Status: **pre-registered; not executed**. Development seeds are `22000–22031`
-and final seeds are `22100–22199`. See
+Decision: **refuted**. Final seeds `22100–22199` are retired. See
 [Experiment 016](EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
 
 ## Standing safety boundary

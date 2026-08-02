@@ -62,5 +62,7 @@ latent state, do not perceive the physical world, and do not maintain one
 continually learned model across open-ended tasks. Language-facing legacy
 modules are separate from the v50 learning kernel.
 
-H50-L12 is intended to test one part of that boundary: online action selection
-while the transition and reward model is still being learned.
+H50-L12 tested one part of that boundary: online action selection while the
+transition and reward model was still being learned. It was refuted because
+accurate posterior learning did not translate into the registered cumulative
+control advantage.

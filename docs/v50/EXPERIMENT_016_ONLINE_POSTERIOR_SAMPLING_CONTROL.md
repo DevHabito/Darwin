@@ -2,7 +2,41 @@
 
 Pre-registered: 2026-08-02\
 Hypothesis: H50-L12\
-Status: pre-registered; no development or final seed has been run
+Status: final evaluation complete; **refuted**
+
+## Pre-run clarification
+
+Recorded on 2026-08-02 before running any registered development or final
+seed.
+
+The original wording combined 32-action environment episodes with candidate
+resampling lengths of 8, 16, 32, or 64 actions, while saying that every sampled
+model was solved for 32 remaining steps. That left the 64-action candidate
+undefined. The executable interpretation is fixed as follows:
+
+- a planning block contains exactly the candidate resampling length in online
+  interactions;
+- the sampled model and its finite-horizon policy remain fixed for the whole
+  planning block, even when a 64-action block crosses one environment reset;
+- the dynamic program is undiscounted and has a time-to-go equal to the full
+  planning-block length;
+- an environment reset supplies a new registered initial history but does not
+  reset the planning-block clock or expose hidden world state;
+- certainty-equivalent, epsilon-greedy, and fixed-order-5 policies rebuild
+  their planners on the same selected planning-block boundaries;
+- explore-then-commit updates its posterior during the first 512 uniformly
+  random actions, freezes that posterior at action 512, and then plans on the
+  same selected block boundaries without further learning;
+- the simultaneous-world metric is a strict total-reward win over each of the
+  four registered learned baselines; ties are not wins;
+- information gain is the sum, within each 32-action environment episode, of
+  `KL(order posterior after the observation || order posterior before the
+  observation)` in natural units. The reported value is the mean of those 40
+  episode sums.
+
+This clarification resolves an internal inconsistency; it does not change the
+seed families, candidate set, environment, baselines, metrics, thresholds, or
+decision rule.
 
 ## Gap
 
@@ -83,7 +117,8 @@ At the start of each planning episode, the candidate:
 
 1. samples an order from the current order posterior;
 2. samples transition and reward probabilities from that order's Beta tables;
-3. solves the sampled finite-horizon MDP exactly for the remaining 32 steps;
+3. solves the sampled finite-horizon MDP exactly for the registered planning
+   block length;
 4. follows the sampled policy for the episode;
 5. archives and learns from each executed action, without changing the sampled
    policy until the next episode.
@@ -102,6 +137,23 @@ All candidates receive the same 1,280 interactions. Development selects the
 highest mean cumulative reward on `22000–22031`; ties prefer lower final combined
 model error and then shorter episode length. No learned state transfers between
 worlds.
+
+### Frozen development result
+
+The registered development seeds `22000–22031` were first run after the
+implementation and all structural tests passed. Results were:
+
+| Resampling length | Mean reward | Mean combined model error |
+| ---: | ---: | ---: |
+| 8 | `0.2671875` | `0.09659293601408378` |
+| 16 | `0.2697265625` | `0.09625653330267775` |
+| 32 | `0.2720703125` | `0.10287408714901367` |
+| 64 | `0.264501953125` | `0.0956723466880944` |
+
+The frozen resampling length is therefore **32 actions**. Selection followed
+the registered primary ranking by mean reward; the lower model error of another
+candidate cannot override that ranking. Final seeds `22100–22199` had not been
+run when this choice was recorded.
 
 ## Baselines and ablations
 
@@ -154,6 +206,46 @@ Every criterion must pass on `22100–22199`:
 Any failed criterion refutes H50-L12. A good final model does not compensate for
 poor cumulative reward, and high reward does not compensate for failure to learn
 the hidden model.
+
+## Final evaluation
+
+The final seeds `22100–22199` were run once with the frozen 32-action
+resampling length. H50-L12 is **refuted**. Twelve of fifteen registered checks
+passed; three failed.
+
+| Criterion | Required | Observed | Result |
+| --- | ---: | ---: | --- |
+| Candidate/oracle total reward ratio | `>= 0.75` | `0.8620182634` | Pass |
+| Candidate/oracle final-quarter ratio | `>= 0.85` | `0.9564634272` | Pass |
+| Improvement over certainty-equivalent | `>= 0.010` | `-0.0164218750` | **Fail** |
+| Improvement over epsilon-greedy | `>= 0.005` | `0.0033671875` | **Fail** |
+| Improvement over explore-then-commit | `>= 0.015` | `0.0384140625` | Pass |
+| Improvement over fixed order 5 | `>= 0.010` | `0.0282031250` | Pass |
+| Improvement over uniform random | `>= 0.050` | `0.1463125000` | Pass |
+| Simultaneous learned-baseline win rate | `>= 0.60` | `0.04` | **Fail** |
+| Exact MAP-order recovery | `>= 0.70` | `0.96` | Pass |
+| Mean posterior mass on true order | `>= 0.65` | `0.9590054404` | Pass |
+| Transition MAE | `<= 0.08` | `0.0555320000` | Pass |
+| Reward MAE | `<= 0.08` | `0.0412705321` | Pass |
+| Archive retention | `1.0` | `1.0` | Pass |
+| Snapshot replay | `1.0` | `1.0` | Pass |
+| Causal-field rate | `1.0` | `1.0` | Pass |
+
+The candidate learned the hidden model accurately and approached the oracle in
+the final quarter, but posterior sampling paid too much cumulative exploration
+cost in this stationary benchmark. Certainty-equivalent control earned mean
+reward `0.2774921875`, above the candidate's `0.2610703125`. The candidate beat
+all four learned baselines simultaneously in only four of 100 worlds.
+
+The generator produced 99 unique latent world structures. Seeds `22104` and
+`22192` had the same latent structure, although their episode schedules and
+exogenous outcome streams remained seed-specific. Structural uniqueness was
+not a registered criterion, but the collision is retained as a limitation.
+
+The machine-readable aggregate is stored in
+[`results/EXPERIMENT_016_FINAL_AGGREGATE.json`](results/EXPERIMENT_016_FINAL_AGGREGATE.json).
+The final seed family is retired for H50-L12 and will not be reused to promote
+an altered version of this hypothesis.
 
 ## Persistence and tamper checks
 

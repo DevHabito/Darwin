@@ -120,17 +120,17 @@ Copy-Item darwin_home/config.example.json darwin_home/config.json
 
 Existing local state is left untouched by this change.
 
-## Next research step
+## Latest research result
 
-H50-L11 learned a model from a fixed random collection phase and froze it before
-evaluation. The next meaningful question is whether Darwin can learn and act in
-one continuous stream: choosing when to explore, updating its world model only
-from executed actions, and limiting regret while the task remains partially
-unknown. H50-L12 is now
-[pre-registered](docs/v50/EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
+H50-L12 tested whether Darwin could learn and act in one continuous stream with
+posterior-sampling control. The agent learned the hidden tabular model well, but
+it did not reduce cumulative regret against the registered online baselines.
+The hypothesis is
+[refuted](docs/v50/EXPERIMENT_016_ONLINE_POSTERIOR_SAMPLING_CONTROL.md).
 
-The experiment must receive new seed families and a new pre-registration. The
-failed H50-L11 final seeds will not be recycled.
+The next hypothesis has not been registered. H50-L12 final seeds will not be
+recycled, and no successor will be evaluated before receiving a new protocol,
+new seed families, and a falsifiable reason for changing the controller.
 
 ## Contributing
 
