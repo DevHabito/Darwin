@@ -38,6 +38,8 @@ transition and reward parameter sampling.
 [H50-L13](EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md) then tested
 action-targeted information-directed control and was refuted because it did not
 beat certainty-equivalent control or meet the simultaneous-win rule.
+Its [pre-registered failure audit](EXPERIMENT_019_INFORMATION_DIRECTED_FAILURE_AUDIT.md)
+has not yet been implemented or run.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
