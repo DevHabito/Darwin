@@ -5,6 +5,8 @@ import unittest
 
 from darwin_v50.cross_world_transfer_confirmation import (
     TRANSFER_CONFIRMATION_TEST_SEEDS,
+    TRANSFER_CONFIRMATION_FINAL_SEEDS,
+    TRANSFER_INDEPENDENT_FINAL_SEEDS,
     record_transfer_confirmation,
     run_transfer_confirmation,
 )
@@ -47,6 +49,18 @@ class TransferConfirmationTests(unittest.TestCase):
         self.assertEqual(payload["status"], "confirmatory-h50-l14")
         self.assertIn("known-alignment", payload["capability_claim"])
         self.assertTrue(payload["h50_l14_registered"])
+
+    def test_independent_confirmation_seeds_are_fresh(self) -> None:
+        self.assertTrue(
+            set(TRANSFER_INDEPENDENT_FINAL_SEEDS).isdisjoint(
+                TRANSFER_CONFIRMATION_FINAL_SEEDS
+            )
+        )
+        self.assertTrue(
+            set(TRANSFER_INDEPENDENT_FINAL_SEEDS).isdisjoint(
+                TRANSFER_CONFIRMATION_TEST_SEEDS
+            )
+        )
 
 
 if __name__ == "__main__":

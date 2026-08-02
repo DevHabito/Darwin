@@ -99,6 +99,10 @@ the first completed run and the exact evaluator was repeated to recover the
 unseen result. Because this violated the literal one-run rule, capability
 promotion is withheld until a fresh independent confirmation.
 
+[Experiment 024](EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
+pre-registers that exact confirmation on fresh seeds `29500–29599`, without any
+algorithm or threshold change. Status: registered, not run.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

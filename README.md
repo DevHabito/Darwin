@@ -182,6 +182,11 @@ output. Because that violated the literal one-run rule, the result is recorded
 as supportive but procedurally inconclusive. Capability promotion is withheld
 pending a fresh independent confirmation.
 
+That exact
+[independent confirmation](docs/v50/EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
+is now pre-registered on fresh seeds `29500–29599`, with no algorithm or
+threshold change. No confirmation result is claimed before its one-time run.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

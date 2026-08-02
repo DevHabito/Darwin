@@ -337,6 +337,11 @@ two and violated the literal one-run rule.
 Decision: numerical support recorded, capability promotion withheld. A fresh,
 pre-registered independent confirmation is required. See Experiment 023.
 
+[Experiment 024](EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
+freezes an exact independent repetition on seeds `29500–29599` with bootstrap
+seed `30100`. No method or threshold changed after Experiment 023. Status:
+registered, not run.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
