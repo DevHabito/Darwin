@@ -199,6 +199,10 @@ then passed nine of ten frozen oracle-sensitivity rules, but failed the related
 simultaneous-win interval. The benchmark is refuted, H50-L15 is not registered,
 and no learned reward-transfer result is claimed.
 
+[Experiment 026](docs/v50/EXPERIMENT_026_CONTEXTUAL_CONTROL_FAILURE_AUDIT.md)
+pre-registers a diagnostic on fresh seeds to separate expected decision quality
+from finite binary-reward noise. It cannot reverse that refutation.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

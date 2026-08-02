@@ -118,6 +118,11 @@ criteria passed, but the related simultaneous-win interval missed its frozen
 lower bound. The benchmark is refuted, learned-candidate development remains
 blocked, and H50-L15 remains unregistered.
 
+[Experiment 026](EXPERIMENT_026_CONTEXTUAL_CONTROL_FAILURE_AUDIT.md)
+pre-registers a fresh-seed diagnostic that separates expected action value
+from realized binary reward noise. It has no promotion rule and cannot reverse
+Experiment 025.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

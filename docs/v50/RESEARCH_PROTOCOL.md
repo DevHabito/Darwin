@@ -370,6 +370,11 @@ simultaneous-win interval was [`0.65625`, `0.9375`] against a frozen lower bound
 of `0.75`. Decision: **refuted benchmark**. Candidate development is blocked,
 the validation seeds are retired, and H50-L15 remains unregistered.
 
+[Experiment 026](EXPERIMENT_026_CONTEXTUAL_CONTROL_FAILURE_AUDIT.md) freezes a
+diagnostic repetition on fresh related seeds `31000–31127`. It compares the
+sign of realized reward with evaluator-only expected reward improvement under
+the unchanged policy. The audit has no pass or promotion rule.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
