@@ -212,10 +212,12 @@ defines the next boundary without weakening the H50-L10 trace invariant. A
 separate latent tracker may update after chosen-action observations while the
 transition prior remains frozen.
 
-[Experiment 037](EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md) pre-registers
-the first development schedule: base, shifted, recurrent, and novel action
-alignments, with frozen, cumulative, shifted-evidence, random, oracle, and pure
-candidate controls. It cannot register H50-L17.
+[Experiment 037](EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md) completed the
+first base–shifted–recurrent–novel development schedule. The candidate and
+oracle solved all `768` tasks, frozen and cumulative solved `384`, shifted
+evidence solved none, and every causal-integrity rate was `1.0`. Adaptation cost
+one observation at each boundary. The result supports calibration but does not
+register H50-L17.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

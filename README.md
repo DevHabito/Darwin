@@ -276,8 +276,10 @@ The next line is narrower than general continual learning. The
 [online alignment note](docs/v50/RESEARCH_NOTE_ONLINE_ALIGNMENT_ADAPTATION.md)
 keeps the transition prior frozen and learns only a three-value latent action
 alignment after chosen-action observations. [Experiment 037](docs/v50/EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md)
-pre-registers a base–shifted–recurrent–novel development schedule with causal
-controls. H50-L17 is not registered.
+completed a base–shifted–recurrent–novel development schedule. The candidate
+matched the oracle on all `768` goals and adapted after one observation at each
+boundary, while frozen and cumulative controls solved half and shifted evidence
+solved none. This supports calibration; H50-L17 is not registered.
 
 ## Contributing
 

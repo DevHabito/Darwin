@@ -1,6 +1,6 @@
 # Experiment 037 — online action-alignment development
 
-Status: pre-registered development protocol. No development seed has been run.
+Status: completed development experiment. H50-L17 remains unregistered.
 
 This experiment tests whether a causal online alignment update inside Darwin's
 integrated cycle changes later actions and preserves performance across an
@@ -99,3 +99,50 @@ The three hypotheses are known, observations are deterministic and uniquely
 identify a rotation, the transition prior is frozen, tasks and goals are
 external, and the evaluator is unauthenticated E1. The result cannot be
 described as general online world-model learning or open-ended adaptation.
+
+## Development result
+
+Seeds `42000–42031` were executed once on 2026-08-03 after this protocol and
+its evaluator were committed as `5e250e5`.
+
+| Output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Candidate success | `1.000000` (`768/768`) | `[1.000000, 1.000000]` |
+| Frozen success | `0.500000` (`384/768`) | not registered |
+| Cumulative success | `0.500000` (`384/768`) | not registered |
+| Shifted-evidence success | `0.000000` (`0/768`) | not registered |
+| Seeded-random success | `0.035156` (`27/768`) | not registered |
+| Oracle success | `1.000000` (`768/768`) | not registered |
+| Candidate minus frozen | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus cumulative | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus shifted evidence | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus oracle | `0.000000` | `[0.000000, 0.000000]` |
+| Boundary adaptation delay | `1.000000` observation | `[1.000000, 1.000000]` |
+
+Candidate success was `1.000000` in all four segments. Frozen success was
+`1.000000` in base and recurrence and `0.000000` in shifted and novel modes.
+The recurrent candidate-minus-frozen interval was therefore exactly
+`[0.000000, 0.000000]`: recurrence demonstrates preserved access to rotation
+`0`, not superiority over a control that never left it.
+
+The candidate used `4.125` actions per goal versus the oracle's `4.000`. Across
+each world, each of the three hidden boundaries cost exactly one additional
+action, for three extra actions per world: the first post-boundary observation
+identified the new rotation, and the next plan used it.
+
+Integration parity, alignment identification, post-observation alignment,
+tracker snapshot replay, kernel lineage, action-observation correlation,
+absence of premature success, archive retention, and frozen-prior integrity
+were all `1.000000`.
+
+The seven development questions have favorable answers in this registered
+family. The shifted-evidence control supports a causal path from observation
+to alignment to action, while the cumulative control shows that retaining all
+mode counts without reset is too inertial for this schedule.
+
+This supports a separate calibration protocol. It does not show unknown-mode
+discovery, noisy inference, transition-prior learning, or general continual
+learning, and it cannot register H50-L17.
+
+The machine-readable aggregate is
+[`results/EXPERIMENT_037_DEVELOPMENT_AGGREGATE.json`](results/EXPERIMENT_037_DEVELOPMENT_AGGREGATE.json).

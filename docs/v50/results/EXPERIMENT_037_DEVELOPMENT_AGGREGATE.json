@@ -1,0 +1,122 @@
+{
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 42700,
+  "candidate_segment_success_rates": {
+    "base": 1.0,
+    "novel": 1.0,
+    "recurrent": 1.0,
+    "shifted": 1.0
+  },
+  "capability_claim": false,
+  "development_intervals": {
+    "boundary_adaptation_delay": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "candidate_minus_cumulative_success_rate": {
+      "high": 0.5,
+      "low": 0.5,
+      "mean": 0.5
+    },
+    "candidate_minus_frozen_success_rate": {
+      "high": 0.5,
+      "low": 0.5,
+      "mean": 0.5
+    },
+    "candidate_minus_oracle_success_rate": {
+      "high": 0.0,
+      "low": 0.0,
+      "mean": 0.0
+    },
+    "candidate_minus_shuffled_success_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "candidate_success_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "recurrent_candidate_minus_frozen_success_rate": {
+      "high": 0.0,
+      "low": 0.0,
+      "mean": 0.0
+    }
+  },
+  "evidence_level": "E1_LOCAL_UNAUTHENTICATED_EVALUATOR",
+  "experiment": "037",
+  "exploration_interactions_per_world": 486,
+  "frozen_segment_success_rates": {
+    "base": 1.0,
+    "novel": 0.0,
+    "recurrent": 1.0,
+    "shifted": 0.0
+  },
+  "h50_l17_registered": false,
+  "hidden_rotations": [0, 1, 0, 2],
+  "integrity": {
+    "action_observation_correlation_rate": 1.0,
+    "alignment_identification_rate": 1.0,
+    "archive_retention_rate": 1.0,
+    "integration_parity_rate": 1.0,
+    "kernel_lineage_rate": 1.0,
+    "no_premature_success_rate": 1.0,
+    "post_observation_alignment_rate": 1.0,
+    "prior_frozen_rate": 1.0,
+    "tracker_snapshot_rate": 1.0
+  },
+  "interpretation_boundary": "online inference over a registered three-value action alignment; the transition prior remains frozen",
+  "maximum_target_steps": 6,
+  "mean_boundary_adaptation_delay": 1.0,
+  "mean_candidate_steps": 4.125,
+  "mean_oracle_steps": 4.0,
+  "seeds": [
+    42000,
+    42001,
+    42002,
+    42003,
+    42004,
+    42005,
+    42006,
+    42007,
+    42008,
+    42009,
+    42010,
+    42011,
+    42012,
+    42013,
+    42014,
+    42015,
+    42016,
+    42017,
+    42018,
+    42019,
+    42020,
+    42021,
+    42022,
+    42023,
+    42024,
+    42025,
+    42026,
+    42027,
+    42028,
+    42029,
+    42030,
+    42031
+  ],
+  "segments": ["base", "shifted", "recurrent", "novel"],
+  "status": "development-only",
+  "success_rates": {
+    "candidate": 1.0,
+    "cumulative": 0.5,
+    "frozen": 0.5,
+    "oracle": 1.0,
+    "random": 0.03515625,
+    "shuffled": 0.0
+  },
+  "task_count": 768,
+  "tasks_per_segment": 6,
+  "world_count": 32
+}
