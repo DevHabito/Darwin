@@ -1,8 +1,8 @@
 # Experiment 027 — contextual decision benchmark replication
 
-Status: pre-registered replication. Validation seeds had not been run when
-this document, seed constants, and evaluator were committed. This experiment
-cannot reverse Experiment 025 or register H50-L15.
+Status: passed benchmark replication locally. Validation seeds had not been run
+when this document, seed constants, and evaluator were committed as `338ab18`.
+This experiment cannot reverse Experiment 025 or register H50-L15.
 
 ## Purpose
 
@@ -90,4 +90,30 @@ of this result.
 
 ## Result
 
-Not run at pre-registration time.
+Seeds `32000–32127` were executed once after pre-registration. All ten frozen
+criteria passed.
+
+| Metric | Mean | 95% interval | Frozen rule |
+| --- | ---: | ---: | ---: |
+| Related reward improvement | `1.851563` | [`1.617188`, `2.101563`] | low `>= 1.0` |
+| Related pseudo-regret reduction | `2.028021` | [`1.803848`, `2.271262`] | low `>= 0.75` |
+| Related preferred-action improvement | `0.149089` | [`0.130208`, `0.168294`] | low `>= 0.05` |
+| Related simultaneous-win rate | `0.875` | [`0.806574`, `0.921574`] Wilson | low `>= 0.75` |
+| Unrelated reward improvement | `-1.726563` | [`-2.265625`, `-1.203125`] | high `<= 0.0` |
+| Unrelated pseudo-regret reduction | `-1.701070` | [`-2.177292`, `-1.213446`] | high `<= 0.0` |
+| Adversarial reward improvement | `-11.109375` | [`-11.75`, `-10.484375`] | high `<= -2.0` |
+| Adversarial pseudo-regret reduction | `-10.933234` | [`-11.328913`, `-10.515643`] | high `<= -5.0` |
+
+Causal archive and opaque-identity rates were both `1.0`.
+
+Decision: **passed benchmark sensitivity locally**. The exact source-family
+oracle improves related contextual decisions and the same prior produces clear
+negative transfer under mismatch. The benchmark is now eligible for
+source-learned candidate development on new seed families.
+
+This does not reverse Experiment 025, whose registered decision remains
+refuted. It does not show that Darwin's learned prior improves reward, and it
+does not register H50-L15.
+
+The machine-readable record is
+[`results/EXPERIMENT_027_VALIDATION_AGGREGATE.json`](results/EXPERIMENT_027_VALIDATION_AGGREGATE.json).

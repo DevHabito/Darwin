@@ -205,9 +205,10 @@ then found expected reward wins in `98.44%` of fresh worlds and realized wins in
 to the failed interval, but it cannot reverse the refutation.
 
 [Experiment 027](docs/v50/EXPERIMENT_027_CONTEXTUAL_CONTROL_BENCHMARK_REPLICATION.md)
-pre-registers a fresh 128-world replication with the same policy, horizon, and
-thresholds, using a Wilson interval for the binary robustness rate. It has not
-been run and H50-L15 remains unregistered.
+then passed all ten criteria on a fresh 128-world replication with the same
+policy, horizon, and thresholds, using a Wilson interval for the binary
+robustness rate. Source-learned candidate development is now eligible, but
+Experiment 025 remains refuted and H50-L15 remains unregistered.
 
 ## Contributing
 

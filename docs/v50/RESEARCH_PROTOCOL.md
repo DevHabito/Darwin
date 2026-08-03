@@ -384,7 +384,12 @@ reward noise contributing to the miss, but cannot reverse Experiment 025.
 freezes a new 128-world-per-condition validation on seeds `32000–32127`. The
 policy, 64-interaction horizon, task family, and ten thresholds remain fixed.
 Continuous means retain paired bootstrap intervals; the binary simultaneous-win
-rate uses a 95% Wilson interval. Status: registered, not run.
+rate uses a 95% Wilson interval. All ten criteria passed in one execution. The
+related reward improvement was `1.851563`, pseudo-regret reduction was
+`2.028021`, and the simultaneous-win Wilson interval was [`0.806574`,
+`0.921574`]. Decision: passed benchmark sensitivity locally; learned-candidate
+development is eligible, while Experiment 025 remains refuted and H50-L15
+remains unregistered.
 
 ## Standing safety boundary
 
