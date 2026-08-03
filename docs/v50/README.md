@@ -125,6 +125,11 @@ simultaneous wins occurred in `0.890625`; `0.09375` had an expected win without
 a realized win. This is consistent with finite-reward variation, but the audit
 has no promotion rule and Experiment 025 remains refuted.
 
+[Experiment 027](EXPERIMENT_027_CONTEXTUAL_CONTROL_BENCHMARK_REPLICATION.md)
+pre-registers a fresh 128-world replication with the same policy, horizon, and
+ten thresholds. It replaces only the binary-rate interval with a Wilson score
+interval. It is registered, not run, and cannot reverse Experiment 025.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

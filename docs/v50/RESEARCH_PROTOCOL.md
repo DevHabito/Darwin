@@ -380,6 +380,12 @@ realized/simultaneous win rate. In `0.09375` of worlds, expected reward improved
 without a positive realized difference. This is consistent with finite binary
 reward noise contributing to the miss, but cannot reverse Experiment 025.
 
+[Experiment 027](EXPERIMENT_027_CONTEXTUAL_CONTROL_BENCHMARK_REPLICATION.md)
+freezes a new 128-world-per-condition validation on seeds `32000–32127`. The
+policy, 64-interaction horizon, task family, and ten thresholds remain fixed.
+Continuous means retain paired bootstrap intervals; the binary simultaneous-win
+rate uses a 95% Wilson interval. Status: registered, not run.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary
