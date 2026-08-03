@@ -1,7 +1,7 @@
 # Experiment 030 — H50-L15 known-alignment contextual transfer
 
-Status: pre-registered confirmatory experiment. Final seeds had not been run
-when this document, evaluator, criteria, and seed constants were committed.
+Status: passed locally. Final seeds had not been run when this document,
+evaluator, criteria, and seed constants were committed as `c043fdb`.
 
 ## Registered claim
 
@@ -95,4 +95,38 @@ personhood, AGI, or a Diana-like brain.
 
 ## Result
 
-Not run at pre-registration time.
+Seeds `35000–35127` were executed once after pre-registration. All 21 criteria
+passed, and the local causal kernel accepted the complete conjunction.
+
+| Final metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related reward improvement | `1.703125` | [`1.414063`, `2.0`] |
+| Related pseudo-regret reduction | `1.866601` | [`1.609674`, `2.141221`] |
+| Related candidate minus shuffled reward | `2.101563` | [`1.773438`, `2.437695`] |
+| Related candidate minus shuffled pseudo-regret | `2.093956` | [`1.831110`, `2.382899`] |
+| Related simultaneous-win rate | `0.742188` | [`0.660131`, `0.810131`] Wilson |
+| Unrelated reward improvement | `0.007813` | [`-0.390625`, `0.390625`] |
+| Unrelated pseudo-regret reduction | `-0.063522` | [`-0.430241`, `0.287022`] |
+| Adversarial reward improvement | `-0.71875` | [`-1.070313`, `-0.382813`] |
+| Adversarial pseudo-regret reduction | `-0.908489` | [`-1.180806`, `-0.653237`] |
+
+The gate retained mean source weight `0.999298` on related targets, reduced it
+to `0.019831` on unrelated targets, and to effectively zero on adversarial
+targets. It recovered `3.867188` unrelated and `9.867188` adversarial rewards
+relative to ungated transfer. All integrity rates were `1.0`; source and target
+costs remained 2,048 and 64 interactions.
+
+Decision: **H50-L15 passed locally** for known-alignment contextual decisions
+with auxiliary transition feedback in the registered synthetic tabular family.
+
+The candidate did not eliminate negative transfer. Adversarial reward remained
+significantly below scratch. The pass means only that the loss stayed within
+the pre-registered tolerance while related reward and the shuffled causal
+control cleared their thresholds.
+
+Evidence level is E1 from a local automated evaluator. This result does not
+establish pure bandit transfer, multistep control, real-world generalization,
+consciousness, personhood, AGI, or a Diana-like brain.
+
+The machine-readable record is
+[`results/EXPERIMENT_030_FINAL_AGGREGATE.json`](results/EXPERIMENT_030_FINAL_AGGREGATE.json).

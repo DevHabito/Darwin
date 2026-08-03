@@ -147,11 +147,13 @@ adversarial loss remains significant and H50-L15 is still unregistered.
 
 | Hypothesis | Experiment | Result |
 | --- | --- | --- |
-| H50-L15 | [030 — known-alignment contextual transfer](EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md) | Registered, not run |
+| H50-L15 | [030 — known-alignment contextual transfer](EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md) | Passed locally |
 
-Experiment 030 freezes the exact calibrated candidate, 21 criteria, and fresh
-final seeds. The claim is contextual decision transfer with auxiliary
-transition feedback, not pure bandit or multistep control.
+Experiment 030 passed all 21 criteria in one final execution. Related reward
+improved by `1.703125`, and the candidate beat the shuffled causal control by
+`2.101563` rewards. Adversarial reward remained `0.71875` below scratch but
+inside the registered tolerance. The claim is contextual decision transfer
+with auxiliary transition feedback, not pure bandit or multistep control.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

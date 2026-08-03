@@ -418,7 +418,16 @@ pre-registers H50-L15 on final seeds `35000–35127` with bootstrap seed `35700`
 and 10,000 resamples. It freezes all 21 calibration criteria and the exact
 source-learned candidate. The claim includes auxiliary chosen-action transition
 feedback and bounded, not eliminated, mismatch loss. Status: registered, not
-run.
+run at pre-registration time.
+
+The final seeds were executed once after commit `c043fdb`. All 21 criteria
+passed. Related reward improved by `1.703125`, candidate-minus-shuffled reward
+was `2.101563`, and unrelated reward was effectively neutral. Adversarial
+reward remained `0.71875` below scratch but inside the registered tolerance.
+
+Decision: **H50-L15 passed locally** for the narrow registered claim. This is
+E1 local evidence and does not establish pure bandit transfer, multistep
+control, unknown alignment, or general lifelong learning.
 
 ## Standing safety boundary
 
