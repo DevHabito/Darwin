@@ -437,7 +437,7 @@ def transfer_control_validation_record(
     }
 
 
-def _score_policy(
+def score_contextual_policy(
     *,
     model: _DecisionModel,
     task: AlignedTransferTask,
@@ -538,7 +538,7 @@ def evaluate_transfer_control_world(
         ("oracle", TransferPrior.oracle(source_family)),
     ):
         public_world_id = f"control-target:{name}"
-        scores[name] = _score_policy(
+        scores[name] = score_contextual_policy(
             model=PrequentialTransferModel(
                 world_id=public_world_id,
                 prior=prior,

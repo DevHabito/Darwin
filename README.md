@@ -210,6 +210,11 @@ policy, horizon, and thresholds, using a Wilson interval for the binary
 robustness rate. Source-learned candidate development is now eligible, but
 Experiment 025 remains refuted and H50-L15 remains unregistered.
 
+[Experiment 028](docs/v50/EXPERIMENT_028_SOURCE_LEARNED_CONTEXTUAL_DECISIONS.md)
+pre-registers source-learned decision development on fresh seeds with the exact
+H50-L14 prior and gate. It is development-only, has not been run, and does not
+register H50-L15.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

@@ -391,6 +391,14 @@ related reward improvement was `1.851563`, pseudo-regret reduction was
 development is eligible, while Experiment 025 remains refuted and H50-L15
 remains unregistered.
 
+[Experiment 028](EXPERIMENT_028_SOURCE_LEARNED_CONTEXTUAL_DECISIONS.md) freezes
+source-learned candidate development on seeds `33000–33031`. It reuses the
+H50-L14 source estimator, initial gate weight, 2,048 source interactions, and
+the Experiment 027 64-interaction epsilon-greedy target policy. The decision
+uses reward estimates, while the frozen compatibility gate observes both
+chosen-action transition and reward outcomes. Status: registered development,
+not run; there is no pass rule or H50-L15 registration.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

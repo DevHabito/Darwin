@@ -131,6 +131,11 @@ thresholds, replacing only the binary-rate interval with a Wilson score
 interval. All ten criteria passed. This authorizes source-learned candidate
 development, but cannot reverse Experiment 025 or register H50-L15.
 
+[Experiment 028](EXPERIMENT_028_SOURCE_LEARNED_CONTEXTUAL_DECISIONS.md)
+pre-registers the first source-learned decision development on fresh seeds. It
+uses the exact H50-L14 prior and gate with scratch, ungated, shuffled, pooled,
+and oracle controls. Status: registered, not run; H50-L15 remains unregistered.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
