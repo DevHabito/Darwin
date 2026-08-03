@@ -279,7 +279,9 @@ alignment after chosen-action observations. [Experiment 037](docs/v50/EXPERIMENT
 completed a base–shifted–recurrent–novel development schedule. The candidate
 matched the oracle on all `768` goals and adapted after one observation at each
 boundary, while frozen and cumulative controls solved half and shifted evidence
-solved none. This supports calibration; H50-L17 is not registered.
+solved none. [Experiment 038](docs/v50/EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATION.md)
+pre-registers a disjoint `64`-world calibration with a frozen 20-criterion
+conjunction. No calibration seed has been run, and H50-L17 is not registered.
 
 ## Contributing
 
