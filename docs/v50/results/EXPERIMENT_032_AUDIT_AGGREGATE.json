@@ -1,0 +1,262 @@
+{
+  "all_audit_criteria_pass": false,
+  "audit_decision": "clean_transition_feedback_benefit_not_supported",
+  "audit_intervals": {
+    "adversarial_behavioral_reward_only_minus_dual_weight": {
+      "high": 0.4980775041608434,
+      "low": 0.3038335992512238,
+      "mean": 0.40155004470653816
+    },
+    "adversarial_dual_channel_reward_improvement_over_scratch": {
+      "high": -0.53125,
+      "low": -1.4375,
+      "mean": -0.984375
+    },
+    "adversarial_dual_minus_reward_only_preferred_action_rate": {
+      "high": 0.5403645833333334,
+      "low": 0.4368489583333333,
+      "mean": 0.48828125
+    },
+    "adversarial_dual_minus_reward_only_pseudo_regret": {
+      "high": 7.9216378611233464,
+      "low": 6.334698421259304,
+      "mean": 7.131521849852217
+    },
+    "adversarial_dual_minus_reward_only_reward": {
+      "high": 8.125,
+      "low": 6.28125,
+      "mean": 7.1875
+    },
+    "adversarial_fixed_archive_reward_only_minus_dual_weight": {
+      "high": 0.4987105866663729,
+      "low": 0.3082592409249416,
+      "mean": 0.40155004470469224
+    },
+    "adversarial_reward_only_reward_improvement_over_scratch": {
+      "high": -7.124609375000006,
+      "low": -9.234375,
+      "mean": -8.171875
+    },
+    "related_behavioral_reward_only_minus_dual_weight": {
+      "high": -4.2129880826271726e-05,
+      "low": -0.0003242780272312588,
+      "mean": -0.00015551379168944612
+    },
+    "related_dual_channel_reward_improvement_over_scratch": {
+      "high": 2.234375,
+      "low": 1.359375,
+      "mean": 1.796875
+    },
+    "related_dual_minus_reward_only_preferred_action_rate": {
+      "high": 0.0019531249999999983,
+      "low": 0.0,
+      "mean": 0.0006510416666666661
+    },
+    "related_dual_minus_reward_only_pseudo_regret": {
+      "high": 0.016065068797676146,
+      "low": -0.022877996889300197,
+      "mean": -0.004465274090506252
+    },
+    "related_dual_minus_reward_only_reward": {
+      "high": 0.0,
+      "low": -0.046875,
+      "mean": -0.015625
+    },
+    "related_fixed_archive_reward_only_minus_dual_weight": {
+      "high": -3.825920139298583e-05,
+      "low": -0.0003154227675852436,
+      "mean": -0.00015256252019960406
+    },
+    "related_reward_only_reward_improvement_over_scratch": {
+      "high": 2.25,
+      "low": 1.390625,
+      "mean": 1.8125
+    },
+    "unrelated_behavioral_reward_only_minus_dual_weight": {
+      "high": 0.14225590344536523,
+      "low": 0.031316419225010564,
+      "mean": 0.0824934731960318
+    },
+    "unrelated_dual_channel_reward_improvement_over_scratch": {
+      "high": -0.03125,
+      "low": -0.953125,
+      "mean": -0.484375
+    },
+    "unrelated_dual_minus_reward_only_preferred_action_rate": {
+      "high": 0.052734375,
+      "low": -0.010416666666666668,
+      "mean": 0.022135416666666664
+    },
+    "unrelated_dual_minus_reward_only_pseudo_regret": {
+      "high": 0.7753050809475278,
+      "low": -0.1186750797762602,
+      "mean": 0.33541522311763017
+    },
+    "unrelated_dual_minus_reward_only_reward": {
+      "high": 0.890625,
+      "low": -0.140625,
+      "mean": 0.375
+    },
+    "unrelated_fixed_archive_reward_only_minus_dual_weight": {
+      "high": 0.14576570869973904,
+      "low": 0.04298192186694153,
+      "mean": 0.08938986434680839
+    },
+    "unrelated_reward_only_reward_improvement_over_scratch": {
+      "high": -0.296875,
+      "low": -1.484375,
+      "mean": -0.859375
+    }
+  },
+  "baseline_h50_l15_status": "passed_locally",
+  "bootstrap_samples": 5000,
+  "bootstrap_seed": 37700,
+  "capability_claim": false,
+  "epsilon": 0.1,
+  "execution": {
+    "count": 1,
+    "preregistration_commit": "9949429"
+  },
+  "experiment": "032",
+  "experiment_031_status": "not_eligible_for_calibration",
+  "frozen_audit_criteria": {
+    "adversarial_fixed_archive_weight_delta_low_above_zero": true,
+    "adversarial_regret_benefit_low_above_zero": true,
+    "adversarial_reward_benefit_low_above_zero": true,
+    "causal_archive_rate_equals_one": true,
+    "dual_channel_snapshot_rate_equals_one": true,
+    "public_identity_rate_equals_one": true,
+    "related_regret_cost_low_at_least_minus_point_five": true,
+    "related_reward_cost_low_at_least_minus_point_five": true,
+    "reward_only_replay_rate_equals_one": true,
+    "reward_only_snapshot_rate_equals_one": true,
+    "source_interactions_equal_2048": true,
+    "target_interactions_equal_64": true,
+    "unrelated_fixed_archive_weight_delta_low_above_zero": true,
+    "unrelated_regret_benefit_low_above_zero": false,
+    "unrelated_reward_benefit_low_above_zero": false
+  },
+  "integrity": {
+    "causal_archive_rate": 1.0,
+    "dual_channel_snapshot_rate": 1.0,
+    "public_identity_rate": 1.0,
+    "reward_only_replay_rate": 1.0,
+    "reward_only_snapshot_rate": 1.0
+  },
+  "mean_dual_minus_reward_only": {
+    "adversarial": {
+      "preferred_action_rate": 0.48828125,
+      "pseudo_regret": 7.131521849852217,
+      "reward": 7.1875
+    },
+    "related": {
+      "preferred_action_rate": 0.0006510416666666661,
+      "pseudo_regret": -0.004465274090506252,
+      "reward": -0.015625
+    },
+    "unrelated": {
+      "preferred_action_rate": 0.022135416666666664,
+      "pseudo_regret": 0.33541522311763017,
+      "reward": 0.375
+    }
+  },
+  "mean_reward_improvement_over_scratch": {
+    "adversarial": {
+      "dual_channel": -0.984375,
+      "reward_only": -8.171875
+    },
+    "related": {
+      "dual_channel": 1.796875,
+      "reward_only": 1.8125
+    },
+    "unrelated": {
+      "dual_channel": -0.484375,
+      "reward_only": -0.859375
+    }
+  },
+  "mean_source_weight_delta": {
+    "adversarial": {
+      "behavioral_reward_only_minus_dual": 0.40155004470653816,
+      "fixed_archive_reward_only_minus_dual": 0.40155004470469224
+    },
+    "related": {
+      "behavioral_reward_only_minus_dual": -0.00015551379168944612,
+      "fixed_archive_reward_only_minus_dual": -0.00015256252019960406
+    },
+    "unrelated": {
+      "behavioral_reward_only_minus_dual": 0.0824934731960318,
+      "fixed_archive_reward_only_minus_dual": 0.08938986434680839
+    }
+  },
+  "paired_boundary": "identical source family, learned prior, target world, context schedule, action-randomness stream, and outcome-randomness stream; only compatibility feedback mode differs",
+  "seeds": [
+    37000,
+    37001,
+    37002,
+    37003,
+    37004,
+    37005,
+    37006,
+    37007,
+    37008,
+    37009,
+    37010,
+    37011,
+    37012,
+    37013,
+    37014,
+    37015,
+    37016,
+    37017,
+    37018,
+    37019,
+    37020,
+    37021,
+    37022,
+    37023,
+    37024,
+    37025,
+    37026,
+    37027,
+    37028,
+    37029,
+    37030,
+    37031,
+    37032,
+    37033,
+    37034,
+    37035,
+    37036,
+    37037,
+    37038,
+    37039,
+    37040,
+    37041,
+    37042,
+    37043,
+    37044,
+    37045,
+    37046,
+    37047,
+    37048,
+    37049,
+    37050,
+    37051,
+    37052,
+    37053,
+    37054,
+    37055,
+    37056,
+    37057,
+    37058,
+    37059,
+    37060,
+    37061,
+    37062,
+    37063
+  ],
+  "source_interactions": 2048,
+  "source_to_target_cost_ratio": 32.0,
+  "status": "completed-failure-audit",
+  "target_interactions": 64
+}

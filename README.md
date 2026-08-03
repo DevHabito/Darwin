@@ -235,9 +235,10 @@ unrelated and adversarial performance fell significantly below scratch. The
 candidate is not eligible for calibration and no new capability is registered.
 
 [Experiment 032](docs/v50/EXPERIMENT_032_COMPATIBILITY_FEEDBACK_FAILURE_AUDIT.md)
-is registered to compare the dual-channel and reward-only gates directly on
-paired fresh worlds. It adds a fixed-archive replay to isolate the informational
-effect of transition feedback. Audit seeds have not been run.
+compared the dual-channel and reward-only gates directly on paired fresh worlds.
+Transition feedback strongly improved adversarial behavior and reduced source
+weight under fixed unrelated experience, but unrelated behavioral intervals
+crossed zero. The clean general-benefit audit failed `2` of `15` criteria.
 
 ## Contributing
 

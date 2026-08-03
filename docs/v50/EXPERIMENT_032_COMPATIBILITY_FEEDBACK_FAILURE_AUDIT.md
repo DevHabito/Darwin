@@ -1,6 +1,6 @@
 # Experiment 032 — compatibility-feedback failure audit
 
-Status: registered failure audit; audit seeds have not been run.
+Status: completed failure audit; clean general benefit not supported.
 
 This protocol, evaluator, criteria, implementation-only tests, and seed
 constants must be committed before audit execution. The audit is diagnostic. It
@@ -138,3 +138,40 @@ transfer. The audit cannot establish learned alignment, multistep control,
 open-world robustness, autonomous goals, consciousness, personhood, AGI, or a
 Diana-like brain.
 
+## Result
+
+Seeds `37000–37063` were executed once after pre-registration in commit
+`9949429`. Thirteen of the 15 frozen criteria passed. Both unrelated behavioral
+criteria failed, so the registered decision is
+`clean_transition_feedback_benefit_not_supported`.
+
+| Paired dual-channel minus reward-only metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related reward | `-0.015625` | [`-0.046875`, `0.0`] |
+| Related pseudo-regret reduction | `-0.004465` | [`-0.022878`, `0.016065`] |
+| Unrelated reward | `0.375` | [`-0.140625`, `0.890625`] |
+| Unrelated pseudo-regret reduction | `0.335415` | [`-0.118675`, `0.775305`] |
+| Adversarial reward | `7.1875` | [`6.28125`, `8.125`] |
+| Adversarial pseudo-regret reduction | `7.131522` | [`6.334698`, `7.921638`] |
+
+The fixed-archive diagnostic found lower dual-channel source weight in both
+mismatch conditions. Reward-only minus dual-channel weight was `0.089390`
+[`0.042982`, `0.145766`] on unrelated targets and `0.401550` [`0.308259`,
+`0.498711`] on adversarial targets. All five integrity rates were `1.0`.
+
+The evidence supports a narrower explanation: transition feedback materially
+improves adversarial mismatch detection and behavior in this registered family.
+It also changes source-weight rejection on unrelated fixed experience, but the
+result does not establish a corresponding unrelated behavioral advantage.
+
+The dual-channel gate remained `0.984375` rewards below scratch on adversarial
+targets and `0.484375` below scratch on unrelated targets. The audit therefore
+does not show robust transfer or elimination of negative transfer.
+
+Decision: **no clean general transition-feedback benefit across both mismatch
+classes**. The two failed criteria cannot be replaced by the large adversarial
+effect, and the audit cannot be promoted to a capability result. H50-L15 and
+Experiment 031 retain their original, narrower decisions.
+
+The machine-readable record is
+[`results/EXPERIMENT_032_AUDIT_AGGREGATE.json`](results/EXPERIMENT_032_AUDIT_AGGREGATE.json).

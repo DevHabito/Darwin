@@ -164,9 +164,11 @@ Unrelated reward fell by `1.5625`, however, and adversarial reward fell by
 capability claim.
 
 [Experiment 032](EXPERIMENT_032_COMPATIBILITY_FEEDBACK_FAILURE_AUDIT.md) is a
-registered paired failure audit. It compares dual-channel and reward-only gates
-on identical fresh worlds and replays one fixed archive through both gates.
-Audit seeds have not been run, and the audit cannot register a capability.
+completed paired failure audit. Transition feedback improved adversarial reward
+by `7.1875` and lowered source weight under fixed unrelated and adversarial
+experience. Unrelated behavioral reward and pseudo-regret intervals crossed
+zero, however. The clean general-benefit conclusion failed `2` of `15` frozen
+criteria and cannot register a capability.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
