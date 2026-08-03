@@ -411,6 +411,15 @@ reward improved by `1.734375`; adversarial reward remained `0.859375` below
 scratch but inside the frozen tolerance. Decision: confirmatory
 pre-registration is eligible; H50-L15 remains unregistered.
 
+### H50-L15 — known-alignment contextual decisions
+
+[Experiment 030](EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md)
+pre-registers H50-L15 on final seeds `35000–35127` with bootstrap seed `35700`
+and 10,000 resamples. It freezes all 21 calibration criteria and the exact
+source-learned candidate. The claim includes auxiliary chosen-action transition
+feedback and bounded, not eliminated, mismatch loss. Status: registered, not
+run.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

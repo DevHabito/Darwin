@@ -145,6 +145,14 @@ negative-transfer, gate-benefit, weight, integrity, and cost criteria. Status:
 all 21 criteria passed. The result makes a confirmatory protocol eligible, but
 adversarial loss remains significant and H50-L15 is still unregistered.
 
+| Hypothesis | Experiment | Result |
+| --- | --- | --- |
+| H50-L15 | [030 — known-alignment contextual transfer](EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md) | Registered, not run |
+
+Experiment 030 freezes the exact calibrated candidate, 21 criteria, and fresh
+final seeds. The claim is contextual decision transfer with auxiliary
+transition feedback, not pure bandit or multistep control.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

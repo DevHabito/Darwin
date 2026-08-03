@@ -49,6 +49,7 @@ does not turn a partial win into a pass when a pre-registered criterion misses.
 | H50-L12 | Does online posterior sampling beat registered learned controls? | Refuted |
 | H50-L13 | Does information-directed control remove that exploration cost? | Refuted |
 | H50-L14 | Can source observations improve prediction in aligned related worlds while gating mismatch? | Passed locally |
+| H50-L15 | Can the source-learned prior improve known-alignment contextual decisions while the gate bounds declared mismatch losses? | Registered, not run |
 
 “Passed locally” means the implementation met its registered thresholds under
 the repository's own automated evaluator. It is E1 evidence, not independent
@@ -220,6 +221,11 @@ adversarial loss. It supports calibration, not H50-L15 registration.
 passed all 21 conjunctive calibration criteria on fresh seeds. This permits a
 confirmatory pre-registration, but adversarial loss remains measurable and
 H50-L15 is still unregistered.
+
+[Experiment 030](docs/v50/EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md)
+freezes the exact candidate and 21 criteria on fresh final seeds. The registered
+claim includes auxiliary transition feedback and does not assert pure bandit or
+multistep control.
 
 ## Contributing
 
