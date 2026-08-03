@@ -219,12 +219,12 @@ evidence solved none, and every causal-integrity rate was `1.0`. Adaptation cost
 one observation at each boundary. The result supports calibration but does not
 register H50-L17.
 
-[Experiment 038](EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATION.md) pre-registers
-the unchanged candidate on `64` disjoint worlds. Its 20 frozen criteria require
-perfect candidate and causal-integrity results, exact registered control gaps,
-one-observation adaptation, oracle parity, and fixed counts and budgets. No
-calibration seed has been opened. A pass could authorize confirmation but could
-not register H50-L17.
+[Experiment 038](EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATION.md) retained the
+unchanged candidate on `64` disjoint worlds. All 20 frozen criteria passed:
+candidate and oracle success were `1.0`, registered control gaps were exact,
+adaptation took one observation, and every causal-integrity rate was `1.0`.
+The result authorizes confirmatory pre-registration but does not register
+H50-L17.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

@@ -1,6 +1,6 @@
 # Experiment 038 — online action-alignment calibration
 
-Status: pre-registered calibration protocol. No calibration seed has been run.
+Status: completed calibration. H50-L17 remains unregistered.
 
 Experiment 037 showed that a replay-checked latent tracker can update Darwin's
 next action after an observed alignment change while the learned transition
@@ -160,3 +160,49 @@ Even a complete pass would not establish unknown-mode discovery, ambiguous or
 noisy inference, transition-model learning during control, endogenous goals,
 natural-language grounding, unrestricted autonomy, consciousness, personhood,
 AGI, or a Diana-like artificial mind.
+
+## Result
+
+Calibration seeds `43000–43063` were executed once on 2026-08-03 after this
+protocol and its evaluator were committed as `0aca36f`. All 20 frozen criteria
+passed.
+
+| Calibration output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Candidate success | `1.000000` (`1,536/1,536`) | `[1.000000, 1.000000]` |
+| Frozen success | `0.500000` (`768/1,536`) | not registered |
+| Cumulative success | `0.500000` (`768/1,536`) | not registered |
+| Shifted-evidence success | `0.000000` (`0/1,536`) | not registered |
+| Seeded-random success | `0.039714` (`61/1,536`) | not registered |
+| Oracle success | `1.000000` (`1,536/1,536`) | not registered |
+| Candidate minus frozen | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus cumulative | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus shifted evidence | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus random | `0.960286` | `[0.951172, 0.968750]` |
+| Candidate minus oracle | `0.000000` | `[0.000000, 0.000000]` |
+| Recurrent candidate minus frozen | `0.000000` | `[0.000000, 0.000000]` |
+| Boundary adaptation delay | `1.000000` observation | `[1.000000, 1.000000]` |
+| Candidate action overhead | `0.125000` action/task | `[0.125000, 0.125000]` |
+
+Candidate success was `1.000000` in every segment. The frozen pattern was
+exactly `(1.0, 0.0, 1.0, 0.0)` in every world. Integrated/pure-candidate
+parity, alignment identification, post-observation updating, tracker snapshot
+replay, kernel lineage, action-observation correlation, absence of premature
+success, archive retention, and frozen-prior integrity were all `1.000000`.
+
+The candidate averaged `4.125` actions per task versus the oracle's `4.000`.
+Each alignment boundary cost one observation and therefore one additional
+action, for three extra actions across each 24-task world.
+
+Decision: **eligible for confirmatory pre-registration**. The result supports
+the narrow claim that, in this registered deterministic three-rotation family,
+an observation causally updates a separate alignment tracker and changes later
+actions without changing the transition prior.
+
+Calibration does not register H50-L17. The rotation set is closed and known,
+observations uniquely identify the active rotation, segment boundaries are
+evaluator-defined, and all goals are external. No broader learning or mind-like
+claim follows from this result.
+
+The machine-readable aggregate is
+[`results/EXPERIMENT_038_CALIBRATION_AGGREGATE.json`](results/EXPERIMENT_038_CALIBRATION_AGGREGATE.json).

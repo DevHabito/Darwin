@@ -280,8 +280,9 @@ completed a base–shifted–recurrent–novel development schedule. The candida
 matched the oracle on all `768` goals and adapted after one observation at each
 boundary, while frozen and cumulative controls solved half and shifted evidence
 solved none. [Experiment 038](docs/v50/EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATION.md)
-pre-registers a disjoint `64`-world calibration with a frozen 20-criterion
-conjunction. No calibration seed has been run, and H50-L17 is not registered.
+passed its frozen 20-criterion conjunction on `1,536` disjoint calibration
+tasks. The result is eligible for confirmatory pre-registration, but H50-L17
+is not registered.
 
 ## Contributing
 
