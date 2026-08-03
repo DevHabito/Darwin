@@ -226,6 +226,10 @@ adaptation took one observation, and every causal-integrity rate was `1.0`.
 The result authorizes confirmatory pre-registration but does not register
 H50-L17.
 
+[Experiment 039](EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md) freezes the
+same candidate, controls, 20-criterion conjunction, and interpretation ceiling
+for one final execution on `64` fresh worlds. No final seed has been opened.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
