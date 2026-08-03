@@ -494,6 +494,7 @@ class SQLiteEventStore:
 
         known_goal_events = {
             "goal.started",
+            "goal.continued",
             "action.dispatched",
             "observation.rejected",
             "observation.recorded",
@@ -560,6 +561,24 @@ class SQLiteEventStore:
             if parent is None or str(parent["kind"]) != "action.dispatched":
                 raise ValidationError(
                     "recorded observation parent is not an action dispatch"
+                )
+            return
+
+        if event.kind == "goal.continued":
+            if event.parent_event_id != last_event_id:
+                raise ValidationError(
+                    "goal.continued must follow the latest goal event"
+                )
+            if (
+                parent is None
+                or str(parent["kind"]) != "goal.condition_unsatisfied"
+            ):
+                raise ValidationError(
+                    "goal.continued requires an unsatisfied decision"
+                )
+            if event.action_id != expected_action_id:
+                raise ValidationError(
+                    "goal.continued does not match the completed action"
                 )
             return
 

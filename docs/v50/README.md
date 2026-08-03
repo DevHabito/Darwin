@@ -177,6 +177,13 @@ fallback improved adversarial reward over its local no-fallback ablation by
 rewards against the global gate. It is not eligible for calibration and
 registers no capability.
 
+The [minimum integrated cognitive-cycle note](RESEARCH_NOTE_INTEGRATED_COGNITIVE_CYCLE.md)
+defines the next architecture boundary. It records the interface audit, adds an
+explicit multi-action goal-continuation prerequisite, and limits the first
+benchmark to the H50-L10 learned history model, causal kernel, replay-checked
+agent checkpoint, and evaluator-owned synthetic environment. It is not a
+capability claim.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

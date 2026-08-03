@@ -109,6 +109,108 @@ class DarwinV50KernelTests(unittest.TestCase):
                 metrics={"absolute_prediction_error": 0.01},
             )
 
+    def test_unsatisfied_goal_can_continue_with_a_new_action(self) -> None:
+        first_action = self.waiting_goal()
+        first = self.kernel.record_observation(
+            first_action.goal_id,
+            action_id=first_action.expected_action_id or "",
+            source="sandbox.oracle",
+            metrics={"absolute_prediction_error": 0.8},
+        )
+        self.assertFalse(first.condition_satisfied)
+
+        continued = self.kernel.continue_goal(first_action.goal_id)
+        self.assertEqual(continued.status, GoalStatus.ACTIVE)
+        self.assertIsNone(continued.expected_action_id)
+        self.assertIsNone(continued.expected_action_event_id)
+
+        second_action = self.kernel.dispatch_action(
+            continued.goal_id,
+            action_name="evaluate-second-transition",
+            parameters={"split": "second-test"},
+        )
+        self.assertNotEqual(
+            second_action.expected_action_id,
+            first_action.expected_action_id,
+        )
+        completed = self.kernel.record_observation(
+            second_action.goal_id,
+            action_id=second_action.expected_action_id or "",
+            source="sandbox.oracle",
+            metrics={"absolute_prediction_error": 0.08},
+        )
+        self.assertEqual(completed.goal.status, GoalStatus.SUCCEEDED)
+
+        events = self.kernel.goal_events(first_action.goal_id)
+        continued_event = next(
+            event for event in events if event.kind == "goal.continued"
+        )
+        first_decision = next(
+            event
+            for event in events
+            if event.kind == "goal.condition_unsatisfied"
+        )
+        self.assertEqual(
+            continued_event.parent_event_id,
+            first_decision.event_id,
+        )
+        self.assertEqual(
+            continued_event.action_id,
+            first_action.expected_action_id,
+        )
+
+    def test_continue_rejects_unobserved_rejected_and_terminal_states(
+        self,
+    ) -> None:
+        waiting = self.waiting_goal()
+        with self.assertRaises(GoalStateError):
+            self.kernel.continue_goal(waiting.goal_id)
+
+        self.kernel.record_observation(
+            waiting.goal_id,
+            action_id="action:wrong",
+            source="sandbox.oracle",
+            metrics={"absolute_prediction_error": 0.8},
+        )
+        with self.assertRaises(GoalStateError):
+            self.kernel.continue_goal(waiting.goal_id)
+
+        terminal = self.waiting_goal(session_id="session:terminal")
+        completed = self.kernel.record_observation(
+            terminal.goal_id,
+            action_id=terminal.expected_action_id or "",
+            source="sandbox.oracle",
+            metrics={"absolute_prediction_error": 0.08},
+        )
+        self.assertEqual(completed.goal.status, GoalStatus.SUCCEEDED)
+        with self.assertRaises(GoalStateError):
+            self.kernel.continue_goal(terminal.goal_id)
+
+    def test_restart_can_continue_an_unsatisfied_goal(self) -> None:
+        waiting = self.waiting_goal(session_id="session:continue-restart")
+        self.kernel.record_observation(
+            waiting.goal_id,
+            action_id=waiting.expected_action_id or "",
+            source="sandbox.oracle",
+            metrics={"absolute_prediction_error": 0.8},
+        )
+        self.kernel.close()
+
+        reopened = DarwinKernelV50.open(self.database)
+        try:
+            continued = reopened.continue_goal(waiting.goal_id)
+            self.assertEqual(continued.status, GoalStatus.ACTIVE)
+            self.assertIsNone(continued.expected_action_id)
+            self.assertEqual(
+                reopened.store.count_events(
+                    goal_id=waiting.goal_id,
+                    kind="goal.continued",
+                ),
+                1,
+            )
+        finally:
+            reopened.close()
+
     def test_wrong_action_and_source_are_rejected(self) -> None:
         goal = self.waiting_goal()
 

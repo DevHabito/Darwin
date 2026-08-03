@@ -246,6 +246,12 @@ deterministic scratch fallback. The fallback helped its no-fallback ablation,
 but localization performed significantly worse than the global gate on both
 mismatch classes. The candidate is not eligible for calibration.
 
+The next architectural line is defined by the
+[minimum integrated cognitive-cycle note](docs/v50/RESEARCH_NOTE_INTEGRATED_COGNITIVE_CYCLE.md).
+It limits the first integration to an externally supplied goal, the H50-L10
+history model and planner, explicit per-step kernel evidence, and agent-state
+restart. No integrated capability is registered yet.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

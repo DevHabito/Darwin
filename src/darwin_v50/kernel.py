@@ -756,6 +756,61 @@ class DarwinKernelV50:
                 connection=connection,
             )
 
+    def continue_goal(self, goal_id: str) -> Goal:
+        """Resume a goal after accepted evidence did not satisfy it.
+
+        Continuation is explicit so a new action cannot be silently attached to
+        rejected evidence, an unobserved action, or a terminal goal.
+        """
+
+        with self.store.transaction() as connection:
+            goal = self.store.get_goal(goal_id, connection=connection)
+            if goal.status is not GoalStatus.WAITING_OBSERVATION:
+                raise GoalStateError(
+                    f"goal {goal.goal_id} cannot continue from "
+                    f"{goal.status.value}"
+                )
+            latest = self.store.get_event(
+                goal.last_event_id,
+                connection=connection,
+            )
+            if latest.kind != "goal.condition_unsatisfied":
+                raise GoalStateError(
+                    "goal can continue only after accepted unsatisfied evidence"
+                )
+            if (
+                goal.expected_action_id is None
+                or latest.action_id != goal.expected_action_id
+            ):
+                raise GoalStateError(
+                    "unsatisfied decision is not correlated to the pending action"
+                )
+            event = self._event(
+                session_id=goal.session_id,
+                kind="goal.continued",
+                goal_id=goal.goal_id,
+                action_id=goal.expected_action_id,
+                parent_event_id=goal.last_event_id,
+                payload={
+                    "from_status": goal.status.value,
+                    "completed_action_id": goal.expected_action_id,
+                    "condition_remains_unsatisfied": True,
+                },
+            )
+            self.store.append_event(event, connection=connection)
+            updated = replace(
+                goal,
+                status=GoalStatus.ACTIVE,
+                last_event_id=event.event_id,
+                expected_action_id=None,
+                expected_action_event_id=None,
+            )
+            return self.store.update_goal(
+                updated,
+                expected_version=goal.version,
+                connection=connection,
+            )
+
     def get_goal(self, goal_id: str) -> Goal:
         return self.store.get_goal(goal_id)
 
