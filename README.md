@@ -265,6 +265,12 @@ tasks and four balanced recovery boundaries, including deterministic
 environment reconstruction by causal replay. This permits confirmatory
 pre-registration but does not register H50-L16.
 
+[Experiment 036](docs/v50/EXPERIMENT_036_DETERMINISTIC_INTEGRATED_CYCLE_CONFIRMATION.md)
+pre-registers the unchanged final test on a fresh seed family. H50-L16 will be
+registered only if all 17 frozen criteria pass in one clean execution, and its
+claim remains limited to deterministic externally-goaled integrated planning
+with local replay-based recovery.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

@@ -197,6 +197,12 @@ four restart modes solved every one of `1,536` tasks, the rotated control solved
 none, and every recovery and causal-integrity rate was `1.0`. The result permits
 confirmatory pre-registration but does not register H50-L16.
 
+[Experiment 036](EXPERIMENT_036_DETERMINISTIC_INTEGRATED_CYCLE_CONFIRMATION.md)
+pre-registers that confirmation without changing the candidate or any of the
+17 criteria. Fresh final seeds will determine the narrow H50-L16 claim of
+deterministic externally-goaled integrated planning with local replay-based
+recovery.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
