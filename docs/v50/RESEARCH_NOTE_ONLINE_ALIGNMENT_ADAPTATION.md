@@ -1,6 +1,7 @@
 # Research note — online alignment adaptation inside the integrated cycle
 
-Status: engineering and benchmark contract. H50-L17 is not registered.
+Status: foundational engineering note. H50-L17 was later registered at E1 by
+Experiment 039 for a narrow deterministic claim.
 
 ## Why this is the next boundary
 

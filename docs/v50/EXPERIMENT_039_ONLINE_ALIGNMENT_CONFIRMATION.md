@@ -1,6 +1,6 @@
 # Experiment 039 — H50-L17 online action-alignment confirmation
 
-Status: pre-registered confirmation protocol. No final seed has been run.
+Status: passed locally. H50-L17 is registered at E1 for the narrow claim below.
 
 Experiment 037 established development sensitivity and causal controls.
 Experiment 038 then passed all 20 frozen calibration criteria across `64`
@@ -106,3 +106,48 @@ Even a complete pass would not establish unknown-mode discovery, ambiguous or
 noisy inference, online learning of the transition model, self-generated goals,
 natural-language grounding, unrestricted computer autonomy, consciousness,
 emotions, personhood, AGI, or a Diana-like artificial mind.
+
+## Result
+
+Final seeds `44000–44063` were executed once on 2026-08-03 after this protocol
+and its evaluator were committed as `3c442d7`. All 20 frozen criteria passed.
+The local causal kernel accepted the complete conjunction and marked its goal
+`succeeded`.
+
+| Final output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Candidate success | `1.000000` (`1,536/1,536`) | `[1.000000, 1.000000]` |
+| Frozen success | `0.500000` (`768/1,536`) | not registered |
+| Cumulative success | `0.500000` (`768/1,536`) | not registered |
+| Shifted-evidence success | `0.000000` (`0/1,536`) | not registered |
+| Seeded-random success | `0.041016` (`63/1,536`) | not registered |
+| Oracle success | `1.000000` (`1,536/1,536`) | not registered |
+| Candidate minus frozen | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus cumulative | `0.500000` | `[0.500000, 0.500000]` |
+| Candidate minus shifted evidence | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus random | `0.958984` | `[0.949219, 0.968099]` |
+| Candidate minus oracle | `0.000000` | `[0.000000, 0.000000]` |
+| Recurrent candidate minus frozen | `0.000000` | `[0.000000, 0.000000]` |
+| Boundary adaptation delay | `1.000000` observation | `[1.000000, 1.000000]` |
+| Candidate action overhead | `0.125000` action/task | `[0.125000, 0.125000]` |
+
+Candidate success was `1.000000` in every segment. The frozen segment pattern
+was exactly `(1.0, 0.0, 1.0, 0.0)` in every world. Integrated/pure-candidate
+parity, alignment identification, post-observation updating, tracker replay,
+kernel lineage, action-observation correlation, absence of premature success,
+archive retention, and frozen-prior integrity were all `1.000000`.
+
+The candidate averaged `4.125` actions per task and the oracle averaged
+`4.000`. Each of the three alignment boundaries cost one observation and one
+additional action, for three extra actions per world.
+
+Decision: **H50-L17 passed locally** for deterministic online action-alignment
+inference with a frozen transition prior.
+
+This result shows a causal observation-to-latent-update-to-later-action path
+inside Darwin's integrated cycle. It does not widen the registered claim: the
+rotation hypotheses are known, observations are deterministic and unique, the
+schedule and goals are external, and the transition prior remains frozen.
+
+The machine-readable record is
+[`results/EXPERIMENT_039_FINAL_AGGREGATE.json`](results/EXPERIMENT_039_FINAL_AGGREGATE.json).

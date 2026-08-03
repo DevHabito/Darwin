@@ -283,8 +283,10 @@ solved none. [Experiment 038](docs/v50/EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATI
 passed its frozen 20-criterion conjunction on `1,536` disjoint calibration
 tasks. The result is eligible for confirmatory pre-registration, but H50-L17
 is not registered. [Experiment 039](docs/v50/EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md)
-pre-registers the unchanged claim on a fresh final family; no final seed has
-been run.
+passed all 20 unchanged criteria on `1,536` fresh final tasks, and the local
+kernel accepted the conjunction. H50-L17 therefore passes locally at E1 only
+for deterministic online action-alignment inference with a frozen transition
+prior.
 
 ## Contributing
 

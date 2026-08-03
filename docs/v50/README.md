@@ -200,6 +200,7 @@ confirmatory pre-registration but does not register H50-L16.
 | Hypothesis | Experiment | Result |
 | --- | --- | --- |
 | H50-L16 | [036 — deterministic integrated-cycle confirmation](EXPERIMENT_036_DETERMINISTIC_INTEGRATED_CYCLE_CONFIRMATION.md) | Passed locally |
+| H50-L17 | [039 — online action-alignment confirmation](EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md) | Passed locally |
 
 Experiment 036 retained the unchanged candidate and all 17 calibration
 criteria. All criteria passed on `1,536` fresh final tasks, every recovery mode
@@ -226,9 +227,11 @@ adaptation took one observation, and every causal-integrity rate was `1.0`.
 The result authorizes confirmatory pre-registration but does not register
 H50-L17.
 
-[Experiment 039](EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md) freezes the
+[Experiment 039](EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md) retained the
 same candidate, controls, 20-criterion conjunction, and interpretation ceiling
-for one final execution on `64` fresh worlds. No final seed has been opened.
+on `64` fresh worlds. Every criterion passed, and the local kernel accepted the
+conjunction. H50-L17 is registered at E1 only for deterministic online
+action-alignment inference with a frozen transition prior.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
