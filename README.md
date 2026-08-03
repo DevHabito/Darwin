@@ -228,6 +228,12 @@ residual adversarial loss stayed within the registered tolerance. The claim
 includes auxiliary transition feedback and does not assert pure bandit or
 multistep control.
 
+[Experiment 031](docs/v50/EXPERIMENT_031_REWARD_ONLY_COMPATIBILITY_DEVELOPMENT.md)
+is registered to remove that auxiliary transition likelihood from the
+compatibility gate. It keeps the H50-L15 learner, policy, costs, and controls,
+and adds a counterfactual transition-blindness check. Development has not yet
+been run and no new capability is registered.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

@@ -474,6 +474,11 @@ class GatedTransferModel:
     """Bayesian mixture of a source-learned model and scratch learning."""
 
     SNAPSHOT_SCHEMA = 1
+    REWARD_ONLY_SNAPSHOT_SCHEMA = 2
+    COMPATIBILITY_FEEDBACK_MODES = (
+        "transition_and_reward",
+        "reward_only",
+    )
 
     def __init__(
         self,
@@ -481,6 +486,7 @@ class GatedTransferModel:
         world_id: str,
         source_prior: TransferPrior,
         initial_source_weight: float,
+        compatibility_feedback: str = "transition_and_reward",
     ) -> None:
         if (
             isinstance(initial_source_weight, bool)
@@ -489,10 +495,13 @@ class GatedTransferModel:
             or not 0.0 < initial_source_weight < 1.0
         ):
             raise ValidationError("initial source weight must be within (0, 1)")
+        if compatibility_feedback not in self.COMPATIBILITY_FEEDBACK_MODES:
+            raise ValidationError("compatibility feedback mode is invalid")
         self.world_id = world_id
         self.source_prior = source_prior
         self.source_prior_digest = _prior_digest(source_prior)
         self.initial_source_weight = float(initial_source_weight)
+        self.compatibility_feedback = compatibility_feedback
         self._log_source_weight = math.log(self.initial_source_weight)
         self._log_scratch_weight = math.log(1.0 - self.initial_source_weight)
         self._source = PrequentialTransferModel(
@@ -567,16 +576,24 @@ class GatedTransferModel:
         self._pending = (combined, source, scratch)
         return combined
 
-    @staticmethod
     def _log_likelihood(
+        self,
         forecast: TransferForecast,
         observation: TransferObservation,
     ) -> float:
         result = 0.0
-        for probability, outcome in (
-            (forecast.transition_probability, observation.next_observation),
-            (forecast.reward_probability, observation.reward),
-        ):
+        channels = (
+            ((forecast.reward_probability, observation.reward),)
+            if self.compatibility_feedback == "reward_only"
+            else (
+                (
+                    forecast.transition_probability,
+                    observation.next_observation,
+                ),
+                (forecast.reward_probability, observation.reward),
+            )
+        )
+        for probability, outcome in channels:
             result += math.log(
                 probability if outcome else 1.0 - probability
             )
@@ -602,14 +619,21 @@ class GatedTransferModel:
         self._weight_history.append(self.source_weight)
 
     def _snapshot_dict(self) -> dict[str, object]:
+        configuration: dict[str, object] = {
+            "world_id": self.world_id,
+            "initial_source_weight": self.initial_source_weight,
+            "source_prior": _prior_to_dict(self.source_prior),
+            "source_prior_digest": self.source_prior_digest,
+        }
+        schema = self.SNAPSHOT_SCHEMA
+        if self.compatibility_feedback == "reward_only":
+            schema = self.REWARD_ONLY_SNAPSHOT_SCHEMA
+            configuration["compatibility_feedback"] = (
+                self.compatibility_feedback
+            )
         return {
-            "schema": self.SNAPSHOT_SCHEMA,
-            "configuration": {
-                "world_id": self.world_id,
-                "initial_source_weight": self.initial_source_weight,
-                "source_prior": _prior_to_dict(self.source_prior),
-                "source_prior_digest": self.source_prior_digest,
-            },
+            "schema": schema,
+            "configuration": configuration,
             "archive": [
                 _observation_to_dict(item) for item in self.archive
             ],
@@ -627,21 +651,40 @@ class GatedTransferModel:
     @classmethod
     def from_snapshot(cls, raw: str) -> "GatedTransferModel":
         parsed = _strict_json(raw)
+        schema = parsed.get("schema") if isinstance(parsed, dict) else None
         if not isinstance(parsed, dict) or set(parsed) != {
             "schema",
             "configuration",
             "archive",
             "derived",
-        } or parsed.get("schema") != cls.SNAPSHOT_SCHEMA:
+        } or schema not in (
+            cls.SNAPSHOT_SCHEMA,
+            cls.REWARD_ONLY_SNAPSHOT_SCHEMA,
+        ):
             raise ValidationError("unsupported gated transfer snapshot")
         configuration = parsed.get("configuration")
-        if not isinstance(configuration, dict) or set(configuration) != {
+        expected_configuration = {
             "world_id",
             "initial_source_weight",
             "source_prior",
             "source_prior_digest",
-        }:
+        }
+        if schema == cls.REWARD_ONLY_SNAPSHOT_SCHEMA:
+            expected_configuration.add("compatibility_feedback")
+        if (
+            not isinstance(configuration, dict)
+            or set(configuration) != expected_configuration
+        ):
             raise ValidationError("gated snapshot configuration is invalid")
+        compatibility_feedback = configuration.get(
+            "compatibility_feedback",
+            "transition_and_reward",
+        )
+        if (
+            schema == cls.REWARD_ONLY_SNAPSHOT_SCHEMA
+            and compatibility_feedback != "reward_only"
+        ):
+            raise ValidationError("gated snapshot feedback mode is invalid")
         source_prior = _prior_from_dict(configuration.get("source_prior"))
         if configuration.get("source_prior_digest") != _prior_digest(
             source_prior
@@ -653,6 +696,7 @@ class GatedTransferModel:
             initial_source_weight=configuration.get(
                 "initial_source_weight"
             ),  # type: ignore[arg-type]
+            compatibility_feedback=compatibility_feedback,  # type: ignore[arg-type]
         )
         archive = parsed.get("archive")
         if not isinstance(archive, list):

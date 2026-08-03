@@ -227,6 +227,102 @@ class CompatibilityGateTests(unittest.TestCase):
         self.assertEqual(model.to_snapshot(), before)
         self.assertEqual(model.source_weight, 0.5)
 
+    def test_reward_only_gate_is_counterfactually_transition_blind(self) -> None:
+        first = GatedTransferModel(
+            world_id="reward-only-world",
+            source_prior=self.source_prior,
+            initial_source_weight=0.5,
+            compatibility_feedback="reward_only",
+        )
+        flipped = GatedTransferModel(
+            world_id="reward-only-world",
+            source_prior=self.source_prior,
+            initial_source_weight=0.5,
+            compatibility_feedback="reward_only",
+        )
+        for index in range(8):
+            reward = index % 3 != 0
+            transition = index % 2 == 0
+            first.forecast(self.context, self.action)
+            flipped.forecast(self.context, self.action)
+            first.observe(
+                TransferObservation(
+                    world_id="reward-only-world",
+                    index=index,
+                    context=self.context,
+                    action=self.action,
+                    next_observation=transition,
+                    reward=reward,
+                )
+            )
+            flipped.observe(
+                TransferObservation(
+                    world_id="reward-only-world",
+                    index=index,
+                    context=self.context,
+                    action=self.action,
+                    next_observation=not transition,
+                    reward=reward,
+                )
+            )
+            self.assertEqual(first.source_weight, flipped.source_weight)
+            self.assertEqual(first.weight_history, flipped.weight_history)
+        for context, action in transfer_cell_keys():
+            self.assertEqual(
+                first.peek(context, action).reward_probability,
+                flipped.peek(context, action).reward_probability,
+            )
+
+    def test_reward_only_snapshot_declares_and_replays_feedback_mode(self) -> None:
+        model = GatedTransferModel(
+            world_id="reward-only-world",
+            source_prior=self.source_prior,
+            initial_source_weight=0.5,
+            compatibility_feedback="reward_only",
+        )
+        model.forecast(self.context, self.action)
+        model.observe(
+            TransferObservation(
+                world_id="reward-only-world",
+                index=0,
+                context=self.context,
+                action=self.action,
+                next_observation=True,
+                reward=False,
+            )
+        )
+        payload = json.loads(model.to_snapshot())
+        self.assertEqual(payload["schema"], 2)
+        self.assertEqual(
+            payload["configuration"]["compatibility_feedback"],
+            "reward_only",
+        )
+        restored = GatedTransferModel.from_snapshot(model.to_snapshot())
+        self.assertEqual(restored.compatibility_feedback, "reward_only")
+        self.assertEqual(restored.to_snapshot(), model.to_snapshot())
+
+    def test_default_gate_snapshot_remains_schema_one(self) -> None:
+        model = GatedTransferModel(
+            world_id="gate-test-world",
+            source_prior=self.source_prior,
+            initial_source_weight=0.5,
+        )
+        payload = json.loads(model.to_snapshot())
+        self.assertEqual(payload["schema"], 1)
+        self.assertNotIn(
+            "compatibility_feedback",
+            payload["configuration"],
+        )
+
+    def test_invalid_feedback_mode_fails_closed(self) -> None:
+        with self.assertRaises(ValidationError):
+            GatedTransferModel(
+                world_id="gate-test-world",
+                source_prior=self.source_prior,
+                initial_source_weight=0.5,
+                compatibility_feedback="unknown",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

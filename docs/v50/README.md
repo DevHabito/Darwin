@@ -155,6 +155,12 @@ improved by `1.703125`, and the candidate beat the shuffled causal control by
 inside the registered tolerance. The claim is contextual decision transfer
 with auxiliary transition feedback, not pure bandit or multistep control.
 
+[Experiment 031](EXPERIMENT_031_REWARD_ONLY_COMPATIBILITY_DEVELOPMENT.md) is a
+registered development study that removes transition likelihood from the gate
+while leaving the H50-L15 learner and policy unchanged. It includes exact
+counterfactual transition-blindness replay. Its development seeds have not been
+run, and it does not register a new capability claim.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
