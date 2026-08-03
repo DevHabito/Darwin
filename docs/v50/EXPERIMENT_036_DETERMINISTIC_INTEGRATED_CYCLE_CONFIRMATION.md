@@ -1,6 +1,6 @@
 # Experiment 036 — H50-L16 deterministic integrated-cycle confirmation
 
-Status: pre-registered confirmatory protocol. No final seed has been run.
+Status: passed locally. H50-L16 is registered at E1 for the narrow claim below.
 
 Experiment 034 established development sensitivity and fixed-restart behavior.
 Experiment 035 then passed all 17 calibration criteria across four balanced
@@ -102,3 +102,36 @@ Even a complete pass would not show online learning during control, endogenous
 goals, recovery of an independent stochastic service, authenticated distributed
 transactions, natural-language grounding, unrestricted computer autonomy,
 consciousness, emotions, personhood, AGI, or a Diana-like artificial mind.
+
+## Result
+
+Final seeds `41000–41063` were executed once on 2026-08-03 after the protocol
+was committed as `ad304f6`. All 17 frozen criteria passed, and the local causal
+kernel accepted the complete conjunction and marked its goal `succeeded`.
+
+| Final output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Restart candidate success | `1.000000` (`1,536/1,536`) | `[1.000000, 1.000000]` |
+| Uninterrupted success | `1.000000` (`1,536/1,536`) | not registered |
+| Rotated-policy success | `0.000000` (`0/1,536`) | not registered |
+| Seeded-random success | `0.039714` (`61/1,536`) | not registered |
+| Candidate minus rotated | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus random | `0.960286` | `[0.951172, 0.968750]` |
+| Candidate minus uninterrupted | `0.000000` | `[0.000000, 0.000000]` |
+| Restart action exactness | `1.000000` | `[1.000000, 1.000000]` |
+| Mean candidate actions | `4.000000` | not registered |
+
+Each of the four recovery modes succeeded on `384/384` assigned tasks. All 12
+reported recovery and causal-integrity rates were exactly `1.000000`.
+
+Decision: **H50-L16 passed locally** for deterministic externally-goaled
+integrated planning with local replay-based recovery.
+
+This is the first registered Darwin result in which a persisted goal, learned
+model, multistep planner, per-action evidence loop, agent checkpoint, kernel
+reopen, and reconstructed environment operate in one continuing task. The
+model remains frozen during target control, and both goal and world recipe are
+supplied by the evaluator. The result does not support a broader claim.
+
+The machine-readable record is
+[`results/EXPERIMENT_036_FINAL_AGGREGATE.json`](results/EXPERIMENT_036_FINAL_AGGREGATE.json).

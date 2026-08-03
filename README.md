@@ -266,10 +266,11 @@ environment reconstruction by causal replay. This permits confirmatory
 pre-registration but does not register H50-L16.
 
 [Experiment 036](docs/v50/EXPERIMENT_036_DETERMINISTIC_INTEGRATED_CYCLE_CONFIRMATION.md)
-pre-registers the unchanged final test on a fresh seed family. H50-L16 will be
-registered only if all 17 frozen criteria pass in one clean execution, and its
-claim remains limited to deterministic externally-goaled integrated planning
-with local replay-based recovery.
+passed all 17 unchanged criteria on `1,536` fresh final tasks, and the local
+kernel accepted the complete conjunction. H50-L16 therefore passes locally at
+E1 for deterministic externally-goaled integrated planning with local
+replay-based recovery. This is not a claim of online learning, endogenous
+goals, open-world autonomy, consciousness, or AGI.
 
 ## Contributing
 
