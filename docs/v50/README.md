@@ -191,6 +191,12 @@ Restart behavior matched the uninterrupted twin exactly, and every frozen
 causal-integrity rate was `1.0`. This supports separate calibration, but the
 experiment had no pass threshold and registers no integrated capability.
 
+[Experiment 035](EXPERIMENT_035_INTEGRATED_DURABILITY_CALIBRATION.md)
+pre-registers that calibration on fresh seeds. It keeps the policy frozen,
+varies four restart boundaries, reconstructs the deterministic environment by
+causal action replay, and requires all 17 criteria to pass. Calibration cannot
+register H50-L16.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

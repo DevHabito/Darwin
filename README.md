@@ -259,6 +259,12 @@ frozen causal-integrity checks; the rotated control solved none. This supports
 a separate calibration stage, but the experiment had no capability threshold
 and registers no integrated capability.
 
+[Experiment 035](docs/v50/EXPERIMENT_035_INTEGRATED_DURABILITY_CALIBRATION.md)
+pre-registers the stronger calibration. It varies four recovery boundaries,
+restores the kernel and cycle, reconstructs the deterministic environment by
+causal replay, and freezes 17 conjunctive criteria before fresh calibration
+seeds are opened. It cannot register H50-L16.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
