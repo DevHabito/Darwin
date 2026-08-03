@@ -184,6 +184,12 @@ benchmark to the H50-L10 learned history model, causal kernel, replay-checked
 agent checkpoint, and evaluator-owned synthetic environment. It is not a
 capability claim.
 
+[Experiment 034](EXPERIMENT_034_INTEGRATED_CYCLE_DEVELOPMENT.md) pre-registers
+the first development benchmark for that composition. It freezes fresh seeds,
+an agent restart after two actions, an uninterrupted twin, rotated and random
+controls, and causal-integrity outputs. It has no pass threshold and cannot
+register an integrated capability.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

@@ -252,6 +252,12 @@ It limits the first integration to an externally supplied goal, the H50-L10
 history model and planner, explicit per-step kernel evidence, and agent-state
 restart. No integrated capability is registered yet.
 
+[Experiment 034](docs/v50/EXPERIMENT_034_INTEGRATED_CYCLE_DEVELOPMENT.md)
+pre-registers that first integrated development benchmark. It fixes fresh
+development seeds, restart and ablation controls, causal-integrity metrics, and
+the E1 evidence ceiling before a development run. It has no capability-pass
+threshold.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
