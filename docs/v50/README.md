@@ -171,10 +171,11 @@ zero, however. The clean general-benefit conclusion failed `2` of `15` frozen
 criteria and cannot register a capability.
 
 [Experiment 033](EXPERIMENT_033_CELLWISE_SAFE_TRANSFER_DEVELOPMENT.md) is a
-registered development study of local compatibility and safe fallback. It
-compares the candidate with the H50-L15 global gate, a local no-fallback
-ablation, ungated and shuffled controls, scratch, and oracle. Development seeds
-have not been run, and no capability is registered.
+completed development study of local compatibility and safe fallback. The
+fallback improved adversarial reward over its local no-fallback ablation by
+`0.9375`, but the candidate lost `0.8125` unrelated and `2.03125` adversarial
+rewards against the global gate. It is not eligible for calibration and
+registers no capability.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

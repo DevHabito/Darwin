@@ -1,6 +1,6 @@
 # Experiment 033 — cellwise safe-transfer development
 
-Status: registered development; development seeds have not been run.
+Status: completed development; not eligible for calibration.
 
 This protocol, evaluator, candidate, implementation-only tests, and seed
 constants must be committed before development execution. The experiment has
@@ -128,3 +128,43 @@ synthetic tabular contextual task. It would not establish learned alignment,
 multistep control, real-world safety, general lifelong learning, autonomous
 goals, consciousness, personhood, AGI, or a Diana-like brain.
 
+## Result
+
+Seeds `38000–38031` were executed once after pre-registration in commit
+`041a032`. The candidate retained a related transfer signal but failed the
+registered mismatch screening boundary.
+
+| Development metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related candidate reward improvement | `1.6875` | [`1.0625`, `2.375`] |
+| Related candidate pseudo-regret reduction | `2.312373` | [`1.696545`, `2.957919`] |
+| Related candidate minus shuffled reward | `2.71875` | [`2.0`, `3.5`] |
+| Unrelated candidate reward improvement | `-1.03125` | [`-1.84375`, `-0.1875`] |
+| Unrelated candidate minus global reward | `-0.8125` | [`-1.4375`, `-0.125`] |
+| Adversarial candidate reward improvement | `-3.03125` | [`-4.0625`, `-2.030469`] |
+| Adversarial candidate minus global reward | `-2.03125` | [`-3.0`, `-1.0`] |
+| Adversarial candidate minus local no-fallback reward | `0.9375` | [`0.3125`, `1.625`] |
+
+The fallback activated on `7.23%` of related cells, `51.76%` of unrelated
+cells, and `77.93%` of adversarial cells. Mean effective source weight was
+`0.723015`, `0.359121`, and `0.145682`, respectively. Every archive, public
+identity, and snapshot integrity rate was `1.0`.
+
+The fallback rule had a real but limited effect: it improved adversarial reward
+and pseudo-regret relative to the same cellwise gate without fallback. The
+larger localization change was harmful. The candidate performed significantly
+worse than the global H50-L15 gate on unrelated and adversarial targets.
+
+Decision: **do not advance this candidate to calibration**. Related reward and
+the shuffled causal control were favorable, but both mismatch conditions
+remained significantly worse than scratch. The result does not justify a looser
+negative-transfer tolerance.
+
+This failure suggests that sparse per-cell evidence fragments compatibility
+learning at a 64-interaction budget. That is an interpretation consistent with
+the design and observed weights, not a separately tested causal conclusion.
+A later mechanism would need partial pooling or hierarchical sharing rather
+than 16 independent gates.
+
+The machine-readable record is
+[`results/EXPERIMENT_033_DEVELOPMENT_AGGREGATE.json`](results/EXPERIMENT_033_DEVELOPMENT_AGGREGATE.json).

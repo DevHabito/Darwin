@@ -241,9 +241,10 @@ weight under fixed unrelated experience, but unrelated behavioral intervals
 crossed zero. The clean general-benefit audit failed `2` of `15` criteria.
 
 [Experiment 033](docs/v50/EXPERIMENT_033_CELLWISE_SAFE_TRANSFER_DEVELOPMENT.md)
-is registered to replace the global source weight with independent
-context-action compatibility weights and a deterministic scratch fallback.
-Development seeds have not been run, and no capability is registered.
+replaced the global source weight with independent context-action weights and a
+deterministic scratch fallback. The fallback helped its no-fallback ablation,
+but localization performed significantly worse than the global gate on both
+mismatch classes. The candidate is not eligible for calibration.
 
 ## Contributing
 
