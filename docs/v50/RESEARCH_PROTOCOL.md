@@ -406,8 +406,10 @@ not eliminate negative transfer. H50-L15 remains unregistered.
 [Experiment 029](EXPERIMENT_029_CONTEXTUAL_DECISION_CALIBRATION.md) freezes 21
 calibration criteria on seeds `34000–34063`. Related reward, causal shuffled
 control, mismatch non-inferiority, gate benefit, posterior weight, replay, and
-cost thresholds are all conjunctive. Status: registered, not run; passing can
-only authorize an H50-L15 pre-registration on fresh final seeds.
+cost thresholds are all conjunctive. All 21 passed in one execution. Related
+reward improved by `1.734375`; adversarial reward remained `0.859375` below
+scratch but inside the frozen tolerance. Decision: confirmatory
+pre-registration is eligible; H50-L15 remains unregistered.
 
 ## Standing safety boundary
 

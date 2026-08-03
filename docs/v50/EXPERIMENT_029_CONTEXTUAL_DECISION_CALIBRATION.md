@@ -1,8 +1,8 @@
 # Experiment 029 — source-learned contextual decision calibration
 
-Status: pre-registered calibration. Calibration seeds had not been run when
-this document, evaluator, thresholds, and seed constants were committed. This
-experiment cannot register H50-L15.
+Status: completed calibration. Calibration seeds had not been run when this
+document, evaluator, thresholds, and seed constants were committed as
+`5a02923`. This experiment cannot register H50-L15.
 
 ## Purpose
 
@@ -91,4 +91,36 @@ learning, consciousness, personhood, AGI, or a Diana-like brain.
 
 ## Result
 
-Not run at pre-registration time.
+Seeds `34000–34063` were executed once after pre-registration. All 21 criteria
+passed.
+
+| Calibration metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related reward improvement | `1.734375` | [`1.390625`, `2.09375`] |
+| Related pseudo-regret reduction | `1.704343` | [`1.356669`, `2.073671`] |
+| Related candidate minus shuffled reward | `1.875` | [`1.46875`, `2.296875`] |
+| Related candidate minus shuffled pseudo-regret | `1.740866` | [`1.403615`, `2.106069`] |
+| Related simultaneous-win rate | `0.78125` | [`0.665672`, `0.864977`] Wilson |
+| Unrelated reward improvement | `0.125` | [`-0.421875`, `0.640625`] |
+| Unrelated pseudo-regret reduction | `-0.067872` | [`-0.435850`, `0.287976`] |
+| Adversarial reward improvement | `-0.859375` | [`-1.296875`, `-0.421875`] |
+| Adversarial pseudo-regret reduction | `-0.946510` | [`-1.244819`, `-0.664120`] |
+
+Related final source weight was `0.999964`, unrelated weight was `0.021513`,
+and adversarial weight was effectively zero. The gate recovered `2.84375`
+unrelated rewards and `9.984375` adversarial rewards relative to ungated
+transfer. All four integrity rates were `1.0` and both interaction-cost checks
+matched the frozen values.
+
+Decision: **eligible for confirmatory pre-registration**. Calibration repeated
+the related operational and causal effects and kept mismatch losses within the
+declared non-inferiority tolerances.
+
+This is not a robust no-harm result. The adversarial candidate remained
+significantly worse than scratch. A final H50-L15 protocol must preserve that
+fact in its claim and cannot describe the gate as eliminating negative
+transfer. H50-L15 remains unregistered until a separate protocol is committed
+before fresh final seeds are run.
+
+The machine-readable record is
+[`results/EXPERIMENT_029_CALIBRATION_AGGREGATE.json`](results/EXPERIMENT_029_CALIBRATION_AGGREGATE.json).
