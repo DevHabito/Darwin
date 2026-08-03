@@ -1,0 +1,91 @@
+{
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 33700,
+  "candidate_minus_shuffled": {
+    "adversarial": {"pseudo_regret": 0.5678657085948171, "reward": 0.5625},
+    "related": {"pseudo_regret": 1.9333292181823039, "reward": 2.5},
+    "unrelated": {"pseudo_regret": 0.4206851301688318, "reward": 0.125}
+  },
+  "candidate_minus_ungated": {
+    "adversarial": {"pseudo_regret": 10.121949625525515, "reward": 10.75},
+    "related": {"pseudo_regret": -0.003337559132444318, "reward": 0.0},
+    "unrelated": {"pseudo_regret": 4.003518800912318, "reward": 4.15625}
+  },
+  "capability_claim": false,
+  "development_execution_count": 1,
+  "development_intervals": {
+    "adversarial_candidate_final_source_weight": {"high": 7.30275929366157e-14, "low": 1.6538262144126872e-18, "mean": 2.436462574492676e-14},
+    "adversarial_candidate_minus_shuffled_pseudo_regret": {"high": 1.5596086316962254, "low": -0.4793225754782903, "mean": 0.5678657085948171},
+    "adversarial_candidate_minus_shuffled_reward": {"high": 1.8445312499999957, "low": -0.75, "mean": 0.5625},
+    "adversarial_candidate_minus_ungated_pseudo_regret": {"high": 10.894758105619045, "low": 9.357880277570766, "mean": 10.121949625525515},
+    "adversarial_candidate_minus_ungated_reward": {"high": 11.9375, "low": 9.53046875, "mean": 10.75},
+    "adversarial_candidate_preferred_action_rate_improvement": {"high": -0.0390625, "low": -0.09244791666666667, "mean": -0.06380208333333333},
+    "adversarial_candidate_pseudo_regret_reduction": {"high": -0.6021264245038154, "low": -1.3940865912737468, "mean": -0.9500962550652797},
+    "adversarial_candidate_reward_improvement": {"high": -0.625, "low": -1.78125, "mean": -1.1875},
+    "related_candidate_final_source_weight": {"high": 0.9999989572884266, "low": 0.9999679121224692, "mean": 0.9999873634360338},
+    "related_candidate_minus_shuffled_pseudo_regret": {"high": 2.4610966011567994, "low": 1.454265067167517, "mean": 1.9333292181823039},
+    "related_candidate_minus_shuffled_reward": {"high": 3.375, "low": 1.75, "mean": 2.5},
+    "related_candidate_minus_ungated_pseudo_regret": {"high": 0.0007020988718735669, "low": -0.009878949013608028, "mean": -0.003337559132444318},
+    "related_candidate_minus_ungated_reward": {"high": 0.0, "low": 0.0, "mean": 0.0},
+    "related_candidate_preferred_action_rate_improvement": {"high": 0.15364583333333334, "low": 0.09244791666666669, "mean": 0.12109375},
+    "related_candidate_pseudo_regret_reduction": {"high": 2.180477301732155, "low": 1.1584896084673424, "mean": 1.6327240627906352},
+    "related_candidate_reward_improvement": {"high": 2.65625, "low": 1.28125, "mean": 1.90625},
+    "related_candidate_simultaneous_win_rate": {"high": 0.8897616374739581, "low": 0.6124500635075647, "mean": 0.78125},
+    "unrelated_candidate_final_source_weight": {"high": 0.03995687608640301, "low": 5.93302697282997e-09, "mean": 0.01331897010610853},
+    "unrelated_candidate_minus_shuffled_pseudo_regret": {"high": 1.2179914104633534, "low": -0.36309574638404196, "mean": 0.4206851301688318},
+    "unrelated_candidate_minus_shuffled_reward": {"high": 1.125, "low": -0.84453125, "mean": 0.125},
+    "unrelated_candidate_minus_ungated_pseudo_regret": {"high": 5.125802934047564, "low": 2.9225979749162905, "mean": 4.003518800912318},
+    "unrelated_candidate_minus_ungated_reward": {"high": 5.65625, "low": 2.65625, "mean": 4.15625},
+    "unrelated_candidate_preferred_action_rate_improvement": {"high": 0.05859375000000001, "low": -0.014322916666666657, "mean": 0.02213541666666667},
+    "unrelated_candidate_pseudo_regret_reduction": {"high": 0.8180615314749826, "low": -0.14745421476148296, "mean": 0.3416752188155778},
+    "unrelated_candidate_reward_improvement": {"high": 0.90625, "low": -0.28125, "mean": 0.3125}
+  },
+  "epsilon": 0.1,
+  "feedback_boundary": "actions use reward estimates; the frozen compatibility gate updates from observed transition and reward outcomes",
+  "h50_l15_registered": false,
+  "integrity": {
+    "candidate_snapshot_rate": 1.0,
+    "causal_archive_rate": 1.0,
+    "public_identity_rate": 1.0,
+    "shuffled_snapshot_rate": 1.0
+  },
+  "mean_final_source_weight": {
+    "adversarial": {"candidate": 2.436462574492676e-14, "shuffled": 0.5011883867256621},
+    "related": {"candidate": 0.9999873634360338, "shuffled": 1.4752700758551454e-08},
+    "unrelated": {"candidate": 0.01331897010610853, "shuffled": 4.6845884292048166e-05}
+  },
+  "mean_improvement_over_scratch": {
+    "adversarial": {
+      "candidate": {"preferred_action_rate": -0.06380208333333333, "pseudo_regret": -0.9500962550652797, "reward": -1.1875},
+      "oracle": {"preferred_action_rate": -0.7708333333333334, "pseudo_regret": -11.15943547813732, "reward": -12.0},
+      "pooled": {"preferred_action_rate": -0.7708333333333334, "pseudo_regret": -11.11411749427208, "reward": -11.96875},
+      "shuffled": {"preferred_action_rate": -0.09895833333333334, "pseudo_regret": -1.5179619636600967, "reward": -1.75},
+      "ungated": {"preferred_action_rate": -0.7708333333333334, "pseudo_regret": -11.072045880590794, "reward": -11.9375}
+    },
+    "related": {
+      "candidate": {"preferred_action_rate": 0.12109375, "pseudo_regret": 1.6327240627906352, "reward": 1.90625},
+      "oracle": {"preferred_action_rate": 0.12109375, "pseudo_regret": 1.7251767039241084, "reward": 1.8125},
+      "pooled": {"preferred_action_rate": 0.12109375, "pseudo_regret": 1.55580000131591, "reward": 1.90625},
+      "shuffled": {"preferred_action_rate": -0.015624999999999997, "pseudo_regret": -0.30060515539166865, "reward": -0.59375},
+      "ungated": {"preferred_action_rate": 0.12109375, "pseudo_regret": 1.6360616219230795, "reward": 1.90625}
+    },
+    "unrelated": {
+      "candidate": {"preferred_action_rate": 0.02213541666666667, "pseudo_regret": 0.3416752188155778, "reward": 0.3125},
+      "oracle": {"preferred_action_rate": -0.07291666666666667, "pseudo_regret": -1.132232327806161, "reward": -1.03125},
+      "pooled": {"preferred_action_rate": -0.2708333333333333, "pseudo_regret": -3.9557699910926205, "reward": -4.125},
+      "shuffled": {"preferred_action_rate": -0.003906249999999995, "pseudo_regret": -0.07900991135325404, "reward": 0.1875},
+      "ungated": {"preferred_action_rate": -0.25390625, "pseudo_regret": -3.661843582096741, "reward": -3.84375}
+    }
+  },
+  "pre_registration_commit": "e4fc269",
+  "seeds": [
+    33000, 33001, 33002, 33003, 33004, 33005, 33006, 33007,
+    33008, 33009, 33010, 33011, 33012, 33013, 33014, 33015,
+    33016, 33017, 33018, 33019, 33020, 33021, 33022, 33023,
+    33024, 33025, 33026, 33027, 33028, 33029, 33030, 33031
+  ],
+  "source_interactions": 2048,
+  "source_to_target_cost_ratio": 32.0,
+  "status": "development-only",
+  "target_interactions": 64
+}

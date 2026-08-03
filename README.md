@@ -212,8 +212,9 @@ Experiment 025 remains refuted and H50-L15 remains unregistered.
 
 [Experiment 028](docs/v50/EXPERIMENT_028_SOURCE_LEARNED_CONTEXTUAL_DECISIONS.md)
 pre-registers source-learned decision development on fresh seeds with the exact
-H50-L14 prior and gate. It is development-only, has not been run, and does not
-register H50-L15.
+H50-L14 prior and gate. The development run found positive related reward and a
+causal advantage over a shuffled prior, but also significant residual
+adversarial loss. It supports calibration, not H50-L15 registration.
 
 ## Contributing
 

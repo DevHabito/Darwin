@@ -397,7 +397,11 @@ H50-L14 source estimator, initial gate weight, 2,048 source interactions, and
 the Experiment 027 64-interaction epsilon-greedy target policy. The decision
 uses reward estimates, while the frozen compatibility gate observes both
 chosen-action transition and reward outcomes. Status: registered development,
-not run; there is no pass rule or H50-L15 registration.
+not a capability test. On the one-time development run, related reward and
+pseudo-regret improved by `1.90625` and `1.632724`, with intervals entirely
+positive. Adversarial reward and pseudo-regret remained worse than scratch by
+`1.1875` and `0.950096`. The gate avoided most ungated mismatch damage but did
+not eliminate negative transfer. H50-L15 remains unregistered.
 
 ## Standing safety boundary
 
