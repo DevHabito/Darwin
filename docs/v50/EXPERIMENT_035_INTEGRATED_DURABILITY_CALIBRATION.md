@@ -1,6 +1,6 @@
 # Experiment 035 — integrated-cycle durability calibration
 
-Status: pre-registered calibration protocol. No calibration seed has been run.
+Status: completed calibration. H50-L16 remains unregistered.
 
 Experiment 034 showed that Darwin's kernel, frozen history model, planner, and
 cycle checkpoint can complete one deterministic four-action task family with a
@@ -147,3 +147,39 @@ externally supplied and the model remains frozen during control.
 Even a complete pass would not establish online adaptation, self-generated
 goals, stochastic robustness, natural-language grounding, unrestricted
 computer autonomy, consciousness, personhood, AGI, or a Diana-like mind.
+
+## Result
+
+Seeds `40000–40063` were executed once on 2026-08-03 after this protocol and
+its evaluator were committed as `51d3e13`. All 17 criteria passed.
+
+| Calibration output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Restart candidate success | `1.000000` (`1,536/1,536`) | `[1.000000, 1.000000]` |
+| Uninterrupted success | `1.000000` (`1,536/1,536`) | not registered |
+| Rotated-policy success | `0.000000` (`0/1,536`) | not registered |
+| Seeded-random success | `0.028646` (`44/1,536`) | not registered |
+| Candidate minus rotated | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus random | `0.971354` | `[0.962240, 0.979167]` |
+| Candidate minus uninterrupted | `0.000000` | `[0.000000, 0.000000]` |
+| Restart action exactness | `1.000000` | `[1.000000, 1.000000]` |
+| Mean candidate actions | `4.000000` | not registered |
+
+Every recovery mode succeeded on `384/384` assigned tasks. Prediction
+agreement, frozen model, recovery execution, cycle replay, kernel reopen,
+environment replay, pending-decision preservation, kernel-cycle binding,
+linear event lineage, action-observation correlation, absence of premature
+success, and restart action agreement were all exactly `1.000000`.
+
+Decision: **eligible for confirmatory pre-registration**. The result supports
+the narrow claim that the frozen integrated cycle survives these four local
+deterministic recovery boundaries without changing its policy or outcome.
+
+The perfect recovery rates do not establish an authenticated crash-consistent
+transaction. The evaluator owns the seed and task and reconstructs the world
+by deterministic replay. A malicious party controlling all local artifacts, a
+stochastic external environment, or a remote side effect remains outside the
+tested boundary. H50-L16 is not registered by calibration.
+
+The machine-readable aggregate is
+[`results/EXPERIMENT_035_CALIBRATION_AGGREGATE.json`](results/EXPERIMENT_035_CALIBRATION_AGGREGATE.json).
