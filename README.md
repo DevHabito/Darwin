@@ -253,10 +253,11 @@ history model and planner, explicit per-step kernel evidence, and agent-state
 restart. No integrated capability is registered yet.
 
 [Experiment 034](docs/v50/EXPERIMENT_034_INTEGRATED_CYCLE_DEVELOPMENT.md)
-pre-registers that first integrated development benchmark. It fixes fresh
-development seeds, restart and ablation controls, causal-integrity metrics, and
-the E1 evidence ceiling before a development run. It has no capability-pass
-threshold.
+completed that first integrated development benchmark. The restarted cycle
+solved all `768` tasks, exactly matched its uninterrupted twin, and passed all
+frozen causal-integrity checks; the rotated control solved none. This supports
+a separate calibration stage, but the experiment had no capability threshold
+and registers no integrated capability.
 
 ## Contributing
 

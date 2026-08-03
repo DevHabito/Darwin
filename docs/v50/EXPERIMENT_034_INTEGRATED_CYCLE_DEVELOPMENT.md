@@ -1,6 +1,6 @@
 # Experiment 034 — integrated cognitive-cycle development
 
-Status: pre-registered development protocol. No development seed has been run.
+Status: completed development experiment. No capability is registered.
 
 This experiment asks whether Darwin's existing kernel, learned history model,
 planner, and checkpoint logic can operate as one persistent action-observation
@@ -129,3 +129,39 @@ Therefore, even a clean result would not establish self-generated goals,
 online lifelong learning, natural-language grounding, open-world robustness,
 general computer autonomy, subjective experience, personhood, AGI, or a
 Diana-like artificial mind.
+
+## Development result
+
+The frozen development family was executed once on 2026-08-03, after the
+protocol was committed. All `32` worlds and `768` target tasks completed in the
+same process. No algorithm, seed, control, metric, or interpretation rule was
+changed during the run.
+
+| Output | Result | World-bootstrap 95% interval |
+| --- | ---: | ---: |
+| Restart candidate success | `1.000000` (`768/768`) | `[1.000000, 1.000000]` |
+| Uninterrupted success | `1.000000` (`768/768`) | not registered |
+| Rotated-policy success | `0.000000` (`0/768`) | not registered |
+| Seeded-random success | `0.042969` (`33/768`) | not registered |
+| Candidate minus rotated | `1.000000` | `[1.000000, 1.000000]` |
+| Candidate minus random | `0.957031` | `[0.942708, 0.970052]` |
+| Candidate minus uninterrupted | `0.000000` | `[0.000000, 0.000000]` |
+| Restart action exactness | `1.000000` | `[1.000000, 1.000000]` |
+| Mean candidate actions | `4.000000` | not registered |
+
+Every frozen integrity rate was `1.000000`: prediction agreement, frozen
+model, causal checkpoint replay, SQLite kernel reopen, linear kernel lineage,
+action-observation correlation, absence of premature success, and exact action
+agreement with the uninterrupted twin.
+
+The three development questions therefore have favorable answers inside this
+benchmark. The controls show that success depends on the learned action
+semantics; forced agent restart did not change the policy or outcome; and the
+recorded causal invariants remained exact.
+
+This is useful integration evidence, but the perfect candidate result also
+reflects the narrow benchmark: the world is deterministic, every evaluated
+goal is exactly four actions away, exploration covers the model before target
+control, and the environment itself is not restarted. The result makes a
+separate calibration protocol reasonable. It does not supply thresholds for
+one, register H50-L16, or expand the E1 evidence ceiling.
