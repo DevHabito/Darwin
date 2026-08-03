@@ -272,6 +272,13 @@ E1 for deterministic externally-goaled integrated planning with local
 replay-based recovery. This is not a claim of online learning, endogenous
 goals, open-world autonomy, consciousness, or AGI.
 
+The next line is narrower than general continual learning. The
+[online alignment note](docs/v50/RESEARCH_NOTE_ONLINE_ALIGNMENT_ADAPTATION.md)
+keeps the transition prior frozen and learns only a three-value latent action
+alignment after chosen-action observations. [Experiment 037](docs/v50/EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md)
+pre-registers a base–shifted–recurrent–novel development schedule with causal
+controls. H50-L17 is not registered.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or

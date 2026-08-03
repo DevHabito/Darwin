@@ -207,6 +207,16 @@ was exact, and the local kernel accepted the conjunction. H50-L16 is registered
 at E1 only for deterministic externally-goaled integrated planning with local
 replay-based recovery.
 
+The [online alignment research note](RESEARCH_NOTE_ONLINE_ALIGNMENT_ADAPTATION.md)
+defines the next boundary without weakening the H50-L10 trace invariant. A
+separate latent tracker may update after chosen-action observations while the
+transition prior remains frozen.
+
+[Experiment 037](EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md) pre-registers
+the first development schedule: base, shifted, recurrent, and novel action
+alignments, with frozen, cumulative, shifted-evidence, random, oracle, and pure
+candidate controls. It cannot register H50-L17.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
