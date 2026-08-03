@@ -1,6 +1,6 @@
 # Experiment 031 — reward-only compatibility development
 
-Status: registered development; development seeds have not been run.
+Status: completed development; not eligible for calibration.
 
 This protocol, evaluator, implementation-only tests, and seed constants must be
 committed before development execution. The experiment has no pass rule and
@@ -133,3 +133,51 @@ single-step contextual transfer. It would not establish learned alignment,
 multistep control, open-world robustness, autonomous goals, consciousness,
 personhood, AGI, or a Diana-like brain.
 
+## Result
+
+Seeds `36000–36031` were executed once after pre-registration in commit
+`fa30e8c`. No threshold or algorithm was changed before execution.
+
+| Development metric | Mean | 95% interval |
+| --- | ---: | ---: |
+| Related reward improvement | `1.625` | [`1.03125`, `2.28125`] |
+| Related pseudo-regret reduction | `1.587954` | [`1.169672`, `2.032954`] |
+| Related candidate minus shuffled reward | `3.65625` | [`2.46875`, `5.03125`] |
+| Related candidate minus shuffled pseudo-regret | `3.631124` | [`2.631003`, `4.759096`] |
+| Related simultaneous-win rate | `0.8125` | [`0.646908`, `0.911105`] Wilson |
+| Unrelated reward improvement | `-1.5625` | [`-2.46875`, `-0.84375`] |
+| Unrelated pseudo-regret reduction | `-1.418548` | [`-2.152930`, `-0.723438`] |
+| Adversarial reward improvement | `-6.46875` | [`-7.875`, `-5.0`] |
+| Adversarial pseudo-regret reduction | `-6.570846` | [`-7.877974`, `-5.235853`] |
+
+All archive, identity, snapshot, and counterfactual transition-blindness rates
+were exactly `1.0`. The software boundary therefore worked: inverting every
+transition left gate weights and reward forecasts unchanged.
+
+The reward-only candidate retained a strong related signal and beat the
+shuffled alignment control. It also reduced mismatch damage relative to
+ungated transfer by `2.59375` rewards on unrelated targets and `4.34375` on
+adversarial targets. That reduction was insufficient. Mean source weight only
+fell to `0.116127` on unrelated targets and remained `0.375972` on adversarial
+targets, compared with `0.999399` on related targets.
+
+Decision: **do not advance this candidate to calibration**. Both mismatch
+conditions were significantly worse than scratch, and adversarial loss was
+large. Choosing a confirmatory tolerance around this result would preserve a
+positive related headline by accepting substantial negative transfer. That
+would not be a defensible robustness claim.
+
+The first emitted summary also contained the inherited field
+`h50_l15_registered: false` from the Experiment 028 report class. That metadata
+was stale: H50-L15 had already passed locally in Experiment 030. The field was
+removed and replaced with `baseline_h50_l15_status: passed_locally` after this
+single run. No seed was rerun, and no numerical value was recomputed for that
+correction.
+
+This development demonstrates that the registered implementation can exclude
+transition outcomes causally, but it refutes the current reward-only gate as a
+robust transfer candidate. It does not reverse H50-L15, whose narrower claim
+explicitly includes transition feedback.
+
+The machine-readable record is
+[`results/EXPERIMENT_031_DEVELOPMENT_AGGREGATE.json`](results/EXPERIMENT_031_DEVELOPMENT_AGGREGATE.json).

@@ -35,6 +35,11 @@ class RewardOnlyTransferDevelopmentTests(unittest.TestCase):
         payload = self.report.to_summary_dict()
         self.assertFalse(payload["capability_claim"])
         self.assertFalse(payload["next_hypothesis_registered"])
+        self.assertNotIn("h50_l15_registered", payload)
+        self.assertEqual(
+            payload["baseline_h50_l15_status"],
+            "passed_locally",
+        )
         self.assertIn(
             "only chosen-action rewards",
             payload["feedback_boundary"],

@@ -229,10 +229,10 @@ includes auxiliary transition feedback and does not assert pure bandit or
 multistep control.
 
 [Experiment 031](docs/v50/EXPERIMENT_031_REWARD_ONLY_COMPATIBILITY_DEVELOPMENT.md)
-is registered to remove that auxiliary transition likelihood from the
-compatibility gate. It keeps the H50-L15 learner, policy, costs, and controls,
-and adds a counterfactual transition-blindness check. Development has not yet
-been run and no new capability is registered.
+removed that auxiliary transition likelihood from the compatibility gate. The
+counterfactual check passed, and related transfer remained positive, but
+unrelated and adversarial performance fell significantly below scratch. The
+candidate is not eligible for calibration and no new capability is registered.
 
 ## Contributing
 

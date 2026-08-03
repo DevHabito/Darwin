@@ -156,10 +156,12 @@ inside the registered tolerance. The claim is contextual decision transfer
 with auxiliary transition feedback, not pure bandit or multistep control.
 
 [Experiment 031](EXPERIMENT_031_REWARD_ONLY_COMPATIBILITY_DEVELOPMENT.md) is a
-registered development study that removes transition likelihood from the gate
-while leaving the H50-L15 learner and policy unchanged. It includes exact
-counterfactual transition-blindness replay. Its development seeds have not been
-run, and it does not register a new capability claim.
+completed development study that removed transition likelihood from the gate
+while leaving the H50-L15 learner and policy unchanged. Exact counterfactual
+transition-blindness replay passed, and related reward improved by `1.625`.
+Unrelated reward fell by `1.5625`, however, and adversarial reward fell by
+`6.46875`. The candidate is not eligible for calibration and registers no new
+capability claim.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

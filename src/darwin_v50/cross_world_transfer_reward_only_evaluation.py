@@ -102,6 +102,8 @@ class RewardOnlyTransferDevelopmentReport(
         result["status"] = "development-only"
         result["capability_claim"] = False
         result["next_hypothesis_registered"] = False
+        result.pop("h50_l15_registered", None)
+        result["baseline_h50_l15_status"] = "passed_locally"
         result["feedback_boundary"] = (
             "action ranking and compatibility-weight updates use only "
             "chosen-action rewards; transition outcomes remain archived but "
