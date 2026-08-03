@@ -234,6 +234,11 @@ counterfactual check passed, and related transfer remained positive, but
 unrelated and adversarial performance fell significantly below scratch. The
 candidate is not eligible for calibration and no new capability is registered.
 
+[Experiment 032](docs/v50/EXPERIMENT_032_COMPATIBILITY_FEEDBACK_FAILURE_AUDIT.md)
+is registered to compare the dual-channel and reward-only gates directly on
+paired fresh worlds. It adds a fixed-archive replay to isolate the informational
+effect of transition feedback. Audit seeds have not been run.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
