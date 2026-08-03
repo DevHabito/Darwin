@@ -713,3 +713,287 @@ class GatedTransferModel:
         except (TypeError, ValueError) as error:
             raise ValidationError("gated snapshot is not finite") from error
         return model
+
+
+class CellwiseGatedTransferModel:
+    """Independent compatibility odds per aligned context-action cell."""
+
+    SNAPSHOT_SCHEMA = 1
+
+    def __init__(
+        self,
+        *,
+        world_id: str,
+        source_prior: TransferPrior,
+        initial_source_weight: float,
+        scratch_fallback: bool,
+    ) -> None:
+        if (
+            isinstance(initial_source_weight, bool)
+            or not isinstance(initial_source_weight, (int, float))
+            or not math.isfinite(initial_source_weight)
+            or not 0.0 < initial_source_weight < 1.0
+        ):
+            raise ValidationError("initial source weight must be within (0, 1)")
+        if not isinstance(scratch_fallback, bool):
+            raise ValidationError("scratch fallback flag is invalid")
+        self.world_id = world_id
+        self.source_prior = source_prior
+        self.source_prior_digest = _prior_digest(source_prior)
+        self.initial_source_weight = float(initial_source_weight)
+        self.scratch_fallback = scratch_fallback
+        self._source = PrequentialTransferModel(
+            world_id=world_id,
+            prior=source_prior,
+        )
+        self._scratch = PrequentialTransferModel(
+            world_id=world_id,
+            prior=TransferPrior.scratch(),
+        )
+        self._log_weights = {
+            key: (
+                math.log(self.initial_source_weight),
+                math.log(1.0 - self.initial_source_weight),
+            )
+            for key in transfer_cell_keys()
+        }
+        self._pending: tuple[
+            TransferForecast,
+            TransferForecast,
+            TransferForecast,
+        ] | None = None
+
+    @property
+    def archive(self) -> tuple[TransferObservation, ...]:
+        if self._source.archive != self._scratch.archive:
+            raise ValidationError("cellwise gated model archives disagree")
+        return self._source.archive
+
+    def posterior_source_weight(
+        self,
+        context: ContextState,
+        action: str,
+    ) -> float:
+        key = (context, action)
+        if key not in self._log_weights:
+            raise ValidationError("cellwise gate key is invalid")
+        log_source, log_scratch = self._log_weights[key]
+        maximum = max(log_source, log_scratch)
+        source = math.exp(log_source - maximum)
+        scratch = math.exp(log_scratch - maximum)
+        return source / (source + scratch)
+
+    def effective_source_weight(
+        self,
+        context: ContextState,
+        action: str,
+    ) -> float:
+        posterior = self.posterior_source_weight(context, action)
+        if self.scratch_fallback and posterior < self.initial_source_weight:
+            return 0.0
+        return posterior
+
+    @property
+    def posterior_source_weights(self) -> tuple[float, ...]:
+        return tuple(
+            self.posterior_source_weight(context, action)
+            for context, action in transfer_cell_keys()
+        )
+
+    @property
+    def effective_source_weights(self) -> tuple[float, ...]:
+        return tuple(
+            self.effective_source_weight(context, action)
+            for context, action in transfer_cell_keys()
+        )
+
+    @property
+    def fallback_cell_rate(self) -> float:
+        return sum(
+            weight == 0.0 for weight in self.effective_source_weights
+        ) / len(transfer_cell_keys())
+
+    def _combine(
+        self,
+        source: TransferForecast,
+        scratch: TransferForecast,
+    ) -> TransferForecast:
+        weight = self.effective_source_weight(source.context, source.action)
+        return TransferForecast(
+            world_id=self.world_id,
+            index=source.index,
+            context=source.context,
+            action=source.action,
+            transition_probability=(
+                weight * source.transition_probability
+                + (1.0 - weight) * scratch.transition_probability
+            ),
+            reward_probability=(
+                weight * source.reward_probability
+                + (1.0 - weight) * scratch.reward_probability
+            ),
+        )
+
+    def peek(
+        self,
+        context: ContextState,
+        action: str,
+    ) -> TransferForecast:
+        if self._pending is not None:
+            raise ValidationError("pending cellwise forecast must be observed")
+        return self._combine(
+            self._source.peek(context, action),
+            self._scratch.peek(context, action),
+        )
+
+    def forecast(
+        self,
+        context: ContextState,
+        action: str,
+    ) -> TransferForecast:
+        if self._pending is not None:
+            raise ValidationError("pending cellwise forecast must be observed")
+        source = self._source.forecast(context, action)
+        scratch = self._scratch.forecast(context, action)
+        combined = self._combine(source, scratch)
+        self._pending = (combined, source, scratch)
+        return combined
+
+    @staticmethod
+    def _log_likelihood(
+        forecast: TransferForecast,
+        observation: TransferObservation,
+    ) -> float:
+        return sum(
+            math.log(probability if outcome else 1.0 - probability)
+            for probability, outcome in (
+                (
+                    forecast.transition_probability,
+                    observation.next_observation,
+                ),
+                (forecast.reward_probability, observation.reward),
+            )
+        )
+
+    def observe(self, observation: TransferObservation) -> None:
+        if self._pending is None:
+            raise ValidationError("cellwise observation has no forecast")
+        combined, source, scratch = self._pending
+        if (
+            not isinstance(observation, TransferObservation)
+            or observation.world_id != combined.world_id
+            or observation.index != combined.index
+            or observation.context != combined.context
+            or observation.action != combined.action
+        ):
+            raise ValidationError(
+                "cellwise observation does not match forecast"
+            )
+        key = (observation.context, observation.action)
+        log_source, log_scratch = self._log_weights[key]
+        self._log_weights[key] = (
+            log_source + self._log_likelihood(source, observation),
+            log_scratch + self._log_likelihood(scratch, observation),
+        )
+        self._source.observe(observation)
+        self._scratch.observe(observation)
+        self._pending = None
+
+    def _weight_rows(self) -> list[dict[str, object]]:
+        return [
+            {
+                "context": list(context),
+                "action": action,
+                "posterior_source_weight": self.posterior_source_weight(
+                    context,
+                    action,
+                ),
+                "effective_source_weight": self.effective_source_weight(
+                    context,
+                    action,
+                ),
+            }
+            for context, action in transfer_cell_keys()
+        ]
+
+    def _snapshot_dict(self) -> dict[str, object]:
+        return {
+            "schema": self.SNAPSHOT_SCHEMA,
+            "configuration": {
+                "world_id": self.world_id,
+                "initial_source_weight": self.initial_source_weight,
+                "scratch_fallback": self.scratch_fallback,
+                "source_prior": _prior_to_dict(self.source_prior),
+                "source_prior_digest": self.source_prior_digest,
+            },
+            "archive": [
+                _observation_to_dict(item) for item in self.archive
+            ],
+            "derived": {
+                "weights": self._weight_rows(),
+                "fallback_cell_rate": self.fallback_cell_rate,
+            },
+        }
+
+    def to_snapshot(self) -> str:
+        if self._pending is not None:
+            raise ValidationError(
+                "cannot snapshot a pending cellwise forecast"
+            )
+        return canonical_json(self._snapshot_dict())
+
+    @classmethod
+    def from_snapshot(cls, raw: str) -> "CellwiseGatedTransferModel":
+        parsed = _strict_json(raw)
+        if (
+            not isinstance(parsed, dict)
+            or set(parsed) != {
+                "schema",
+                "configuration",
+                "archive",
+                "derived",
+            }
+            or parsed.get("schema") != cls.SNAPSHOT_SCHEMA
+        ):
+            raise ValidationError("unsupported cellwise gate snapshot")
+        configuration = parsed.get("configuration")
+        if not isinstance(configuration, dict) or set(configuration) != {
+            "world_id",
+            "initial_source_weight",
+            "scratch_fallback",
+            "source_prior",
+            "source_prior_digest",
+        }:
+            raise ValidationError(
+                "cellwise snapshot configuration is invalid"
+            )
+        source_prior = _prior_from_dict(configuration.get("source_prior"))
+        if configuration.get("source_prior_digest") != _prior_digest(
+            source_prior
+        ):
+            raise ValidationError("cellwise snapshot prior digest disagrees")
+        model = cls(
+            world_id=configuration.get("world_id"),  # type: ignore[arg-type]
+            source_prior=source_prior,
+            initial_source_weight=configuration.get(
+                "initial_source_weight"
+            ),  # type: ignore[arg-type]
+            scratch_fallback=configuration.get(  # type: ignore[arg-type]
+                "scratch_fallback"
+            ),
+        )
+        archive = parsed.get("archive")
+        if not isinstance(archive, list):
+            raise ValidationError("cellwise snapshot archive must be a list")
+        for row in archive:
+            observation = _observation_from_dict(row)
+            model.forecast(observation.context, observation.action)
+            model.observe(observation)
+        try:
+            if canonical_json(parsed) != canonical_json(model._snapshot_dict()):
+                raise ValidationError(
+                    "cellwise snapshot does not match causal replay"
+                )
+        except (TypeError, ValueError) as error:
+            raise ValidationError("cellwise snapshot is not finite") from error
+        return model
