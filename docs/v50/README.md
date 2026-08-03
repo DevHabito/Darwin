@@ -139,6 +139,11 @@ control supported a causal alignment effect. Adversarial reward still fell by
 `1.1875`. The result supports separate calibration but is not a capability
 pass; H50-L15 remains unregistered.
 
+[Experiment 029](EXPERIMENT_029_CONTEXTUAL_DECISION_CALIBRATION.md)
+pre-registers a fresh calibration with 21 conjunctive related-effect,
+negative-transfer, gate-benefit, weight, integrity, and cost criteria. Status:
+registered, not run; it cannot itself register H50-L15.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

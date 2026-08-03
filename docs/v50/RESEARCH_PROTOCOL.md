@@ -403,6 +403,12 @@ positive. Adversarial reward and pseudo-regret remained worse than scratch by
 `1.1875` and `0.950096`. The gate avoided most ungated mismatch damage but did
 not eliminate negative transfer. H50-L15 remains unregistered.
 
+[Experiment 029](EXPERIMENT_029_CONTEXTUAL_DECISION_CALIBRATION.md) freezes 21
+calibration criteria on seeds `34000–34063`. Related reward, causal shuffled
+control, mismatch non-inferiority, gate benefit, posterior weight, replay, and
+cost thresholds are all conjunctive. Status: registered, not run; passing can
+only authorize an H50-L15 pre-registration on fresh final seeds.
+
 ## Standing safety boundary
 
 - The kernel records dispatch and evidence; it does not expose an arbitrary

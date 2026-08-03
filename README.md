@@ -216,6 +216,10 @@ H50-L14 prior and gate. The development run found positive related reward and a
 causal advantage over a shuffled prior, but also significant residual
 adversarial loss. It supports calibration, not H50-L15 registration.
 
+[Experiment 029](docs/v50/EXPERIMENT_029_CONTEXTUAL_DECISION_CALIBRATION.md)
+pre-registers 21 conjunctive calibration criteria on fresh seeds. It has not
+been run and cannot itself register H50-L15.
+
 ## Contributing
 
 Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
