@@ -116,6 +116,19 @@ compatibility. They use a local SQLite database under `darwin_home`. Runtime
 databases, logs, snapshots, and exports are not source code and are no longer
 tracked.
 
+### Local wake-word guardian
+
+On Windows, `Abrir_Darwin_Acordar_Com_Voz.bat` starts the legacy wake-word
+guardian without a console. Its default sleeping state is fully hidden: say
+`Darwin` to show the companion, then say `Darwin, dormir`, `dorme`, or
+`ta na hora de mimir Darwin` to hide it while the listener keeps running.
+
+`Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat` adds the guardian to the
+current user's Startup folder. `Reparar_Darwin_Voz_Windows.bat` checks the
+pt-BR Windows speech capability and microphone permissions. Pass `--show-idle`
+when launching the Python module directly only if the compact sleeping window
+is preferred over the fully hidden default.
+
 To create a fresh legacy configuration:
 
 ```powershell
