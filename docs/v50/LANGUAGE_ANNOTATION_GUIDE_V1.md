@@ -153,9 +153,9 @@ Signal names are `boredom`, `current_willingness`, `energy`, `enjoyment`,
 
 When two anchors conflict, use the strongest anchor that describes the current
 report, not an earlier turn. Do not infer sadness from a farewell, enjoyment
-from continuing an activity, or energy from fast punctuation. In “Não estou
-mais frustrado”, `frustration` is `none`; negated affect is not a positive
-report. In “A espera está me deixando muito frustrado”, `frustration` is
+from continuing an activity, or energy from fast punctuation. In “Minha
+frustração acabou”, `frustration` is `none`; ended affect is not a positive
+current report. In “A espera está me deixando muito frustrado”, `frustration` is
 `high`.
 
 ## Temporal reference and preference
