@@ -242,6 +242,12 @@ contract-safety metrics, pure baseline, and evaluator sensitivity controls. No
 language model was evaluated. The corpus was labelled by the project authors,
 has no independent review or held-out partition, and registers no capability.
 
+[Experiment 041](EXPERIMENT_041_ANNOTATION_PROTOCOL.md) freezes 150 new,
+unlabeled Brazilian Portuguese candidate inputs and adds a blind human-review
+protocol, categorical signal anchors, strict panel validation, and per-field
+agreement analysis. Independent reviewers have not yet supplied labels, so no
+calibration corpus has been promoted and no model is eligible for evaluation.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

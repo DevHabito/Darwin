@@ -135,6 +135,13 @@ The resulting metrics are development diagnostics, not a backend pass or a
 language-understanding claim. See
 [Experiment 040](docs/v50/EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md).
 
+The next gate has a separate 150-case input set with no labels. Blind packets
+and agreement reports can be produced with `darwin-language-annotation`, but
+the cases still need at least two genuinely independent human reviewers. Until
+that happens, there is no calibration corpus and no model is eligible. See the
+[annotation guide](docs/v50/LANGUAGE_ANNOTATION_GUIDE_V1.md) and
+[Experiment 041](docs/v50/EXPERIMENT_041_ANNOTATION_PROTOCOL.md).
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical
@@ -332,6 +339,12 @@ then added development-only language conformance infrastructure: a frozen
 100-case Portuguese corpus, strict loading, separate language and authority
 metrics, a pure baseline, and evaluator sensitivity controls. No language
 model was evaluated, and no language capability is registered.
+
+[Experiment 041](docs/v50/EXPERIMENT_041_ANNOTATION_PROTOCOL.md) freezes 150
+new unlabeled inputs and implements blind packets, categorical signal labels,
+complete-panel checks, and per-field agreement statistics. Human annotation is
+still pending, so this is infrastructure rather than a successful language
+study.
 
 ## Contributing
 

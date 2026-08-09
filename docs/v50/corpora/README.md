@@ -38,3 +38,20 @@ but they cannot support a language capability claim.
 Expanding the file by generated paraphrases would not fix those limits. A later
 corpus needs independent human review and separate calibration and confirmation
 partitions before backend selection can make a confirmatory claim.
+
+## Calibration candidates v1
+
+`LANGUAGE_CALIBRATION_CANDIDATES_V1.jsonl` contains 150 fresh, unlabeled
+Brazilian Portuguese inputs: 30 design cases in each of the same five broad
+families. Its canonical digest is
+`e12cb042164203cbb2eee33b4dce9b5298bd39257d5cd2f6d3c0c8e651b3cf27`.
+
+The source keeps `family` only for balance checks. Reviewer packets generated
+by `darwin-language-annotation packet` omit that field and contain no labels.
+The requests and their individual surface spans have no verbatim overlap with
+the development set, but string disjointness is not semantic independence. The
+set was still written within this project and has not received independent
+annotation. It is a candidate input set, not a calibration corpus or evidence
+result. See the
+[annotation guide](../LANGUAGE_ANNOTATION_GUIDE_V1.md) and
+[Experiment 041](../EXPERIMENT_041_ANNOTATION_PROTOCOL.md).

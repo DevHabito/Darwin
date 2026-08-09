@@ -118,3 +118,9 @@ The first development-only implementation of that gate is recorded in
 [Experiment 040](EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md). It
 adds infrastructure and an author-labelled corpus; it does not make a backend
 eligible for use.
+
+[Experiment 041](EXPERIMENT_041_ANNOTATION_PROTOCOL.md) now freezes a separate
+150-case unlabeled candidate set and the blind human-annotation protocol. It
+does not yet contain independent labels. A real model remains ineligible; its
+first allowed evaluation must consume immutable offline response files only
+after a reviewed calibration corpus is promoted under a later protocol.
