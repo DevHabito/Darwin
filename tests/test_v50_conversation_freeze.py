@@ -35,15 +35,19 @@ class ConversationDevelopmentFreezeTests(unittest.TestCase):
         self,
         *,
         repository_path: str,
-        expected_blob: str,
+        frozen_base_blob: str,
         expected_normalized_digest: str,
     ) -> None:
-        base_blob = _git_blob(FROZEN_BASE_COMMIT, repository_path)
         head_blob = _git_blob("HEAD", repository_path)
 
-        self.assertEqual(base_blob, expected_blob)
-        self.assertEqual(head_blob, expected_blob)
-        self.assertEqual(head_blob, base_blob)
+        self.assertEqual(
+            head_blob,
+            frozen_base_blob,
+            msg=(
+                f"{repository_path} at HEAD is not identical to its blob at "
+                f"frozen base {FROZEN_BASE_COMMIT}"
+            ),
+        )
         self.assertEqual(
             _normalized_line_ending_digest(REPOSITORY_ROOT / repository_path),
             expected_normalized_digest,
@@ -52,7 +56,7 @@ class ConversationDevelopmentFreezeTests(unittest.TestCase):
     def test_e043_runtime_remains_identical_to_frozen_base(self) -> None:
         self.assert_frozen_file(
             repository_path="src/darwin_v50/desktop_runtime.py",
-            expected_blob="01687c8e57aa1a867b18a66df9442b8745c08566",
+            frozen_base_blob="01687c8e57aa1a867b18a66df9442b8745c08566",
             expected_normalized_digest=(
                 "fd0d8aaf2bd1011addea581eaef172ce"
                 "940157164dc013681d5326476d49f7e8"
@@ -64,7 +68,7 @@ class ConversationDevelopmentFreezeTests(unittest.TestCase):
             repository_path=(
                 "docs/v50/EXPERIMENT_043_PERSISTENT_DESKTOP_RUNTIME.md"
             ),
-            expected_blob="5becbc0177c7fc1fc1cfe0e2903e7a8323a7bd7d",
+            frozen_base_blob="5becbc0177c7fc1fc1cfe0e2903e7a8323a7bd7d",
             expected_normalized_digest=(
                 "beea70ce6bcfd177a18d36feca016f5f9"
                 "3ed0bed7743fc73c31152cc19eaefad"
