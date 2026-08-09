@@ -1,7 +1,7 @@
 # Experiment 043 - persistent desktop runtime foundation
 
-Status: candidate implemented after pre-registration. Local automated checks
-pass; repository CI and the 14-day real-machine campaign remain pending.
+Status: automated implementation admission passed after pre-registration. The
+14-day real-machine campaign has not started, so E043 remains incomplete.
 
 ## Question
 
@@ -106,9 +106,16 @@ The skip is not evidence that symlink escape is impossible. The runtime adds no
 workspace executor, so that case is outside its direct API, while the existing
 workspace boundary retains the limitation in its own record.
 
-These are local engineering results. Implementation-admission check 14 remains
-open until the exact candidate passes repository CI. The durability campaign
-has not started, so E043 as a whole is not complete.
+The exact implementation commit `99f4938` then passed
+[GitHub Actions run 31332300282](https://github.com/DevHabito/Darwin/actions/runs/31332300282)
+on Microsoft Windows Server 2025 (`10.0.26100`), image
+`windows-2025-vs2026` version `20260803.193.1`, with the workflow configured for
+Python `3.12`. The maintained-surface check passed, and all 448 tests passed in
+`234.746` seconds with no skips or failures.
+
+Implementation-admission check 14 is therefore satisfied. The result admits
+the unchanged candidate to the durability campaign; it does not complete that
+campaign or register an operational-continuity claim.
 
 ## Frozen real-machine durability campaign
 

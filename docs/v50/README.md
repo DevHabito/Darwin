@@ -262,9 +262,10 @@ headless, pure-mode desktop runtime foundation. It freezes clean and interrupted
 restart semantics, explicit activation, single-instance leasing, authority
 isolation, automated admission checks, and a later 14-day Windows durability
 campaign. The candidate was implemented after pre-registration and all 448
-local repository tests pass; CI and the real-machine campaign remain pending.
-No cognitive-continuity claim is registered. The language-calibration line
-remains independently blocked on human annotation.
+local and 448 Windows CI tests pass. Automated admission is complete, but the
+real-machine campaign has not started. No cognitive-continuity claim is
+registered. The language-calibration line remains independently blocked on
+human annotation.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

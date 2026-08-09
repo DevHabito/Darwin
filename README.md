@@ -161,9 +161,9 @@ establish cognitive continuity.
 The first candidate is now implemented as a Python API. It rejects a second
 live instance for the same database, requires explicit activation before text,
 and restarts in the sleeping state. Its 12 focused tests and the complete
-448-test local suite pass. It is not yet a resident desktop process, has no
-tray interface or wake-word listener, and has not completed the 14-day
-campaign.
+448-test local and Windows CI suites pass. It is admitted to the durability
+campaign, but is not yet a resident desktop process, has no tray interface or
+wake-word listener, and has not started the 14-day campaign.
 
 ## Legacy runtime
 
