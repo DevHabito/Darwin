@@ -76,6 +76,11 @@ py -m darwin_v50.predictive_planning_evaluation
 py -m darwin_v50.learned_context_evaluation
 ```
 
+The isolated conversational development surface requires an explicitly
+selected backend and model. It has no automatic fallback and keeps its bounded
+transcript in memory only. See
+[`docs/v50/CONVERSATIONAL_DEVELOPMENT_GUIDE.md`](docs/v50/CONVERSATIONAL_DEVELOPMENT_GUIDE.md).
+
 Do not rerun a final seed set to tune a failed experiment. Seed contamination is
 part of the research record.
 

@@ -29,6 +29,7 @@ darwin-information-directed-audit = "darwin_v50.information_directed_diagnostics
 darwin-transfer-benchmark = "darwin_v50.cross_world_transfer_evaluation:main"
 darwin-language-conformance = "darwin_v50.language_evaluation:main"
 darwin-language-annotation = "darwin_v50.language_annotation_evaluation:main"
+darwin-conversation-dev = "darwin_v50.conversation.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
