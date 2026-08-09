@@ -267,6 +267,19 @@ real-machine campaign has not started. No cognitive-continuity claim is
 registered. The language-calibration line remains independently blocked on
 human annotation.
 
+## Conversational development
+
+[Experiment 044](EXPERIMENT_044_CONVERSATIONAL_DEVELOPMENT_RUNTIME.md)
+pre-registers a separate, non-persistent conversation surface. A backend and
+model must be selected explicitly; OpenAI and local modes never replace one
+another silently. Successful turns require model-backed `UNDERSTAND` and
+`EXPRESS` operations, while the deterministic policy keeps interpretations
+unverified and exposes no persistent-memory, goal, RZS, sigma, identity, or
+action mutation path. This is development infrastructure, not language
+calibration or evidence that Darwin is more than an LLM-centered system. Setup
+is documented in the
+[conversational development guide](CONVERSATIONAL_DEVELOPMENT_GUIDE.md).
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

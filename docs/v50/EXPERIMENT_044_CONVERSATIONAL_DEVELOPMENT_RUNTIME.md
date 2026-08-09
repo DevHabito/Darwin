@@ -1,8 +1,8 @@
 # Experiment 044 - conversational development runtime
 
-Status: pre-registered engineering protocol. No implementation result, live
-model result, language-quality result, or scientific claim exists at this
-stage.
+Status: automated development admission passed after pre-registration. The live
+provider and 20-30 minute usability probes are unexecuted. No language-quality
+or scientific capability claim is registered.
 
 ## Purpose
 
@@ -199,3 +199,52 @@ The last exclusion matters. Until durable cognition, learning, self-model,
 goal, and evidence mechanisms causally shape conversation under independent
 tests, a successful E044 result is still best described as an LLM conversation
 adapter behind a strict authority boundary.
+
+## Observed implementation result
+
+The protocol above was committed as `61d6f97` before any E044 implementation
+or test was added.
+
+The admitted implementation adds:
+
+- explicit environment parsing with `none` as the default backend;
+- an OpenAI Responses adapter built on an injectable, bounded JSON transport;
+- mandatory exact-model probing through the Models API;
+- strict `UNDERSTAND` and `EXPRESS` JSON schemas;
+- a deterministic policy that marks the interpretation as an unverified
+  candidate and creates no persistent mutation handle;
+- a bounded 60-message in-memory session;
+- an explicit local-backend seam with model matching and mandatory ephemeral
+  context cleanup; and
+- a terminal command that starts only when invoked.
+
+Automated observations on the local Windows machine:
+
+- 24 of 24 focused E044 tests passed;
+- the full suite discovered 472 tests;
+- 471 tests executed and passed;
+- one pre-existing workspace-executor test was skipped because Windows symlink
+  creation was unavailable;
+- zero tests failed;
+- both frozen E043 SHA-256 digests remained exact;
+- captured OpenAI request fixtures used the configured model, `store: false`,
+  strict Structured Outputs, and no tools or `previous_response_id`; and
+- the no-backend terminal check reported `backend_not_requested` and made no
+  conversational reply.
+
+These are hermetic implementation checks. The provider responses were test
+fixtures, not OpenAI responses. No `OPENAI_API_KEY` was configured on the test
+machine, no explicit local backend was installed or validated, and no billable
+API request was made. Therefore:
+
+```text
+live OpenAI model probe        UNEXECUTED
+live UNDERSTAND call           UNEXECUTED
+live EXPRESS call              UNEXECUTED
+20-30 minute usability probe   UNEXECUTED
+language quality               UNKNOWN
+topic-return quality           UNKNOWN
+```
+
+Automated development admission does not pass the live usability gate and does
+not alter the independent E041/E042 human-annotation block.
