@@ -109,6 +109,21 @@ root-level versioned script. See [`docs/LEGACY.md`](docs/LEGACY.md).
 - Local evaluators never count as independent evidence.
 - No result in this repository establishes consciousness or personhood.
 
+## Natural-language boundary
+
+The maintained package now has a provider-neutral language boundary under
+`src/darwin_v50/language`. In `pure` mode it keeps input explicitly
+unclassified, uses core-authored fallback text, and reports external knowledge
+as unavailable. A model backend can propose an interpretation, phrase facts
+selected by the core, or return an external knowledge candidate. It cannot
+write memory or choose identity, preferences, goals, motivation, decisions, or
+RZS state through this interface.
+
+No language model is connected yet, and the boundary is not evidence of
+language understanding. The design, threat model, and valid pure-versus-model
+comparison are recorded in the
+[language boundary research note](docs/v50/RESEARCH_NOTE_LANGUAGE_BOUNDARY.md).
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical

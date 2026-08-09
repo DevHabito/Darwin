@@ -13,6 +13,7 @@ are written before final evaluation whenever a held-out result is claimed.
 | [Experiment 002](EXPERIMENT_002_CAPABILITY_SUBPROCESS.md) | Single-use capability and subprocess execution |
 | [Experiment 003](EXPERIMENT_003_EXPLICIT_CONSENT_AND_ISOLATION.md) | Explicit consent and honest isolation classification |
 | [Experiment 004](EXPERIMENT_004_EXTERNAL_AUTHORITY_AND_APPCONTAINER_GATE.md) | External signing authority and fail-closed AppContainer gate |
+| [Language boundary](RESEARCH_NOTE_LANGUAGE_BOUNDARY.md) | Provider-neutral understanding, expression, and consultation contracts |
 
 ## Learning sequence
 
