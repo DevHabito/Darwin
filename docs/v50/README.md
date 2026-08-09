@@ -255,6 +255,16 @@ offline-model screen before any human labels or agreement values exist. It is
 not executed and adds no evidence; independent annotation remains the blocking
 next step.
 
+## Desktop runtime development
+
+[Experiment 043](EXPERIMENT_043_PERSISTENT_DESKTOP_RUNTIME.md) pre-registers a
+headless, pure-mode desktop runtime foundation. It freezes clean and interrupted
+restart semantics, explicit activation, single-instance leasing, authority
+isolation, automated admission checks, and a later 14-day Windows durability
+campaign. No implementation result or claim of cognitive continuity existed at
+pre-registration time. The language-calibration line remains independently
+blocked on human annotation.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

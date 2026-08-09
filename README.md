@@ -148,6 +148,16 @@ permitted exclusions, third-person adjudication, corpus-promotion failure
 rules, and the later offline-model eligibility screen. It was registered with
 no human labels, agreement values, or model responses available.
 
+## Desktop runtime gate
+
+[Experiment 043](docs/v50/EXPERIMENT_043_PERSISTENT_DESKTOP_RUNTIME.md)
+pre-registers the next independent engineering line: a headless v50 desktop
+runtime that starts sleeping, uses only the pure language gateway, records
+honest clean or unobserved restart intervals, exposes no core authority to a
+future UI, and performs no external effects. Automated checks can only admit
+the candidate to a separate 14-day Windows durability campaign; they cannot
+establish cognitive continuity.
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical
