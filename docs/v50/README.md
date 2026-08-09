@@ -248,6 +248,13 @@ protocol, categorical signal anchors, strict panel validation, and per-field
 agreement analysis. Independent reviewers have not yet supplied labels, so no
 calibration corpus has been promoted and no model is eligible for evaluation.
 
+[Experiment 042](EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md)
+pre-registers the adjudicator eligibility, permitted exclusions, pairwise
+agreement thresholds, failure rules, calibration manifest, and downstream
+offline-model screen before any human labels or agreement values exist. It is
+not executed and adds no evidence; independent annotation remains the blocking
+next step.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

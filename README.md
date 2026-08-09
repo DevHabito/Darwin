@@ -142,6 +142,12 @@ that happens, there is no calibration corpus and no model is eligible. See the
 [annotation guide](docs/v50/LANGUAGE_ANNOTATION_GUIDE_V1.md) and
 [Experiment 041](docs/v50/EXPERIMENT_041_ANNOTATION_PROTOCOL.md).
 
+[Experiment 042](docs/v50/EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md)
+freezes what happens after those files arrive: field-specific agreement gates,
+permitted exclusions, third-person adjudication, corpus-promotion failure
+rules, and the later offline-model eligibility screen. It was registered with
+no human labels, agreement values, or model responses available.
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical
@@ -345,6 +351,10 @@ new unlabeled inputs and implements blind packets, categorical signal labels,
 complete-panel checks, and per-field agreement statistics. Human annotation is
 still pending, so this is infrastructure rather than a successful language
 study.
+
+[Experiment 042](docs/v50/EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md)
+pre-registers how those future annotations may fail, be adjudicated, or become
+a calibration-only corpus. The rules exist; the required external data do not.
 
 ## Contributing
 

@@ -55,3 +55,7 @@ annotation. It is a candidate input set, not a calibration corpus or evidence
 result. See the
 [annotation guide](../LANGUAGE_ANNOTATION_GUIDE_V1.md) and
 [Experiment 041](../EXPERIMENT_041_ANNOTATION_PROTOCOL.md).
+
+[Experiment 042](../EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md) fixes the
+only rules under which future independent annotations could create
+`LANGUAGE_CORPUS_V1_CALIBRATION.jsonl`. That promoted file does not exist.

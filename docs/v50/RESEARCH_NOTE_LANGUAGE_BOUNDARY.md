@@ -124,3 +124,9 @@ eligible for use.
 does not yet contain independent labels. A real model remains ineligible; its
 first allowed evaluation must consume immutable offline response files only
 after a reviewed calibration corpus is promoted under a later protocol.
+
+[Experiment 042](EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md) is that
+pre-registered promotion protocol. It freezes exclusions, pairwise agreement
+gates, third-person adjudication, failure outcomes, corpus provenance, and the
+later offline-model eligibility screen without inspecting human or model data.
+It is not executed; Experiment 041 annotation remains the external blocker.
