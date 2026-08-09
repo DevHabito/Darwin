@@ -1,7 +1,7 @@
 # Experiment 043 - persistent desktop runtime foundation
 
-Status: pre-registered. No runtime implementation or E043 result existed when
-this protocol was committed.
+Status: candidate implemented after pre-registration. Local automated checks
+pass; repository CI and the 14-day real-machine campaign remain pending.
 
 ## Question
 
@@ -64,7 +64,8 @@ if every check below passes:
 3. clean restart reports `clean_offline` with the exact controlled-clock
    interval and no recovery flag;
 4. interrupted restart reports `unclean_unobserved` with the exact
-   controlled-clock lower-bound interval and a recovery flag;
+   controlled-clock interval since the last committed event and a recovery
+   flag; this interval is not represented as a bound on actual offline time;
 5. a backward wall clock is rejected;
 6. every start is sleeping, including recovery after an active process;
 7. only an explicit-user activation transition can make the runtime active;
@@ -83,6 +84,31 @@ if every check below passes:
 
 These checks use controlled clocks and deliberate transport closure. They test
 software invariants, not real power-loss durability.
+
+## Observed implementation-admission result
+
+The protocol was committed as `a99575d` before the candidate or E043 tests were
+added. The resulting implementation uses one dedicated event stream in the
+existing v50 SQLite store, a lifetime file lease, strict lifecycle replay, an
+immutable snapshot, and a `DarwinLanguageGateway` that cannot receive a model
+backend through the desktop API.
+
+On local Windows NT `10.0.19045.0` with Python `3.12.13`:
+
+- all 12 E043 lifecycle and adversarial tests passed;
+- the focused runtime, kernel, and language regression set passed 47 of 47;
+- the complete repository suite passed 448 of 448 tests in `351.487` seconds;
+- one pre-existing symlink-creation test was skipped because the account could
+  not create its adversarial fixture;
+- no E043 test was skipped.
+
+The skip is not evidence that symlink escape is impossible. The runtime adds no
+workspace executor, so that case is outside its direct API, while the existing
+workspace boundary retains the limitation in its own record.
+
+These are local engineering results. Implementation-admission check 14 remains
+open until the exact candidate passes repository CI. The durability campaign
+has not started, so E043 as a whole is not complete.
 
 ## Frozen real-machine durability campaign
 

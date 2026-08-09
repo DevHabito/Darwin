@@ -37,6 +37,19 @@ from .asymmetric_consent import (
     public_key_fingerprint,
 )
 from .executor import CapabilityWorkspaceExecutor
+from .desktop_runtime import (
+    DESKTOP_RUNTIME_CONTRACT,
+    DESKTOP_RUNTIME_STREAM,
+    ActivationSource,
+    ContinuityGap,
+    ContinuityGapKind,
+    DesktopRuntime,
+    DesktopRuntimeError,
+    DesktopRuntimeState,
+    DesktopSnapshot,
+    ShutdownReason,
+    SleepReason,
+)
 from .subprocess_executor import SubprocessWorkspaceExecutor
 from .isolation import (
     IsolationAssessment,
@@ -239,6 +252,15 @@ __all__ = [
     "ContextOutcomeCounts",
     "ContextValuePlanner",
     "DarwinKernelV50",
+    "DESKTOP_RUNTIME_CONTRACT",
+    "DESKTOP_RUNTIME_STREAM",
+    "ActivationSource",
+    "ContinuityGap",
+    "ContinuityGapKind",
+    "DesktopRuntime",
+    "DesktopRuntimeError",
+    "DesktopRuntimeState",
+    "DesktopSnapshot",
     "DarwinLanguageGateway",
     "ExpectedLanguageObservation",
     "ExpressionPlan",
@@ -347,6 +369,8 @@ __all__ = [
     "SubprocessWorkspaceExecutor",
     "SelectiveInformationPolicy",
     "StationaryBernoulliForecaster",
+    "ShutdownReason",
+    "SleepReason",
     "TabularTransitionModel",
     "TEST_HARNESS_CHANNEL",
     "WindowsIsolationAvailability",

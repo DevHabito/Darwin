@@ -29,6 +29,7 @@ from .models import (
     ValidationError,
     canonical_json,
     parse_json,
+    require_text,
 )
 
 
@@ -1249,6 +1250,39 @@ class SQLiteEventStore:
                 ORDER BY sequence
                 """,
                 (goal_id,),
+            ).fetchall()
+        return [self._row_to_event(row) for row in rows]
+
+    def events_for_session(
+        self,
+        session_id: str,
+        *,
+        connection: sqlite3.Connection | None = None,
+    ) -> list[CausalEvent]:
+        """Return one session stream in committed causal order."""
+
+        session_id = require_text(session_id, "session_id")
+        if connection is None:
+            with self._lock:
+                self._ensure_open()
+                rows = self._connection.execute(
+                    """
+                    SELECT *
+                    FROM events
+                    WHERE session_id = ?
+                    ORDER BY sequence
+                    """,
+                    (session_id,),
+                ).fetchall()
+        else:
+            rows = connection.execute(
+                """
+                SELECT *
+                FROM events
+                WHERE session_id = ?
+                ORDER BY sequence
+                """,
+                (session_id,),
             ).fetchall()
         return [self._row_to_event(row) for row in rows]
 

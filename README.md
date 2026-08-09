@@ -158,6 +158,13 @@ future UI, and performs no external effects. Automated checks can only admit
 the candidate to a separate 14-day Windows durability campaign; they cannot
 establish cognitive continuity.
 
+The first candidate is now implemented as a Python API. It rejects a second
+live instance for the same database, requires explicit activation before text,
+and restarts in the sleeping state. Its 12 focused tests and the complete
+448-test local suite pass. It is not yet a resident desktop process, has no
+tray interface or wake-word listener, and has not completed the 14-day
+campaign.
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical

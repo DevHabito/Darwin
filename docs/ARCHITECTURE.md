@@ -25,6 +25,21 @@ observation interface, a causal archive, a model, and an evaluator. Evaluator
 truth is kept out of the agent interface. Snapshots are rebuilt from the archive
 so derived-state tampering is detectable.
 
+### Headless desktop runtime
+
+`DesktopRuntime` owns the v50 kernel behind a narrow presentation boundary. It
+records process starts, explicit activation, explicit sleep, checkpoints, and
+clean shutdown in a dedicated causal stream inside the existing v50 store. A
+lifetime lease rejects a second runtime for the same database. Every start is
+sleeping, and interrupted recovery reports time since the last committed event
+as unobserved rather than pretending to know the failure instant.
+
+The desktop surface is fixed to the pure language gateway. It exposes immutable
+status and candidate language observations, but no store, kernel, executor,
+consent, or capability handle. It has no external effects or automatic action
+loop. The API is a headless foundation; a resident process, tray UI, wake-word
+listener, and real-machine durability result do not exist yet.
+
 ### Evidence documents
 
 Every experiment records its seed families, selection procedure, baselines,
@@ -59,8 +74,11 @@ to score a model, but they cannot enter the learner's archive.
 
 The learning systems are tabular and synthetic. They do not share a general
 latent state, do not perceive the physical world, and do not maintain one
-continually learned model across open-ended tasks. Language-facing legacy
-modules are separate from the v50 learning kernel.
+continually learned model across open-ended tasks. The maintained desktop
+runtime composes lifecycle bookkeeping and the pure language boundary with the
+kernel, but it does not integrate the separate laboratory models into one
+continually learning agent. Language-facing legacy modules remain outside the
+v50 authority boundary.
 
 H50-L12 tested one part of that boundary: online action selection while the
 transition and reward model was still being learned. It was refuted because
