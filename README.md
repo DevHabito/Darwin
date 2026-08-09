@@ -124,6 +124,17 @@ language understanding. The design, threat model, and valid pure-versus-model
 comparison are recorded in the
 [language boundary research note](docs/v50/RESEARCH_NOTE_LANGUAGE_BOUNDARY.md).
 
+The first development corpus contains 100 Brazilian Portuguese cases and can
+be evaluated against pure mode with:
+
+```powershell
+py -m darwin_v50.language_evaluation docs/v50/corpora/LANGUAGE_CORPUS_V1_DEVELOPMENT.jsonl
+```
+
+The resulting metrics are development diagnostics, not a backend pass or a
+language-understanding claim. See
+[Experiment 040](docs/v50/EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md).
+
 ## Legacy runtime
 
 The older Windows launchers and v47-v49 scripts are preserved for historical
@@ -315,6 +326,12 @@ passed all 20 unchanged criteria on `1,536` fresh final tasks, and the local
 kernel accepted the conjunction. H50-L17 therefore passes locally at E1 only
 for deterministic online action-alignment inference with a frozen transition
 prior.
+
+[Experiment 040](docs/v50/EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md)
+then added development-only language conformance infrastructure: a frozen
+100-case Portuguese corpus, strict loading, separate language and authority
+metrics, a pure baseline, and evaluator sensitivity controls. No language
+model was evaluated, and no language capability is registered.
 
 ## Contributing
 

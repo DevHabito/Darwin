@@ -27,6 +27,7 @@ darwin-posterior-audit = "darwin_v50.online_posterior_diagnostics:main"
 darwin-information-directed-lab = "darwin_v50.information_directed_evaluation:main"
 darwin-information-directed-audit = "darwin_v50.information_directed_diagnostics:main"
 darwin-transfer-benchmark = "darwin_v50.cross_world_transfer_evaluation:main"
+darwin-language-conformance = "darwin_v50.language_evaluation:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

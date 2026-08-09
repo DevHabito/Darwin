@@ -113,3 +113,8 @@ corpus. Candidate backends can then be compared on:
 Only after those measurements should one backend be connected to the desktop
 companion. Mobile packaging remains downstream of this boundary and its
 evaluation.
+
+The first development-only implementation of that gate is recorded in
+[Experiment 040](EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md). It
+adds infrastructure and an author-labelled corpus; it does not make a backend
+eligible for use.

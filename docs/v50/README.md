@@ -234,6 +234,14 @@ on `64` fresh worlds. Every criterion passed, and the local kernel accepted the
 conjunction. H50-L17 is registered at E1 only for deterministic online
 action-alignment inference with a frozen transition prior.
 
+## Language conformance development
+
+[Experiment 040](EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md) adds a
+100-case Brazilian Portuguese development corpus, strict loader, language and
+contract-safety metrics, pure baseline, and evaluator sensitivity controls. No
+language model was evaluated. The corpus was labelled by the project authors,
+has no independent review or held-out partition, and registers no capability.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
