@@ -588,12 +588,21 @@ class WakeGuardianApp:
     IDLE_ACCENT = "#76c7b7"
     IDLE_WARM = "#d6aa62"
 
-    def __init__(self, *, show: bool = False, culture: str = "pt-BR", min_confidence: float = 0.25) -> None:
+    def __init__(
+        self,
+        *,
+        show: bool = False,
+        show_idle: bool = False,
+        culture: str = "pt-BR",
+        min_confidence: float = 0.25,
+    ) -> None:
         self.root = tk.Tk()
         self.root.title("Darwin Wake Guardian v49.34")
         self.root.geometry("940x700")
         self.root.configure(bg=self.BG)
+        self.root.withdraw()
         self.root.protocol("WM_DELETE_WINDOW", self.on_window_close)
+        self.show_idle = show_idle
         self.core = WakeGuardianCore(mode="gui")
         self.events: queue.Queue[tuple[str, Any]] = queue.Queue()
         self.listener = WindowsSpeechListener(
@@ -697,8 +706,10 @@ class WakeGuardianApp:
         self.write("Sistema", "Guardiao ativo. Quando a janela sumir, ele continua ouvindo apenas a palavra Darwin.")
         if show_window:
             self.show_window()
-        else:
+        elif self.show_idle:
             self.show_idle_presence()
+        else:
+            self.hide_window()
         return True
 
     def open_voice_repair(self) -> None:
@@ -817,7 +828,15 @@ class WakeGuardianApp:
         self.core.state = "sleeping"
         self.status = "dormindo: diga Darwin"
         self.speech.stop()
-        self.show_idle_presence()
+        if self.show_idle:
+            self.show_idle_presence()
+        else:
+            self.hide_window()
+
+    def hide_window(self) -> None:
+        self.idle_mode = False
+        self.idle_canvas.place_forget()
+        self.root.withdraw()
 
     def show_idle_presence(self) -> None:
         self.idle_mode = True
@@ -833,7 +852,10 @@ class WakeGuardianApp:
 
     def on_window_close(self) -> None:
         if self.idle_mode or self.core.state == "sleeping":
-            self.root.iconify()
+            if self.show_idle:
+                self.root.iconify()
+            else:
+                self.hide_window()
         else:
             self.sleep_window()
 
@@ -973,6 +995,11 @@ def main() -> int:
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--details", action="store_true")
     parser.add_argument("--show", action="store_true", help="mostra a janela imediatamente em vez de iniciar oculto")
+    parser.add_argument(
+        "--show-idle",
+        action="store_true",
+        help="mantem a presenca compacta visivel enquanto dorme",
+    )
     parser.add_argument("--culture", default="pt-BR")
     parser.add_argument("--min-confidence", type=float, default=0.25)
     args = parser.parse_args()
@@ -984,7 +1011,12 @@ def main() -> int:
     if not acquire_single_instance():
         return 0
     cleanup_orphaned_listener_processes()
-    app = WakeGuardianApp(show=args.show, culture=args.culture, min_confidence=args.min_confidence)
+    app = WakeGuardianApp(
+        show=args.show,
+        show_idle=args.show_idle,
+        culture=args.culture,
+        min_confidence=args.min_confidence,
+    )
     app.run()
     return 0
 

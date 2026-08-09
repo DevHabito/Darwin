@@ -1,0 +1,273 @@
+# Experiment 018 — information-directed online control
+
+Pre-registered: 2026-08-02
+
+Hypothesis: H50-L13
+
+Status: final evaluation complete; **refuted**
+
+## Gap
+
+H50-L12 learned the hidden model but lost cumulative reward because sampled
+transition and reward parameters continued to change its actions. The
+pre-registered H50-L12 failure audit reproduced that deficit on fresh diagnostic
+worlds. In its last two quarters, context-order mismatch and order-channel
+action disagreement were zero, while parameter sampling still changed
+`10.5078125%` and `8.06640625%` of actions.
+
+### Design-provenance deviation
+
+Experiment 017 originally prohibited using its diagnostic seeds to choose
+H50-L13's algorithm. H50-L13 nevertheless used the audit's parameter-channel
+finding to motivate action-targeted information-directed control. This adaptive
+design step violates that separation and is retained as a limitation.
+
+The final H50-L13 seeds remained disjoint and were run once, so the deviation
+does not invalidate the observed refutation. It would have prevented treating a
+pass as independent confirmation without another untouched experiment.
+
+H50-L13 asks:
+
+> Can Darwin direct exploration toward information about the current optimal
+> action, rather than execute every policy perturbation produced by one
+> posterior sample, and thereby improve cumulative reward without preventing
+> online model learning?
+
+## Research basis and claim boundary
+
+[Learning to Optimize via Information-Directed Sampling](https://arxiv.org/abs/1403.5556)
+defines information-directed sampling (IDS) by balancing squared expected
+single-period regret against mutual information about the optimal action.
+
+[An Information-Theoretic Analysis of Thompson Sampling](https://jmlr.org/beta/papers/v17/14-087.html)
+shows why the relationship between regret and acquired information is relevant
+to posterior sampling. [Regret Bounds for Information-Directed Reinforcement
+Learning](https://openreview.net/forum?id=1pHC-yZfaTK) extends the information
+ratio analysis to reinforcement-learning targets and stresses that target
+choice affects both computation and regret.
+
+Darwin will implement a finite-sample, blockwise approximation in a small
+tabular MDP. It is not the exact algorithm analyzed in any of these papers, and
+their regret bounds do not transfer to this benchmark.
+
+## Seeds
+
+- development: `24000–24031`;
+- final: `24100–24199`.
+
+These families are disjoint from every earlier development, final, diagnostic,
+and test set. The first run of `24100–24199` permanently retires those seeds for
+changes to H50-L13.
+
+Implementation tests and debugging must use seeds at or above `25000`, excluding
+any later registered family.
+
+## Environment and online model
+
+The environment, causal schedule, priors, context-order posterior, transition
+and reward tables, interaction budget, and chosen-action feedback are unchanged
+from H50-L12:
+
+- binary observations and opaque actions `amber` and `violet`;
+- hidden true context order 2, 3, 4, or 5;
+- 40 environment episodes of 32 actions, or 1,280 interactions per policy;
+- exact `Beta(1,1)` transition and reward tables for candidate orders 1 through
+  5;
+- prequential model evidence and online updates after the chosen outcome;
+- separate potential-outcome, posterior-sampling, and action-sampling streams.
+
+No policy observes a non-chosen outcome or hidden world parameter.
+
+## Candidate: blockwise Monte Carlo IDS
+
+At each planning-block boundary, the candidate draws `K = 16` independent
+models from its current posterior. Each draw includes context order, transition
+probabilities, and reward probabilities. An exact undiscounted planner solves
+each sampled model for the full block horizon. The ensemble remains fixed until
+the block ends, while the causal Bayesian model continues to update after every
+chosen outcome.
+
+At a step with current history `h` and time-to-go `t`, each sampled model `m`
+provides `Q_m(h, a)` for both actions. Ties identify `amber` as optimal. For
+action `a`, the Monte Carlo expected regret is
+
+`delta(a) = mean_m[max_b Q_m(h, b) - Q_m(h, a)]`.
+
+The binary next observation and binary reward define four possible outcomes
+`y`. Under the registered model, their probabilities are the product of the
+sampled transition and reward Bernoulli probabilities. The ensemble estimates
+the joint distribution
+
+`P(A* = b, Y = y | a)`
+
+where `A*` is the action optimal in a sampled model. The action information gain
+`g(a)` is the mutual information `I(A*; Y | a)` in natural units, computed from
+that joint distribution. This target differs from H50-L12's order-only
+information diagnostic.
+
+For a distribution that chooses `amber` with probability `p`, define
+
+- `delta(p) = p delta(amber) + (1 - p) delta(violet)`;
+- `g(p) = p g(amber) + (1 - p) g(violet)`;
+- information ratio `delta(p)^2 / g(p)`.
+
+The evaluator minimizes this ratio exactly over the two-action mixture by
+checking both endpoints and every in-range stationary point of the linear-over-
+linear objective. If `g(p) = 0`, its score is zero only when `delta(p) = 0` and
+infinity otherwise. Ties prefer lower expected regret and then higher `amber`
+probability. The action is drawn from the selected mixture using a stream that
+is independent of posterior model draws and environment outcomes.
+
+If every feasible mixture has an infinite ratio, the same tie rules select the
+lowest-regret mixture, its ratio is recorded as `null`, and that decision counts
+against the registered finite-diagnostic rate. Aggregate mean ratio excludes
+`null` decisions and is `null` if none are finite. This fallback changes no
+decision criterion: the final finite-diagnostic rate must still equal `1.0`.
+
+This construction introduces no exploration bonus, oracle stopping rule, or
+learned neural component. `K = 16` is a fixed computational approximation, not
+a claimed optimal sample count.
+
+## Development selection
+
+The only candidate hyperparameter is planning-block length:
+
+- 4, 8, or 16 actions.
+
+Every candidate receives exactly 1,280 interactions. Development selects the
+highest mean cumulative reward on `24000–24031`; ties prefer lower final
+combined transition-plus-reward MAE and then the shorter block. The selected
+length is frozen in the experiment record before any final seed is run.
+
+### Frozen development result
+
+The implementation, structural tests, analytic mixture check, causal checks,
+snapshot replay, and complete repository suite passed before the registered
+development seeds were first run. The observed selection table is:
+
+| Block length | Mean reward | Mean combined model error |
+| ---: | ---: | ---: |
+| 4 | `0.248095703125` | `0.09496670350677167` |
+| 8 | `0.2681640625` | `0.10413314174106464` |
+| 16 | `0.28017578125` | `0.11127019898615996` |
+
+The frozen block length is therefore **16 actions**. The choice follows the
+registered primary reward ranking. The lower model error of block length 4
+cannot override that ranking because error was only the first tie-breaker.
+Final seeds `24100–24199` had not been run when this result was recorded.
+
+## Baselines
+
+All learned baselines receive the same selected planning cadence and learn only
+from their own chosen outcomes:
+
+- certainty-equivalent posterior-mean planning;
+- H50-L12-style single-model posterior sampling;
+- posterior-mean epsilon-greedy with fixed `epsilon = 0.10`;
+- uniform random control;
+- an oracle that knows the true tabular model and uses the same finite-horizon
+  planner.
+
+The original H50-L12 32-action result remains historical evidence and is not
+rerun as a decision baseline.
+
+## Metrics
+
+- mean reward over all 1,280 interactions and over the final 320;
+- paired Bayesian regret relative to the oracle;
+- improvement over certainty-equivalent, posterior-sampling, epsilon-greedy,
+  and uniform-random baselines;
+- fraction of worlds with strict simultaneous reward wins over all three
+  learned baselines;
+- final exact order recovery and posterior mass on the true order;
+- final transition and reward probability MAE;
+- mean selected action-target information gain and information ratio;
+- archive retention, exact snapshot replay, and causal-field completeness.
+
+## H50-L13 decision
+
+Every criterion must pass on `24100–24199`:
+
+- candidate/oracle total reward ratio at least `0.80`;
+- candidate/oracle final-quarter reward ratio at least `0.90`;
+- mean reward improvement at least `0.005` over certainty-equivalent;
+- improvement at least `0.010` over same-cadence posterior sampling;
+- improvement at least `0.005` over epsilon-greedy;
+- improvement at least `0.050` over uniform random;
+- simultaneous learned-baseline win rate at least `0.60`;
+- final exact MAP-order recovery at least `0.70`;
+- mean posterior mass on true order at least `0.65`;
+- transition MAE at most `0.08`;
+- reward MAE at most `0.08`;
+- finite diagnostic rate, archive retention, snapshot replay, and causal-field
+  rates exactly `1.0`.
+
+Any failed criterion refutes H50-L13. Learning the model cannot compensate for
+poor reward, and beating posterior sampling cannot compensate for failing
+certainty-equivalent control.
+
+## Final evaluation
+
+The final seeds `24100–24199` were run once with the frozen 16-action block.
+H50-L13 is **refuted**. Twelve of fifteen registered checks passed; three
+failed.
+
+| Criterion | Required | Observed | Result |
+| --- | ---: | ---: | --- |
+| Candidate/oracle total reward ratio | `>= 0.80` | `0.8983215638` | Pass |
+| Candidate/oracle final-quarter ratio | `>= 0.90` | `0.9760024613` | Pass |
+| Improvement over certainty-equivalent | `>= 0.005` | `-0.0071796875` | **Fail** |
+| Improvement over posterior sampling | `>= 0.010` | `0.0082187500` | **Fail** |
+| Improvement over epsilon-greedy | `>= 0.005` | `0.0144453125` | Pass |
+| Improvement over uniform random | `>= 0.050` | `0.1590078125` | Pass |
+| Simultaneous learned-baseline win rate | `>= 0.60` | `0.14` | **Fail** |
+| Exact MAP-order recovery | `>= 0.70` | `1.0` | Pass |
+| Mean posterior mass on true order | `>= 0.65` | `0.9999999834` | Pass |
+| Transition MAE | `<= 0.08` | `0.0610330266` | Pass |
+| Reward MAE | `<= 0.08` | `0.0478065858` | Pass |
+| Finite diagnostic rate | `1.0` | `1.0` | Pass |
+| Archive retention | `1.0` | `1.0` | Pass |
+| Snapshot replay | `1.0` | `1.0` | Pass |
+| Causal-field rate | `1.0` | `1.0` | Pass |
+
+The candidate earned mean reward `0.274296875`, above same-cadence posterior
+sampling (`0.266078125`) and epsilon-greedy (`0.2598515625`), but below
+certainty-equivalent control (`0.2814765625`). Its `0.00821875` improvement over
+posterior sampling did not reach the registered `0.010` minimum. It strictly
+beat all three learned baselines in only 14 of 100 worlds.
+
+The agent nevertheless recovered all 100 context orders, learned transition and
+reward probabilities within their error limits, reached `0.9760024613` of
+oracle reward in the final quarter, and retained finite information diagnostics
+throughout. These are secondary observations inside a refuted hypothesis; they
+cannot override the failed reward criteria.
+
+The generator produced 99 unique latent world structures. Structural
+uniqueness was not a registered decision criterion, so this collision is
+retained as a limitation rather than removed after inspection.
+
+The machine-readable aggregate is stored in
+[`results/EXPERIMENT_018_FINAL_AGGREGATE.json`](results/EXPERIMENT_018_FINAL_AGGREGATE.json).
+Final seeds `24100–24199` are retired and will not be reused to promote a
+modified information-directed controller.
+
+## Persistence and integrity requirements
+
+Snapshots must retain the causal model, archive, both random-stream states,
+planning-block clock, sampled ensemble, selected mixture diagnostics, and
+pending-action state. Restoration must replay derived state and produce the
+same next action under the same pending block.
+
+Unknown fields, counterfactual outcomes, non-finite probabilities or
+information ratios, invalid mixtures, inconsistent clocks, tampered counts,
+and incomplete ensembles fail closed. Structural replay is not cryptographic
+authentication.
+
+## Evidence ceiling
+
+The maximum result is `E1_LOCAL_AUTOMATED_EVALUATOR`.
+
+Even a pass would establish only information-directed action selection in a
+tiny stationary binary world. It would not establish neural representation
+learning, transfer, open-world autonomy, physical perception, language
+grounding, consciousness, personhood, AGI, or a Diana-like mind.

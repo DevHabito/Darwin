@@ -1,0 +1,314 @@
+{
+  "baseline_h50_l15_status": "passed_locally",
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 36700,
+  "candidate_minus_shuffled": {
+    "adversarial": {
+      "pseudo_regret": -5.111305037064487,
+      "reward": -5.09375
+    },
+    "related": {
+      "pseudo_regret": 3.6311238211085857,
+      "reward": 3.65625
+    },
+    "unrelated": {
+      "pseudo_regret": 0.13650346755273327,
+      "reward": 0.1875
+    }
+  },
+  "candidate_minus_ungated": {
+    "adversarial": {
+      "pseudo_regret": 4.4144558317346485,
+      "reward": 4.34375
+    },
+    "related": {
+      "pseudo_regret": 0.0225456257381413,
+      "reward": 0.03125
+    },
+    "unrelated": {
+      "pseudo_regret": 2.5154081723516954,
+      "reward": 2.59375
+    }
+  },
+  "capability_claim": false,
+  "decision": "not_eligible_for_calibration",
+  "development_intervals": {
+    "adversarial_candidate_final_source_weight": {
+      "high": 0.5180026776088875,
+      "low": 0.23223030347491933,
+      "mean": 0.37597184918545024
+    },
+    "adversarial_candidate_minus_shuffled_pseudo_regret": {
+      "high": -3.4452454345270014,
+      "low": -6.742648278296878,
+      "mean": -5.111305037064487
+    },
+    "adversarial_candidate_minus_shuffled_reward": {
+      "high": -3.3125,
+      "low": -6.90625,
+      "mean": -5.09375
+    },
+    "adversarial_candidate_minus_ungated_pseudo_regret": {
+      "high": 6.073173927234075,
+      "low": 2.773265916122047,
+      "mean": 4.4144558317346485
+    },
+    "adversarial_candidate_minus_ungated_reward": {
+      "high": 6.25,
+      "low": 2.5625,
+      "mean": 4.34375
+    },
+    "adversarial_candidate_preferred_action_rate_improvement": {
+      "high": -0.3489257812500002,
+      "low": -0.5364583333333334,
+      "mean": -0.4453125
+    },
+    "adversarial_candidate_pseudo_regret_reduction": {
+      "high": -5.235853054296546,
+      "low": -7.877974464869,
+      "mean": -6.570845535764801
+    },
+    "adversarial_candidate_reward_improvement": {
+      "high": -5.0,
+      "low": -7.875,
+      "mean": -6.46875
+    },
+    "related_candidate_final_source_weight": {
+      "high": 0.999951049034503,
+      "low": 0.9984311810273498,
+      "mean": 0.9993990422312974
+    },
+    "related_candidate_minus_shuffled_pseudo_regret": {
+      "high": 4.7590957746103895,
+      "low": 2.631003394167124,
+      "mean": 3.6311238211085857
+    },
+    "related_candidate_minus_shuffled_reward": {
+      "high": 5.03125,
+      "low": 2.46875,
+      "mean": 3.65625
+    },
+    "related_candidate_minus_ungated_pseudo_regret": {
+      "high": 0.04136284466267931,
+      "low": 0.0077965120831445574,
+      "mean": 0.0225456257381413
+    },
+    "related_candidate_minus_ungated_reward": {
+      "high": 0.09375,
+      "low": 0.0,
+      "mean": 0.03125
+    },
+    "related_candidate_preferred_action_rate_improvement": {
+      "high": 0.15104166666666669,
+      "low": 0.09244791666666669,
+      "mean": 0.12109375
+    },
+    "related_candidate_pseudo_regret_reduction": {
+      "high": 2.032954497498644,
+      "low": 1.1696723384928245,
+      "mean": 1.5879542958028539
+    },
+    "related_candidate_reward_improvement": {
+      "high": 2.28125,
+      "low": 1.03125,
+      "mean": 1.625
+    },
+    "related_candidate_simultaneous_win_rate": {
+      "high": 0.9111045531043405,
+      "low": 0.6469084479862404,
+      "mean": 0.8125
+    },
+    "unrelated_candidate_final_source_weight": {
+      "high": 0.22438835109760552,
+      "low": 0.027405424748093456,
+      "mean": 0.11612685862016264
+    },
+    "unrelated_candidate_minus_shuffled_pseudo_regret": {
+      "high": 1.2390214213835424,
+      "low": -0.9554954231125491,
+      "mean": 0.13650346755273327
+    },
+    "unrelated_candidate_minus_shuffled_reward": {
+      "high": 1.34375,
+      "low": -1.0,
+      "mean": 0.1875
+    },
+    "unrelated_candidate_minus_ungated_pseudo_regret": {
+      "high": 3.437588804220859,
+      "low": 1.6148945948128526,
+      "mean": 2.5154081723516954
+    },
+    "unrelated_candidate_minus_ungated_reward": {
+      "high": 3.6875,
+      "low": 1.46875,
+      "mean": 2.59375
+    },
+    "unrelated_candidate_preferred_action_rate_improvement": {
+      "high": -0.05078125,
+      "low": -0.1484375,
+      "mean": -0.09765625
+    },
+    "unrelated_candidate_pseudo_regret_reduction": {
+      "high": -0.7234376421669629,
+      "low": -2.152929677003689,
+      "mean": -1.4185484054140018
+    },
+    "unrelated_candidate_reward_improvement": {
+      "high": -0.84375,
+      "low": -2.46875,
+      "mean": -1.5625
+    }
+  },
+  "epsilon": 0.1,
+  "execution": {
+    "count": 1,
+    "metadata_correction": "Removed stale h50_l15_registered false inherited from the Experiment 028 summary; no numerical value was rerun or recomputed for this correction.",
+    "preregistration_commit": "fa30e8c"
+  },
+  "experiment": "031",
+  "feedback_boundary": "action ranking and compatibility-weight updates use only chosen-action rewards; transition outcomes remain archived but are causally excluded from weights and reward forecasts",
+  "integrity": {
+    "candidate_snapshot_rate": 1.0,
+    "candidate_transition_blindness_rate": 1.0,
+    "causal_archive_rate": 1.0,
+    "public_identity_rate": 1.0,
+    "shuffled_snapshot_rate": 1.0,
+    "shuffled_transition_blindness_rate": 1.0
+  },
+  "mean_final_source_weight": {
+    "adversarial": {
+      "candidate": 0.37597184918545024,
+      "shuffled": 0.5410879570986941
+    },
+    "related": {
+      "candidate": 0.9993990422312974,
+      "shuffled": 0.1598402250266024
+    },
+    "unrelated": {
+      "candidate": 0.11612685862016264,
+      "shuffled": 0.08465825519000612
+    }
+  },
+  "mean_improvement_over_scratch": {
+    "adversarial": {
+      "candidate": {
+        "preferred_action_rate": -0.4453125,
+        "pseudo_regret": -6.570845535764801,
+        "reward": -6.46875
+      },
+      "oracle": {
+        "preferred_action_rate": -0.72265625,
+        "pseudo_regret": -10.816655156067588,
+        "reward": -10.75
+      },
+      "pooled": {
+        "preferred_action_rate": -0.72265625,
+        "pseudo_regret": -11.051538522973821,
+        "reward": -10.90625
+      },
+      "shuffled": {
+        "preferred_action_rate": -0.08203125,
+        "pseudo_regret": -1.4595404987003138,
+        "reward": -1.375
+      },
+      "ungated": {
+        "preferred_action_rate": -0.72265625,
+        "pseudo_regret": -10.98530136749945,
+        "reward": -10.8125
+      }
+    },
+    "related": {
+      "candidate": {
+        "preferred_action_rate": 0.12109375,
+        "pseudo_regret": 1.5879542958028539,
+        "reward": 1.625
+      },
+      "oracle": {
+        "preferred_action_rate": 0.12109375,
+        "pseudo_regret": 1.6913160629995165,
+        "reward": 1.84375
+      },
+      "pooled": {
+        "preferred_action_rate": 0.12109375,
+        "pseudo_regret": 1.5608300519948115,
+        "reward": 1.625
+      },
+      "shuffled": {
+        "preferred_action_rate": -0.13411458333333334,
+        "pseudo_regret": -2.043169525305732,
+        "reward": -2.03125
+      },
+      "ungated": {
+        "preferred_action_rate": 0.12109375,
+        "pseudo_regret": 1.5654086700647125,
+        "reward": 1.59375
+      }
+    },
+    "unrelated": {
+      "candidate": {
+        "preferred_action_rate": -0.09765625,
+        "pseudo_regret": -1.4185484054140018,
+        "reward": -1.5625
+      },
+      "oracle": {
+        "preferred_action_rate": -0.16666666666666666,
+        "pseudo_regret": -2.3719971981522123,
+        "reward": -2.75
+      },
+      "pooled": {
+        "preferred_action_rate": -0.30078125,
+        "pseudo_regret": -4.557873657045579,
+        "reward": -4.78125
+      },
+      "shuffled": {
+        "preferred_action_rate": -0.10807291666666666,
+        "pseudo_regret": -1.555051872966735,
+        "reward": -1.75
+      },
+      "ungated": {
+        "preferred_action_rate": -0.2565104166666667,
+        "pseudo_regret": -3.9339565777656973,
+        "reward": -4.15625
+      }
+    }
+  },
+  "next_hypothesis_registered": false,
+  "seeds": [
+    36000,
+    36001,
+    36002,
+    36003,
+    36004,
+    36005,
+    36006,
+    36007,
+    36008,
+    36009,
+    36010,
+    36011,
+    36012,
+    36013,
+    36014,
+    36015,
+    36016,
+    36017,
+    36018,
+    36019,
+    36020,
+    36021,
+    36022,
+    36023,
+    36024,
+    36025,
+    36026,
+    36027,
+    36028,
+    36029,
+    36030,
+    36031
+  ],
+  "source_interactions": 2048,
+  "source_to_target_cost_ratio": 32.0,
+  "status": "development-only",
+  "target_interactions": 64
+}

@@ -1,0 +1,104 @@
+{
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 27801,
+  "capability_claim": false,
+  "conditions": {
+    "adversarial": {
+      "brier_improvement": {
+        "high": -0.1645516693350456,
+        "low": -0.17790818812451759,
+        "mean": -0.17134484024049443
+      },
+      "log_loss_improvement": {
+        "high": -0.36195049823315556,
+        "low": -0.39350677375115023,
+        "mean": -0.3781784970508894
+      },
+      "log_loss_win_rate": 0.0
+    },
+    "related": {
+      "brier_improvement": {
+        "high": 0.0690466793888038,
+        "low": 0.06079417233152783,
+        "mean": 0.06490689437695164
+      },
+      "log_loss_improvement": {
+        "high": 0.1712626404686679,
+        "low": 0.14673096023173737,
+        "mean": 0.15910063893439938
+      },
+      "log_loss_win_rate": 1.0
+    },
+    "unrelated": {
+      "brier_improvement": {
+        "high": -0.06628686574776638,
+        "low": -0.09633045250919287,
+        "mean": -0.0813456905407585
+      },
+      "log_loss_improvement": {
+        "high": -0.16141274906247743,
+        "low": -0.23625283862788787,
+        "mean": -0.19849565438786204
+      },
+      "log_loss_win_rate": 0.03125
+    }
+  },
+  "criteria": {
+    "adversarial_brier_high_at_most_minus_0_08": true,
+    "adversarial_log_loss_high_at_most_minus_0_20": true,
+    "causal_and_determinism_tests": true,
+    "related_brier_low_at_least_0_04": true,
+    "related_log_loss_low_at_least_0_10": true,
+    "related_win_rate_at_least_0_90": true,
+    "unrelated_brier_high_at_most_0": true,
+    "unrelated_log_loss_high_at_most_0": true
+  },
+  "cycles": 4,
+  "decision": "passed_benchmark_sensitivity",
+  "evidence_level": "E1_LOCAL_BENCHMARK",
+  "experiment": "Experiment 020 cross-world transfer benchmark sensitivity",
+  "h50_l14_registered": false,
+  "interactions_per_world": 64,
+  "limitations": [
+    "The oracle received hidden family parameters and did not learn a prior.",
+    "Known context and action alignment was supplied by the benchmark.",
+    "The family was synthetic and engineered to contain a transferable signal.",
+    "No action-selection or cumulative-reward capability was tested.",
+    "This does not establish general transfer, lifelong learning, consciousness, personhood, AGI, or a Diana-like mind."
+  ],
+  "seeds": [
+    27100,
+    27101,
+    27102,
+    27103,
+    27104,
+    27105,
+    27106,
+    27107,
+    27108,
+    27109,
+    27110,
+    27111,
+    27112,
+    27113,
+    27114,
+    27115,
+    27116,
+    27117,
+    27118,
+    27119,
+    27120,
+    27121,
+    27122,
+    27123,
+    27124,
+    27125,
+    27126,
+    27127,
+    27128,
+    27129,
+    27130,
+    27131
+  ],
+  "status": "benchmark-sensitivity-only"
+}

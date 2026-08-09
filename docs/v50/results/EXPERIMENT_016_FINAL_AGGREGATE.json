@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "experiment": "H50-L12",
+  "decision": "refuted",
+  "evidence_level": "E1_LOCAL_AUTOMATED_EVALUATOR",
+  "final_run_date": "2026-08-02",
+  "final_run_count": 1,
+  "development": {
+    "seed_range": [22000, 22031],
+    "seed_count": 32,
+    "selected_resampling_length": 32,
+    "candidate_scores": [
+      {
+        "resampling_length": 8,
+        "mean_reward": 0.2671875,
+        "mean_combined_model_error": 0.09659293601408378
+      },
+      {
+        "resampling_length": 16,
+        "mean_reward": 0.2697265625,
+        "mean_combined_model_error": 0.09625653330267775
+      },
+      {
+        "resampling_length": 32,
+        "mean_reward": 0.2720703125,
+        "mean_combined_model_error": 0.10287408714901367
+      },
+      {
+        "resampling_length": 64,
+        "mean_reward": 0.264501953125,
+        "mean_combined_model_error": 0.0956723466880944
+      }
+    ]
+  },
+  "final": {
+    "seed_range": [22100, 22199],
+    "seed_count": 100,
+    "world_count": 100,
+    "unique_world_structure_count": 99,
+    "duplicate_world_structure_seed_groups": [[22104, 22192]],
+    "true_order_counts": {"2": 25, "3": 25, "4": 25, "5": 25},
+    "map_order_counts": {"1": 2, "2": 24, "3": 24, "4": 26, "5": 24},
+    "order_confusion": {
+      "2->1": 2,
+      "2->2": 23,
+      "3->2": 1,
+      "3->3": 24,
+      "4->4": 25,
+      "5->4": 1,
+      "5->5": 24
+    }
+  },
+  "metrics": {
+    "candidate_mean_reward": 0.2610703125,
+    "candidate_final_quarter_reward": 0.28971875,
+    "certainty_equivalent_mean_reward": 0.2774921875,
+    "epsilon_greedy_mean_reward": 0.257703125,
+    "explore_then_commit_mean_reward": 0.22265625,
+    "fixed_order_five_mean_reward": 0.2328671875,
+    "random_mean_reward": 0.1147578125,
+    "oracle_mean_reward": 0.302859375,
+    "oracle_final_quarter_reward": 0.30290625000000004,
+    "candidate_oracle_total_reward_ratio": 0.8620182634267142,
+    "candidate_oracle_final_quarter_reward_ratio": 0.9564634272155162,
+    "improvement_vs_certainty_equivalent": -0.016421874999999975,
+    "improvement_vs_epsilon_greedy": 0.003367187500000035,
+    "improvement_vs_explore_then_commit": 0.03841406250000001,
+    "improvement_vs_fixed_order_five": 0.028203125000000023,
+    "improvement_vs_random": 0.1463125,
+    "simultaneous_baseline_world_win_rate": 0.04,
+    "exact_order_recovery_rate": 0.96,
+    "mean_true_order_posterior_mass": 0.9590054404395849,
+    "transition_probability_error": 0.05553200001220411,
+    "reward_probability_error": 0.041270532127769016,
+    "mean_bayesian_regret": 53.49,
+    "mean_information_gain_per_episode": 0.07078365423065337,
+    "archive_retention_rate": 1.0,
+    "snapshot_round_trip_rate": 1.0,
+    "causal_field_rate": 1.0
+  },
+  "criteria": {
+    "candidate_oracle_total_reward_ratio": {"threshold": 0.75, "passed": true},
+    "candidate_oracle_final_quarter_reward_ratio": {"threshold": 0.85, "passed": true},
+    "improvement_vs_certainty_equivalent": {"threshold": 0.01, "passed": false},
+    "improvement_vs_epsilon_greedy": {"threshold": 0.005, "passed": false},
+    "improvement_vs_explore_then_commit": {"threshold": 0.015, "passed": true},
+    "improvement_vs_fixed_order_five": {"threshold": 0.01, "passed": true},
+    "improvement_vs_random": {"threshold": 0.05, "passed": true},
+    "simultaneous_baseline_world_win_rate": {"threshold": 0.6, "passed": false},
+    "exact_order_recovery_rate": {"threshold": 0.7, "passed": true},
+    "mean_true_order_posterior_mass": {"threshold": 0.65, "passed": true},
+    "transition_probability_error": {"maximum": 0.08, "passed": true},
+    "reward_probability_error": {"maximum": 0.08, "passed": true},
+    "archive_retention_rate": {"threshold": 1.0, "passed": true},
+    "snapshot_round_trip_rate": {"threshold": 1.0, "passed": true},
+    "causal_field_rate": {"threshold": 1.0, "passed": true}
+  }
+}

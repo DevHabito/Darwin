@@ -28,6 +28,12 @@ def diagnose(details: bool = False) -> dict[str, Any]:
             "def sleep_window" in guardian
             and "self.show_idle_presence()" in guardian
         ),
+        "default_sleep_is_fully_hidden": (
+            "def hide_window" in guardian
+            and "self.root.withdraw()" in guardian
+            and "show_idle: bool = False" in guardian
+            and '"--show-idle"' in guardian
+        ),
         "idle_window_is_compact": (
             "width, height = 460, 220" in guardian
             and "self.root.resizable(False, False)" in guardian

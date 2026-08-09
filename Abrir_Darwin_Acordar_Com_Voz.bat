@@ -25,6 +25,12 @@ if %errorlevel%==0 (
     exit /b
 )
 
+set "DARWIN_CODEX_PYTHONW=%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\pythonw.exe"
+if exist "%DARWIN_CODEX_PYTHONW%" (
+    start "" "%DARWIN_CODEX_PYTHONW%" darwin_wake_word_guardian_v49_34.py
+    exit /b
+)
+
 echo Nao encontrei Python no PATH.
-echo Abra pelo Codex com: py darwin_wake_word_guardian_v49_34.py
+echo Tambem nao encontrei o runtime Python fornecido pelo Codex.
 pause
