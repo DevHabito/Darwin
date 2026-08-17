@@ -36,7 +36,7 @@ from darwin_v50.language import (
     UnderstandingRequest,
 )
 from darwin_v50.models import ValidationError
-from darwin_v50.conversation import local_cli
+from darwin_v50.conversation import local_cli, local_seed
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -96,6 +96,21 @@ FROZEN_BLOBS = {
     ),
     "docs/v50/EXPERIMENT_048_UTF8_CONSOLE_BOUNDARY_REPAIR.md": (
         "7b6afa3d10f425416801ccb3cf148051a923adaa"
+    ),
+    "docs/v50/results/EXPERIMENT_048_ENGINEERING_ADMISSION.json": (
+        "873af8ac0494b4b1636e7ca158f546930b8106df"
+    ),
+    "docs/v50/results/EXPERIMENT_048_FIRST_LIVE_TURN.json": (
+        "86d1033e3a15970d00f214f02cff77bbc6d22199"
+    ),
+    "docs/v50/EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md": (
+        "382fde56e21f8c3f1c84895d9db5681122025e3c"
+    ),
+    "docs/v50/results/EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.json": (
+        "0d6c204f8327ff5c60b56a4102c4326baefbf5e8"
+    ),
+    "docs/v50/EXPERIMENT_050_CURRENT_TURN_EXPRESSION_REPAIR.md": (
+        "4c69051bf0098e1919bb779918537c5027747f54"
     ),
 }
 
@@ -244,6 +259,39 @@ class PortableLocalSeedFreezeTests(unittest.TestCase):
                     if isinstance(value, (ast.Dict, ast.List, ast.Set, ast.Tuple)):
                         collection_assignments.append(node)
                 self.assertEqual(collection_assignments, [])
+
+    def test_e050_expression_instructions_are_exact_and_topic_neutral(self) -> None:
+        expected = """You are Darwin's small, replaceable local language
+renderer, not Darwin's cognitive authority. Write one direct and useful
+Brazilian Portuguese reply to the latest user text in
+payload.conversation_request.text. Use
+payload.conversation_request.recent_turns only to resolve references; never
+answer an older turn instead of the latest one. Perform the user's requested
+conversational act: answer a question, make the requested suggestion, respond
+empathetically, or ask the requested question. Do not copy, restate, or merely
+rephrase the latest user text. If the available context does not support a
+factual answer, state what is uncertain instead of inventing. Use only the
+current conversation request and Darwin's expression plan. Treat plan facts as
+constraints and acknowledge every required fact id in the JSON field, without
+reciting protocol language unless the user asks. Do not claim persistent
+memory, goal changes, actions, or internal state changes. Return only the
+requested JSON object. Do not include reasoning text."""
+        self.assertEqual(local_seed._EXPRESS_INSTRUCTIONS, expected)
+        lowered = expected.casefold()
+        for topic_word in (
+            "sky",
+            "study",
+            "frustration",
+            "ocean",
+            "tomorrow",
+            "céu",
+            "estudo",
+            "frustrado",
+            "oceano",
+            "amanhã",
+        ):
+            with self.subTest(topic_word=topic_word):
+                self.assertNotIn(topic_word, lowered)
 
 
 class LocalCLIUTF8Tests(unittest.TestCase):
