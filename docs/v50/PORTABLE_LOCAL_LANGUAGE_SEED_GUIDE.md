@@ -80,6 +80,12 @@ E045 demonstrated that the chat-completions parser could not initialize the
 Qwen3 JSON-schema grammar. The explicit schema and gateway validation remain in
 place.
 
+The frozen b10470 runtime does not expose the pre-registered
+`--escape-special-in-input` option. The command above documents E046's required
+shape but cannot be launched as an admitted E046 configuration. The
+[engineering admission record](results/EXPERIMENT_046_ENGINEERING_ADMISSION.json)
+therefore marks E046 failed before a live repair turn.
+
 ## Current status
 
 ```text

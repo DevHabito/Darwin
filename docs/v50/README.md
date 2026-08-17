@@ -286,7 +286,8 @@ language seed behind the same authority boundary. It targets a model artifact
 no larger than 600 MiB, an injectable transport that can move from a loopback
 desktop harness to an in-process mobile runtime, and no mandatory account,
 subscription, API key, or per-message fee. The candidate and live tests remain
-unexecuted. The portable integration has passed its hermetic engineering gate;
+separate from engineering admission. The portable integration passed its
+hermetic engineering gate;
 the exact commands and limits are preserved in the
 [E045 engineering admission record](results/EXPERIMENT_045_ENGINEERING_ADMISSION.json).
 The exact first live pairing later
@@ -300,7 +301,12 @@ pre-registers a prospective repair without altering E045's failure. It keeps
 the exact model, runtime, schemas, limits, and first sentence, replaces only the
 broken chat-completions integration with llama.cpp's native template and
 completion endpoints, and adds an ephemeral local API key after E045 exposed a
-wildcard-CORS warning. Its implementation and live result remain unexecuted.
+wildcard-CORS warning. The implementation passed its focused mocks, but no live
+repair turn was run:
+the fixed b10470 runtime
+lacked the registered special-token input protection. The
+[E046 engineering gate](results/EXPERIMENT_046_ENGINEERING_ADMISSION.json)
+therefore failed before another live turn; E045 remains failed as well.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
