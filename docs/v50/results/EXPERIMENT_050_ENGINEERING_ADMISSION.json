@@ -1,0 +1,48 @@
+{
+  "schema": "darwin-e050-engineering-admission-v1",
+  "experiment": "E050",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "45953114f0f4508a07156ee27682b7cc59fdb7ad",
+  "subject_commit": "ec624e4a2659b7660699833a708f7dd6243beaab",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "792137b3bc99ef6b79138c5bad8ffe6402a21c92",
+    "tests/test_v50_portable_local_language_seed.py": "ac3cf435cf111c98697e55b78a7b8a1e4385fdb6"
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "duration_seconds": 3.338,
+    "tests_run": 25,
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "duration_seconds": 432.104,
+    "tests_run": 498,
+    "passed": 497,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "all earlier frozen protocol and result blobs named by the focused suite remained exact",
+    "the E050 expression instruction matched its pre-registered text exactly",
+    "the E050 expression instruction contained none of the disclosed Portuguese or English topic words",
+    "the maintained local modules retained no module-level response table",
+    "authenticated native endpoint ordering, schemas, bounds, strict UTF-8, and control-marker rejection remained covered",
+    "failed turns still committed no temporary transcript or authority mutation",
+    "explicit local mode retained no paid-provider fallback"
+  ],
+  "development_rerun": {
+    "executed": false,
+    "reason": "The E049 cases are rerun only after this engineering gate is frozen."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The sole model-facing change was the exact generic E050 expression instruction. It passed the registered engineering gate. No conversational improvement is established until the separately recorded development rerun is complete."
+}
