@@ -1,0 +1,93 @@
+{
+  "schema": "darwin-e053-raw-performance-admission-v1",
+  "experiment": "E053",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "5f5f4fcf4860549c96a52c535b744fabace69a22",
+  "artifact_lock_commit": "e38a4003140092148310c11a53dd23951995ecc8",
+  "load_probe_commit": "101f7352bb3377a83c0a25557f0bd8bbdca366ad",
+  "model": {
+    "upstream_repository": "Qwen/Qwen3.5-0.8B",
+    "converter_repository": "bartowski/Qwen_Qwen3.5-0.8B-GGUF",
+    "converter_revision": "f36b1ea49a332ede8fe5f389bbf5b3575ef71f48",
+    "filename": "Qwen_Qwen3.5-0.8B-Q4_K_M.gguf",
+    "file_bytes": 579615840,
+    "file_sha256": "fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526",
+    "benchmark_reported_weight_bytes": 568653056,
+    "benchmark_reported_parameters": 772845888,
+    "benchmark_reported_type": "qwen35 0.8B Q4_K - Medium"
+  },
+  "runtime": {
+    "name": "llama-bench",
+    "build": 10470,
+    "commit": "34af94cd9",
+    "executable_sha256": "23947ddff87fe418e2db0e49d6fb1b79f2f66c142cf7d5c614d0f4c870e05c4b",
+    "implementation_sha256": "11d460130758a4f024c78de341bcfc2b85302bd7d9bdbe830174183f0ec4205b",
+    "cpu": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+    "backend": "CPU",
+    "cpu_backend_library": "ggml-cpu-haswell.dll",
+    "gpu_info": ""
+  },
+  "fixed_configuration": {
+    "offline": true,
+    "gpu_layers": 0,
+    "prompt_tokens": 256,
+    "generation_tokens": 32,
+    "threads": 4,
+    "repetitions": 2,
+    "delay_seconds": 1,
+    "warmup": true,
+    "priority": 0,
+    "batch_size": 2048,
+    "micro_batch_size": 512
+  },
+  "execution": {
+    "exit_code": 0,
+    "elapsed_milliseconds": 29568.534,
+    "peak_working_set_bytes": 858513408,
+    "raw_json_bytes": 2566,
+    "raw_json_sha256": "723ecf7a29440c17a784e94816419b2822dee2475d2874ae0a13b40b432dadaa",
+    "stderr_bytes": 300,
+    "stderr_sha256": "c6f4efc9b9cc3257642e086f9009b4ef71e9c39acdf61e5aeb550fff27650ee1",
+    "server_started": false,
+    "conversation_requests": 0,
+    "language_outputs_recorded": 0
+  },
+  "measurements": {
+    "prompt_processing_tokens_per_second_mean": 46.621915,
+    "prompt_processing_standard_deviation": 2.837896,
+    "prompt_processing_samples": [48.6286, 44.6152],
+    "generation_tokens_per_second_mean": 13.966523,
+    "generation_standard_deviation": 1.507247,
+    "generation_samples": [15.0323, 12.9007]
+  },
+  "registered_admission": {
+    "minimum_generation_tokens_per_second": 4.0,
+    "observed_generation_tokens_per_second": 13.966523,
+    "passed": true
+  },
+  "descriptive_comparison_to_e052": {
+    "e052_selected_qwen2_5_1_5b_generation_mean": 1.123804,
+    "e053_qwen3_5_0_8b_generation_mean": 13.966523,
+    "ratio": 12.428,
+    "interpretation": "This ratio is descriptive across the two frozen synthetic benchmark results and is not a language-quality comparison."
+  },
+  "authority_and_cost": {
+    "user_text_used": false,
+    "persistent_history_enabled": false,
+    "memory_writes": 0,
+    "goal_changes": 0,
+    "rzs_changes": 0,
+    "sigma_changes": 0,
+    "identity_changes": 0,
+    "world_model_changes": 0,
+    "actions_dispatched": 0,
+    "actions_executed": 0,
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "network_used": false,
+    "monetary_cost_usd": 0
+  },
+  "result": "pass",
+  "evidence_class": "E1 local synthetic performance observation",
+  "interpretation": "The fixed free 0.8B candidate exceeded the pre-registered raw generation threshold on this computer and may proceed to engineering and language admission. This does not establish Portuguese behavior, conversational quality, server latency, or mobile suitability."
+}
