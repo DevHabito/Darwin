@@ -320,7 +320,12 @@ E047 therefore failed rather than being promoted.
 [Experiment 048](EXPERIMENT_048_UTF8_CONSOLE_BOUNDARY_REPAIR.md) pre-registers
 a narrow UTF-8 standard-stream repair. It freezes the same inference path and
 forbids character replacement, model changes, response post-processing, and
-provider fallback. Implementation and live testing remain unexecuted.
+provider fallback. Its engineering gate passed 24 focused tests and the full
+repository suite (496 passes plus the existing Windows symlink skip). The
+[live record](results/EXPERIMENT_048_FIRST_LIVE_TURN.json) establishes exact
+UTF-8 transport, one schema-valid local turn, and a correct adversarial
+rejection at zero provider cost. The observed reply was still weak, so language
+quality remains unestablished.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

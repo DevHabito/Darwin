@@ -29,16 +29,16 @@ authority boundary.
 
 ## Registered candidate
 
-The first candidate is `Qwen/Qwen3-0.6B`, quantized as `Q4_K_M`, with a model
-artifact no larger than 600 MiB. The exact GGUF source, digest, runtime build,
-and license files must be recorded before a live run.
-
-No download has been performed yet. Do not substitute another tag or model and
-report it as E045.
+The first candidate is `Qwen/Qwen3-0.6B`, quantized as `Q4_K_M`. The frozen
+GGUF is 484,220,320 bytes with SHA-256
+`9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14`.
+It is stored under the ignored project runtime directory, not installed as a
+system service. Its source revision, license, and the exact llama.cpp runtime
+are preserved in the E045 artifact lock.
 
 ## Desktop harness configuration
 
-The future live harness must launch one `llama-server` slot with a 4,096-token
+The live desktop harness launches one `llama-server` slot with a 4,096-token
 context and an explicit model alias. A representative command shape is:
 
 ```powershell
@@ -92,12 +92,16 @@ therefore marks E046 failed before a live repair turn.
 
 ```text
 portable backend implementation   COMMITTED (34c4ee7)
-hermetic admission                PASSED (16/16 focused; 489/489 repository)
+current UTF-8 implementation      COMMITTED (cd23929)
+current hermetic admission        PASSED (24/24 focused; 496 pass + 1 skip)
 model download                    VERIFIED (484,220,320 bytes; SHA-256 locked)
 portable runtime                  VERIFIED (llama.cpp b10470; SHA-256 locked)
 model load probe                  PASSED (loopback; 4,096 context; one slot)
-first live UNDERSTAND             FAILED CLOSED (HTTP 400; grammar initialization)
-live local inference              FAILED (zero model output; zero successful turns)
+E045 first live turn              FAILED (chat grammar initialization)
+E046 native repair                FAILED (unsupported registered runtime flag)
+E047 authenticated live turn      FAILED (Windows Unicode input integrity)
+E048 exact UTF-8 live turn        PASSED (UNDERSTAND + EXPRESS; authority zero)
+E048 observed response quality    WEAK (valid but little substantive guidance)
 Portuguese development screen     UNEXECUTED
 mobile benchmark                  UNEXECUTED
 ```
@@ -127,5 +131,14 @@ initializing a JSON-schema grammar around Qwen3's disabled-thinking prefill.
 No model output was received, `EXPRESS` was not attempted, and the service was
 stopped. E045 is therefore not a working-conversation result.
 
-Until those runs exist, the honest user-facing state is unavailable. A mock or
-canned reply must not be presented as Darwin successfully understanding text.
+The [E047 live record](results/EXPERIMENT_047_FIRST_LIVE_TURN.json) preserves
+the later input-integrity failure rather than promoting the two otherwise valid
+inference stages. The [E048 live record](results/EXPERIMENT_048_FIRST_LIVE_TURN.json)
+then establishes exact UTF-8 input, one gateway-valid `UNDERSTAND` plus
+`EXPRESS` turn, and a pre-inference control-token rejection. It used no paid
+provider and changed no Darwin authority state.
+
+The current local path is therefore executable, but conversational usefulness
+has not passed a development screen. The first correct E048 expression largely
+reflected the user's opening question. A mock, canned reply, or schema pass must
+not be presented as evidence of strong understanding.
