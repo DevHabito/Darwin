@@ -327,6 +327,11 @@ UTF-8 transport, one schema-valid local turn, and a correct adversarial
 rejection at zero provider cost. The observed reply was still weak, so language
 quality remains unestablished.
 
+[Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
+pre-registers an eight-turn, multi-topic Portuguese development screen for the
+unchanged local pair. It preserves raw replies and failure modes but cannot
+promote a language-quality claim. Execution remains pending.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
