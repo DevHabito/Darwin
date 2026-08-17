@@ -1,0 +1,110 @@
+{
+  "schema": "darwin-e048-first-live-turn-v1",
+  "experiment": "E048",
+  "recorded_at": "2026-08-17",
+  "subject_commit": "637c68a768678ea1e8a733fc2573aecb80d33db9",
+  "pre_registration_commit": "2cb30ac8b9612e5fb0fb29ec55fb01a7c603ecd4",
+  "engineering_admission_blob": "873af8ac0494b4b1636e7ca158f546930b8106df",
+  "model": {
+    "id": "Qwen_Qwen3-0.6B-Q4_K_M",
+    "sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+    "bytes": 484220320
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283",
+    "endpoint": "http://127.0.0.1:18048",
+    "authenticated": true,
+    "api_key_persisted_or_logged": false,
+    "web_ui": false,
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "cache_ram_mib": 0,
+    "reasoning": "off",
+    "reasoning_format": "none"
+  },
+  "input_integrity_probe": {
+    "expected_utf8_hex_without_line_terminator": "4f692c2044617277696e2e204573746f7520616e696d61646f207061726120636f6e76657273617220636f6d20766f63c3aa20686f6a652e20436f6d6f20646576656d6f7320636f6d65c3a761723f",
+    "first_diagnostic_observation": "the expected bytes followed by 0a",
+    "first_diagnostic_result": "measurement_command_error",
+    "first_diagnostic_reason": "the command intended to remove the line terminator used an over-escaped character set and left the terminator in place",
+    "model_inference_before_corrected_probe": false,
+    "corrected_observed_utf8_hex_without_line_terminator": "4f692c2044617277696e2e204573746f7520616e696d61646f207061726120636f6e76657273617220636f6d20766f63c3aa20686f6a652e20436f6d6f20646576656d6f7320636f6d65c3a761723f",
+    "corrected_result": "pass"
+  },
+  "executed_session": {
+    "server_ready_ms": 4302,
+    "peak_working_set_bytes": 1196400640,
+    "client_exit_code": 0,
+    "inference_requests": 2,
+    "understand_timing": {
+      "prompt_tokens": 163,
+      "predicted_tokens": 71,
+      "prompt_eval_ms": 959.92,
+      "generation_ms": 4770.31,
+      "total_ms": 5730.23
+    },
+    "express_timing": {
+      "prompt_tokens": 271,
+      "predicted_tokens": 29,
+      "prompt_eval_ms": 2000.08,
+      "generation_ms": 1812.35,
+      "total_ms": 3812.43
+    },
+    "cli_log": {
+      "bytes": 310,
+      "sha256": "18c0f29be0c393c913f0e7f5aea32e7d5f7e8995434df34f143c321934e31542"
+    },
+    "server_stderr_log": {
+      "bytes": 2463,
+      "sha256": "1d96e6146f1142ca374ef5f99cd8ac41746cb082f694709340554a645be9d63c"
+    },
+    "server_stopped_after_measurement": true,
+    "listener_count_after_stop": 0
+  },
+  "language_path": {
+    "registered_sentence_delivered_as_exact_utf8": true,
+    "understand_returned_gateway_valid_object": true,
+    "express_returned_gateway_valid_object": true,
+    "captured_expression": "Oi, Darwin. Como devemos começar?",
+    "captured_output_contains_unicode_replacement": false,
+    "temporary_messages_before_session_close": 2,
+    "persistent_history_writes": 0,
+    "authority_mutations": {
+      "memory_writes": 0,
+      "goal_changes": 0,
+      "rzs_changes": 0,
+      "sigma_changes": 0,
+      "identity_changes": 0,
+      "world_model_changes": 0,
+      "actions_dispatched": 0,
+      "actions_executed": 0
+    }
+  },
+  "adversarial_turn": {
+    "marker_class": "registered im_start control marker",
+    "rejection": "local_control_token_rejected",
+    "error_echoed_input_or_marker": false,
+    "additional_inference_requests": 0,
+    "temporary_messages_committed": 0,
+    "authority_mutations": 0,
+    "result": "pass"
+  },
+  "descriptive_quality_observation": {
+    "pre_registered_pass_fail_criterion": false,
+    "expression_added_substantive_guidance": false,
+    "interpretation": "The expression was valid and correctly encoded but mostly reflected the user's opening question. This is not evidence of useful open conversation."
+  },
+  "cost": {
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "monetary_cost_usd": 0
+  },
+  "result": "pass",
+  "promotion": "exact UTF-8 local transport only",
+  "e045_result_changed": false,
+  "e046_result_changed": false,
+  "e047_result_changed": false,
+  "interpretation": "E048 establishes an exact UTF-8 Windows console boundary, one gateway-valid local UNDERSTAND-plus-EXPRESS turn, and one pre-inference control-marker rejection with no paid provider or authority mutation. It does not establish useful language quality, mobile suitability, learning, autonomous cognition, or similarity to Diana."
+}
