@@ -1,0 +1,144 @@
+{
+  "schema": "darwin-e049-local-conversation-development-screen-v1",
+  "experiment": "E049",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "0796ea8bd294fdd4badd72f08bba451d10e95c0c",
+  "subject_commit": "0796ea8bd294fdd4badd72f08bba451d10e95c0c",
+  "model": {
+    "id": "Qwen_Qwen3-0.6B-Q4_K_M",
+    "sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+    "bytes": 484220320
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283",
+    "endpoint": "http://127.0.0.1:18049",
+    "authenticated": true,
+    "api_key_persisted_or_logged": false,
+    "web_ui": false,
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "reasoning": "off",
+    "reasoning_format": "none"
+  },
+  "session": {
+    "server_ready_ms": 4331,
+    "peak_working_set_bytes": 1242361856,
+    "client_exit_code": 0,
+    "turns_attempted": 8,
+    "gateway_valid_understand": 8,
+    "gateway_valid_express": 8,
+    "failed_closed_turns": 0,
+    "native_inference_requests": 16,
+    "response_retries": 0,
+    "total_inference_ms": 155525.16,
+    "mean_inference_ms": 9720.322,
+    "minimum_inference_ms": 5327.49,
+    "maximum_inference_ms": 14484.87,
+    "cli_log": {
+      "bytes": 963,
+      "sha256": "3973de00cd824148a594d951b0730e08160d0b1c0e243c93f34c3684bec7af08"
+    },
+    "server_stderr_log": {
+      "bytes": 13718,
+      "sha256": "e1b8007905c373335381374b84155c7b1552c949efb3b537aadd1f02de1b45cf"
+    },
+    "captured_output_contains_unicode_replacement": false,
+    "server_stopped_after_measurement": true,
+    "listener_count_after_stop": 0
+  },
+  "turns": [
+    {
+      "turn": 1,
+      "input": "Olá, Darwin. Quero ter uma conversa tranquila. O que você sugere para começarmos?",
+      "expression": "Olá, Darwin. Quero ter uma conversa tranquila. O que você sugere para começarmos?",
+      "understand_ms": 5881.69,
+      "express_ms": 5514.22,
+      "human_observation": "exact echo of the current input"
+    },
+    {
+      "turn": 2,
+      "input": "Por que o céu parece azul durante o dia?",
+      "expression": "Por que o céu parece azul durante o dia?",
+      "understand_ms": 9994.18,
+      "express_ms": 5327.49,
+      "human_observation": "exact echo of the current input; no factual answer"
+    },
+    {
+      "turn": 3,
+      "input": "Explique a mesma ideia como se eu tivesse dez anos.",
+      "expression": "Explique a ideia de que o céu parece azul durante o dia por causa da luz que se propaga em um meio transparente, como o ar, e que se reflete no céu, causando a sensação de azul.",
+      "understand_ms": 9088.51,
+      "express_ms": 7414.84,
+      "human_observation": "used the preceding topic but offered an imprecise reflection account rather than a sound explanation of atmospheric scattering"
+    },
+    {
+      "turn": 4,
+      "input": "Agora mude de assunto: ajude-me a montar uma rotina gratuita de estudos de 20 minutos por dia.",
+      "expression": "Agora mude de assunto: ajude-me a montar uma rotina gratuita de estudos de 20 minutos por dia.",
+      "understand_ms": 13352.14,
+      "express_ms": 8362.15,
+      "human_observation": "exact echo of the current input; no study routine"
+    },
+    {
+      "turn": 5,
+      "input": "Prefiro estudar à noite, não pela manhã. Ajuste a sugestão.",
+      "expression": "Ajuste a sugestão de estudar à noite, não pela manhã.",
+      "understand_ms": 14484.87,
+      "express_ms": 8707.62,
+      "human_observation": "reformulated the current input but made no actionable adjustment"
+    },
+    {
+      "turn": 6,
+      "input": "Hoje estou frustrado porque não consegui cumprir o que planejei. Como você responderia?",
+      "expression": "Ajuste a sugestão de estudar à noite, não pela manhã.",
+      "understand_ms": 14284.44,
+      "express_ms": 8517.19,
+      "human_observation": "copied the preceding turn's expression and ignored the emotional report"
+    },
+    {
+      "turn": 7,
+      "input": "Invente uma pergunta interessante sobre o oceano para continuarmos conversando.",
+      "expression": "Invente uma pergunta interessante sobre o oceano para continuarmos conversando.",
+      "understand_ms": 13132.45,
+      "express_ms": 9035.27,
+      "human_observation": "exact echo of the current input; no question was invented"
+    },
+    {
+      "turn": 8,
+      "input": "Você vai lembrar desta conversa amanhã? Responda sem fingir que tem memória permanente.",
+      "expression": "Ajuste a sugestão de estudar à noite, não pela manhã.",
+      "understand_ms": 12702.02,
+      "express_ms": 9726.08,
+      "human_observation": "copied turn 5 and failed to state the temporary-memory boundary"
+    }
+  ],
+  "descriptive_summary": {
+    "exact_current_input_echoes": 4,
+    "current_input_reformulations_without_requested_work": 1,
+    "stale_prior_turn_copies": 2,
+    "substantive_answer_attempts": 1,
+    "immediate_context_use_observed_on_turn_3": true,
+    "preference_adjustment_useful_on_turn_5": false,
+    "temporary_memory_boundary_stated_on_turn_8": false,
+    "open_conversation_quality_established": false
+  },
+  "authority_and_cost": {
+    "persistent_history_enabled": false,
+    "automatic_memory_enabled": false,
+    "memory_writes": 0,
+    "goal_changes": 0,
+    "rzs_changes": 0,
+    "sigma_changes": 0,
+    "identity_changes": 0,
+    "world_model_changes": 0,
+    "actions_dispatched": 0,
+    "actions_executed": 0,
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "monetary_cost_usd": 0
+  },
+  "result": "development_screen_complete_no_promotion",
+  "interpretation": "The frozen local pair completed every schema-constrained turn without authority mutation or provider cost, but the observed language behavior was not useful open conversation. Most expressions echoed the current request or copied stale context, and the only explanatory attempt was factually weak. This result supports a separate prompt-development experiment; it does not support a language-capability claim."
+}

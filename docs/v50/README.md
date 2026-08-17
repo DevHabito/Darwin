@@ -330,7 +330,11 @@ quality remains unestablished.
 [Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
 pre-registers an eight-turn, multi-topic Portuguese development screen for the
 unchanged local pair. It preserves raw replies and failure modes but cannot
-promote a language-quality claim. Execution remains pending.
+promote a language-quality claim. The
+[result](results/EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.json)
+records eight technically valid turns at zero provider cost, but four exact
+echoes, one non-answer reformulation, two stale-turn copies, and only one weak
+substantive attempt. Useful open conversation was not established.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
