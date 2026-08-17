@@ -295,6 +295,13 @@ because llama.cpp could not initialize the schema grammar around the Qwen3
 non-thinking prefill. E045 is not a working-conversation, mobile-suitability,
 or language-quality result.
 
+[Experiment 046](EXPERIMENT_046_AUTHENTICATED_NATIVE_COMPLETION_REPAIR.md)
+pre-registers a prospective repair without altering E045's failure. It keeps
+the exact model, runtime, schemas, limits, and first sentence, replaces only the
+broken chat-completions integration with llama.cpp's native template and
+completion endpoints, and adds an ephemeral local API key after E045 exposed a
+wildcard-CORS warning. Its implementation and live result remain unexecuted.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
