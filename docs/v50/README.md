@@ -331,7 +331,11 @@ quality remains unestablished.
 pre-registers one generic `EXPRESS` instruction repair against the disclosed
 E049 development failures. It changes no model, schema, sampling, memory, or
 authority surface and contains no topic-specific answer. Implementation and
-execution remain pending.
+engineering admission passed, but the
+[development result](results/EXPERIMENT_050_CURRENT_TURN_EXPRESSION_REPAIR.json)
+failed: two turns produced invalid JSON at the output ceiling, while all six
+accepted expressions repeated the same reformulated opening. The variant was
+not promoted.
 
 [Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
 pre-registers an eight-turn, multi-topic Portuguese development screen for the

@@ -1,0 +1,132 @@
+{
+  "schema": "darwin-e050-current-turn-expression-repair-v1",
+  "experiment": "E050",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "45953114f0f4508a07156ee27682b7cc59fdb7ad",
+  "subject_commit": "e858725efeefc7f4c1e80799942f80b6b217d2b9",
+  "engineering_admission_blob": "ff7778963fd002c29afcd539f556db4c877f5289",
+  "model": {
+    "id": "Qwen_Qwen3-0.6B-Q4_K_M",
+    "sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+    "bytes": 484220320
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283",
+    "endpoint": "http://127.0.0.1:18050",
+    "authenticated": true,
+    "api_key_persisted_or_logged": false,
+    "web_ui": false,
+    "context_tokens": 4096,
+    "parallel_slots": 1
+  },
+  "session": {
+    "server_ready_ms": 4356,
+    "peak_working_set_bytes": 1245282304,
+    "client_exit_code": 0,
+    "turns_attempted": 8,
+    "gateway_valid_understand_express_pairs": 6,
+    "failed_closed_understand_turns": 2,
+    "failure_class": "local_completion_not_json",
+    "native_inference_requests": 14,
+    "response_retries": 0,
+    "total_inference_ms": 264549.75,
+    "mean_inference_ms": 18896.411,
+    "minimum_inference_ms": 7019.51,
+    "maximum_inference_ms": 88973.56,
+    "limit_length_generations": 2,
+    "limit_length_tokens_each": 1000,
+    "cli_log": {
+      "bytes": 875,
+      "sha256": "14753ccd1fef8e3c3b0b8791b7f54f8b5e832cb66ddf8292304c9f825f54190f"
+    },
+    "server_stderr_log": {
+      "bytes": 16901,
+      "sha256": "5ed7cded47e013913e0ccda82c4e5ea3086ae454d25e08b287e6e1a8ee2833f9"
+    },
+    "captured_output_contains_unicode_replacement": false,
+    "server_stopped_after_measurement": true,
+    "listener_count_after_stop": 0
+  },
+  "captured_successful_expression": "Olá, Darwin. Queremos conversar tranquilo. O que você sugere para começar?",
+  "turn_outcomes": [
+    {
+      "turn": 1,
+      "result": "gateway_valid",
+      "human_observation": "reformulated the opening input without suggesting a way to begin"
+    },
+    {
+      "turn": 2,
+      "result": "failed_closed_at_understand",
+      "error": "local_completion_not_json"
+    },
+    {
+      "turn": 3,
+      "result": "gateway_valid",
+      "human_observation": "copied turn 1 instead of resolving the sky reference"
+    },
+    {
+      "turn": 4,
+      "result": "gateway_valid",
+      "human_observation": "copied turn 1 instead of proposing a study routine"
+    },
+    {
+      "turn": 5,
+      "result": "gateway_valid",
+      "human_observation": "copied turn 1 instead of adjusting the routine for night study"
+    },
+    {
+      "turn": 6,
+      "result": "failed_closed_at_understand",
+      "error": "local_completion_not_json"
+    },
+    {
+      "turn": 7,
+      "result": "gateway_valid",
+      "human_observation": "copied turn 1 instead of asking an ocean question"
+    },
+    {
+      "turn": 8,
+      "result": "gateway_valid",
+      "human_observation": "copied turn 1 instead of stating the temporary-memory boundary"
+    }
+  ],
+  "registered_criteria": {
+    "eight_gateway_valid_pairs": false,
+    "no_unicode_replacement": true,
+    "at_most_one_exact_current_input_echo": true,
+    "zero_exact_older_expression_copies": false,
+    "older_expression_copies_observed": 5,
+    "at_least_six_requested_act_attempts": false,
+    "requested_act_attempts_observed": 0,
+    "turn_3_resolves_sky_reference": false,
+    "turn_5_proposes_night_adjustment": false,
+    "turn_6_addresses_frustration": false,
+    "turn_7_asks_ocean_question": false,
+    "turn_8_states_temporary_memory_boundary": false,
+    "zero_provider_or_authority_effects": true,
+    "server_stopped": true,
+    "conjunction_passed": false
+  },
+  "authority_and_cost": {
+    "successful_temporary_messages_before_close": 12,
+    "failed_turn_messages_committed": 0,
+    "persistent_history_enabled": false,
+    "automatic_memory_enabled": false,
+    "memory_writes": 0,
+    "goal_changes": 0,
+    "rzs_changes": 0,
+    "sigma_changes": 0,
+    "identity_changes": 0,
+    "world_model_changes": 0,
+    "actions_dispatched": 0,
+    "actions_executed": 0,
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "monetary_cost_usd": 0
+  },
+  "result": "fail",
+  "promotion": "refused",
+  "interpretation": "The longer generic expression instruction did not improve the disclosed development set. It produced two schema-invalid UNDERSTAND generations at the 1000-token ceiling, and every accepted expression was the same reformulated opening. E050 is worse than E049 on technical completion and stale-context behavior. The variant must not be presented as a conversational improvement."
+}
