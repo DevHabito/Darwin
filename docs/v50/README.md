@@ -327,6 +327,12 @@ UTF-8 transport, one schema-valid local turn, and a correct adversarial
 rejection at zero provider cost. The observed reply was still weak, so language
 quality remains unestablished.
 
+[Experiment 050](EXPERIMENT_050_CURRENT_TURN_EXPRESSION_REPAIR.md)
+pre-registers one generic `EXPRESS` instruction repair against the disclosed
+E049 development failures. It changes no model, schema, sampling, memory, or
+authority surface and contains no topic-specific answer. Implementation and
+execution remain pending.
+
 [Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
 pre-registers an eight-turn, multi-topic Portuguese development screen for the
 unchanged local pair. It preserves raw replies and failure modes but cannot
