@@ -313,7 +313,14 @@ pre-registers a build-compatible repair: the same authenticated native
 transport rejects the frozen model's control markers before templating rather
 than claiming that b10470 supports a newer escape option. It retains the exact
 artifacts, schemas, limits, and first sentence. Implementation and live testing
-remain unexecuted.
+showed two gateway-valid inference stages and a correct adversarial rejection,
+but the Windows pipe did not preserve the exact registered Unicode sentence.
+E047 therefore failed rather than being promoted.
+
+[Experiment 048](EXPERIMENT_048_UTF8_CONSOLE_BOUNDARY_REPAIR.md) pre-registers
+a narrow UTF-8 standard-stream repair. It freezes the same inference path and
+forbids character replacement, model changes, response post-processing, and
+provider fallback. Implementation and live testing remain unexecuted.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
