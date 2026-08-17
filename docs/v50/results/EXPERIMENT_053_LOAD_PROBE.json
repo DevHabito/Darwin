@@ -1,0 +1,94 @@
+{
+  "schema": "darwin-e053-load-probe-v1",
+  "experiment": "E053",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "5f5f4fcf4860549c96a52c535b744fabace69a22",
+  "artifact_lock_commit": "e38a4003140092148310c11a53dd23951995ecc8",
+  "candidate": {
+    "upstream_repository": "Qwen/Qwen3.5-0.8B",
+    "converter_repository": "bartowski/Qwen_Qwen3.5-0.8B-GGUF",
+    "converter_revision": "f36b1ea49a332ede8fe5f389bbf5b3575ef71f48",
+    "filename": "Qwen_Qwen3.5-0.8B-Q4_K_M.gguf",
+    "bytes": 579615840,
+    "sha256": "fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526",
+    "alias": "Qwen_Qwen3.5-0.8B-Q4_K_M"
+  },
+  "runtime": {
+    "name": "llama.cpp llama-server",
+    "build": 10470,
+    "commit": "34af94cd9",
+    "build_info_probe": "b10470-34af94cd9",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283"
+  },
+  "configuration": {
+    "host": "127.0.0.1",
+    "port": 18053,
+    "authentication": "fresh random session bearer key inherited through LLAMA_API_KEY and not recorded",
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "cpu_threads": 4,
+    "web_ui": false,
+    "ram_cache_megabytes": 0,
+    "warmup": false,
+    "reasoning": "off",
+    "reasoning_format": "none",
+    "vision_projection_supplied": false,
+    "mtp_speculative_decoding_enabled": false
+  },
+  "observed_identity": {
+    "model_id": "Qwen_Qwen3.5-0.8B-Q4_K_M",
+    "model_object": "model",
+    "owned_by": "llamacpp",
+    "model_alias": "Qwen_Qwen3.5-0.8B-Q4_K_M",
+    "model_path_ended_with_fixed_filename": true,
+    "total_slots": 1,
+    "context_tokens": 4096,
+    "modalities": {
+      "vision": false,
+      "video": false,
+      "audio": false
+    },
+    "launched_pid_equaled_listener_pid": true
+  },
+  "admission_thresholds": {
+    "readiness_max_milliseconds": 60000,
+    "peak_working_set_max_bytes": 2250000000
+  },
+  "measurements": {
+    "readiness_milliseconds": 14227.742,
+    "peak_working_set_bytes": 781615104,
+    "inference_requests": 0,
+    "language_outputs": 0,
+    "listener_count_after_stop": 0,
+    "server_stderr_bytes": 2284,
+    "server_stderr_sha256": "453ea3598024b2e47d0b05f625f39fb9e7c8646c62c0baaa85e6faaffa3663c1"
+  },
+  "runtime_warnings": {
+    "unused_tensor_count": 15,
+    "unused_tensor_prefix": "blk.24",
+    "observed_names": [
+      "blk.24.attn_norm.weight",
+      "blk.24.post_attention_norm.weight",
+      "blk.24.attn_q.weight",
+      "blk.24.attn_k.weight",
+      "blk.24.attn_v.weight",
+      "blk.24.attn_output.weight",
+      "blk.24.attn_q_norm.weight",
+      "blk.24.attn_k_norm.weight",
+      "blk.24.ffn_gate.weight",
+      "blk.24.ffn_down.weight",
+      "blk.24.ffn_up.weight",
+      "blk.24.nextn.eh_proj.weight",
+      "blk.24.nextn.enorm.weight",
+      "blk.24.nextn.hnorm.weight",
+      "blk.24.nextn.shared_head_norm.weight"
+    ],
+    "cache_warning": "llama.cpp reported that cache-idle-slots requires cache-ram and disabled that behavior because cache-ram was zero",
+    "interpretation": "The runtime ignored the listed extra block-24 tensors while MTP speculative decoding remained disabled. The warnings did not prevent the registered identity, context, text-only modality, memory, readiness, authentication, or shutdown checks from passing. No claim about their effect on later inference is made."
+  },
+  "paid_provider_used": false,
+  "monetary_cost_usd": 0,
+  "result": "pass",
+  "evidence_class": "E1 local desktop load observation",
+  "interpretation": "The exact free 0.8B candidate passed the pre-registered desktop load gate without inference and was stopped. This provides no evidence yet about raw generation speed, Portuguese behavior, conversational quality, or mobile suitability."
+}
