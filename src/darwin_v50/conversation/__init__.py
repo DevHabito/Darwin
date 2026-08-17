@@ -14,6 +14,15 @@ from .openai_responses import (
     OpenAITransportError,
     UrllibJSONTransport,
 )
+from .local_seed import (
+    LOCAL_SEED_CONTRACT,
+    REGISTERED_CONTEXT_TOKENS,
+    LlamaCppServerTransport,
+    LocalSeedTransportError,
+    LoopbackJSONTransport,
+    PortableLocalLanguageBackend,
+    StructuredLocalTransport,
+)
 from .runtime import (
     AuthorityMutationCounts,
     ConversationAvailability,
@@ -42,8 +51,15 @@ __all__ = [
     "EXPRESSION_SCHEMA",
     "ExplicitLocalBackend",
     "JSONTransport",
+    "LOCAL_SEED_CONTRACT",
+    "LlamaCppServerTransport",
+    "LocalSeedTransportError",
+    "LoopbackJSONTransport",
     "OpenAIResponsesBackend",
     "OpenAITransportError",
+    "PortableLocalLanguageBackend",
+    "REGISTERED_CONTEXT_TOKENS",
+    "StructuredLocalTransport",
     "UNDERSTANDING_SCHEMA",
     "UrllibJSONTransport",
 ]
