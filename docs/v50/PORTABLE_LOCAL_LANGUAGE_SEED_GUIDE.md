@@ -75,7 +75,8 @@ hermetic admission                PASSED (16/16 focused; 489/489 repository)
 model download                    VERIFIED (484,220,320 bytes; SHA-256 locked)
 portable runtime                  VERIFIED (llama.cpp b10470; SHA-256 locked)
 model load probe                  PASSED (loopback; 4,096 context; one slot)
-live local inference              UNEXECUTED (no generation request yet)
+first live UNDERSTAND             FAILED CLOSED (HTTP 400; grammar initialization)
+live local inference              FAILED (zero model output; zero successful turns)
 Portuguese development screen     UNEXECUTED
 mobile benchmark                  UNEXECUTED
 ```
@@ -97,6 +98,13 @@ The [load probe](results/EXPERIMENT_045_LOAD_PROBE.json) records the subsequentl
 observed runtime, model, tokenizer, chat-template, listener, readiness, and
 desktop-memory values. It deliberately stops before the first generation
 request.
+
+The subsequent
+[first-live-turn record](results/EXPERIMENT_045_FIRST_LIVE_TURN.json) preserves
+the failed result. The exact E045 pairing returned HTTP 400 while llama.cpp was
+initializing a JSON-schema grammar around Qwen3's disabled-thinking prefill.
+No model output was received, `EXPRESS` was not attempted, and the service was
+stopped. E045 is therefore not a working-conversation result.
 
 Until those runs exist, the honest user-facing state is unavailable. A mock or
 canned reply must not be presented as Darwin successfully understanding text.

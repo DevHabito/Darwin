@@ -289,7 +289,11 @@ subscription, API key, or per-message fee. The candidate and live tests remain
 unexecuted. The portable integration has passed its hermetic engineering gate;
 the exact commands and limits are preserved in the
 [E045 engineering admission record](results/EXPERIMENT_045_ENGINEERING_ADMISSION.json).
-That result is not a mobile-suitability or language-quality claim.
+The exact first live pairing later
+[failed closed](results/EXPERIMENT_045_FIRST_LIVE_TURN.json) before model output
+because llama.cpp could not initialize the schema grammar around the Qwen3
+non-thinking prefill. E045 is not a working-conversation, mobile-suitability,
+or language-quality result.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
