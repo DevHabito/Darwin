@@ -308,6 +308,13 @@ lacked the registered special-token input protection. The
 [E046 engineering gate](results/EXPERIMENT_046_ENGINEERING_ADMISSION.json)
 therefore failed before another live turn; E045 remains failed as well.
 
+[Experiment 047](EXPERIMENT_047_CONTROL_TOKEN_REJECTION_REPAIR.md)
+pre-registers a build-compatible repair: the same authenticated native
+transport rejects the frozen model's control markers before templating rather
+than claiming that b10470 supports a newer escape option. It retains the exact
+artifacts, schemas, limits, and first sentence. Implementation and live testing
+remain unexecuted.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
