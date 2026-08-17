@@ -74,7 +74,8 @@ portable backend implementation   COMMITTED (34c4ee7)
 hermetic admission                PASSED (16/16 focused; 489/489 repository)
 model download                    VERIFIED (484,220,320 bytes; SHA-256 locked)
 portable runtime                  VERIFIED (llama.cpp b10470; SHA-256 locked)
-live local inference              UNEXECUTED
+model load probe                  PASSED (loopback; 4,096 context; one slot)
+live local inference              UNEXECUTED (no generation request yet)
 Portuguese development screen     UNEXECUTED
 mobile benchmark                  UNEXECUTED
 ```
@@ -91,6 +92,11 @@ The separate
 model quantization revision, model and runtime digests, licenses, runtime build,
 and the fact that neither the model nor inference had been executed at the time
 of registration.
+
+The [load probe](results/EXPERIMENT_045_LOAD_PROBE.json) records the subsequently
+observed runtime, model, tokenizer, chat-template, listener, readiness, and
+desktop-memory values. It deliberately stops before the first generation
+request.
 
 Until those runs exist, the honest user-facing state is unavailable. A mock or
 canned reply must not be presented as Darwin successfully understanding text.
