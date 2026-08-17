@@ -25,6 +25,19 @@ MAX_LOCAL_PROMPT_CHARACTERS = 14_000
 MAX_LOCAL_TEMPLATE_CHARACTERS = 18_000
 MAX_LOCAL_OUTPUT_TOKENS = 1_000
 REGISTERED_CONTEXT_TOKENS = 4_096
+LOCAL_CONTROL_MARKERS = frozenset(
+    (
+        "<|endoftext|>",
+        "<|im_start|>",
+        "<|im_end|>",
+        "<think>",
+        "</think>",
+        "<tool_call>",
+        "</tool_call>",
+        "<tool_response>",
+        "</tool_response>",
+    )
+)
 
 
 _UNDERSTAND_INSTRUCTIONS = """You are Darwin's small, replaceable local
@@ -88,6 +101,21 @@ def _plain_json(value: object) -> object:
     if value is None or isinstance(value, (bool, int, float, str)):
         return value
     raise LanguageBackendError("local_request_contains_non_json_value")
+
+
+def _reject_control_markers(value: object) -> None:
+    if isinstance(value, str):
+        if any(marker in value for marker in LOCAL_CONTROL_MARKERS):
+            raise LanguageBackendError("local_control_token_rejected")
+        return
+    if isinstance(value, Mapping):
+        for key, child in value.items():
+            _reject_control_markers(key)
+            _reject_control_markers(child)
+        return
+    if isinstance(value, (list, tuple)):
+        for child in value:
+            _reject_control_markers(child)
 
 
 def _object(value: object, field: str) -> Mapping[str, Any]:
@@ -273,6 +301,7 @@ class LlamaCppServerTransport:
         plain_payload = _plain_json(payload)
         if not isinstance(plain_payload, dict):
             raise LanguageBackendError("local_request_payload_not_object")
+        _reject_control_markers(plain_payload)
         user_text = json.dumps(
             plain_payload,
             ensure_ascii=False,

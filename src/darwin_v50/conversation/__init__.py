@@ -15,6 +15,7 @@ from .openai_responses import (
     UrllibJSONTransport,
 )
 from .local_seed import (
+    LOCAL_CONTROL_MARKERS,
     LOCAL_SEED_CONTRACT,
     REGISTERED_CONTEXT_TOKENS,
     LlamaCppServerTransport,
@@ -51,6 +52,7 @@ __all__ = [
     "EXPRESSION_SCHEMA",
     "ExplicitLocalBackend",
     "JSONTransport",
+    "LOCAL_CONTROL_MARKERS",
     "LOCAL_SEED_CONTRACT",
     "LlamaCppServerTransport",
     "LocalSeedTransportError",

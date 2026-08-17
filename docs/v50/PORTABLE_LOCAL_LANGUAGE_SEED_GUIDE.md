@@ -53,7 +53,6 @@ llama-server.exe `
   --cache-ram 0 `
   --reasoning off `
   --reasoning-format none `
-  --escape-special-in-input `
   --api-key <fresh-random-local-session-key>
 ```
 
@@ -80,9 +79,12 @@ E045 demonstrated that the chat-completions parser could not initialize the
 Qwen3 JSON-schema grammar. The explicit schema and gateway validation remain in
 place.
 
-The frozen b10470 runtime does not expose the pre-registered
-`--escape-special-in-input` option. The command above documents E046's required
-shape but cannot be launched as an admitted E046 configuration. The
+The frozen b10470 runtime does not expose E046's pre-registered
+`--escape-special-in-input` option, so that experiment could not be launched.
+E047 instead rejects the frozen model's exact control markers in every
+user-originated, model-bound field before `/apply-template`. It does not reject
+ordinary angle brackets and does not claim that the runtime performs escaping.
+The
 [engineering admission record](results/EXPERIMENT_046_ENGINEERING_ADMISSION.json)
 therefore marks E046 failed before a live repair turn.
 
