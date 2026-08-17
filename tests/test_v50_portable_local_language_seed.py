@@ -37,6 +37,10 @@ from darwin_v50.language import (
 )
 from darwin_v50.models import ValidationError
 from darwin_v50.conversation import local_cli, local_seed
+from darwin_v50.conversation.openai_responses import (
+    EXPRESSION_SCHEMA,
+    UNDERSTANDING_SCHEMA,
+)
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -131,7 +135,7 @@ def understanding_payload() -> dict[str, Any]:
         "reported_signals": [],
         "temporal_reference": None,
         "explicit_preference": None,
-        "confidence": 0.7,
+        "confidence": 0.75,
     }
 
 
@@ -670,6 +674,31 @@ class LlamaCppServerTransportTests(unittest.TestCase):
 
 
 class PortableLocalLanguageBackendTests(unittest.TestCase):
+    def test_local_numeric_schema_is_narrow_without_mutating_shared_schema(self) -> None:
+        shared_properties = UNDERSTANDING_SCHEMA["properties"]
+        local_properties = local_seed.LOCAL_UNDERSTANDING_SCHEMA["properties"]
+        self.assertIsInstance(shared_properties, dict)
+        self.assertIsInstance(local_properties, dict)
+
+        def numeric_nodes(properties: Mapping[str, object]) -> tuple[object, object]:
+            signals = properties["reported_signals"]
+            assert isinstance(signals, dict)
+            items = signals["items"]
+            assert isinstance(items, dict)
+            signal_properties = items["properties"]
+            assert isinstance(signal_properties, dict)
+            return signal_properties["value"], properties["confidence"]
+
+        shared_nodes = numeric_nodes(shared_properties)
+        local_nodes = numeric_nodes(local_properties)
+        continuous = {"type": "number", "minimum": 0, "maximum": 1}
+        enumerated = {
+            "type": "number",
+            "enum": [0.0, 0.25, 0.5, 0.75, 1.0],
+        }
+        self.assertEqual(shared_nodes, (continuous, continuous))
+        self.assertEqual(local_nodes, (enumerated, enumerated))
+
     def test_turn_is_understand_then_express_with_zero_authority(self) -> None:
         transport = ScriptedStructuredTransport(
             understanding_payload(),
@@ -695,6 +724,11 @@ class PortableLocalLanguageBackendTests(unittest.TestCase):
             [call["payload"]["operation"] for call in transport.calls],
             ["understand", "express"],
         )
+        self.assertEqual(
+            transport.calls[0]["schema"],
+            local_seed.LOCAL_UNDERSTANDING_SCHEMA,
+        )
+        self.assertEqual(transport.calls[1]["schema"], EXPRESSION_SCHEMA)
         express_payload = transport.calls[1]["payload"]["payload"]
         self.assertEqual(
             express_payload["conversation_request"]["text"],
@@ -706,6 +740,22 @@ class PortableLocalLanguageBackendTests(unittest.TestCase):
         self.assertEqual(result.authority_mutations.world_model_changes, 0)
         self.assertEqual(result.authority_mutations.actions_dispatched, 0)
         self.assertEqual(result.authority_mutations.actions_executed, 0)
+
+    def test_unregistered_numeric_level_fails_without_coercion_or_retry(self) -> None:
+        invalid = {**understanding_payload(), "confidence": 0.7}
+        transport = ScriptedStructuredTransport(invalid)
+        backend = PortableLocalLanguageBackend(model=MODEL_ID, transport=transport)
+        gateway = DarwinLanguageGateway(backend)
+
+        with self.assertRaisesRegex(
+            LanguageBackendError,
+            "^local_numeric_level_invalid$",
+        ):
+            gateway.understand(UnderstandingRequest("Teste sem arredondamento"))
+
+        self.assertEqual(len(transport.calls), 1)
+        self.assertEqual(transport.responses, [])
+        self.assertEqual(backend._pending_understanding, None)
 
     def test_explicit_local_mode_never_constructs_openai_backend(self) -> None:
         transport = ScriptedStructuredTransport(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+from types import MappingProxyType
 from typing import Any, Mapping, Protocol, Sequence
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -25,6 +26,7 @@ MAX_LOCAL_PROMPT_CHARACTERS = 14_000
 MAX_LOCAL_TEMPLATE_CHARACTERS = 18_000
 MAX_LOCAL_OUTPUT_TOKENS = 1_000
 REGISTERED_CONTEXT_TOKENS = 4_096
+LOCAL_NUMERIC_LEVELS = tuple((0.0, 0.25, 0.5, 0.75, 1.0))
 LOCAL_CONTROL_MARKERS = frozenset(
     (
         "<|endoftext|>",
@@ -128,6 +130,81 @@ def _array(value: object, field: str) -> Sequence[Any]:
     if not isinstance(value, list):
         raise LocalSeedTransportError(f"{field}_not_array")
     return value
+
+
+def _schema_object(value: object, field: str) -> dict[str, object]:
+    if not isinstance(value, dict):
+        raise RuntimeError(f"shared understanding schema changed at {field}")
+    return value
+
+
+def _build_local_understanding_schema() -> Mapping[str, object]:
+    schema = deepcopy(dict(UNDERSTANDING_SCHEMA))
+    properties = _schema_object(schema.get("properties"), "properties")
+    reported = _schema_object(
+        properties.get("reported_signals"),
+        "reported_signals",
+    )
+    reported_items = _schema_object(
+        reported.get("items"),
+        "reported_signals.items",
+    )
+    reported_properties = _schema_object(
+        reported_items.get("properties"),
+        "reported_signals.items.properties",
+    )
+    value_schema = _schema_object(
+        reported_properties.get("value"),
+        "reported_signals.items.properties.value",
+    )
+    confidence_schema = _schema_object(
+        properties.get("confidence"),
+        "confidence",
+    )
+    expected_continuous_node = {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+    }
+    for field, node in (
+        ("reported_signals.items.properties.value", value_schema),
+        ("confidence", confidence_schema),
+    ):
+        if node != expected_continuous_node:
+            raise RuntimeError(f"shared understanding schema changed at {field}")
+        node.clear()
+        node.update(
+            {
+                "type": "number",
+                "enum": list(LOCAL_NUMERIC_LEVELS),
+            }
+        )
+    return MappingProxyType(schema)
+
+
+LOCAL_UNDERSTANDING_SCHEMA = _build_local_understanding_schema()
+
+
+def _is_local_numeric_level(value: object) -> bool:
+    return (
+        not isinstance(value, bool)
+        and isinstance(value, (int, float))
+        and value in LOCAL_NUMERIC_LEVELS
+    )
+
+
+def _reject_unregistered_local_numeric_levels(result: Mapping[str, Any]) -> None:
+    confidence = result.get("confidence")
+    if confidence is not None and not _is_local_numeric_level(confidence):
+        raise LanguageBackendError("local_numeric_level_invalid")
+    signals = result.get("reported_signals")
+    if not isinstance(signals, list):
+        return
+    for signal in signals:
+        if not isinstance(signal, Mapping) or "value" not in signal:
+            continue
+        if not _is_local_numeric_level(signal["value"]):
+            raise LanguageBackendError("local_numeric_level_invalid")
 
 
 def _registered_loopback_origin(endpoint: str) -> str:
@@ -425,8 +502,9 @@ class PortableLocalLanguageBackend:
                 instructions=_UNDERSTAND_INSTRUCTIONS,
                 payload=request.payload,
                 schema_name="darwin_understanding_v1",
-                schema=UNDERSTANDING_SCHEMA,
+                schema=LOCAL_UNDERSTANDING_SCHEMA,
             )
+            _reject_unregistered_local_numeric_levels(result)
             pending = _plain_json(request.payload)
             if not isinstance(pending, dict):
                 raise LanguageBackendError("local_request_payload_not_object")
