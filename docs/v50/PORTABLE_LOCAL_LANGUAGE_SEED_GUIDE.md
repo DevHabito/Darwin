@@ -1,6 +1,6 @@
 # Portable local language seed guide
 
-This guide describes the unexecuted E045 desktop harness. It does not install a
+This guide describes the admitted E045 desktop harness. It does not install a
 model, claim mobile readiness, or alter the frozen E043 and E044 experiments.
 
 ## Design
@@ -70,13 +70,20 @@ addresses, and public hosts.
 ## Current status
 
 ```text
-portable backend implementation   DEVELOPMENT
-hermetic admission                UNEXECUTED
+portable backend implementation   COMMITTED (34c4ee7)
+hermetic admission                PASSED (16/16 focused; 489/489 repository)
 model download                    UNEXECUTED
 live local inference              UNEXECUTED
 Portuguese development screen     UNEXECUTED
 mobile benchmark                  UNEXECUTED
 ```
+
+The repository run declared one unrelated platform skip: the existing Windows
+symlink test could not create a symlink without the required OS privilege. The
+machine-readable
+[engineering admission record](results/EXPERIMENT_045_ENGINEERING_ADMISSION.json)
+preserves the subject commit, implementation blobs, commands, counts, and
+interpretation ceiling.
 
 Until those runs exist, the honest user-facing state is unavailable. A mock or
 canned reply must not be presented as Darwin successfully understanding text.

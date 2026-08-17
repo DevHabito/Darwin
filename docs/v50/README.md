@@ -286,7 +286,10 @@ language seed behind the same authority boundary. It targets a model artifact
 no larger than 600 MiB, an injectable transport that can move from a loopback
 desktop harness to an in-process mobile runtime, and no mandatory account,
 subscription, API key, or per-message fee. The candidate and live tests remain
-unexecuted; the document is not a mobile-suitability or language-quality claim.
+unexecuted. The portable integration has passed its hermetic engineering gate;
+the exact commands and limits are preserved in the
+[E045 engineering admission record](results/EXPERIMENT_045_ENGINEERING_ADMISSION.json).
+That result is not a mobile-suitability or language-quality claim.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
