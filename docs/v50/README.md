@@ -337,6 +337,12 @@ failed: two turns produced invalid JSON at the output ceiling, while all six
 accepted expressions repeated the same reformulated opening. The variant was
 not promoted.
 
+[Experiment 051](EXPERIMENT_051_FREE_1_5B_MODEL_COMPARISON.md) pre-registers a
+clean comparison with the official Apache-2.0
+`Qwen2.5-1.5B-Instruct Q4_K_M` artifact. It restores the exact E049 prompt and
+changes only the configured model. Download, load admission, and execution
+remain pending.
+
 [Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
 pre-registers an eight-turn, multi-topic Portuguese development screen for the
 unchanged local pair. It preserves raw replies and failure modes but cannot
