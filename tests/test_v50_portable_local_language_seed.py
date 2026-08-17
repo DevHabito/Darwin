@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 from copy import deepcopy
+from io import StringIO
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -35,6 +36,7 @@ from darwin_v50.language import (
     UnderstandingRequest,
 )
 from darwin_v50.models import ValidationError
+from darwin_v50.conversation import local_cli
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -85,6 +87,15 @@ FROZEN_BLOBS = {
     ),
     "docs/v50/EXPERIMENT_047_CONTROL_TOKEN_REJECTION_REPAIR.md": (
         "2e0ff95d9be2d8376a9de0917a5bf1c0a822f877"
+    ),
+    "docs/v50/results/EXPERIMENT_047_ENGINEERING_ADMISSION.json": (
+        "045cab6fae1d5afa6cde30fc9e0c237d3c3de5d8"
+    ),
+    "docs/v50/results/EXPERIMENT_047_FIRST_LIVE_TURN.json": (
+        "ae8a6c2423850d43c2b7c8cfc4cf9541a30d4bc0"
+    ),
+    "docs/v50/EXPERIMENT_048_UTF8_CONSOLE_BOUNDARY_REPAIR.md": (
+        "7b6afa3d10f425416801ccb3cf148051a923adaa"
     ),
 }
 
@@ -233,6 +244,70 @@ class PortableLocalSeedFreezeTests(unittest.TestCase):
                     if isinstance(value, (ast.Dict, ast.List, ast.Set, ast.Tuple)):
                         collection_assignments.append(node)
                 self.assertEqual(collection_assignments, [])
+
+
+class LocalCLIUTF8Tests(unittest.TestCase):
+    class ReconfigurableStream(StringIO):
+        def __init__(self, *, fail: bool = False) -> None:
+            super().__init__()
+            self.fail = fail
+            self.configurations: list[dict[str, str]] = []
+
+        def reconfigure(self, **configuration: str) -> None:
+            self.configurations.append(dict(configuration))
+            if self.fail:
+                raise OSError("private stream failure detail")
+
+    def test_cli_configures_every_reconfigurable_stream_as_strict_utf8(self) -> None:
+        stdin = self.ReconfigurableStream()
+        stdout = self.ReconfigurableStream()
+        stderr = self.ReconfigurableStream()
+
+        with (
+            patch.object(local_cli.sys, "stdin", stdin),
+            patch.object(local_cli.sys, "stdout", stdout),
+            patch.object(local_cli.sys, "stderr", stderr),
+        ):
+            local_cli._configure_utf8_standard_streams()
+
+        expected = [{"encoding": "utf-8", "errors": "strict"}]
+        self.assertEqual(stdin.configurations, expected)
+        self.assertEqual(stdout.configurations, expected)
+        self.assertEqual(stderr.configurations, expected)
+
+    def test_cli_stream_reconfiguration_failure_stops_startup_safely(self) -> None:
+        stdin = self.ReconfigurableStream(fail=True)
+        stdout = self.ReconfigurableStream()
+        stderr = self.ReconfigurableStream()
+
+        with (
+            patch.object(local_cli.sys, "stdin", stdin),
+            patch.object(local_cli.sys, "stdout", stdout),
+            patch.object(local_cli.sys, "stderr", stderr),
+        ):
+            exit_code = local_cli.main()
+
+        self.assertEqual(exit_code, 2)
+        self.assertEqual(
+            stderr.getvalue(),
+            "Darwin local UTF-8 configuration failed.\n",
+        )
+        self.assertNotIn("private stream failure detail", stderr.getvalue())
+
+    def test_non_reconfigurable_in_memory_streams_remain_usable(self) -> None:
+        stdin = StringIO()
+        stdout = StringIO()
+        stderr = StringIO()
+
+        with (
+            patch.object(local_cli.sys, "stdin", stdin),
+            patch.object(local_cli.sys, "stdout", stdout),
+            patch.object(local_cli.sys, "stderr", stderr),
+        ):
+            local_cli._configure_utf8_standard_streams()
+            local_cli._write(stdout, "você pode começar")
+
+        self.assertEqual(stdout.getvalue(), "você pode começar\n")
 
 
 class LoopbackTransportTests(unittest.TestCase):

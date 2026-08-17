@@ -22,7 +22,19 @@ def _write(stream: TextIO, message: str) -> None:
     stream.flush()
 
 
+def _configure_utf8_standard_streams() -> None:
+    for stream in (sys.stdin, sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="strict")
+
+
 def main() -> int:
+    try:
+        _configure_utf8_standard_streams()
+    except (OSError, ValueError):
+        _write(sys.stderr, "Darwin local UTF-8 configuration failed.")
+        return 2
     try:
         settings = ConversationSettings.from_environment()
     except ValidationError as exc:
