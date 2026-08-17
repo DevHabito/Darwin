@@ -1,0 +1,58 @@
+{
+  "schema": "darwin-e048-engineering-admission-v1",
+  "experiment": "E048",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "2cb30ac8b9612e5fb0fb29ec55fb01a7c603ecd4",
+  "subject_commit": "cd2392914e125dbb655cbbc213e0b2bfb977dc50",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_cli.py": "6dd982f65e26787968b459a209aac14e4bb84610",
+    "tests/test_v50_portable_local_language_seed.py": "5a2292c1eb44c77ad91d65fd83d22b0b1148e4e7"
+  },
+  "environment": {
+    "operating_system": "Windows",
+    "python": "3.12.13 (bundled Codex workspace Python)",
+    "python_path": "src",
+    "network_used_by_tests": "loopback-only hermetic HTTP fixtures"
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "duration_seconds": 2.693,
+    "tests_run": 24,
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "duration_seconds": 407.016,
+    "tests_run": 497,
+    "passed": 496,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "all earlier frozen protocol and result blobs named by the focused suite remained exact",
+    "stdin, stdout, and stderr are each configured as UTF-8 with strict error handling when they expose reconfiguration",
+    "a real-stream reconfiguration failure stops CLI startup with a sanitized error",
+    "non-reconfigurable Unicode in-memory streams remain usable in hermetic tests",
+    "the E047 control-marker guard still rejects every registered marker before inference",
+    "authenticated native endpoint ordering, schemas, bounds, and authority-zero controls remain mandatory",
+    "explicit local mode retains no paid-provider fallback"
+  ],
+  "live_input_probe": {
+    "executed": false,
+    "reason": "The pre-registered byte probe is performed only after this engineering gate is frozen."
+  },
+  "live_inference": {
+    "executed": false,
+    "reason": "Live inference is permitted only if the separately recorded byte probe passes."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The narrow strict-UTF-8 CLI repair passed the registered hermetic engineering gate. This record alone establishes neither exact live input transport nor any model-language quality."
+}
