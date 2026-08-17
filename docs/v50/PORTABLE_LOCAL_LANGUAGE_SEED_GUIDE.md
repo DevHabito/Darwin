@@ -72,7 +72,8 @@ addresses, and public hosts.
 ```text
 portable backend implementation   COMMITTED (34c4ee7)
 hermetic admission                PASSED (16/16 focused; 489/489 repository)
-model download                    UNEXECUTED
+model download                    VERIFIED (484,220,320 bytes; SHA-256 locked)
+portable runtime                  VERIFIED (llama.cpp b10470; SHA-256 locked)
 live local inference              UNEXECUTED
 Portuguese development screen     UNEXECUTED
 mobile benchmark                  UNEXECUTED
@@ -84,6 +85,12 @@ machine-readable
 [engineering admission record](results/EXPERIMENT_045_ENGINEERING_ADMISSION.json)
 preserves the subject commit, implementation blobs, commands, counts, and
 interpretation ceiling.
+
+The separate
+[artifact lock](results/EXPERIMENT_045_ARTIFACT_LOCK.json) records the exact
+model quantization revision, model and runtime digests, licenses, runtime build,
+and the fact that neither the model nor inference had been executed at the time
+of registration.
 
 Until those runs exist, the honest user-facing state is unavailable. A mock or
 canned reply must not be presented as Darwin successfully understanding text.
