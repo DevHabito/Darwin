@@ -280,6 +280,14 @@ calibration or evidence that Darwin is more than an LLM-centered system. Setup
 is documented in the
 [conversational development guide](CONVERSATIONAL_DEVELOPMENT_GUIDE.md).
 
+[Experiment 045](EXPERIMENT_045_PORTABLE_LOCAL_LANGUAGE_SEED.md)
+pre-registers the next provider-free path: a replaceable, quantized local
+language seed behind the same authority boundary. It targets a model artifact
+no larger than 600 MiB, an injectable transport that can move from a loopback
+desktop harness to an in-process mobile runtime, and no mandatory account,
+subscription, API key, or per-message fee. The candidate and live tests remain
+unexecuted; the document is not a mobile-suitability or language-quality claim.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
