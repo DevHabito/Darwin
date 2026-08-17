@@ -327,6 +327,15 @@ UTF-8 transport, one schema-valid local turn, and a correct adversarial
 rejection at zero provider cost. The observed reply was still weak, so language
 quality remains unestablished.
 
+[Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
+pre-registers an eight-turn, multi-topic Portuguese development screen for the
+unchanged local pair. It preserves raw replies and failure modes but cannot
+promote a language-quality claim. The
+[result](results/EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.json)
+records eight technically valid turns at zero provider cost, but four exact
+echoes, one non-answer reformulation, two stale-turn copies, and only one weak
+substantive attempt. Useful open conversation was not established.
+
 [Experiment 050](EXPERIMENT_050_CURRENT_TURN_EXPRESSION_REPAIR.md)
 pre-registers one generic `EXPRESS` instruction repair against the disclosed
 E049 development failures. It changes no model, schema, sampling, memory, or
@@ -340,17 +349,45 @@ not promoted.
 [Experiment 051](EXPERIMENT_051_FREE_1_5B_MODEL_COMPARISON.md) pre-registers a
 clean comparison with the official Apache-2.0
 `Qwen2.5-1.5B-Instruct Q4_K_M` artifact. It restores the exact E049 prompt and
-changes only the configured model. Download, load admission, and execution
-remain pending.
+changes only the configured model. Artifact, load, and engineering admission
+passed, but the first required `UNDERSTAND` request exceeded 120 seconds and
+returned no gateway-valid object. The
+[result](results/EXPERIMENT_051_FREE_1_5B_MODEL_COMPARISON.json) records the
+timeout and zero provider cost; the model was not promoted.
 
-[Experiment 049](EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.md)
-pre-registers an eight-turn, multi-topic Portuguese development screen for the
-unchanged local pair. It preserves raw replies and failure modes but cannot
-promote a language-quality claim. The
-[result](results/EXPERIMENT_049_LOCAL_CONVERSATION_DEVELOPMENT_SCREEN.json)
-records eight technically valid turns at zero provider cost, but four exact
-echoes, one non-answer reformulation, two stale-turn copies, and only one weak
-substantive attempt. Useful open conversation was not established.
+[Experiment 052](EXPERIMENT_052_LOCAL_INFERENCE_BOTTLENECK_DIAGNOSTIC.md)
+measures that 1.5B failure offline with the frozen runtime. Its selected
+four-thread generation mean was only `1.11403` tokens per second. The
+[diagnostic](results/EXPERIMENT_052_LOCAL_INFERENCE_BOTTLENECK_DIAGNOSTIC.json)
+classifies raw generation throughput as the immediate bottleneck rather than
+claiming a schema or cognitive failure.
+
+[Experiment 053](EXPERIMENT_053_FREE_0_8B_EDGE_MODEL_SCREEN.md) screens the
+Apache-2.0 Qwen3.5 0.8B family through an explicitly recorded community GGUF
+conversion. The artifact loaded at 781,615,104 peak bytes and generated at
+`13.966523` tokens per second in the fixed raw benchmark. The first live turn
+completed, but turn 2 returned a signal outside Darwin's `0..1` boundary and
+failed closed. The
+[result](results/EXPERIMENT_053_FREE_0_8B_EDGE_MODEL_SCREEN.json) made no
+promotion.
+
+[Experiment 054](EXPERIMENT_054_LOCAL_NUMERIC_GRAMMAR_REPAIR.md) replaces the
+unsupported local continuous-number grammar with the five already documented
+coarse levels, without changing the shared E044 schema or coercing output.
+Engineering admission passed 500 tests with the one declared Windows symlink
+skip. Its first live execution was
+[invalidated](results/EXPERIMENT_054_INVALID_LIVE_EXECUTION.json) because the
+measurement runner launched turn 3 before adjudicating a decisive turn-2
+quality failure. It is recorded as a runner failure, not model evidence.
+
+[Experiment 055](EXPERIMENT_055_GATED_LOCAL_SCREEN.md) adds and tests a gate
+that cannot send the next input after a decisive failure. The admitted runner
+and full repository suite ran 505 tests with the same declared skip. In the
+[valid development result](results/EXPERIMENT_055_GATED_LOCAL_SCREEN.json),
+both observed turns used registered numeric levels and passed the gateway, but
+the model answered the sky question by copying its opening response exactly.
+The runner stopped before turn 3. Conversational usefulness remains failed and
+the 0.8B model is not promoted.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

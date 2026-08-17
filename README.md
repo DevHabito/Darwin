@@ -124,10 +124,21 @@ selected by the core, or return an external knowledge candidate. It cannot
 write memory or choose identity, preferences, goals, motivation, decisions, or
 RZS state through this interface.
 
-No language model is connected yet, and the boundary is not evidence of
-language understanding. The design, threat model, and valid pure-versus-model
-comparison are recorded in the
+An explicit provider-free local path now connects the boundary to a frozen
+`llama.cpp` runtime. It has no automatic provider fallback, makes no paid API
+call, and keeps conversation history in memory only for the current session.
+This is an experimental language organ, not part of Darwin's cognitive
+authority. No tested local model has passed the conversational development
+gate: the current 0.8B candidate produced valid structured values after a
+local grammar repair, then repeated its previous reply instead of answering a
+question about the sky. It was not promoted. The design, threat model, and
+valid pure-versus-model comparison are recorded in the
 [language boundary research note](docs/v50/RESEARCH_NOTE_LANGUAGE_BOUNDARY.md).
+
+The complete free-local sequence, including failed candidates and one
+invalidated measurement run, is recorded in
+[Experiments 045–055](docs/v50/README.md). Model weights and runtime binaries
+remain under the ignored `darwin_home` directory and are not part of Git.
 
 The first development corpus contains 100 Brazilian Portuguese cases and can
 be evaluated against pure mode with:

@@ -93,8 +93,11 @@ therefore marks E046 failed before a live repair turn.
 ```text
 portable backend implementation   COMMITTED (34c4ee7)
 current UTF-8 implementation      COMMITTED (cd23929)
-current hermetic admission        PASSED (24/24 focused; 496 pass + 1 skip)
-model download                    VERIFIED (484,220,320 bytes; SHA-256 locked)
+current numeric repair            COMMITTED (c8ff493)
+current gated runner              COMMITTED (009d9ac)
+current repository admission      PASSED (504 pass + 1 declared skip)
+0.6B model download               VERIFIED (484,220,320 bytes; SHA-256 locked)
+0.8B model download               VERIFIED (579,615,840 bytes; SHA-256 locked)
 portable runtime                  VERIFIED (llama.cpp b10470; SHA-256 locked)
 model load probe                  PASSED (loopback; 4,096 context; one slot)
 E045 first live turn              FAILED (chat grammar initialization)
@@ -102,7 +105,12 @@ E046 native repair                FAILED (unsupported registered runtime flag)
 E047 authenticated live turn      FAILED (Windows Unicode input integrity)
 E048 exact UTF-8 live turn        PASSED (UNDERSTAND + EXPRESS; authority zero)
 E048 observed response quality    WEAK (valid but little substantive guidance)
-Portuguese development screen     UNEXECUTED
+E049 0.6B conversation screen     FAILED QUALITY (echoes and stale copies)
+E051 1.5B comparison              FAILED PERFORMANCE (120-second timeout)
+E053 0.8B screen                  FAILED GATEWAY (numeric range)
+E054 numeric repair engineering   PASSED; FIRST LIVE RUN INVALIDATED
+E055 gated 0.8B screen            FAILED QUALITY (stale copy at turn 2)
+promoted local language model     NONE
 mobile benchmark                  UNEXECUTED
 ```
 
@@ -138,7 +146,10 @@ then establishes exact UTF-8 input, one gateway-valid `UNDERSTAND` plus
 `EXPRESS` turn, and a pre-inference control-token rejection. It used no paid
 provider and changed no Darwin authority state.
 
-The current local path is therefore executable, but conversational usefulness
-has not passed a development screen. The first correct E048 expression largely
-reflected the user's opening question. A mock, canned reply, or schema pass must
-not be presented as evidence of strong understanding.
+The current local path is executable and remains free of provider charges, but
+conversational usefulness has not passed a development screen. E055 confirms
+that the numeric grammar repair can produce gateway-valid coarse levels on two
+known inputs; it also confirms that the fixed 0.8B candidate can copy a stale
+reply instead of answering the current question. A mock, canned reply, schema
+pass, or two-turn transport success must not be presented as evidence of strong
+understanding.
