@@ -5,7 +5,9 @@ model, claim mobile readiness, or alter the frozen E043 and E044 experiments.
 
 ## Design
 
-The maintained local path has no OpenAI key and no provider fallback:
+The maintained local path has no OpenAI key and no provider fallback. E046 adds
+a fresh local-only bearer value to protect the temporary loopback process; it
+is not a provider credential:
 
 ```text
 explicit local model and endpoint
@@ -47,7 +49,12 @@ llama-server.exe `
   --port 8080 `
   --ctx-size 4096 `
   --parallel 1 `
-  --no-webui
+  --no-webui `
+  --cache-ram 0 `
+  --reasoning off `
+  --reasoning-format none `
+  --escape-special-in-input `
+  --api-key <fresh-random-local-session-key>
 ```
 
 The exact executable options must be checked against the frozen runtime build
@@ -59,6 +66,7 @@ In a separate terminal:
 $env:DARWIN_LLM_BACKEND = "local"
 $env:DARWIN_LLM_MODEL = "<exact frozen model alias>"
 $env:DARWIN_LOCAL_ENDPOINT = "http://127.0.0.1:8080"
+$env:DARWIN_LOCAL_API_KEY = "<same-fresh-random-local-session-key>"
 $env:DARWIN_LLM_TIMEOUT_SECONDS = "120"
 darwin-local-conversation-dev
 ```
@@ -66,6 +74,11 @@ darwin-local-conversation-dev
 The endpoint parser accepts only an explicit `http://127.0.0.1:<port>` origin.
 It rejects credentials, redirects, paths, queries, fragments, hostnames, LAN
 addresses, and public hosts.
+
+E046 uses llama.cpp's native `/apply-template` and `/completion` endpoints after
+E045 demonstrated that the chat-completions parser could not initialize the
+Qwen3 JSON-schema grammar. The explicit schema and gateway validation remain in
+place.
 
 ## Current status
 

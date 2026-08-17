@@ -37,6 +37,7 @@ from darwin_v50.models import ValidationError
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 MODEL_ID = "Qwen_Qwen3-0.6B-Q4_K_M"
+LOCAL_API_KEY = "e046-local-test-key-0123456789abcdef"
 FROZEN_BLOBS = {
     "src/darwin_v50/desktop_runtime.py": (
         "01687c8e57aa1a867b18a66df9442b8745c08566"
@@ -62,6 +63,21 @@ FROZEN_BLOBS = {
     "docs/v50/EXPERIMENT_045_PORTABLE_LOCAL_LANGUAGE_SEED.md": (
         "e29124e0aa96a54f54d0a9c72815559492d2e708"
     ),
+    "docs/v50/results/EXPERIMENT_045_ENGINEERING_ADMISSION.json": (
+        "7290fc85204e9261b5886392974830cc48b59a4b"
+    ),
+    "docs/v50/results/EXPERIMENT_045_ARTIFACT_LOCK.json": (
+        "a7b7e4e131d3691b192c4f680b1ebeb8c3ddc9dc"
+    ),
+    "docs/v50/results/EXPERIMENT_045_LOAD_PROBE.json": (
+        "0cdba53ad169c60815fa8a0c2784021bda57b2b8"
+    ),
+    "docs/v50/results/EXPERIMENT_045_FIRST_LIVE_TURN.json": (
+        "92ba5d709be4f1cfc9b75a3953d8a199a9483838"
+    ),
+    "docs/v50/EXPERIMENT_046_AUTHENTICATED_NATIVE_COMPLETION_REPAIR.md": (
+        "1bdfb670fbe36974c4da1811b5eedb81f180e6a6"
+    ),
 }
 
 
@@ -76,16 +92,16 @@ def understanding_payload() -> dict[str, Any]:
     }
 
 
-def completion(payload: object, **choice_overrides: object) -> dict[str, Any]:
-    choice: dict[str, Any] = {
-        "finish_reason": "stop",
-        "message": {
-            "role": "assistant",
-            "content": json.dumps(payload, ensure_ascii=False),
-        },
+def native_completion(payload: object, **overrides: object) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "stop": True,
+        "truncated": False,
+        "stopped_limit": False,
+        "tokens_predicted": 32,
+        "content": json.dumps(payload, ensure_ascii=False),
     }
-    choice.update(choice_overrides)
-    return {"choices": [choice]}
+    result.update(overrides)
+    return result
 
 
 def model_probe() -> dict[str, Any]:
@@ -115,6 +131,7 @@ class CapturingJSONTransport:
         url: str,
         body: Mapping[str, object] | None,
         timeout_seconds: float,
+        headers: Mapping[str, str] | None = None,
     ) -> Mapping[str, Any]:
         self.calls.append(
             {
@@ -122,6 +139,7 @@ class CapturingJSONTransport:
                 "url": url,
                 "body": deepcopy(body),
                 "timeout_seconds": timeout_seconds,
+                "headers": dict(headers or {}),
             }
         )
         if not self.responses:
@@ -227,9 +245,12 @@ class LoopbackTransportTests(unittest.TestCase):
         for endpoint in invalid:
             with self.subTest(endpoint=endpoint):
                 with self.assertRaises(ValidationError):
-                    LlamaCppServerTransport(endpoint=endpoint)
+                    LlamaCppServerTransport(endpoint=endpoint, api_key=LOCAL_API_KEY)
 
-        transport = LlamaCppServerTransport(endpoint="http://127.0.0.1:8080/")
+        transport = LlamaCppServerTransport(
+            endpoint="http://127.0.0.1:8080/",
+            api_key=LOCAL_API_KEY,
+        )
         self.assertEqual(transport.endpoint, "http://127.0.0.1:8080")
 
     def test_redirect_is_rejected_without_following_it(self) -> None:
@@ -299,6 +320,7 @@ class LlamaCppServerTransportTests(unittest.TestCase):
         json_transport = CapturingJSONTransport(model_probe(), runtime_probe())
         transport = LlamaCppServerTransport(
             endpoint="http://127.0.0.1:8080",
+            api_key=LOCAL_API_KEY,
             json_transport=json_transport,  # type: ignore[arg-type]
         )
 
@@ -324,6 +346,7 @@ class LlamaCppServerTransportTests(unittest.TestCase):
             with self.subTest(responses=responses):
                 transport = LlamaCppServerTransport(
                     endpoint="http://127.0.0.1:8080",
+                    api_key=LOCAL_API_KEY,
                     json_transport=CapturingJSONTransport(*responses),  # type: ignore[arg-type]
                 )
                 with self.assertRaises(LocalSeedTransportError):
@@ -333,9 +356,13 @@ class LlamaCppServerTransportTests(unittest.TestCase):
                     )
 
     def test_generation_is_schema_constrained_bounded_and_toolless(self) -> None:
-        json_transport = CapturingJSONTransport(completion(understanding_payload()))
+        json_transport = CapturingJSONTransport(
+            {"prompt": "<frozen-template>"},
+            native_completion(understanding_payload()),
+        )
         transport = LlamaCppServerTransport(
             endpoint="http://127.0.0.1:8080",
+            api_key=LOCAL_API_KEY,
             json_transport=json_transport,  # type: ignore[arg-type]
         )
 
@@ -349,35 +376,89 @@ class LlamaCppServerTransportTests(unittest.TestCase):
         )
 
         self.assertEqual(result, understanding_payload())
-        call = json_transport.calls[0]
-        self.assertEqual(call["url"], "http://127.0.0.1:8080/v1/chat/completions")
-        body = call["body"]
-        self.assertEqual(body["model"], MODEL_ID)
+        self.assertEqual(
+            [call["url"] for call in json_transport.calls],
+            [
+                "http://127.0.0.1:8080/apply-template",
+                "http://127.0.0.1:8080/completion",
+            ],
+        )
+        for call in json_transport.calls:
+            self.assertEqual(
+                call["headers"]["Authorization"],
+                f"Bearer {LOCAL_API_KEY}",
+            )
+            self.assertNotIn("/v1/chat/completions", call["url"])
+        template_body = json_transport.calls[0]["body"]
+        self.assertEqual(
+            template_body["chat_template_kwargs"],
+            {"enable_thinking": False},
+        )
+        body = json_transport.calls[1]["body"]
+        self.assertEqual(body["prompt"], "<frozen-template>")
         self.assertIs(body["stream"], False)
         self.assertEqual(body["temperature"], 0.0)
-        self.assertEqual(body["max_tokens"], 1_000)
-        self.assertEqual(body["chat_template_kwargs"], {"enable_thinking": False})
+        self.assertEqual(body["n_predict"], 1_000)
         self.assertNotIn("tools", body)
         self.assertNotIn("tool_choice", body)
-        self.assertEqual(body["response_format"]["type"], "json_schema")
-        self.assertIs(body["response_format"]["json_schema"]["strict"], True)
+        self.assertEqual(
+            body["json_schema"],
+            {"type": "object", "additionalProperties": False},
+        )
+
+    def test_missing_or_oversized_template_prompt_fails_before_completion(self) -> None:
+        for response in ({}, {"prompt": "x" * 18_001}):
+            with self.subTest(response=response):
+                json_transport = CapturingJSONTransport(response)
+                transport = LlamaCppServerTransport(
+                    endpoint="http://127.0.0.1:8080",
+                    api_key=LOCAL_API_KEY,
+                    json_transport=json_transport,  # type: ignore[arg-type]
+                )
+                with self.assertRaises(LocalSeedTransportError):
+                    transport.generate_structured(
+                        model=MODEL_ID,
+                        instructions="Return the requested object.",
+                        payload={"operation": "understand"},
+                        schema_name="darwin_understanding_v1",
+                        schema={"type": "object"},
+                        max_output_tokens=1_000,
+                    )
+                self.assertEqual(len(json_transport.calls), 1)
+
+    def test_local_api_key_is_required_and_absent_from_repr(self) -> None:
+        with self.assertRaisesRegex(ValidationError, "32 to 512") as caught:
+            LlamaCppServerTransport(
+                endpoint="http://127.0.0.1:8080",
+                api_key="too-short",
+            )
+        self.assertNotIn("too-short", str(caught.exception))
+
+        transport = LlamaCppServerTransport(
+            endpoint="http://127.0.0.1:8080",
+            api_key=LOCAL_API_KEY,
+            json_transport=CapturingJSONTransport(),  # type: ignore[arg-type]
+        )
+        self.assertNotIn(LOCAL_API_KEY, repr(transport))
 
     def test_malformed_multiple_truncated_and_tool_outputs_fail_closed(self) -> None:
         cases = (
-            {"choices": []},
-            {"choices": [{}, {}]},
-            completion(understanding_payload(), finish_reason="length"),
-            completion(
-                understanding_payload(),
-                message={"content": "{}", "tool_calls": [{"id": "forbidden"}]},
-            ),
-            completion(understanding_payload(), message={"content": "not-json"}),
+            {},
+            native_completion(understanding_payload(), stop=False),
+            native_completion(understanding_payload(), truncated=True),
+            native_completion(understanding_payload(), stopped_limit=True),
+            native_completion(understanding_payload(), tokens_predicted=1_001),
+            native_completion(understanding_payload(), content="not-json"),
         )
         for response in cases:
             with self.subTest(response=response):
                 transport = LlamaCppServerTransport(
                     endpoint="http://127.0.0.1:8080",
-                    json_transport=CapturingJSONTransport(response),  # type: ignore[arg-type]
+                    api_key=LOCAL_API_KEY,
+                    json_transport=CapturingJSONTransport(  # type: ignore[arg-type]
+                        {"prompt": "<frozen-template>"},
+                        response,
+                    ),
                 )
                 with self.assertRaises(LocalSeedTransportError):
                     transport.generate_structured(
@@ -392,6 +473,7 @@ class LlamaCppServerTransportTests(unittest.TestCase):
     def test_registered_context_output_and_prompt_limits_cannot_expand(self) -> None:
         transport = LlamaCppServerTransport(
             endpoint="http://127.0.0.1:8080",
+            api_key=LOCAL_API_KEY,
             json_transport=CapturingJSONTransport(),  # type: ignore[arg-type]
         )
         with self.assertRaisesRegex(ValidationError, "registered 4096"):

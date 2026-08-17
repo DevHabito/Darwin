@@ -38,10 +38,15 @@ def main() -> int:
     if not endpoint:
         _write(sys.stderr, "Darwin local mode requires DARWIN_LOCAL_ENDPOINT.")
         return 2
+    api_key = os.environ.get("DARWIN_LOCAL_API_KEY", "").strip()
+    if not api_key:
+        _write(sys.stderr, "Darwin local mode requires DARWIN_LOCAL_API_KEY.")
+        return 2
 
     try:
         transport = LlamaCppServerTransport(
             endpoint=endpoint,
+            api_key=api_key,
             timeout_seconds=settings.request_timeout_seconds,
         )
         backend = PortableLocalLanguageBackend(

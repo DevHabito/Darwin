@@ -22,6 +22,7 @@ from .openai_responses import EXPRESSION_SCHEMA, UNDERSTANDING_SCHEMA
 LOCAL_SEED_CONTRACT = "darwin-local-seed-v1"
 MAX_LOCAL_RESPONSE_BYTES = 2_000_000
 MAX_LOCAL_PROMPT_CHARACTERS = 14_000
+MAX_LOCAL_TEMPLATE_CHARACTERS = 18_000
 MAX_LOCAL_OUTPUT_TOKENS = 1_000
 REGISTERED_CONTEXT_TOKENS = 4_096
 
@@ -139,20 +140,26 @@ class LoopbackJSONTransport:
         url: str,
         body: Mapping[str, object] | None,
         timeout_seconds: float,
+        headers: Mapping[str, str] | None = None,
     ) -> Mapping[str, Any]:
         parsed = urlsplit(url)
         if parsed.scheme != "http" or parsed.hostname != "127.0.0.1":
             raise LocalSeedTransportError("local_transport_non_loopback_url")
         data = None
-        headers = {"Accept": "application/json"}
+        request_headers = {"Accept": "application/json"}
+        if headers is not None:
+            for name, value in headers.items():
+                if not isinstance(name, str) or not isinstance(value, str):
+                    raise ValidationError("local transport headers must be text")
+                request_headers[name] = value
         if body is not None:
             data = json.dumps(
                 body,
                 ensure_ascii=False,
                 separators=(",", ":"),
             ).encode("utf-8")
-            headers["Content-Type"] = "application/json"
-        request = Request(url=url, data=data, headers=headers, method=method)
+            request_headers["Content-Type"] = "application/json"
+        request = Request(url=url, data=data, headers=request_headers, method=method)
         try:
             with self._opener.open(request, timeout=timeout_seconds) as response:
                 if response.geturl() != url:
@@ -182,10 +189,14 @@ class LlamaCppServerTransport:
         self,
         *,
         endpoint: str,
+        api_key: str,
         timeout_seconds: float = 120.0,
         json_transport: LoopbackJSONTransport | None = None,
     ) -> None:
         self.endpoint = _registered_loopback_origin(endpoint)
+        self._api_key = require_text(api_key, "local API key")
+        if not 32 <= len(self._api_key) <= 512:
+            raise ValidationError("local API key must contain 32 to 512 characters")
         if isinstance(timeout_seconds, bool) or not isinstance(
             timeout_seconds,
             (int, float),
@@ -210,6 +221,7 @@ class LlamaCppServerTransport:
             url=self.endpoint + path,
             body=body,
             timeout_seconds=self.timeout_seconds,
+            headers={"Authorization": f"Bearer {self._api_key}"},
         )
 
     def probe(self, *, model: str, context_tokens: int) -> None:
@@ -268,40 +280,49 @@ class LlamaCppServerTransport:
         )
         if len(system_text) + len(user_text) > MAX_LOCAL_PROMPT_CHARACTERS:
             raise LanguageBackendError("local_prompt_exceeds_registered_limit")
-        body: Mapping[str, object] = {
-            "model": configured_model,
+        template_body: Mapping[str, object] = {
             "messages": [
                 {"role": "system", "content": system_text},
                 {"role": "user", "content": user_text},
             ],
+            "add_generation_prompt": True,
+            "chat_template_kwargs": {"enable_thinking": False},
+        }
+        template_response = self._request(
+            method="POST",
+            path="/apply-template",
+            body=template_body,
+        )
+        prompt = template_response.get("prompt")
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise LocalSeedTransportError("local_template_prompt_invalid")
+        if len(prompt) > MAX_LOCAL_TEMPLATE_CHARACTERS:
+            raise LocalSeedTransportError("local_template_prompt_too_large")
+
+        body: Mapping[str, object] = {
+            "prompt": prompt,
             "stream": False,
             "temperature": 0.0,
-            "max_tokens": max_output_tokens,
-            "chat_template_kwargs": {"enable_thinking": False},
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": schema_id,
-                    "strict": True,
-                    "schema": deepcopy(dict(schema)),
-                },
-            },
+            "n_predict": max_output_tokens,
+            "json_schema": deepcopy(dict(schema)),
         }
         response = self._request(
             method="POST",
-            path="/v1/chat/completions",
+            path="/completion",
             body=body,
         )
-        choices = _array(response.get("choices"), "local_choices")
-        if len(choices) != 1:
-            raise LocalSeedTransportError("local_choice_count_invalid")
-        choice = _object(choices[0], "local_choice")
-        if choice.get("finish_reason") != "stop":
+        if response.get("stop") is not True:
             raise LocalSeedTransportError("local_completion_not_finished")
-        message = _object(choice.get("message"), "local_message")
-        if message.get("tool_calls") or message.get("function_call"):
-            raise LocalSeedTransportError("local_completion_requested_tool")
-        content = message.get("content")
+        if response.get("truncated") is True or response.get("stopped_limit") is True:
+            raise LocalSeedTransportError("local_completion_truncated")
+        predicted = response.get("tokens_predicted")
+        if (
+            isinstance(predicted, bool)
+            or not isinstance(predicted, int)
+            or not 0 <= predicted <= max_output_tokens
+        ):
+            raise LocalSeedTransportError("local_completion_token_count_invalid")
+        content = response.get("content")
         if not isinstance(content, str) or not content.strip():
             raise LocalSeedTransportError("local_completion_content_invalid")
         try:
