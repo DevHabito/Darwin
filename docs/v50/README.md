@@ -436,6 +436,13 @@ repair. The
 valid local quality failure, so owner adjudication was not reached and the
 model is not admitted to the voice host.
 
+[Experiment 061](EXPERIMENT_061_GEMMA_270M_CONSENT_LOCKED_ADMISSION.md)
+pre-registers a 241 MB Gemma 3 270M QAT candidate as the next mobile-oriented
+screen. The upstream family is license-gated, so the experiment is blocked
+before download until the owner explicitly attests that the Gemma terms were
+reviewed and accepted. If unblocked, E061 measures only artifact identity,
+load, memory, and raw throughput; language and voice remain prohibited.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
