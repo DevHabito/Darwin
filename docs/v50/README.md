@@ -428,12 +428,13 @@ engineering boundary and permits a small pre-registered language-quality
 screen; conversation and voice activation remain blocked.
 
 [Experiment 060](EXPERIMENT_060_H350M_PORTUGUESE_CONVERSATION_SCREEN.md)
-pre-registers that language-quality screen on six new Brazilian Portuguese
-turns. It freezes mechanical rejection of stale, echoed, control-token, and
-legacy scripted output, then requires the repository owner to judge the exact
-unmodified transcript. Neither a mechanical pass nor an automated judgment can
-promote the model; voice activation remains blocked until every owner criterion
-passes.
+pre-registered that language-quality screen on six new Brazilian Portuguese
+turns. The exact H-350M candidate returned the complete current input as its
+first expression. The frozen echo gate stopped before turn 2, with no retry or
+repair. The
+[result](results/EXPERIMENT_060_H350M_PORTUGUESE_CONVERSATION_SCREEN.json) is a
+valid local quality failure, so owner adjudication was not reached and the
+model is not admitted to the voice host.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

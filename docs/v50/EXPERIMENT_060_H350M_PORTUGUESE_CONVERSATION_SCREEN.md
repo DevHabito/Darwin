@@ -1,7 +1,8 @@
 # Experiment 060 - H-350M Portuguese conversation screen
 
-Status: pre-registered and unexecuted. Written after the E059 result was frozen
-and before creating a runner or sending any registered text to the candidate.
+Status: failed on the first registered turn. Written after the E059 result was
+frozen and before creating a runner or sending any registered text to the
+candidate.
 
 ## Purpose
 
@@ -144,6 +145,26 @@ privilege. The maintained-surface checker and direct runner help probe passed.
 
 This admission freezes measurement behavior only. No model generation or
 quality observation had occurred when these facts were recorded.
+
+## Executed result
+
+The valid run started the exact local artifact and produced one gateway-valid
+`UNDERSTAND`/`EXPRESS` pair. The expression was an exact, complete copy of the
+current Portuguese input. The frozen `exact_current_input_echo` rule therefore
+failed turn 1 and prevented turn 2 from being sent. There was no retry, repair,
+rewrite, or reconstruction.
+
+The raw UTF-8 record contains the original accented code points and no Unicode
+replacement character. The terminal's later display corruption was not present
+in the evidence file. All authority mutation counts remained zero, temporary
+context was empty after close, the ephemeral key was absent from logs, and no
+listener remained.
+
+Owner semantic adjudication was not reached because mechanical completion is a
+precondition. The
+[frozen result](results/EXPERIMENT_060_H350M_PORTUGUESE_CONVERSATION_SCREEN.json)
+records `fail_exact_current_input_echo_on_turn_1_no_promotion`. H-350M is not
+admitted to Darwin's voice host.
 
 ## Interpretation ceiling
 
