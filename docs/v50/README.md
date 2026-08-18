@@ -411,6 +411,11 @@ generation gates before any adapter or language request is permitted. Its
 first launcher attempt failed at a package import before the harness, server,
 or model ran. That event is recorded separately and provides no model evidence;
 measurement remains pending a narrowly admitted launcher repair.
+The repair was then admitted with a direct-launch regression test and a clean
+537-test repository run. The single model measurement passed: load peak was
+about 450 MB, prompt processing averaged `111.6885` tokens per second, and
+generation averaged `30.80865` tokens per second. This is edge-performance
+admission only; adapter safety and conversational quality remain untested.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

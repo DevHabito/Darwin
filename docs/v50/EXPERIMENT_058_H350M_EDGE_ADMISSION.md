@@ -1,8 +1,8 @@
 # Experiment 058 - Granite H-350M edge admission
 
-Status: pre-registered; first launcher attempt invalid before measurement.
-Written before downloading or executing the fixed candidate artifact. The
-model experiment remains unexecuted.
+Status: pre-registered and executed; edge admission passed after a separately
+recorded launcher-only failure and narrowly admitted import repair. This
+document was written before downloading or executing the fixed artifact.
 
 ## Purpose
 
@@ -158,3 +158,32 @@ The [machine-readable invalid-launch record](results/EXPERIMENT_058_INVALID_FIRS
 preserves the admitted blobs and observed boundary. The only eligible repair is
 the direct-versus-package sibling import in the launcher. Measurement remains
 blocked until that repair and its regression tests are committed and admitted.
+
+## Executed result
+
+The direct-import repair commit is
+`28fae632242fbcfba0bbf4b89865dc10f7a2a74b`. Its focused launch test passed,
+and the complete post-repair repository run executed 537 tests: 536 passed,
+zero failed, and the existing Windows symlink fixture produced the one declared
+privilege skip.
+
+The subsequent single admitted measurement passed every edge criterion:
+
+- server ready in `3,049.6960` milliseconds;
+- load peak working set `449,712,128` bytes;
+- exact runtime probe passed;
+- no bearer value in logs and no listener after shutdown;
+- prompt-processing mean `111.6885` tokens per second against `50.0`;
+- generation mean `30.80865` tokens per second against `20.0`;
+- benchmark peak working set `436,215,808` bytes; and
+- zero server during the offline benchmark, user text, generation request,
+  conversation, provider use, or authority mutation.
+
+The runtime identified the artifact as `granitehybrid 350M Q4_K - Medium` and
+reported `340,332,224` parameters. The
+[machine-readable result](results/EXPERIMENT_058_H350M_EDGE_ADMISSION.json)
+preserves the samples, raw digests, invalid-launch lineage, and exact pass
+conjunction.
+
+This pass retains the artifact only for a new candidate-specific safety gate.
+It does not authorize the voice host or establish language quality.
