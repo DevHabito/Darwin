@@ -1,7 +1,8 @@
 # Experiment 058 - Granite H-350M edge admission
 
-Status: pre-registered and unexecuted. Written before downloading or executing
-the fixed candidate artifact.
+Status: pre-registered; first launcher attempt invalid before measurement.
+Written before downloading or executing the fixed candidate artifact. The
+model experiment remains unexecuted.
 
 ## Purpose
 
@@ -136,3 +137,24 @@ this exact artifact. It would not establish Portuguese understanding,
 structured output, resistance to Granite control-token injection, factual
 accuracy, useful conversation, mobile latency or energy use, learning, memory,
 emotion, consciousness, or similarity to Diana from *Pragmata*.
+
+## Invalid first launcher attempt
+
+After the artifact was downloaded and verified, the first command intended to
+start E058 failed while importing its sibling harness:
+
+```text
+ModuleNotFoundError: No module named 'scripts'
+```
+
+The exception occurred at module import, before `main` entered, before artifact
+verification inside the harness, and before any server or benchmark process
+could start. No raw-result file was created. A post-failure check found zero
+listener on port 18058 and zero matching model or server process. The model
+file retained its exact registered byte count and SHA-256.
+
+This is an invalid launcher event, not a load, performance, or model failure.
+The [machine-readable invalid-launch record](results/EXPERIMENT_058_INVALID_FIRST_LAUNCH.json)
+preserves the admitted blobs and observed boundary. The only eligible repair is
+the direct-versus-package sibling import in the launcher. Measurement remains
+blocked until that repair and its regression tests are committed and admitted.

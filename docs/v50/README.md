@@ -407,7 +407,10 @@ is not promoted.
 [Experiment 058](EXPERIMENT_058_H350M_EDGE_ADMISSION.md) pre-registers the next
 sequential candidate: the official Granite 4.0 H-350M Q4 GGUF. Its 223 MB
 artifact must pass stricter 1 GB memory, 50 tokens/s prompt, and 20 tokens/s
-generation gates before any adapter or language request is permitted.
+generation gates before any adapter or language request is permitted. Its
+first launcher attempt failed at a package import before the harness, server,
+or model ran. That event is recorded separately and provides no model evidence;
+measurement remains pending a narrowly admitted launcher repair.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
