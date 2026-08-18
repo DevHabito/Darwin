@@ -1,7 +1,8 @@
 # Experiment 059 - Granite control-token boundary
 
-Status: pre-registered and unexecuted. Written after E058 was frozen and before
-implementing or testing a Granite-specific transport adapter.
+Status: passed as an engineering control-boundary gate. Written after E058 was
+frozen and before implementing or testing a Granite-specific transport adapter;
+executed without model generation after the adapter and runner were frozen.
 
 ## Purpose
 
@@ -119,3 +120,27 @@ artifact. It cannot establish prompt-injection immunity in general, Portuguese
 understanding, response novelty, factual accuracy, useful conversation,
 mobile performance, learning, memory, emotion, consciousness, or similarity
 to Diana from *Pragmata*.
+
+## Executed result
+
+The candidate-specific adapter and its adversarial tests were admitted at
+commit `466af5c92a4ffd5a907e8a214d1aaf6cd88c79fa`. The offline conformance runner
+was separately admitted at commit
+`c3eb79541121fd83af9d8168210dbd86a10f5fae`. The complete repository suite ran
+550 tests: 549 passed, zero failed, and the existing Windows symlink fixture
+was skipped because the host lacked the required privilege.
+
+Offline `llama-tokenize.exe` execution submitted all 96 frozen marker strings
+against the exact E058 artifact. Every registered control ID from `100256`
+through `100351` appeared exactly once. There were no missing or duplicate
+control IDs. The only non-control ID was `198`, observed 95 times as the newline
+separator between 96 adjacent cases. The tokenizer exited zero, strict UTF-8
+decoding passed, the stderr generation marker was absent, and no listener was
+left on the host.
+
+No server started, no generation request occurred, no user text was used, and
+no network access was required. The
+[frozen result](results/EXPERIMENT_059_GRANITE_CONTROL_BOUNDARY.json) therefore
+records `pass_engineering_control_boundary_only`. It permits only
+pre-registration of a small structured language-quality screen. It does not
+promote the model or authorize the voice host.

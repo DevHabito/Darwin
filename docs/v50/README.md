@@ -417,11 +417,15 @@ about 450 MB, prompt processing averaged `111.6885` tokens per second, and
 generation averaged `30.80865` tokens per second. This is edge-performance
 admission only; adapter safety and conversational quality remain untested.
 
-[Experiment 059](EXPERIMENT_059_GRANITE_CONTROL_BOUNDARY.md) pre-registers the
-candidate-specific safety gate before any H-350M language generation. It must
-reject every official Granite control-token family in nested input and output,
-preserve clean text byte-for-byte, keep the prior transport frozen, and confirm
-the exact artifact tokenizer offline. Conversation remains blocked.
+[Experiment 059](EXPERIMENT_059_GRANITE_CONTROL_BOUNDARY.md) admits the
+candidate-specific safety boundary before any H-350M language generation. The
+adapter rejects all 96 frozen Granite control markers in nested input and
+output, while the exact artifact tokenizer mapped every marker once to the
+registered ID range `100256..100351`. The offline run started no server and
+made no generation request. The
+[result](results/EXPERIMENT_059_GRANITE_CONTROL_BOUNDARY.json) passes only the
+engineering boundary and permits a small pre-registered language-quality
+screen; conversation and voice activation remain blocked.
 
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.

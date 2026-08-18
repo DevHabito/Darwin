@@ -1,0 +1,94 @@
+{
+  "schema": "darwin-e059-granite-control-boundary-v1",
+  "experiment": "E059",
+  "recorded_local_date": "2026-08-17",
+  "execution_started_utc": "2026-08-18T02:49:28.130697+00:00",
+  "execution_completed_utc": "2026-08-18T02:49:32.990235+00:00",
+  "pre_registration_commit": "7678b9b9cc2cd4acee7c9a9295080d7a783bb37d",
+  "engineering_admission_commit": "466af5c92a4ffd5a907e8a214d1aaf6cd88c79fa",
+  "offline_runner_admission_commit": "c3eb79541121fd83af9d8168210dbd86a10f5fae",
+  "admitted_blobs": {
+    "granite_adapter": "654c47fe2b479fb6b1f17a317353f7484170e976",
+    "granite_adapter_tests": "3bcfaf4219db04611bc73306d4d4ac41d043b433",
+    "offline_runner": "213fa54e6cb5f8d50d36a12e80e0280fc3a5874b",
+    "offline_runner_tests": "3fa5ec534f506fdf5d8d8ea86493252d1cd2d210",
+    "frozen_shared_local_transport": "c8871d2bfb925007e3856319cd096cff72dc912a",
+    "frozen_e058_result": "8fccbb571a567c0d2ff216f67834255763e45689"
+  },
+  "model": {
+    "repository": "ibm-granite/granite-4.0-h-350m-GGUF",
+    "revision": "a864f823cce6e6048b5752e2816fe7a23987d790",
+    "filename": "granite-4.0-h-350m-Q4_K_M.gguf",
+    "file_bytes": 222662560,
+    "file_sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb"
+  },
+  "tokenizer_metadata": {
+    "repository": "ibm-granite/granite-4.0-h-350m",
+    "revision": "3b17b717b8f2f5d305b0a92c1491e239aeda19c8",
+    "tokenizer_config_blob": "7a6b382740c0c6587ae8af40aeb4b40f8fb8c431",
+    "declared_control_markers": 96,
+    "registered_id_first": 100256,
+    "registered_id_last": 100351
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "tokenizer_executable": "llama-tokenize.exe",
+    "tokenizer_executable_bytes": 57344,
+    "tokenizer_executable_sha256": "f7a3a6f6d750e96dc818ec822eba2a3d7b3108e6333f9c657ba6fb8e5db2d3d2"
+  },
+  "engineering_admission": {
+    "maintained_surface_check": "pass",
+    "focused_adapter_and_runner_tests_executed": 13,
+    "focused_adapter_and_runner_tests_passed": 13,
+    "full_tests_executed": 550,
+    "full_tests_passed": 549,
+    "full_tests_failed": 0,
+    "full_tests_skipped": 1,
+    "declared_skip": "existing Windows symlink fixture lacked the required OS privilege"
+  },
+  "offline_token_conformance": {
+    "network_used": false,
+    "server_started": false,
+    "generation_requests": 0,
+    "user_text_used": false,
+    "process_exit_code": 0,
+    "strict_utf8": true,
+    "markers_submitted": 96,
+    "expected_control_ids": 96,
+    "expected_id_first": 100256,
+    "expected_id_last": 100351,
+    "each_expected_control_id_observed_exactly_once": true,
+    "missing_control_ids": [],
+    "duplicate_control_ids": [],
+    "non_control_token_ids": [198],
+    "non_control_id_198_count": 95,
+    "non_control_id_198_interpretation": "newline separator inserted between adjacent marker cases",
+    "stderr_contains_generation_marker": false,
+    "listener_count_after": 0,
+    "failures": [],
+    "passed": true
+  },
+  "raw_capture": {
+    "result_bytes": 4681,
+    "result_sha256": "843246be131960a5ece41ab5ee70c1d5f90a0d095a6ae73f67a5fd2767f02692",
+    "stdout_bytes": 1245,
+    "stdout_sha256": "9663bf0d723397e5204a9412a9f1b3db375e16672c2b41bf67cabcf989669197",
+    "stderr_bytes": 103,
+    "stderr_sha256": "56e084c7845d5e7e736732c23167797b91ff38ce59228b3828b1dd485b0f24c9"
+  },
+  "result": "pass_engineering_control_boundary_only",
+  "permissions_created": [
+    "pre_register_a_small_structured_language_quality_screen"
+  ],
+  "permissions_not_created": [
+    "model_promotion",
+    "voice_host_activation",
+    "memory_writes",
+    "goal_changes",
+    "tool_or_action_execution",
+    "claim_of_portuguese_understanding",
+    "claim_of_useful_conversation",
+    "claim_of_prompt_injection_immunity",
+    "claim_of_emotion_or_consciousness"
+  ]
+}
