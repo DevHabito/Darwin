@@ -21,6 +21,7 @@ PORTUGUESE_MARKERS = re.compile(
     r"protocolo|objetivo|avaliação|evidência|refutada|aprovada)\b",
     re.IGNORECASE,
 )
+INLINE_CODE_SPAN = re.compile(r"(?P<fence>`+).*?(?P=fence)")
 MOJIBAKE_MARKERS = ("Ã", "Â", "â€", "ðŸ")
 MARKDOWN_LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
@@ -33,7 +34,8 @@ def maintained_documents() -> tuple[Path, ...]:
 def check_english_and_encoding(path: Path, text: str) -> list[str]:
     errors: list[str] = []
     for line_number, line in enumerate(text.splitlines(), start=1):
-        if PORTUGUESE_MARKERS.search(line):
+        prose = INLINE_CODE_SPAN.sub("", line)
+        if PORTUGUESE_MARKERS.search(prose):
             errors.append(
                 f"{path.relative_to(ROOT)}:{line_number}: "
                 "Portuguese marker on maintained English surface"
