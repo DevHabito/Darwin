@@ -397,6 +397,12 @@ configuration, speaks only exact model expression text, and fails silent on a
 backend or authority-boundary error. This establishes routing and isolation
 only. No local model is promoted, so no live voice-quality result is claimed.
 
+[Experiment 057](EXPERIMENT_057_GRANITE_EDGE_ADMISSION.md) pre-registers a
+sequential load and raw-performance gate for the exact official Granite 4.0 1B
+Q3 GGUF artifact. It freezes artifact and runtime identities, memory and
+throughput thresholds, early-stop rules, and post-result disk cleanup before
+download or execution. It does not run conversation or promote a model.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
