@@ -427,6 +427,14 @@ made no generation request. The
 engineering boundary and permits a small pre-registered language-quality
 screen; conversation and voice activation remain blocked.
 
+[Experiment 060](EXPERIMENT_060_H350M_PORTUGUESE_CONVERSATION_SCREEN.md)
+pre-registers that language-quality screen on six new Brazilian Portuguese
+turns. It freezes mechanical rejection of stale, echoed, control-token, and
+legacy scripted output, then requires the repository owner to judge the exact
+unmodified transcript. Neither a mechanical pass nor an automated judgment can
+promote the model; voice activation remains blocked until every owner criterion
+passes.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
