@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import ctypes
 from ctypes import wintypes
+from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -38,6 +39,99 @@ MAX_READY_MILLISECONDS = 60_000.0
 MAX_PEAK_WORKING_SET = 1_800_000_000
 MIN_PROMPT_TOKENS_PER_SECOND = 25.0
 MIN_GENERATION_TOKENS_PER_SECOND = 8.0
+
+
+@dataclass(frozen=True, slots=True)
+class AdmissionProfile:
+    experiment: str
+    pre_registration_commit: str
+    subject_commit: str
+    frozen_blobs: tuple[tuple[str, str], ...]
+    model_id: str
+    model_relative_path: str
+    model_bytes: int
+    model_sha256: str
+    port: int
+    run_relative_path: str
+    max_ready_milliseconds: float
+    max_peak_working_set: int
+    minimum_prompt_tokens_per_second: float
+    minimum_generation_tokens_per_second: float
+
+
+E057_PROFILE = AdmissionProfile(
+    experiment="E057",
+    pre_registration_commit="b52636131fbd445e4d2976a67aec8f3559dd134c",
+    subject_commit="b383fc4e8b19f7638ee61773c8a026e0e4b6846c",
+    frozen_blobs=(
+        (
+            "docs/v50/results/EXPERIMENT_052_LOCAL_INFERENCE_BOTTLENECK_DIAGNOSTIC.json",
+            "ead5427a064da10e4afd0ac574d5e6c8825f6e83",
+        ),
+        (
+            "docs/v50/results/EXPERIMENT_053_RAW_PERFORMANCE_ADMISSION.json",
+            "f97f62a91c7dc7c8f94fc7cbd49cfda3f00bfb38",
+        ),
+        (
+            "docs/v50/results/EXPERIMENT_055_GATED_LOCAL_SCREEN.json",
+            "1ed64692286b5d46f061629ff3b6a422ab47c642",
+        ),
+    ),
+    model_id="ibm-granite-4.0-1b-Q3_K_S",
+    model_relative_path="darwin_home/e057/downloads/granite-4.0-1b-Q3_K_S.gguf",
+    model_bytes=785_585_920,
+    model_sha256="1dc4514416725646ecdd4668759937981a34407f422533cf330fba6709320182",
+    port=18057,
+    run_relative_path="darwin_home/e057/admission",
+    max_ready_milliseconds=60_000.0,
+    max_peak_working_set=1_800_000_000,
+    minimum_prompt_tokens_per_second=25.0,
+    minimum_generation_tokens_per_second=8.0,
+)
+
+E058_PROFILE = AdmissionProfile(
+    experiment="E058",
+    pre_registration_commit="bb1617ee6eee46e433ec89889b5a0290b345e32b",
+    subject_commit="69cdadc2b20c212cbd1306876fb368311d2c357e",
+    frozen_blobs=(
+        (
+            "docs/v50/results/EXPERIMENT_057_GRANITE_EDGE_ADMISSION.json",
+            "3b7743c541666fd367a9b1e66595e0911dad0c63",
+        ),
+    ),
+    model_id="ibm-granite-4.0-h-350m-Q4_K_M",
+    model_relative_path="darwin_home/e058/downloads/granite-4.0-h-350m-Q4_K_M.gguf",
+    model_bytes=222_662_560,
+    model_sha256="0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb",
+    port=18058,
+    run_relative_path="darwin_home/e058/admission",
+    max_ready_milliseconds=30_000.0,
+    max_peak_working_set=1_000_000_000,
+    minimum_prompt_tokens_per_second=50.0,
+    minimum_generation_tokens_per_second=20.0,
+)
+
+ACTIVE_PROFILE = E057_PROFILE
+
+
+def _activate_profile(profile: AdmissionProfile) -> None:
+    global ACTIVE_PROFILE
+    global PRE_REGISTRATION_COMMIT, VOICE_HOST_COMMIT
+    global MODEL_ID, MODEL_BYTES, MODEL_SHA256, PORT, ENDPOINT
+    global MAX_READY_MILLISECONDS, MAX_PEAK_WORKING_SET
+    global MIN_PROMPT_TOKENS_PER_SECOND, MIN_GENERATION_TOKENS_PER_SECOND
+    ACTIVE_PROFILE = profile
+    PRE_REGISTRATION_COMMIT = profile.pre_registration_commit
+    VOICE_HOST_COMMIT = profile.subject_commit
+    MODEL_ID = profile.model_id
+    MODEL_BYTES = profile.model_bytes
+    MODEL_SHA256 = profile.model_sha256
+    PORT = profile.port
+    ENDPOINT = f"http://127.0.0.1:{PORT}"
+    MAX_READY_MILLISECONDS = profile.max_ready_milliseconds
+    MAX_PEAK_WORKING_SET = profile.max_peak_working_set
+    MIN_PROMPT_TOKENS_PER_SECOND = profile.minimum_prompt_tokens_per_second
+    MIN_GENERATION_TOKENS_PER_SECOND = profile.minimum_generation_tokens_per_second
 
 
 def _sha256(path: Path) -> str:
@@ -340,9 +434,8 @@ def _verify_frozen_inputs(root: Path, model: Path, server: Path, bench: Path) ->
     if ancestry.returncode != 0:
         raise RuntimeError("pre_registration_not_ancestor")
     expected_blobs = {
-        root / "docs/v50/results/EXPERIMENT_052_LOCAL_INFERENCE_BOTTLENECK_DIAGNOSTIC.json": E052_BLOB,
-        root / "docs/v50/results/EXPERIMENT_053_RAW_PERFORMANCE_ADMISSION.json": E053_PERFORMANCE_BLOB,
-        root / "docs/v50/results/EXPERIMENT_055_GATED_LOCAL_SCREEN.json": E055_RESULT_BLOB,
+        root / relative: expected
+        for relative, expected in ACTIVE_PROFILE.frozen_blobs
     }
     for path, expected in expected_blobs.items():
         if _git_blob(root, path) != expected:
@@ -359,16 +452,18 @@ def _verify_frozen_inputs(root: Path, model: Path, server: Path, bench: Path) ->
         raise RuntimeError(",".join(failures))
 
 
-def main() -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repository", type=Path, default=Path.cwd())
-    arguments = parser.parse_args()
+    parser.add_argument("--experiment", choices=("E057", "E058"), default="E057")
+    arguments = parser.parse_args(argv)
+    _activate_profile(E058_PROFILE if arguments.experiment == "E058" else E057_PROFILE)
     root = arguments.repository.resolve()
     runtime_dir = root / "darwin_home/e045/runtime/llama-b10470-win-cpu-x64"
     server_path = runtime_dir / "llama-server.exe"
     bench_path = runtime_dir / "llama-bench.exe"
-    model_path = root / "darwin_home/e057/downloads/granite-4.0-1b-Q3_K_S.gguf"
-    run_dir = root / "darwin_home/e057/admission"
+    model_path = root / ACTIVE_PROFILE.model_relative_path
+    run_dir = root / ACTIVE_PROFILE.run_relative_path
     run_dir.mkdir(parents=True, exist_ok=True)
     result_path = run_dir / "raw-result.json"
     server_stdout = run_dir / "server.stdout.log"
@@ -376,10 +471,11 @@ def main() -> int:
     bench_stdout = run_dir / "llama-bench.json"
     bench_stderr = run_dir / "llama-bench.stderr.log"
     record: dict[str, Any] = {
-        "schema": "darwin-e057-raw-edge-admission-v1",
+        "schema": f"darwin-{ACTIVE_PROFILE.experiment.lower()}-raw-edge-admission-v1",
+        "experiment": ACTIVE_PROFILE.experiment,
         "started_at_utc": datetime.now(timezone.utc).isoformat(),
         "pre_registration_commit": PRE_REGISTRATION_COMMIT,
-        "voice_host_commit": VOICE_HOST_COMMIT,
+        "starting_subject_commit": VOICE_HOST_COMMIT,
         "model_id": MODEL_ID,
         "model_bytes": None,
         "model_sha256": None,
@@ -560,8 +656,8 @@ def main() -> int:
         record["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
         record["listener_present_at_finalization"] = _listener_present()
         _atomic_json(result_path, record)
-    print(f"E057_RAW_RESULT={result_path}")
-    print(f"E057_RESULT={record.get('result')}")
+    print(f"{ACTIVE_PROFILE.experiment}_RAW_RESULT={result_path}")
+    print(f"{ACTIVE_PROFILE.experiment}_RESULT={record.get('result')}")
     return return_code
 
 
