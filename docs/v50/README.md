@@ -404,6 +404,11 @@ prompt processing averaged `18.65875` tokens per second against the frozen
 `25.0` minimum. The candidate failed before adapter or conversation work and
 is not promoted.
 
+[Experiment 058](EXPERIMENT_058_H350M_EDGE_ADMISSION.md) pre-registers the next
+sequential candidate: the official Granite 4.0 H-350M Q4 GGUF. Its 223 MB
+artifact must pass stricter 1 GB memory, 50 tokens/s prompt, and 20 tokens/s
+generation gates before any adapter or language request is permitted.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 
