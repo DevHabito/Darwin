@@ -1,7 +1,8 @@
 # Experiment 057 - Granite edge admission
 
-Status: pre-registered and unexecuted. Written before downloading the candidate
-artifact or executing it on this computer.
+Status: pre-registered, executed, and failed raw-performance admission. This
+document was written before downloading the candidate artifact or executing it
+on this computer.
 
 ## Purpose
 
@@ -168,3 +169,25 @@ not test Portuguese, instruction following, structured output, prompt-control
 markers, stale replies, factual accuracy, conversation, voice latency, energy
 use, mobile deployment, learning, memory, emotion, consciousness, or
 similarity to Diana from *Pragmata*.
+
+## Executed result
+
+The exact artifact matched its frozen byte count and SHA-256. The load gate
+passed: the server became ready in `10,772.3096` milliseconds, the exact probe
+passed, peak working set was `1,033,641,984` bytes, the ephemeral key was absent
+from the logs, and no listener remained after shutdown.
+
+The raw benchmark completed normally with a peak working set of `868,806,656`
+bytes. Generation averaged `13.6378` tokens per second and passed its `8.0`
+threshold. Prompt processing averaged `18.65875` tokens per second and failed
+its pre-registered `25.0` threshold. The conjunction therefore failed. No
+adapter, structured generation, Portuguese input, or conversation was run.
+
+The runtime described the artifact as `granite 3B Q3_K - Small` and reported
+`1,631,750,144` parameters. Those observed values are preserved rather than
+reconciled with the upstream product name after the fact.
+
+The [machine-readable result](results/EXPERIMENT_057_GRANITE_EDGE_ADMISSION.json)
+records the raw file digests, unrounded decision values, test admission, and
+authority/cost boundary. Granite Q3 is rejected for this notebook voice path.
+The prompt threshold is not lowered after observing the result.
