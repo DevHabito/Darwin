@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import sys
 
-from scripts.run_e057_granite_edge_admission import main
+if __package__:
+    from .run_e057_granite_edge_admission import main
+else:
+    from run_e057_granite_edge_admission import main
 
 
 if __name__ == "__main__":

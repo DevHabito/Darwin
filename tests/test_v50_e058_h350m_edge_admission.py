@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
+import os
+import subprocess
+import sys
 import unittest
 
 import scripts.run_e057_granite_edge_admission as harness
@@ -56,6 +59,29 @@ class H350MAdmissionProfileTests(unittest.TestCase):
         self.assertIn('["--experiment", "E058", *sys.argv[1:]]', source)
         self.assertNotIn("ConversationRuntime", source)
         self.assertNotIn("generate_structured", source)
+
+    def test_direct_script_launcher_resolves_sibling_with_src_pythonpath(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        environment = dict(os.environ)
+        environment["PYTHONPATH"] = "src"
+
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "scripts/run_e058_h350m_edge_admission.py",
+                "--help",
+            ],
+            cwd=root,
+            env=environment,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn("--repository", completed.stdout)
+        self.assertIn("--experiment", completed.stdout)
 
 
 if __name__ == "__main__":
