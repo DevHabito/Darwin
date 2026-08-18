@@ -31,6 +31,7 @@ darwin-language-conformance = "darwin_v50.language_evaluation:main"
 darwin-language-annotation = "darwin_v50.language_annotation_evaluation:main"
 darwin-conversation-dev = "darwin_v50.conversation.cli:main"
 darwin-local-conversation-dev = "darwin_v50.conversation.local_cli:main"
+darwin-v50-voice-dev = "darwin_v50.conversation.voice_cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

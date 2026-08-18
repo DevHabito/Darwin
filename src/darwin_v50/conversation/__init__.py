@@ -35,6 +35,17 @@ from .runtime import (
     ConversationUnavailableError,
     ExplicitLocalBackend,
 )
+from .voice_runtime import (
+    DarwinVoiceController,
+    VoiceAction,
+    VoiceActionKind,
+    VoiceHostError,
+    VoiceHostSnapshot,
+    VoiceHostState,
+    command_after_wake_word,
+    contains_wake_word,
+    is_sleep_command,
+)
 
 __all__ = [
     "AuthorityMutationCounts",
@@ -49,6 +60,7 @@ __all__ = [
     "ConversationUnavailableError",
     "DEFAULT_LOCALE",
     "DEFAULT_OPENAI_API_BASE",
+    "DarwinVoiceController",
     "EXPRESSION_SCHEMA",
     "ExplicitLocalBackend",
     "JSONTransport",
@@ -64,4 +76,12 @@ __all__ = [
     "StructuredLocalTransport",
     "UNDERSTANDING_SCHEMA",
     "UrllibJSONTransport",
+    "VoiceAction",
+    "VoiceActionKind",
+    "VoiceHostError",
+    "VoiceHostSnapshot",
+    "VoiceHostState",
+    "command_after_wake_word",
+    "contains_wake_word",
+    "is_sleep_command",
 ]

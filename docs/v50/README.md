@@ -389,6 +389,14 @@ the model answered the sky question by copying its opening response exactly.
 The runner stopped before turn 3. Conversational usefulness remains failed and
 the 0.8B model is not promoted.
 
+[Experiment 056](EXPERIMENT_056_V50_VOICE_HOST_REPLACEMENT.md) is a
+retrospective engineering record for retiring the live v49 voice surface and
+adding a wake-gated Windows host around the maintained v50 conversation
+runtime. The host has no scripted dialogue fallback, rejects provider
+configuration, speaks only exact model expression text, and fails silent on a
+backend or authority-boundary error. This establishes routing and isolation
+only. No local model is promoted, so no live voice-quality result is claimed.
+
 Local passes are E1 evidence produced by this repository's own evaluator. They
 are useful engineering results, but they are not independent replication.
 

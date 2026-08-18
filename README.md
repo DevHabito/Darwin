@@ -137,8 +137,18 @@ valid pure-versus-model comparison are recorded in the
 
 The complete free-local sequence, including failed candidates and one
 invalidated measurement run, is recorded in
-[Experiments 045–055](docs/v50/README.md). Model weights and runtime binaries
-remain under the ignored `darwin_home` directory and are not part of Git.
+[Experiments 045–055](docs/v50/README.md). The tested model weights were removed
+after their results and digests were recorded. The small frozen desktop runtime
+remains under the ignored `darwin_home` directory and is not part of Git.
+
+The live v49 voice surface was retired after it exposed its fixed vocabulary
+questions, intent rules, and threshold-derived affect phrases to the user. A
+new [v50 voice host](docs/v50/EXPERIMENT_056_V50_VOICE_HOST_REPLACEMENT.md)
+starts hidden, ignores room or call audio until its wake word, and routes a turn
+only through the maintained `UNDERSTAND` and `EXPRESS` boundary. It has no
+scripted dialogue or provider fallback and remains unavailable until an
+explicit free local model passes a separate screen. Silence is the required
+behavior when no model has passed.
 
 The first development corpus contains 100 Brazilian Portuguese cases and can
 be evaluated against pure mode with:
@@ -178,8 +188,10 @@ The first candidate is now implemented as a Python API. It rejects a second
 live instance for the same database, requires explicit activation before text,
 and restarts in the sleeping state. Its 12 focused tests and the complete
 448-test local and Windows CI suites pass. It is admitted to the durability
-campaign, but is not yet a resident desktop process, has no tray interface or
-wake-word listener, and has not started the 14-day campaign.
+campaign, but the 14-day campaign has not started. The separate v50
+conversational voice host now has a wake-word listener and temporary GUI; it is
+not part of the frozen E043 subject and does not establish cognitive
+continuity.
 
 ## Legacy runtime
 
@@ -188,18 +200,19 @@ compatibility. They use a local SQLite database under `darwin_home`. Runtime
 databases, logs, snapshots, and exports are not source code and are no longer
 tracked.
 
-### Local wake-word guardian
+### Historical wake-word guardian (retired)
 
-On Windows, `Abrir_Darwin_Acordar_Com_Voz.bat` starts the legacy wake-word
-guardian without a console. Its default sleeping state is fully hidden: say
-`Darwin` to show the companion, then say `Darwin, dormir`, `dorme`, or
-`ta na hora de mimir Darwin` to hide it while the listener keeps running.
+The v49 wake-word guardian and its launchers remain as historical source. They
+must not be used as the maintained Darwin interface: their dialogue is based
+on programmed vocabulary prompts, intent classification, and response
+composition. On the development computer, the Startup shortcut was removed
+from active Startup and preserved in the ignored
+`darwin_home/retired_startup` directory so the operation is reversible.
 
-`Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat` adds the guardian to the
-current user's Startup folder. `Reparar_Darwin_Voz_Windows.bat` checks the
-pt-BR Windows speech capability and microphone permissions. Pass `--show-idle`
-when launching the Python module directly only if the compact sleeping window
-is preferred over the fully hidden default.
+`Abrir_Darwin_Acordar_Com_Voz.bat`,
+`Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat`, and
+`Reparar_Darwin_Voz_Windows.bat` are retained only for reproducibility of the
+legacy prototype. New voice work belongs to the isolated v50 host.
 
 To create a fresh legacy configuration:
 
