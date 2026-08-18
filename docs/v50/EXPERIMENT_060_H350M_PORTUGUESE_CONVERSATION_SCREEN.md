@@ -128,6 +128,23 @@ recorded, the only possible successful status is
 Any failure keeps the candidate out of the voice host. A runner or capture
 failure invalidates the execution and provides no model-quality evidence.
 
+## Engineering admission
+
+The runner and fake-inference tests were frozen at commit
+`9f4d71e30c63c9dce41f2a7455b303d41d7274e6`, before any registered text was
+sent to the candidate. Their Git blobs are:
+
+- runner: `9e4968f41dfce9a58323a678bedf34e4287715da`;
+- tests: `64d7a8f2d48abc4e5c59cbc64e80a10153d7a1ed`.
+
+The focused E059/E060 boundary set ran 18 tests with 18 passes. The complete
+repository suite ran 560 tests: 559 passed, zero failed, and the existing
+Windows symlink fixture was skipped because the host lacked the required
+privilege. The maintained-surface checker and direct runner help probe passed.
+
+This admission freezes measurement behavior only. No model generation or
+quality observation had occurred when these facts were recorded.
+
 ## Interpretation ceiling
 
 Even a pass establishes only owner-accepted behavior on six known development
