@@ -6,6 +6,14 @@ from .config import (
     ConversationBackendKind,
     ConversationSettings,
 )
+from .granite_seed import (
+    GRANITE_CONTROL_MARKERS,
+    GRANITE_CONTROL_TOKEN_IDS,
+    GRANITE_PIPE_CONTROL_MARKERS,
+    GRANITE_XML_CONTROL_MARKERS,
+    GraniteControlBoundaryError,
+    GraniteSafeTransport,
+)
 from .openai_responses import (
     EXPRESSION_SCHEMA,
     UNDERSTANDING_SCHEMA,
@@ -63,6 +71,12 @@ __all__ = [
     "DarwinVoiceController",
     "EXPRESSION_SCHEMA",
     "ExplicitLocalBackend",
+    "GRANITE_CONTROL_MARKERS",
+    "GRANITE_CONTROL_TOKEN_IDS",
+    "GRANITE_PIPE_CONTROL_MARKERS",
+    "GRANITE_XML_CONTROL_MARKERS",
+    "GraniteControlBoundaryError",
+    "GraniteSafeTransport",
     "JSONTransport",
     "LOCAL_CONTROL_MARKERS",
     "LOCAL_SEED_CONTRACT",
