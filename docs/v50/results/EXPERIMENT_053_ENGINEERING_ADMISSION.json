@@ -1,0 +1,66 @@
+{
+  "schema": "darwin-e053-engineering-admission-v1",
+  "experiment": "E053",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "5f5f4fcf4860549c96a52c535b744fabace69a22",
+  "subject_commit": "4674014efb43c186847b65d708ba4f89c3609e15",
+  "admitted_code_subject_commit": "d827a600f7082d981da7ff5cc2a7fc4027f423d7",
+  "prior_engineering_admission_commit": "3c3dd32253f813e8416bc42e58a306df1f9d0630",
+  "e053_gate_commits": {
+    "artifact_lock": "e38a4003140092148310c11a53dd23951995ecc8",
+    "load_probe": "101f7352bb3377a83c0a25557f0bd8bbdca366ad",
+    "raw_performance_admission": "4674014efb43c186847b65d708ba4f89c3609e15"
+  },
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "557f18fc727d87dfc3c34c2994a4f3f98140ff96",
+    "tests/test_v50_portable_local_language_seed.py": "d9d7337bf2de5e91add39a5c46eb016280974a6f"
+  },
+  "tree_identity": {
+    "base_src_tree": "0c3a12f93b801d8a9f12fa69ba150b719449c9e4",
+    "subject_src_tree": "0c3a12f93b801d8a9f12fa69ba150b719449c9e4",
+    "base_tests_tree": "90a58cabd3cfb08817eab0a38f729bb4e5c064de",
+    "subject_tests_tree": "90a58cabd3cfb08817eab0a38f729bb4e5c064de",
+    "git_diff_base_to_subject_for_src_and_tests_empty": true
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "framework_reported_duration_seconds": 3.881,
+    "measured_wall_duration_seconds": 5.937,
+    "tests_run": 25,
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "reused_repository_regression": {
+    "source_record_commit": "3c3dd32253f813e8416bc42e58a306df1f9d0630",
+    "source_subject_commit": "d827a600f7082d981da7ff5cc2a7fc4027f423d7",
+    "duration_seconds": 374.725,
+    "tests_run": 498,
+    "passed": 497,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "reuse_condition": "the complete src and tests Git trees are byte-identical to the admitted subject",
+    "reuse_condition_met": true,
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "the maintained local transport is the exact pre-registered E049 baseline blob",
+    "the complete source and test trees are byte-identical to the E051 admitted code subject",
+    "the focused suite retained no module-level response table",
+    "authenticated native endpoint ordering, schemas, bounds, strict UTF-8, and control-marker rejection remained covered",
+    "failed turns still committed no temporary transcript or authority mutation",
+    "explicit local mode retained no paid-provider fallback",
+    "the E053 artifact, load, and raw-performance gates passed before language use"
+  ],
+  "development_screen": {
+    "executed": false,
+    "reason": "The registered language cases are executed only after this engineering admission is frozen."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The exact unchanged language boundary and byte-identical admitted source and test trees passed the E053 engineering gate. Reusing the earlier full-suite result follows the pre-registered identity condition and is not a new suite execution. No Portuguese or conversational improvement is established until the separate live screen."
+}

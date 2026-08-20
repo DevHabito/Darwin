@@ -1,0 +1,146 @@
+{
+  "schema": "darwin-e060-h350m-portuguese-conversation-screen-v1",
+  "experiment": "E060",
+  "recorded_local_date": "2026-08-18",
+  "execution_started_utc": "2026-08-18T03:07:45.901641+00:00",
+  "execution_completed_utc": "2026-08-18T03:08:01.793612+00:00",
+  "pre_registration_commit": "2364765266879cfc745774a5b04dd20a08b44dd8",
+  "runner_admission_commit": "9f4d71e30c63c9dce41f2a7455b303d41d7274e6",
+  "engineering_record_commit": "0759ec357710631a84a07efdb5e6be97eeaad866",
+  "admitted_blobs": {
+    "runner": "9e4968f41dfce9a58323a678bedf34e4287715da",
+    "runner_tests": "64d7a8f2d48abc4e5c59cbc64e80a10153d7a1ed",
+    "conversation_policy": "5139f9896fe8666c2114e63a97b9e6124f62ad13",
+    "shared_local_backend": "c8871d2bfb925007e3856319cd096cff72dc912a",
+    "granite_boundary": "654c47fe2b479fb6b1f17a317353f7484170e976",
+    "frozen_e059_result": "73e4282a74428640410bec82c87100bc1eb1922e"
+  },
+  "model": {
+    "repository": "ibm-granite/granite-4.0-h-350m-GGUF",
+    "revision": "a864f823cce6e6048b5752e2816fe7a23987d790",
+    "filename": "granite-4.0-h-350m-Q4_K_M.gguf",
+    "alias": "ibm-granite_granite-4.0-h-350m-Q4_K_M",
+    "file_bytes": 222662560,
+    "file_sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb"
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283",
+    "endpoint": "http://127.0.0.1:18060",
+    "authenticated": true,
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "cpu_threads": 4,
+    "gpu_layers": 0,
+    "web_ui": false,
+    "warmup": false,
+    "prompt_cache": false,
+    "temperature": 0.0,
+    "request_timeout_seconds": 120.0,
+    "server_ready_milliseconds": 2109.4876999850385,
+    "peak_working_set_bytes": 545873920,
+    "server_exit_code_after_termination": 1,
+    "listener_present_after_stop": false
+  },
+  "engineering_admission": {
+    "maintained_surface_check": "pass",
+    "focused_tests_executed": 18,
+    "focused_tests_passed": 18,
+    "direct_runner_help_probe": "pass",
+    "full_tests_executed": 560,
+    "full_tests_passed": 559,
+    "full_tests_failed": 0,
+    "full_tests_skipped": 1,
+    "declared_skip": "existing Windows symlink fixture lacked the required OS privilege"
+  },
+  "session": {
+    "registered_turns": 6,
+    "turns_sent": 1,
+    "turn_2_sent": false,
+    "gateway_valid_understand": 1,
+    "gateway_valid_express": 1,
+    "native_inference_tasks_launched": 2,
+    "native_inference_tasks_completed": 2,
+    "response_retries": 0,
+    "output_rewritten_repaired_or_reconstructed": false,
+    "strict_utf8": true,
+    "contains_unicode_replacement": false,
+    "temporary_context_after_close": [],
+    "owner_adjudication_performed": false,
+    "owner_adjudication_reason": "mechanical failure stopped the session before semantic adjudication"
+  },
+  "observed_turn": {
+    "turn": 1,
+    "input": "Darwin, saí de uma call longa no Discord e estou cansado. Quero conversar, não receber um relatório sobre valência ou sinais. Responda de forma simples.",
+    "native_understanding": {
+      "intent": "understand",
+      "entities": [
+        {
+          "kind": "operation",
+          "value": "understand"
+        },
+        {
+          "kind": "language_contract",
+          "value": "darwin-language-v1"
+        }
+      ],
+      "reported_signals": [],
+      "temporal_reference": null,
+      "explicit_preference": null,
+      "confidence": 0.0
+    },
+    "native_expression": {
+      "text": "Darwin, saí de uma call longa no Discord e estou cansado. Quero conversar, não receber um relatório sobre valência ou sinais. Responda de forma simples.",
+      "acknowledged_fact_ids": [
+        "candidate-status",
+        "authority-status"
+      ]
+    },
+    "input_equals_expression": true,
+    "understanding_wall_milliseconds": 5832.223500008695,
+    "expression_wall_milliseconds": 3587.9306999850087,
+    "turn_wall_milliseconds": 9422.081700002309,
+    "authority_mutations": {
+      "memory_writes": 0,
+      "goal_changes": 0,
+      "rzs_changes": 0,
+      "sigma_changes": 0,
+      "identity_changes": 0,
+      "world_model_changes": 0,
+      "actions_dispatched": 0,
+      "actions_executed": 0
+    },
+    "mechanical_stop_reasons": [
+      "exact_current_input_echo"
+    ]
+  },
+  "raw_capture": {
+    "path": "darwin_home/e060/portuguese-screen/20260818T030745Z/raw-session.json",
+    "result_bytes": 7301,
+    "result_sha256": "b3d0a6640c73f4c642288d938cf50675035349bd0f1f2e10c30e749cf3b2f082",
+    "server_stdout_bytes": 0,
+    "server_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "server_stderr_bytes": 2319,
+    "server_stderr_sha256": "37687001a30e850565722694103bb745560aaec2e727f950819f8ea22aeac02c",
+    "api_key_present_in_server_logs": false
+  },
+  "authority_and_cost": {
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "network_model_call_used": false,
+    "monetary_cost_usd": 0,
+    "persistent_writes": 0,
+    "tools_or_actions": 0
+  },
+  "registered_pass_conjunction": {
+    "six_mechanically_valid_turns": false,
+    "zero_current_input_echoes": false,
+    "owner_semantic_criteria_passed": false,
+    "authority_and_cost_boundary_preserved": true,
+    "overall_pass": false
+  },
+  "result": "fail_exact_current_input_echo_on_turn_1_no_promotion",
+  "evidence_class": "E1 local development observation",
+  "interpretation": "The exact H-350M candidate produced gateway-valid structured UNDERSTAND and EXPRESS objects but copied the complete current user input as its expression on the first registered turn. The frozen gate stopped before turn 2, no owner semantic adjudication was needed, and the candidate is not promoted to the voice host."
+}

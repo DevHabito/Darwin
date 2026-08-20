@@ -16,15 +16,14 @@ Thumbs.db
 baselines/
 v47_patch_backups/
 v48_patch_backups/
-darwin_home/backups/
-darwin_home/logs/
-darwin_home/snapshots/
-darwin_home/music_cache_v49_16/
 
-# SQLite transient files. The current Darwin memory DB is intentionally kept.
-darwin_home/*.db-journal
-darwin_home/*.db-shm
-darwin_home/*.db-wal
-darwin_home/*.sqlite-journal
-darwin_home/*.sqlite-shm
-darwin_home/*.sqlite-wal
+# Darwin runtime state belongs to the local machine, not to source control.
+darwin_home/*
+!darwin_home/config.example.json
+
+# Build artifacts.
+build/
+dist/
+*.egg-info/
+.coverage
+htmlcov/

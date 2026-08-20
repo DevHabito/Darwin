@@ -1,0 +1,72 @@
+{
+  "schema": "darwin-e054-engineering-admission-v1",
+  "experiment": "E054",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "37598e2",
+  "tested_subject_commit": "c8ff493c7129888854756bd53ae68d399c42ee86",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "c8871d2bfb925007e3856319cd096cff72dc912a",
+    "tests/test_v50_portable_local_language_seed.py": "c86585b7e3519559a053888be7c8fae05e4dc757"
+  },
+  "preserved_shared_blob": {
+    "path": "src/darwin_v50/conversation/openai_responses.py",
+    "expected": "511888e6ceed389988348570b63a6a1818498aea",
+    "observed": "511888e6ceed389988348570b63a6a1818498aea",
+    "identical": true
+  },
+  "fixed_repair": {
+    "scope": "local UNDERSTAND only",
+    "numeric_nodes": [
+      "reported_signals[].value",
+      "confidence"
+    ],
+    "allowed_levels": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "local_expression_schema_changed": false,
+    "shared_understanding_schema_changed": false,
+    "post_generation_clamping_rounding_or_coercion": false,
+    "invalid_level_behavior": "reject",
+    "retry_after_invalid_level": false
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest -v tests.test_v50_portable_local_language_seed",
+    "framework_reported_duration_seconds": 3.374,
+    "tests_run": 27,
+    "passed": 27,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "framework_reported_duration_seconds": 403.199,
+    "tests_run": 500,
+    "passed": 499,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "the shared E044 understanding schema retained its exact frozen Git blob",
+    "local UNDERSTAND sends the derived five-level numeric schema",
+    "local EXPRESS sends the unchanged shared expression schema",
+    "an unregistered numeric level is rejected without coercion or retry",
+    "all earlier local authentication, endpoint, UTF-8, control-marker, freeze, no-response-table, and zero-authority tests pass",
+    "the full repository suite has zero failures"
+  ],
+  "live_development_rerun": {
+    "executed": false,
+    "reason": "The registered live language cases are executed only after this engineering admission is frozen."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The exact E054 implementation subject passed its focused and full engineering gates. This admits a local numeric grammar repair for live testing; it does not establish conversational quality, factual reliability, mobile suitability, calibrated confidence, or cognitive capability."
+}

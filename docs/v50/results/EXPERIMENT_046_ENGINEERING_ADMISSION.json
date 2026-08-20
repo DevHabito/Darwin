@@ -1,0 +1,38 @@
+{
+  "schema": "darwin-e046-engineering-admission-v1",
+  "experiment": "E046",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "d9fadec",
+  "implementation_commit": "c1b6946",
+  "focused_tests": {
+    "command": "python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "tests_run": 18,
+    "passed": 18,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime_capability_check": {
+    "runtime": "llama.cpp b10470, commit 34af94cd9",
+    "command": "llama-server.exe --help",
+    "required_option": "--escape-special-in-input",
+    "required_option_present": false,
+    "related_options_observed": [
+      "--escape / --no-escape controls ordinary escape sequences",
+      "--special controls whether special tokens are shown in output"
+    ],
+    "related_options_are_equivalent_to_required_option": false
+  },
+  "full_repository_suite": {
+    "executed": false,
+    "reason": "The fixed runtime failed a conjunctive security prerequisite before repository-wide promotion testing."
+  },
+  "live_repair_turn": {
+    "executed": false,
+    "reason": "The protocol forbids a second live turn until every hermetic admission condition passes."
+  },
+  "result": "fail",
+  "promotion": "refused",
+  "e045_result_changed": false,
+  "interpretation": "The native authenticated transport implementation passed its focused mocks, but the fixed b10470 runtime cannot provide the pre-registered special-token input protection. E046 therefore fails before live inference. No focused test result can override the missing runtime capability."
+}

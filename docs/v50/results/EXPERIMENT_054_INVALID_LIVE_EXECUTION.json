@@ -1,0 +1,81 @@
+{
+  "schema": "darwin-e054-invalid-live-execution-v1",
+  "experiment": "E054",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "37598e2",
+  "implementation_subject_commit": "c8ff493c7129888854756bd53ae68d399c42ee86",
+  "engineering_admission_commit": "3c39073",
+  "status": "invalidated_protocol_deviation",
+  "model": {
+    "id": "Qwen_Qwen3.5-0.8B-Q4_K_M",
+    "sha256": "fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526",
+    "bytes": 579615840
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "endpoint": "http://127.0.0.1:18054",
+    "authenticated": true,
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "cpu_threads": 4,
+    "gpu_layers": 0,
+    "web_ui": false,
+    "warmup": false,
+    "prompt_cache": false,
+    "reasoning": "off",
+    "reasoning_format": "none",
+    "provider_used": false,
+    "monetary_cost_usd": 0
+  },
+  "runner": {
+    "path": "darwin_home/e054/e054_live_runner.py",
+    "bytes": 11917,
+    "sha256": "b557b1153bbd03690ff54d7351bc1bd8a593567e100f176bf4c55357cbed102b",
+    "checked_in": false,
+    "defect": "The loop advanced after a gateway-valid expression without evaluating the pre-registered quality conjunction before sending the next input."
+  },
+  "observed_sequence": {
+    "registered_inputs": 8,
+    "turn_1_gateway_pair_completed": true,
+    "turn_2_gateway_pair_completed": true,
+    "operator_observed_terminal_renderings_for_turns_1_and_2_as_equal": true,
+    "evidence_grade_exact_expression_capture_preserved": false,
+    "turn_3_understand_was_launched_before_operator_interruption": true,
+    "native_inference_tasks_launched": 5,
+    "native_inference_tasks_completed": 4,
+    "native_inference_tasks_cancelled": 1,
+    "turns_4_through_8_launched": 0
+  },
+  "invalidating_rule": {
+    "pre_registered_requirement": "A required failure stops the screen before the next registered input.",
+    "violation": "The turn-3 UNDERSTAND request was launched before the possible exact older-expression copy at turn 2 was adjudicated.",
+    "operator_action": "The runner and exact local server process were interrupted as soon as the deviation was recognized.",
+    "rerun_performed": false,
+    "outputs_reconstructed_or_repaired": false
+  },
+  "server_log": {
+    "path": "darwin_home/e054/live-screen/20260817T224925Z/server.stderr.log",
+    "bytes": 6501,
+    "sha256": "3595e057f688fb87abab665b06fd5c08be9e6cc163ea23946f4438f0d6161450",
+    "strict_utf8": true,
+    "contains_unicode_replacement": false,
+    "processing_task_markers": 5,
+    "completed_total_time_markers": 4,
+    "released_task_markers": 4
+  },
+  "shutdown": {
+    "server_process_present_after_interruption": false,
+    "listener_count_on_registered_port_after_interruption": 0
+  },
+  "authority_and_persistence": {
+    "automatic_memory_enabled": false,
+    "persistent_history_enabled": false,
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "monetary_cost_usd": 0
+  },
+  "result": "invalid_execution_no_model_result_no_promotion",
+  "evidence_class": "protocol-deviation record, not model evidence",
+  "interpretation": "E054 engineering admission remains valid, but this live execution cannot pass or fail the candidate because the runner violated the frozen early-stop rule and did not preserve an evidence-grade client record. The observed strings are not reconstructed, the run is not retried under E054, and no language capability is promoted."
+}

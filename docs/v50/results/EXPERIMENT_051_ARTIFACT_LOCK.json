@@ -1,0 +1,39 @@
+{
+  "schema": "darwin-e051-artifact-lock-v1",
+  "experiment": "E051",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "65ade856270883c2b13fa7364360a81ed77eb143",
+  "subject_commit": "d827a600f7082d981da7ff5cc2a7fc4027f423d7",
+  "candidate": {
+    "repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+    "revision": "62a8d092b0a1047016f3edbd0fde387598727aa5",
+    "filename": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "quantization": "Q4_K_M",
+    "bytes": 1117320736,
+    "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+    "git_lfs_blob_id": "eca68f83004d8b86fa1742ee507ddee8f4b2abce",
+    "license": "Apache-2.0"
+  },
+  "sources": {
+    "revision": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/tree/62a8d092b0a1047016f3edbd0fde387598727aa5",
+    "artifact": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/blob/62a8d092b0a1047016f3edbd0fde387598727aa5/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "license": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/blob/main/LICENSE",
+    "metadata_api": "https://huggingface.co/api/models/Qwen/Qwen2.5-1.5B-Instruct-GGUF/revision/62a8d092b0a1047016f3edbd0fde387598727aa5?blobs=true"
+  },
+  "download": {
+    "destination_class": "ignored project-local runtime artifact",
+    "temporary_suffix_used_until_verification": ".part",
+    "expected_size_matched": true,
+    "expected_sha256_matched": true,
+    "system_install_performed": false,
+    "git_tracking_performed": false,
+    "paid_provider_used": false,
+    "monetary_cost_usd": 0
+  },
+  "execution_at_lock_time": {
+    "model_loaded": false,
+    "inference_requests": 0,
+    "language_outputs": 0
+  },
+  "interpretation": "The exact official Qwen2.5 1.5B Q4_K_M candidate file is present locally and matches the pre-registered owner metadata. This lock establishes artifact identity and license provenance only; it provides no runtime, language-quality, or mobile evidence."
+}

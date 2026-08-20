@@ -1,0 +1,59 @@
+{
+  "schema": "darwin-e045-engineering-admission-v1",
+  "experiment": "E045",
+  "recorded_at": "2026-08-17",
+  "subject_commit": "34c4ee7d19baaffcee15a0d8e42ee75e99e22695",
+  "pre_registration_commit": "3313708",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "368db6f2c1088f76cb007f6f75d41f6dc1c13d6c",
+    "tests/test_v50_portable_local_language_seed.py": "6af60d89755d96a2304784e477c2d0ec6e2c02a0"
+  },
+  "environment": {
+    "operating_system": "Windows",
+    "python": "3.12.13 (bundled Codex workspace Python)",
+    "network_used_by_tests": "loopback-only hermetic HTTP fixtures"
+  },
+  "focused_admission": {
+    "command": "python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "tests_run": 16,
+    "passed": 16,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "python -m unittest discover -s tests -v",
+    "duration_seconds": 435.802,
+    "tests_run": 489,
+    "passed": 489,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "existing Windows symlink test could not create a symlink because the process lacked the required privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "frozen E043, E044, and E045 pre-registration Git blobs remained exact",
+    "explicit local mode did not construct or fall back to the OpenAI backend",
+    "the desktop transport accepted only an exact registered loopback origin",
+    "redirects and oversized responses failed closed",
+    "model identity, context size, parallel-slot count, modality, and runtime build presence were probed",
+    "UNDERSTAND and EXPRESS requests were schema constrained and bounded",
+    "malformed, multiple-choice, truncated, tool-bearing, authority-bearing, and unknown-field outputs failed closed",
+    "successful conversational turns kept every authority mutation counter at zero",
+    "failed turns wrote no temporary transcript",
+    "the maintained E045 modules contained no module-level conversational response table"
+  ],
+  "not_executed": [
+    "model download",
+    "live local inference",
+    "offline-after-install verification",
+    "Portuguese development corpus screen",
+    "twenty-minute unplanned conversation",
+    "resident-memory and latency measurements",
+    "mobile performance, battery, and heat measurements"
+  ],
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "interpretation": "The portable local integration code passed its pre-registered hermetic engineering checks. This record provides no evidence yet about the candidate model's language quality or mobile suitability."
+}

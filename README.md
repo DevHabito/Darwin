@@ -1,177 +1,409 @@
-# Darwin Local
+# Darwin
 
-Darwin e um laboratorio local de arquitetura cognitiva em Python, com RZS/Romero como regulador, memoria SQLite, loops cognitivos, preferencias, voz, grafo mental, jogos de memoria, historias, musica, desenho de formulas, curriculo autonomo, executor controlado e geometria relacional RZS/ELCL Regge.
+Darwin is an evidence-first research project for building and testing small
+pieces of a cognitive architecture. The current code can learn limited models,
+retain causal histories, plan in synthetic environments, and refuse unsupported
+success claims. It is not a conscious system, an artificial person, AGI, or a
+recreation of Diana from *Pragmata*.
 
-## Como abrir
+That distinction matters. This repository is a laboratory, not a demo built to
+look more capable than it is.
 
-Use os atalhos `.bat` na raiz do projeto, por exemplo:
+## Where the project stands
 
-- `Abrir_Darwin_Executor_Controlado.bat`
-- `Abrir_Darwin_RZS_ELCL_Regge.bat`
-- `Abrir_Darwin_Acordar_Com_Voz.bat`
-- `Abrir_Darwin_Grafo_Mental.bat`
-- `Abrir_Darwin_Lapis_Formulas.bat`
+The maintained code is the v50 package under `src/darwin_v50`. It replaced the
+older pattern of adding another large standalone script for every idea. Each
+v50 capability starts with a falsifiable hypothesis, fixed evaluation rules,
+held-out seeds, baselines, and an explicit evidence ceiling.
 
-Ou rode direto com Python:
+The strongest results so far are narrow but real:
 
-```powershell
-py darwin_controlled_autonomous_executor_v49_32.py
-py darwin_rzs_elcl_regge_geometry_v49_33.py
-py darwin_wake_word_guardian_v49_34.py
-py darwin_basic_language_core_v49_36.py --self-test --details
-py darwin_contextual_language_learning_v49_37.py --self-test --details
-py darwin_autonomous_activity_choice_v49_38.py --self-test --details
-py darwin_activity_outcome_learning_v49_39.py --self-test --details
-py darwin_relational_world_model_v49_40.py --self-test --details
-py darwin_predictive_goal_planner_v49_41.py --self-test --details
-py darwin_goal_execution_loop_v49_42.py --self-test --details
-py darwin_intrinsic_motivation_core_v49_43.py --self-test --details
-```
+- causal goal state cannot be promoted by unrelated or false evidence;
+- workspace effects require scoped, one-use authorization and explicit consent;
+- tabular transition models can support planning on held-out tasks;
+- active exploration can outperform equal-budget random exploration;
+- probabilistic forecasts can be calibrated before outcomes are observed;
+- bounded working memory can adapt while retaining a complete archive;
+- a finite history model can compose four-step plans in a deterministic world;
+- context order, stochastic dynamics, and reward can be estimated from chosen
+  feedback, although the corresponding robustness hypothesis was refuted.
 
-## Acordar por voz
+Several learning hypotheses failed. Those failures remain in the record. Darwin
+does not turn a partial win into a pass when a pre-registered criterion misses.
 
-O v49.34 inicia oculto e fica escutando em segundo plano:
+## Evidence ledger
 
-- diga `Darwin` para abrir a presenca;
-- diga `ta na hora de mimir Darwin` para voltar ao descanso;
-- use `Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat` para iniciar o guardiao junto com o Windows;
-- use `Desinstalar_Darwin_Acordar_Com_Voz_Do_Windows.bat` para remover a inicializacao automatica.
+| Hypothesis | Question | Result |
+| --- | --- | --- |
+| H50-L1 | Can a learned transition model solve held-out goal pairs? | Passed locally |
+| H50-L2 | Does active exploration beat equal-budget random exploration? | Passed locally |
+| H50-L3 | Are hidden-state forecasts calibrated and useful for action? | Passed locally |
+| H50-L4 | Can bounded memory adapt to one abrupt regime change? | Passed locally |
+| H50-L5 | Does fixed-share multiscale memory beat the best fixed window? | Refuted |
+| H50-L6 | Does a pruned run-length posterior improve variable schedules? | Passed locally |
+| H50-L7 | Does explicit regime retrieval help when contexts recur? | Refuted |
+| H50-L8 | Can online arbitration make retrieved memory reliably useful? | Refuted |
+| H50-L9 | Does episodic action memory improve bandit feedback enough? | Refuted |
+| H50-L10 | Can learned finite-history dynamics support multistep planning? | Passed locally |
+| H50-L11 | Can learned order and reward produce robust stochastic planning? | Refuted |
+| H50-L12 | Does online posterior sampling beat registered learned controls? | Refuted |
+| H50-L13 | Does information-directed control remove that exploration cost? | Refuted |
+| H50-L14 | Can source observations improve prediction in aligned related worlds while gating mismatch? | Passed locally |
+| H50-L15 | Can the source-learned prior improve known-alignment contextual decisions while the gate bounds declared mismatch losses? | Passed locally |
 
-O guardiao usa `System.Speech` quando ha um reconhecedor classico e a API
-moderna `Windows.Media.SpeechRecognition` no Windows 11. Execute
-`Reparar_Darwin_Voz_Windows.bat` uma vez para instalar `Speech pt-BR`,
-verificar microfone e consentimento de fala online e ativar a inicializacao.
-Quando a voz nao esta pronta, a janela permanece aberta com os botoes
-`Reparar voz` e `Testar voz`.
+“Passed locally” means the implementation met its registered thresholds under
+the repository's own automated evaluator. It is E1 evidence, not independent
+validation.
 
-Enquanto o Darwin esta em repouso, o v49.44 mostra uma presenca compacta com
-orbe, microfone, energia e RZS. Os processos PowerShell de reconhecimento ficam
-sem janela de console.
+The full protocol and every result are in
+[`docs/v50`](docs/v50/README.md).
 
-```powershell
-py darwin_check_v49_44_professional_idle_presence.py --details
-```
+## Quick start
 
-## Vocabulario basico
-
-O v49.36 integra ao `CompanionCore` perguntas sobre nome, estado, sentimento
-e sono, junto com sinonimos e respostas basicas do Felipe. As respostas sobre
-estado e descanso consultam o SQLite; o Darwin tambem faz perguntas de volta.
-
-```powershell
-py darwin_basic_language_core_v49_36.py --self-test --details
-py darwin_check_v49_36_basic_language.py --details
-```
-
-## Aprendizagem de palavras
-
-O v49.37 mantem contexto entre turnos, pergunta o significado de palavras
-desconhecidas, aceita definicoes, exemplos e correcoes e recupera o conceito
-em outra sessao. Uma palavra so entra na memoria semantica depois de evidencia
-repetida.
+Darwin v50 requires Python 3.11 or newer.
 
 ```powershell
-py darwin_contextual_language_learning_v49_37.py --self-test --details
-py darwin_check_v49_37_contextual_language.py --details
+py -m pip install -e .
+$env:PYTHONPATH = "src"
+py -m unittest discover -s tests -v
 ```
 
-## Escolha autonoma de atividades
-
-O v49.38 permite perguntar ao Darwin se ele quer jogar ou fazer alguma
-atividade. O convite nao escolhe por ele: memoria afetiva, curiosidade,
-aprendizagem, energia, novidade, repeticao e RZS calculam uma competicao entre
-jogo da memoria, musica, historias, desenho de formulas, conversa e descanso.
-Somente no guardiao de voz real a opcao vencedora pode abrir sua janela.
+Run an individual laboratory from its registered command, for example:
 
 ```powershell
-py darwin_autonomous_activity_choice_v49_38.py --self-test --details
-py darwin_check_v49_38_activity_choice.py --details
+py -m darwin_v50.cognitive_evaluation
+py -m darwin_v50.predictive_planning_evaluation
+py -m darwin_v50.learned_context_evaluation
 ```
 
-## Aprendizagem pelo resultado
+The isolated conversational development surface requires an explicitly
+selected backend and model. It has no automatic fallback and keeps its bounded
+transcript in memory only. See
+[`docs/v50/CONVERSATIONAL_DEVELOPMENT_GUIDE.md`](docs/v50/CONVERSATIONAL_DEVELOPMENT_GUIDE.md).
 
-O v49.39 observa a conclusao real da atividade que o v49.38 abriu. Ele compara
-o valor previsto com conforto, curiosidade, estabilidade, erros, correcoes ou
-eficiencia registrados pelo aplicativo. O erro de previsao atualiza uma
-preferencia operacional, regulada pelo RZS, que participa da proxima escolha.
-Depois da atividade, pergunte `Darwin, voce gostou?`.
+Do not rerun a final seed set to tune a failed experiment. Seed contamination is
+part of the research record.
+
+## Repository map
+
+```text
+src/darwin_v50/     Maintained v50 package
+tests/              v50 unit, adversarial, and evaluation tests
+docs/v50/           Protocol, pre-registrations, and observed results
+legacy_modules/     Support modules used by historical prototypes
+tools_archive/      Historical migration and repair tools
+darwin_*.py         Coupled v47-v49 prototypes kept for compatibility
+darwin_home/        Local runtime state; ignored by Git
+```
+
+The root-level v47-v49 files are historical prototypes. They remain in place
+because many import one another by filename and some launch subprocesses using
+relative paths. Moving them without a dedicated compatibility migration would
+break working behavior. New work belongs in the v50 package, not in another
+root-level versioned script. See [`docs/LEGACY.md`](docs/LEGACY.md).
+
+## Design rules
+
+- Every capability claim must be falsifiable.
+- Final evaluation data must be separated from development data.
+- Prediction must happen before the evaluated outcome is observed.
+- Chosen-action feedback must not contain counterfactual outcomes.
+- Baselines, ablations, seeds, and thresholds are fixed before the final run.
+- A failed conjunctive criterion means the hypothesis failed.
+- Snapshots must replay to the same derived state.
+- Local evaluators never count as independent evidence.
+- No result in this repository establishes consciousness or personhood.
+
+## Natural-language boundary
+
+The maintained package now has a provider-neutral language boundary under
+`src/darwin_v50/language`. In `pure` mode it keeps input explicitly
+unclassified, uses core-authored fallback text, and reports external knowledge
+as unavailable. A model backend can propose an interpretation, phrase facts
+selected by the core, or return an external knowledge candidate. It cannot
+write memory or choose identity, preferences, goals, motivation, decisions, or
+RZS state through this interface.
+
+An explicit provider-free local path now connects the boundary to a frozen
+`llama.cpp` runtime. It has no automatic provider fallback, makes no paid API
+call, and keeps conversation history in memory only for the current session.
+This is an experimental language organ, not part of Darwin's cognitive
+authority. No tested local model has passed the conversational development
+gate: the current 0.8B candidate produced valid structured values after a
+local grammar repair, then repeated its previous reply instead of answering a
+question about the sky. It was not promoted. The design, threat model, and
+valid pure-versus-model comparison are recorded in the
+[language boundary research note](docs/v50/RESEARCH_NOTE_LANGUAGE_BOUNDARY.md).
+
+The complete free-local sequence, including failed candidates and one
+invalidated measurement run, is recorded in
+[Experiments 045–055](docs/v50/README.md). The tested model weights were removed
+after their results and digests were recorded. The small frozen desktop runtime
+remains under the ignored `darwin_home` directory and is not part of Git.
+
+The live v49 voice surface was retired after it exposed its fixed vocabulary
+questions, intent rules, and threshold-derived affect phrases to the user. A
+new [v50 voice host](docs/v50/EXPERIMENT_056_V50_VOICE_HOST_REPLACEMENT.md)
+starts hidden, ignores room or call audio until its wake word, and routes a turn
+only through the maintained `UNDERSTAND` and `EXPRESS` boundary. It has no
+scripted dialogue or provider fallback and remains unavailable until an
+explicit free local model passes a separate screen. Silence is the required
+behavior when no model has passed.
+
+The first development corpus contains 100 Brazilian Portuguese cases and can
+be evaluated against pure mode with:
 
 ```powershell
-py darwin_activity_outcome_learning_v49_39.py --self-test --details
-py darwin_check_v49_39_activity_outcome_learning.py --details
+py -m darwin_v50.language_evaluation docs/v50/corpora/LANGUAGE_CORPUS_V1_DEVELOPMENT.jsonl
 ```
 
-## Modelo de mundo relacional
+The resulting metrics are development diagnostics, not a backend pass or a
+language-understanding claim. See
+[Experiment 040](docs/v50/EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md).
 
-O v49.40 traduz jogo, musica, historia, desenho, conversa e descanso para
-propriedades comuns. Assim, uma relacao aprendida em um dominio pode contribuir
-para prever outro dominio. As previsoes de valor e incerteza entram na escolha
-de atividades e continuam submetidas ao RZS.
+The next gate has a separate 150-case input set with no labels. Blind packets
+and agreement reports can be produced with `darwin-language-annotation`, but
+the cases still need at least two genuinely independent human reviewers. Until
+that happens, there is no calibration corpus and no model is eligible. See the
+[annotation guide](docs/v50/LANGUAGE_ANNOTATION_GUIDE_V1.md) and
+[Experiment 041](docs/v50/EXPERIMENT_041_ANNOTATION_PROTOCOL.md).
+
+[Experiment 042](docs/v50/EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md)
+freezes what happens after those files arrive: field-specific agreement gates,
+permitted exclusions, third-person adjudication, corpus-promotion failure
+rules, and the later offline-model eligibility screen. It was registered with
+no human labels, agreement values, or model responses available.
+
+## Desktop runtime gate
+
+[Experiment 043](docs/v50/EXPERIMENT_043_PERSISTENT_DESKTOP_RUNTIME.md)
+pre-registers the next independent engineering line: a headless v50 desktop
+runtime that starts sleeping, uses only the pure language gateway, records
+honest clean or unobserved restart intervals, exposes no core authority to a
+future UI, and performs no external effects. Automated checks can only admit
+the candidate to a separate 14-day Windows durability campaign; they cannot
+establish cognitive continuity.
+
+The first candidate is now implemented as a Python API. It rejects a second
+live instance for the same database, requires explicit activation before text,
+and restarts in the sleeping state. Its 12 focused tests and the complete
+448-test local and Windows CI suites pass. It is admitted to the durability
+campaign, but the 14-day campaign has not started. The separate v50
+conversational voice host now has a wake-word listener and temporary GUI; it is
+not part of the frozen E043 subject and does not establish cognitive
+continuity.
+
+## Legacy runtime
+
+The older Windows launchers and v47-v49 scripts are preserved for historical
+compatibility. They use a local SQLite database under `darwin_home`. Runtime
+databases, logs, snapshots, and exports are not source code and are no longer
+tracked.
+
+### Historical wake-word guardian (retired)
+
+The v49 wake-word guardian and its launchers remain as historical source. They
+must not be used as the maintained Darwin interface: their dialogue is based
+on programmed vocabulary prompts, intent classification, and response
+composition. On the development computer, the Startup shortcut was removed
+from active Startup and preserved in the ignored
+`darwin_home/retired_startup` directory so the operation is reversible.
+
+`Abrir_Darwin_Acordar_Com_Voz.bat`,
+`Instalar_Darwin_Acordar_Com_Voz_No_Windows.bat`, and
+`Reparar_Darwin_Voz_Windows.bat` are retained only for reproducibility of the
+legacy prototype. New voice work belongs to the isolated v50 host.
+
+To create a fresh legacy configuration:
 
 ```powershell
-py darwin_relational_world_model_v49_40.py --self-test --details
-py darwin_check_v49_40_relational_world_model.py --details
+Copy-Item darwin_home/config.example.json darwin_home/config.json
 ```
 
-## Objetivos e planejamento
+Existing local state is left untouched by this change.
 
-O v49.41 transforma incerteza, preferencias, erros de previsao e energia em
-objetivos concorrentes. O RZS escolhe ou bloqueia o objetivo, e cada objetivo
-gera etapas causais e uma condicao explicita de parada. Pergunte
-`Darwin, qual seu objetivo agora?`.
+## Latest research result
 
-```powershell
-py darwin_predictive_goal_planner_v49_41.py --self-test --details
-py darwin_check_v49_41_predictive_goal_planner.py --details
-```
+The pre-registered
+[failure audit](docs/v50/EXPERIMENT_017_POSTERIOR_SAMPLING_FAILURE_AUDIT.md)
+replicated the deficit on fresh diagnostic worlds and found that transition and
+reward parameter sampling, rather than context-order sampling, was the dominant
+action-change channel. H50-L13 then tested an information-directed alternative.
+It learned the hidden tabular model, improved on posterior sampling, and reached
+`0.9760` of oracle reward in the final quarter. It remained below
+certainty-equivalent control and failed the registered simultaneous-win rule,
+so it is
+[refuted](docs/v50/EXPERIMENT_018_INFORMATION_DIRECTED_CONTROL.md).
+The subsequent
+[failure audit](docs/v50/EXPERIMENT_019_INFORMATION_DIRECTED_FAILURE_AUDIT.md)
+ruled out block staleness as the dominant explanation but could not distinguish
+posterior-ensemble effects from the randomized mixture strongly enough to
+justify another controller. H50-L14 is not registered.
 
-## Execucao de objetivos
+The next research gate is
+[cross-world transfer](docs/v50/RESEARCH_NOTE_CROSS_WORLD_TRANSFER.md). Current
+agents discard their learned prior when a new world begins, while the existing
+world generator does not contain an aligned task-family structure that would
+make naive pooling meaningful. The note defines the benchmark and
+negative-transfer checks that must pass before a new capability hypothesis can
+be registered. It reports no new experimental result.
 
-O v49.42 acompanha o plano ate uma evidencia real. Uma atividade alinhada fica
-aguardando seu resultado; uma escolha diferente provoca replanejamento; e
-objetivos internos podem ser concluidos sem inventar resultado externo.
-Use `Darwin, comece seu objetivo`.
+The first prerequisite
+[benchmark](docs/v50/EXPERIMENT_020_CROSS_WORLD_TRANSFER_BENCHMARK.md) has now
+passed locally. An evaluator-only exact family prior improved early prediction
+on every related validation world and was decisively harmful on unrelated and
+adversarial families. That establishes benchmark sensitivity only: Darwin has
+not yet learned the prior from source worlds or used transferred knowledge to
+control a target. H50-L14 remains unregistered.
 
-```powershell
-py darwin_goal_execution_loop_v49_42.py --self-test --details
-py darwin_check_v49_42_goal_execution_loop.py --details
-```
+The subsequent
+[source-learned development run](docs/v50/EXPERIMENT_021_SOURCE_LEARNED_PRIOR_DEVELOPMENT.md)
+estimated a prior from chosen outcomes in 16 source tasks. Its compatibility
+gate retained a `0.1622840` related-target log-loss gain while reducing large
+ungated negative transfer to losses of `0.0028053` and `0.0044137`. The source
+budget was 32 times the target budget, the leading configuration was not
+reliably separated from the runner-up, and persistence and causal controls are
+still missing. This is development evidence, not a passed capability;
+H50-L14 remains unregistered.
 
-## Motivacoes e valores
+Independent
+[calibration](docs/v50/EXPERIMENT_022_TRANSFER_CALIBRATION.md) subsequently
+passed all nine frozen eligibility margins. The candidate closed `0.9456677`
+of the evaluator-oracle gap and beat a source-shuffled control, but retained
+small measurable losses on incompatible targets and a 32-to-1 source/target
+interaction ratio. This permits pre-registration of H50-L14; it still does not
+establish a transfer capability.
 
-O v49.43 transforma incerteza, erro, energia, continuidade relacional,
-autonomia e coerencia em impulsos concorrentes. Valores so emergem depois de
-evidencia repetida em mais de um contexto. Pergunte
-`Darwin, o que te motiva agora?`.
+H50-L14's
+[confirmatory run](docs/v50/EXPERIMENT_023_KNOWN_ALIGNMENT_PREDICTIVE_TRANSFER.md)
+met all 12 numerical criteria. Its first result wrapper failed after evaluation
+but before exposing metrics, so the exact evaluator was repeated to recover the
+output. Because that violated the literal one-run rule, the result is recorded
+as supportive but procedurally inconclusive. Capability promotion is withheld
+pending a fresh independent confirmation.
 
-```powershell
-py darwin_intrinsic_motivation_core_v49_43.py --self-test --details
-py darwin_check_v49_43_intrinsic_motivation.py --details
-```
+That exact
+[independent confirmation](docs/v50/EXPERIMENT_024_INDEPENDENT_PREDICTIVE_TRANSFER_CONFIRMATION.md)
+passed all 12 frozen criteria on fresh seeds `29500–29599` in one clean run,
+with no algorithm or threshold change. H50-L14 therefore passes locally for
+known-alignment predictive prior transfer. It remains a synthetic tabular E1
+result: source training costs 32 times the target budget, negative transfer is
+limited rather than eliminated, and policy or reward transfer was not tested.
 
-## Checkers principais
+The next gate is deliberately narrower than reinforcement learning. The
+[contextual reward transfer note](docs/v50/RESEARCH_NOTE_CONTEXTUAL_REWARD_TRANSFER.md)
+defines an exogenous-context bandit in which prediction can affect a chosen
+action and immediate reward. [Experiment 025](docs/v50/EXPERIMENT_025_CONTEXTUAL_CONTROL_BENCHMARK.md)
+then passed nine of ten frozen oracle-sensitivity rules, but failed the related
+simultaneous-win interval. The benchmark is refuted, H50-L15 is not registered,
+and no learned reward-transfer result is claimed.
 
-```powershell
-py darwin_check_v49_33_rzs_elcl_regge_geometry.py --details
-py darwin_check_v49_34_wake_word_guardian.py --details
-py darwin_check_v49_32_controlled_executor.py --details
-py darwin_check_v49_31_autonomous_curriculum.py --details
-py darwin_check_v49_3_rzs_nervous_system.py --details
-```
+[Experiment 026](docs/v50/EXPERIMENT_026_CONTEXTUAL_CONTROL_FAILURE_AUDIT.md)
+then found expected reward wins in `98.44%` of fresh worlds and realized wins in
+`89.06%`. This is consistent with finite binary-reward variation contributing
+to the failed interval, but it cannot reverse the refutation.
 
-## Estado local
+[Experiment 027](docs/v50/EXPERIMENT_027_CONTEXTUAL_CONTROL_BENCHMARK_REPLICATION.md)
+then passed all ten criteria on a fresh 128-world replication with the same
+policy, horizon, and thresholds, using a Wilson interval for the binary
+robustness rate. Source-learned candidate development is now eligible, but
+Experiment 025 remains refuted and H50-L15 remains unregistered.
 
-O arquivo `darwin_home/darwin.db` e a memoria atual do Darwin e esta versionado neste backup.
+[Experiment 028](docs/v50/EXPERIMENT_028_SOURCE_LEARNED_CONTEXTUAL_DECISIONS.md)
+pre-registers source-learned decision development on fresh seeds with the exact
+H50-L14 prior and gate. The development run found positive related reward and a
+causal advantage over a shuffled prior, but also significant residual
+adversarial loss. It supports calibration, not H50-L15 registration.
 
-Ficam fora do Git por serem pesados ou regeneraveis:
+[Experiment 029](docs/v50/EXPERIMENT_029_CONTEXTUAL_DECISION_CALIBRATION.md)
+passed all 21 conjunctive calibration criteria on fresh seeds. This permits a
+confirmatory pre-registration, but adversarial loss remains measurable and
+H50-L15 is still unregistered.
 
-- `baselines/`
-- `darwin_home/backups/`
-- `darwin_home/logs/`
-- `darwin_home/snapshots/`
-- `darwin_home/music_cache_v49_16/`
-- caches Python
+[Experiment 030](docs/v50/EXPERIMENT_030_KNOWN_ALIGNMENT_CONTEXTUAL_TRANSFER.md)
+passed all 21 criteria on fresh final seeds. Related reward improved, while
+residual adversarial loss stayed within the registered tolerance. The claim
+includes auxiliary transition feedback and does not assert pure bandit or
+multistep control.
 
-## Nota
+[Experiment 031](docs/v50/EXPERIMENT_031_REWARD_ONLY_COMPATIBILITY_DEVELOPMENT.md)
+removed that auxiliary transition likelihood from the compatibility gate. The
+counterfactual check passed, and related transfer remained positive, but
+unrelated and adversarial performance fell significantly below scratch. The
+candidate is not eligible for calibration and no new capability is registered.
 
-Este repositorio deve ser mantido privado se o banco `darwin_home/darwin.db` contiver memoria pessoal, experimentos privados ou dados sensiveis.
+[Experiment 032](docs/v50/EXPERIMENT_032_COMPATIBILITY_FEEDBACK_FAILURE_AUDIT.md)
+compared the dual-channel and reward-only gates directly on paired fresh worlds.
+Transition feedback strongly improved adversarial behavior and reduced source
+weight under fixed unrelated experience, but unrelated behavioral intervals
+crossed zero. The clean general-benefit audit failed `2` of `15` criteria.
+
+[Experiment 033](docs/v50/EXPERIMENT_033_CELLWISE_SAFE_TRANSFER_DEVELOPMENT.md)
+replaced the global source weight with independent context-action weights and a
+deterministic scratch fallback. The fallback helped its no-fallback ablation,
+but localization performed significantly worse than the global gate on both
+mismatch classes. The candidate is not eligible for calibration.
+
+The next architectural line is defined by the
+[minimum integrated cognitive-cycle note](docs/v50/RESEARCH_NOTE_INTEGRATED_COGNITIVE_CYCLE.md).
+It limits the first integration to an externally supplied goal, the H50-L10
+history model and planner, explicit per-step kernel evidence, and agent-state
+restart. No integrated capability is registered yet.
+
+[Experiment 034](docs/v50/EXPERIMENT_034_INTEGRATED_CYCLE_DEVELOPMENT.md)
+completed that first integrated development benchmark. The restarted cycle
+solved all `768` tasks, exactly matched its uninterrupted twin, and passed all
+frozen causal-integrity checks; the rotated control solved none. This supports
+a separate calibration stage, but the experiment had no capability threshold
+and registers no integrated capability.
+
+[Experiment 035](docs/v50/EXPERIMENT_035_INTEGRATED_DURABILITY_CALIBRATION.md)
+completed the stronger calibration. All 17 criteria passed across `1,536`
+tasks and four balanced recovery boundaries, including deterministic
+environment reconstruction by causal replay. This permits confirmatory
+pre-registration but does not register H50-L16.
+
+[Experiment 036](docs/v50/EXPERIMENT_036_DETERMINISTIC_INTEGRATED_CYCLE_CONFIRMATION.md)
+passed all 17 unchanged criteria on `1,536` fresh final tasks, and the local
+kernel accepted the complete conjunction. H50-L16 therefore passes locally at
+E1 for deterministic externally-goaled integrated planning with local
+replay-based recovery. This is not a claim of online learning, endogenous
+goals, open-world autonomy, consciousness, or AGI.
+
+The next line is narrower than general continual learning. The
+[online alignment note](docs/v50/RESEARCH_NOTE_ONLINE_ALIGNMENT_ADAPTATION.md)
+keeps the transition prior frozen and learns only a three-value latent action
+alignment after chosen-action observations. [Experiment 037](docs/v50/EXPERIMENT_037_ONLINE_ALIGNMENT_DEVELOPMENT.md)
+completed a base–shifted–recurrent–novel development schedule. The candidate
+matched the oracle on all `768` goals and adapted after one observation at each
+boundary, while frozen and cumulative controls solved half and shifted evidence
+solved none. [Experiment 038](docs/v50/EXPERIMENT_038_ONLINE_ALIGNMENT_CALIBRATION.md)
+passed its frozen 20-criterion conjunction on `1,536` disjoint calibration
+tasks. The result is eligible for confirmatory pre-registration, but H50-L17
+is not registered. [Experiment 039](docs/v50/EXPERIMENT_039_ONLINE_ALIGNMENT_CONFIRMATION.md)
+passed all 20 unchanged criteria on `1,536` fresh final tasks, and the local
+kernel accepted the conjunction. H50-L17 therefore passes locally at E1 only
+for deterministic online action-alignment inference with a frozen transition
+prior.
+
+[Experiment 040](docs/v50/EXPERIMENT_040_LANGUAGE_CONFORMANCE_INFRASTRUCTURE.md)
+then added development-only language conformance infrastructure: a frozen
+100-case Portuguese corpus, strict loading, separate language and authority
+metrics, a pure baseline, and evaluator sensitivity controls. No language
+model was evaluated, and no language capability is registered.
+
+[Experiment 041](docs/v50/EXPERIMENT_041_ANNOTATION_PROTOCOL.md) freezes 150
+new unlabeled inputs and implements blind packets, categorical signal labels,
+complete-panel checks, and per-field agreement statistics. Human annotation is
+still pending, so this is infrastructure rather than a successful language
+study.
+
+[Experiment 042](docs/v50/EXPERIMENT_042_CALIBRATION_PROMOTION_PROTOCOL.md)
+pre-registers how those future annotations may fail, be adjudicated, or become
+a calibration-only corpus. The rules exist; the required external data do not.
+
+## Contributing
+
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing a claim, evaluator, or
+experiment. Plain language is preferred. Describe what the code establishes,
+what it does not establish, and how somebody else could prove the claim wrong.

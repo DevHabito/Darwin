@@ -1,0 +1,49 @@
+{
+  "schema": "darwin-e053-artifact-lock-v1",
+  "experiment": "E053",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "5f5f4fcf4860549c96a52c535b744fabace69a22",
+  "official_upstream": {
+    "repository": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "license": "Apache-2.0",
+    "gated": false,
+    "official_gguf": false
+  },
+  "converted_candidate": {
+    "repository": "bartowski/Qwen_Qwen3.5-0.8B-GGUF",
+    "revision": "f36b1ea49a332ede8fe5f389bbf5b3575ef71f48",
+    "filename": "Qwen_Qwen3.5-0.8B-Q4_K_M.gguf",
+    "quantization": "Q4_K_M",
+    "bytes": 579615840,
+    "sha256": "fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526",
+    "repository_blob_id": "12a018f92b0cc4b7a82447bfad8d76468b807506",
+    "xet_hash": "2fe2572a6d762e51d88c6a90c1b77c0636d04122460c62e8b6e27894ff2bee70",
+    "converter_declared_quantization_runtime": "llama.cpp b9222"
+  },
+  "sources": {
+    "upstream_revision": "https://huggingface.co/Qwen/Qwen3.5-0.8B/tree/2fc06364715b967f1860aea9cf38778875588b17",
+    "upstream_license": "https://huggingface.co/Qwen/Qwen3.5-0.8B/blob/2fc06364715b967f1860aea9cf38778875588b17/LICENSE",
+    "converter_revision": "https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF/tree/f36b1ea49a332ede8fe5f389bbf5b3575ef71f48",
+    "artifact": "https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF/blob/f36b1ea49a332ede8fe5f389bbf5b3575ef71f48/Qwen_Qwen3.5-0.8B-Q4_K_M.gguf",
+    "converter_metadata_api": "https://huggingface.co/api/models/bartowski/Qwen_Qwen3.5-0.8B-GGUF?blobs=true",
+    "upstream_metadata_api": "https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B"
+  },
+  "download": {
+    "destination_class": "ignored project-local runtime artifact",
+    "temporary_suffix_used_until_verification": ".part",
+    "expected_size_matched": true,
+    "expected_sha256_matched": true,
+    "authentication_used": false,
+    "system_install_performed": false,
+    "git_tracking_performed": false,
+    "paid_provider_used": false,
+    "monetary_cost_usd": 0
+  },
+  "execution_at_lock_time": {
+    "model_loaded": false,
+    "inference_requests": 0,
+    "language_outputs": 0
+  },
+  "interpretation": "The exact pre-registered community GGUF conversion of the official Apache-2.0 Qwen3.5 0.8B upstream is present locally. The converter and model developer are distinct, and this lock provides identity and provenance only; it provides no runtime, Portuguese, language-quality, or mobile evidence."
+}

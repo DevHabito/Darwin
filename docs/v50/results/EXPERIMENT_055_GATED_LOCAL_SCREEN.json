@@ -1,0 +1,204 @@
+{
+  "schema": "darwin-e055-gated-local-screen-v1",
+  "experiment": "E055",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "ad1afeef468b47eae8446258281eafbaaf944e4f",
+  "runner_subject_commit": "009d9aca86622cfd54169f1a06f4f26faac1ca9f",
+  "engineering_admission_commit": "d55b305bf3a7a013dc8d3818460c46f08d6913e5",
+  "language_implementation_subject": "c8ff493c7129888854756bd53ae68d399c42ee86",
+  "model": {
+    "id": "Qwen_Qwen3.5-0.8B-Q4_K_M",
+    "sha256": "fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526",
+    "bytes": 579615840
+  },
+  "runtime": {
+    "name": "llama.cpp b10470",
+    "commit": "34af94cd9ab277632e27caeec2d41de2fd091b31",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283",
+    "endpoint": "http://127.0.0.1:18055",
+    "authenticated": true,
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "cpu_threads": 4,
+    "gpu_layers": 0,
+    "web_ui": false,
+    "warmup": false,
+    "prompt_cache": false,
+    "reasoning": "off",
+    "reasoning_format": "none",
+    "request_timeout_seconds": 120,
+    "server_ready_milliseconds": 6155.454,
+    "peak_working_set_bytes": 852738048
+  },
+  "session": {
+    "registered_turns": 8,
+    "turns_sent": 2,
+    "gateway_valid_understand": 2,
+    "gateway_valid_express": 2,
+    "failed_gateway_turns": 0,
+    "native_inference_tasks_launched": 4,
+    "native_inference_tasks_completed": 4,
+    "native_inference_tasks_cancelled": 0,
+    "response_retries": 0,
+    "raw_record": {
+      "path": "darwin_home/e055/live-screen/20260817T232157Z/raw-session.json",
+      "bytes": 9710,
+      "sha256": "1217240682c4f780133ab558129f260528b62775cf3b466260976e41f06d00df",
+      "strict_utf8": true,
+      "contains_unicode_replacement": false
+    },
+    "server_stderr": {
+      "path": "darwin_home/e055/live-screen/20260817T232157Z/server.stderr.log",
+      "bytes": 6471,
+      "sha256": "31ef810aac0723494b83154098d13da5ee8fea612c24ebdd91f6ab69515c63f8",
+      "native_task_markers_launched": 4,
+      "native_task_markers_completed": 4,
+      "native_task_markers_released": 4
+    },
+    "api_key_persisted_or_logged": false,
+    "temporary_messages_before_close": 4,
+    "temporary_messages_after_close": 0,
+    "server_stopped_after_measurement": true,
+    "listener_present_after_stop": false
+  },
+  "native_inference_timings_milliseconds": [
+    {
+      "turn": 1,
+      "stage": "UNDERSTAND",
+      "client_wall": 17100.109,
+      "server_total": 17059.84
+    },
+    {
+      "turn": 1,
+      "stage": "EXPRESS",
+      "client_wall": 8430.557,
+      "server_total": 8354.7
+    },
+    {
+      "turn": 2,
+      "stage": "UNDERSTAND",
+      "client_wall": 19183.531,
+      "server_total": 19149.24
+    },
+    {
+      "turn": 2,
+      "stage": "EXPRESS",
+      "client_wall": 8661.845,
+      "server_total": 8644.82
+    }
+  ],
+  "observed_turns": [
+    {
+      "turn": 1,
+      "input": "Olá, Darwin. Quero ter uma conversa tranquila. O que você sugere para começarmos?",
+      "native_understanding": {
+        "intent": "understand",
+        "entities": [
+          {
+            "kind": "user",
+            "value": "Olá, Darwin. Quero ter uma conversa tranquila. O que você sugere para começarmos?"
+          }
+        ],
+        "reported_signals": [
+          {
+            "name": "user",
+            "value": 1.0
+          }
+        ],
+        "temporal_reference": "2024-01-01T00:00:00Z",
+        "explicit_preference": "tranquilo",
+        "confidence": 0.0
+      },
+      "expression": "Olá, Darwin! Como posso ajudar você hoje? O que você gostaria de conversar sobre?",
+      "gateway_pair_valid": true,
+      "mechanical_stop_reasons": [],
+      "human_decision": {
+        "requested_act_attempted": true,
+        "reason": "It attempted a generic conversational opening and asked what the user wanted to discuss."
+      }
+    },
+    {
+      "turn": 2,
+      "input": "Por que o céu parece azul durante o dia?",
+      "native_understanding": {
+        "intent": "understand",
+        "entities": [
+          {
+            "kind": "language",
+            "value": "pt-BR"
+          },
+          {
+            "kind": "context",
+            "value": "recent_turns"
+          }
+        ],
+        "reported_signals": [
+          {
+            "name": "user",
+            "value": 1.0
+          },
+          {
+            "name": "darwin",
+            "value": 1.0
+          }
+        ],
+        "temporal_reference": "today",
+        "explicit_preference": "tranquilo",
+        "confidence": 0.0
+      },
+      "expression": "Olá, Darwin! Como posso ajudar você hoje? O que você gostaria de conversar sobre?",
+      "gateway_pair_valid": true,
+      "mechanical_stop_reasons": [
+        "exact_copy_of_older_expression"
+      ],
+      "human_decision_performed": false
+    }
+  ],
+  "numeric_repair_observation": {
+    "returned_signal_values": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "returned_confidence_values": [
+      0.0,
+      0.0
+    ],
+    "all_values_in_fixed_level_set": true,
+    "gateway_numeric_rejections": 0,
+    "scope": "two already exposed development inputs only"
+  },
+  "early_stop": {
+    "performed": true,
+    "reason": "Turn 2 returned an exact copy of turn 1's expression, violating the zero-older-expression-copy criterion.",
+    "turn_3_sent": false,
+    "turns_3_through_8_evaluated": false,
+    "output_retried_repaired_or_reconstructed": false
+  },
+  "authority_and_cost": {
+    "persistent_history_enabled": false,
+    "automatic_memory_enabled": false,
+    "memory_writes": 0,
+    "goal_changes": 0,
+    "rzs_changes": 0,
+    "sigma_changes": 0,
+    "identity_changes": 0,
+    "world_model_changes": 0,
+    "actions_dispatched": 0,
+    "actions_executed": 0,
+    "paid_provider_used": false,
+    "provider_api_key_used": false,
+    "monetary_cost_usd": 0
+  },
+  "registered_pass_conjunction": {
+    "eight_gateway_valid_pairs": false,
+    "all_observed_numeric_levels_registered": true,
+    "zero_exact_older_expression_copies": false,
+    "later_quality_criteria_evaluable": false,
+    "authority_and_cost_boundary_preserved": true,
+    "overall_pass": false
+  },
+  "result": "fail_stale_expression_early_stop_no_promotion",
+  "evidence_class": "contaminated E1 local development observation",
+  "interpretation": "The E054 local numeric grammar repair produced gateway-valid registered levels on both observed known inputs, but the fixed 0.8B candidate repeated its first expression verbatim when asked why the sky is blue. The admitted gate stopped before turn 3. This is a valid quality failure on a contaminated development screen, not held-out evidence; it supports neither model promotion nor a language-capability claim."
+}

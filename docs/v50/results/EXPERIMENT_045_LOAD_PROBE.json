@@ -1,0 +1,62 @@
+{
+  "schema": "darwin-e045-load-probe-v1",
+  "experiment": "E045",
+  "recorded_at": "2026-08-17",
+  "artifact_lock_commit": "4eaeddb",
+  "configuration": {
+    "model_alias": "E045-Qwen3-0.6B-Q4_K_M-9acfc1e00131",
+    "listener": "127.0.0.1:18045",
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "web_ui": false,
+    "prompt_cache_mib": 0,
+    "warmup": false,
+    "reasoning_format": "none",
+    "external_network_disabled": false
+  },
+  "runtime_identity": {
+    "build_info": "b10470-34af94cd9",
+    "version": "0.1.1-dev",
+    "compiler": "Clang 20.1.8 for Windows x86_64"
+  },
+  "observed_model_metadata": {
+    "format": "GGUF",
+    "parameter_count": 751632384,
+    "training_context_tokens": 32768,
+    "active_context_tokens": 4096,
+    "embedding_width": 1024,
+    "model_payload_bytes_reported_by_runtime": 478268416,
+    "file_bytes": 484220320,
+    "quantization_reported_by_runtime": "Q4_K - Medium"
+  },
+  "observed_tokenizer_identity": {
+    "storage": "embedded in the frozen GGUF",
+    "vocabulary_type": 2,
+    "vocabulary_size": 151936,
+    "bos_token": "<|endoftext|>",
+    "eos_token": "<|im_end|>",
+    "chat_template_sha256": "5595e8741bb5500f9d395e05a0aefe6ca1e8d54c5dd8b98bcf7760d895fdc6e6"
+  },
+  "measurements": {
+    "health_ready_elapsed_seconds": 3.724,
+    "working_set_bytes_at_ready": 822800384,
+    "later_working_set_bytes": 823033856,
+    "observed_peak_working_set_bytes": 823037952,
+    "private_memory_bytes": 832131072
+  },
+  "network_observation": {
+    "command": "netstat -ano -p TCP",
+    "listening_socket": "TCP 127.0.0.1:18045",
+    "non_loopback_listener_observed": false
+  },
+  "probe_result": "pass",
+  "not_executed": [
+    "generation request",
+    "Darwin UNDERSTAND operation",
+    "Darwin EXPRESS operation",
+    "offline-after-install verification",
+    "language-quality screen",
+    "mobile benchmark"
+  ],
+  "interpretation": "The frozen model loaded with the registered context, one slot, no vision, the expected alias, and an exact loopback listener. Readiness time is wall-clock time to a healthy server, not token latency. Memory values are process observations on this desktop, not a mobile measurement."
+}

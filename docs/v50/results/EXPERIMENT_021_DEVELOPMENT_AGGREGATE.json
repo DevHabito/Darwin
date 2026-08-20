@@ -1,0 +1,257 @@
+{
+  "capability_claim": false,
+  "configuration_count": 18,
+  "development_seeds": [
+    27000, 27001, 27002, 27003, 27004, 27005, 27006, 27007,
+    27008, 27009, 27010, 27011, 27012, 27013, 27014, 27015,
+    27016, 27017, 27018, 27019, 27020, 27021, 27022, 27023,
+    27024, 27025, 27026, 27027, 27028, 27029, 27030, 27031
+  ],
+  "diagnostic": {
+    "bootstrap_samples": 5000,
+    "bootstrap_seed": 27900,
+    "selected_condition_improvements": {
+      "adversarial": {
+        "high": -0.0035141645657805996,
+        "low": -0.005273987105875868,
+        "mean": -0.0044245652654078356
+      },
+      "related": {
+        "high": 0.17327072559391374,
+        "low": 0.15046839534170936,
+        "mean": 0.16238259753993606
+      },
+      "unrelated": {
+        "high": 0.0005494609084239072,
+        "low": -0.005492656588521473,
+        "mean": -0.0028130111327481773
+      }
+    },
+    "selected_minus_runner_up_robust_score": {
+      "high": 0.002783739454114781,
+      "low": -0.0005756485495899966,
+      "mean": 0.0005885994960772853
+    }
+  },
+  "h50_l14_registered": false,
+  "ranking": [
+    {
+      "adversarial_gated": -0.004413738821962386,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.16228397972088032,
+      "robust_score": 0.1550649235859053,
+      "source_cycles": 8,
+      "source_interactions": 2048,
+      "source_tasks": 16,
+      "unrelated_gated": -0.002805317313012659
+    },
+    {
+      "adversarial_gated": -0.0014545592399265606,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.15658486754643475,
+      "robust_score": 0.15480553232159294,
+      "source_cycles": 8,
+      "source_interactions": 2048,
+      "source_tasks": 16,
+      "unrelated_gated": -0.00032477598491522514
+    },
+    {
+      "adversarial_gated": -0.004417265556240238,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.15924422352117237,
+      "robust_score": 0.15292933369163708,
+      "source_cycles": 4,
+      "source_interactions": 1024,
+      "source_tasks": 16,
+      "unrelated_gated": -0.001897624273295059
+    },
+    {
+      "adversarial_gated": -0.0014302598607245053,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.15357831645139572,
+      "robust_score": 0.1521480565906712,
+      "source_cycles": 4,
+      "source_interactions": 1024,
+      "source_tasks": 16,
+      "unrelated_gated": 0.00042771364437686754
+    },
+    {
+      "adversarial_gated": -0.004569497386799104,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.15579444661162953,
+      "robust_score": 0.14911295481678946,
+      "source_cycles": 8,
+      "source_interactions": 1024,
+      "source_tasks": 8,
+      "unrelated_gated": -0.00211199440804098
+    },
+    {
+      "adversarial_gated": -0.0015657797055062036,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.14995703677847277,
+      "robust_score": 0.14839125707296658,
+      "source_cycles": 8,
+      "source_interactions": 1024,
+      "source_tasks": 8,
+      "unrelated_gated": 0.00025307006910736327
+    },
+    {
+      "adversarial_gated": -0.010045843036735962,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.1656344517921845,
+      "robust_score": 0.14780767579542123,
+      "source_cycles": 8,
+      "source_interactions": 2048,
+      "source_tasks": 16,
+      "unrelated_gated": -0.0077809329600273015
+    },
+    {
+      "adversarial_gated": -0.010066280068027933,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.1625771804375974,
+      "robust_score": 0.14573753015663887,
+      "source_cycles": 4,
+      "source_interactions": 1024,
+      "source_tasks": 16,
+      "unrelated_gated": -0.006773370212930585
+    },
+    {
+      "adversarial_gated": -0.0043847738355347,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.1486948041042041,
+      "robust_score": 0.14286480350107567,
+      "source_cycles": 4,
+      "source_interactions": 512,
+      "source_tasks": 8,
+      "unrelated_gated": -0.0014452267675937203
+    },
+    {
+      "adversarial_gated": -0.010146601095336402,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.159191532615031,
+      "robust_score": 0.14184799120150077,
+      "source_cycles": 8,
+      "source_interactions": 1024,
+      "source_tasks": 8,
+      "unrelated_gated": -0.007196940318193817
+    },
+    {
+      "adversarial_gated": -0.0014468751746915809,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.1428730258857708,
+      "robust_score": 0.14142615071107922,
+      "source_cycles": 4,
+      "source_interactions": 512,
+      "source_tasks": 8,
+      "unrelated_gated": 0.0011134359776534559
+    },
+    {
+      "adversarial_gated": -0.004427958679134302,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.14822930593658584,
+      "robust_score": 0.14093627762449665,
+      "source_cycles": 8,
+      "source_interactions": 512,
+      "source_tasks": 4,
+      "unrelated_gated": -0.002865069632954872
+    },
+    {
+      "adversarial_gated": -0.0014644451447284965,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.14236930369374226,
+      "robust_score": 0.14068538705923195,
+      "source_cycles": 8,
+      "source_interactions": 512,
+      "source_tasks": 4,
+      "unrelated_gated": -0.0002194714897818268
+    },
+    {
+      "adversarial_gated": -0.00995361295479381,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.15212961121505886,
+      "robust_score": 0.13559155582815327,
+      "source_cycles": 4,
+      "source_interactions": 512,
+      "source_tasks": 8,
+      "unrelated_gated": -0.0065844424321117815
+    },
+    {
+      "adversarial_gated": -0.009968291578078398,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.15164024436428378,
+      "robust_score": 0.1336436846993291,
+      "source_cycles": 8,
+      "source_interactions": 512,
+      "source_tasks": 4,
+      "unrelated_gated": -0.008028268086876261
+    },
+    {
+      "adversarial_gated": -0.004223906526291742,
+      "initial_source_weight": 0.5,
+      "related_gated": 0.13096987573945643,
+      "robust_score": 0.12349604204138186,
+      "source_cycles": 4,
+      "source_interactions": 256,
+      "source_tasks": 4,
+      "unrelated_gated": -0.0032499271717828307
+    },
+    {
+      "adversarial_gated": -0.0013287877615826282,
+      "initial_source_weight": 0.25,
+      "related_gated": 0.12515198481549403,
+      "robust_score": 0.12306346026346048,
+      "source_cycles": 4,
+      "source_interactions": 256,
+      "source_tasks": 4,
+      "unrelated_gated": -0.0007597367904509256
+    },
+    {
+      "adversarial_gated": -0.009804863856603709,
+      "initial_source_weight": 0.75,
+      "related_gated": 0.1344278132235879,
+      "robust_score": 0.1162871469455353,
+      "source_cycles": 4,
+      "source_interactions": 256,
+      "source_tasks": 4,
+      "unrelated_gated": -0.008335802421448895
+    }
+  ],
+  "selected": {
+    "configuration": {
+      "initial_source_weight": 0.5,
+      "source_cycles": 8,
+      "source_interactions": 2048,
+      "source_tasks": 16,
+      "target_interactions": 64
+    },
+    "gated_log_loss_improvement": {
+      "adversarial": -0.004413738821962386,
+      "related": 0.16228397972088032,
+      "unrelated": -0.002805317313012659
+    },
+    "learned_log_loss_improvement": {
+      "adversarial": -0.3605911767461861,
+      "related": 0.16798706693375323,
+      "unrelated": -0.21679229521496035
+    },
+    "mean_final_source_weight": {
+      "adversarial": 1.7720955178561111e-15,
+      "related": 0.999996560969437,
+      "unrelated": 0.052097442888131694
+    },
+    "oracle_log_loss_improvement": {
+      "adversarial": -0.34416055877717905,
+      "related": 0.17442819962268388,
+      "unrelated": -0.19683486001384382
+    },
+    "pooled_log_loss_improvement": {
+      "adversarial": -0.43698913730181727,
+      "related": 0.1669303689013221,
+      "unrelated": -0.2709334520833244
+    },
+    "robust_score": 0.1550649235859053,
+    "source_cost_ratio_to_target": 32.0
+  },
+  "selection_rule": "maximize related + min(0, unrelated) + min(0, adversarial); then related; then lower source cost; then lower initial weight",
+  "status": "development-only"
+}

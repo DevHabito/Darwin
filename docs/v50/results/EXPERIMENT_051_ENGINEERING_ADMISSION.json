@@ -1,0 +1,59 @@
+{
+  "schema": "darwin-e051-engineering-admission-v1",
+  "experiment": "E051",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "65ade856270883c2b13fa7364360a81ed77eb143",
+  "subject_commit": "d827a600f7082d981da7ff5cc2a7fc4027f423d7",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "557f18fc727d87dfc3c34c2994a4f3f98140ff96",
+    "tests/test_v50_portable_local_language_seed.py": "d9d7337bf2de5e91add39a5c46eb016280974a6f"
+  },
+  "artifact_lock": {
+    "commit": "80242abf8bbb2788b33430398fe3fefdcde8f60f",
+    "blob": "f5cefa85699381d719675f0e504fa1083e3efbdf",
+    "expected_bytes_matched": true,
+    "expected_sha256_matched": true,
+    "declared_license": "Apache-2.0"
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "duration_seconds": 3.546,
+    "tests_run": 25,
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "duration_seconds": 374.725,
+    "tests_run": 498,
+    "passed": 497,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "the maintained local transport is the exact pre-registered E049 baseline blob",
+    "all earlier frozen protocol and result blobs named by the focused suite remained exact",
+    "the maintained local modules retained no module-level response table",
+    "authenticated native endpoint ordering, schemas, bounds, strict UTF-8, and control-marker rejection remained covered",
+    "failed turns still committed no temporary transcript or authority mutation",
+    "explicit local mode retained no paid-provider fallback",
+    "the candidate artifact matched its fixed owner revision, byte length, and SHA-256"
+  ],
+  "load_probe": {
+    "executed": false,
+    "reason": "The load probe is executed only after this engineering admission is frozen."
+  },
+  "development_comparison": {
+    "executed": false,
+    "reason": "The E049 cases are rerun only if the separately recorded load probe passes."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The exact E049 language transport and fixed free 1.5B artifact passed the pre-inference engineering gate. No load, runtime suitability, conversational improvement, mobile suitability, or general language capability is established by this record."
+}

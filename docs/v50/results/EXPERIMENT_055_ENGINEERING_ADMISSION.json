@@ -1,0 +1,65 @@
+{
+  "schema": "darwin-e055-engineering-admission-v1",
+  "experiment": "E055",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "ad1afeef468b47eae8446258281eafbaaf944e4f",
+  "tested_subject_commit": "009d9aca86622cfd54169f1a06f4f26faac1ca9f",
+  "implementation_blobs": {
+    "scripts/run_e055_gated_local_screen.py": "b946a721a9f2115e897f7380e47ad32eafe221fc",
+    "tests/test_v50_e055_gated_local_screen.py": "75359104e5cf81ed4b75a4c63b4da9b466fb442a"
+  },
+  "preserved_language_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "c8871d2bfb925007e3856319cd096cff72dc912a",
+    "src/darwin_v50/conversation/openai_responses.py": "511888e6ceed389988348570b63a6a1818498aea"
+  },
+  "first_focused_attempt": {
+    "tests_run": 32,
+    "passed": 29,
+    "failed": 3,
+    "errors": 0,
+    "skipped": 0,
+    "framework_reported_duration_seconds": 3.235,
+    "result": "fail_test_fixture_geometry",
+    "cause": "Three reduced fake scenarios supplied only two to four total inputs, so the unchanged six-requested-act conjunction became impossible after turn 1 and correctly stopped the runner.",
+    "repair": "Only the fake input fixtures were expanded to eight inputs. The six-act threshold, runner stop logic, language adapter, model configuration, and live criteria were not changed.",
+    "live_inference_performed": false
+  },
+  "focused_admission": {
+    "command": "PYTHONPATH=src;. python -m unittest -v tests.test_v50_e055_gated_local_screen tests.test_v50_portable_local_language_seed",
+    "framework_reported_duration_seconds": 3.181,
+    "tests_run": 32,
+    "passed": 32,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src;. python -m unittest discover -s tests -v",
+    "framework_reported_duration_seconds": 1368.315,
+    "tests_run": 505,
+    "passed": 504,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_measurement_properties": [
+    "a gateway or transport failure stops before the next registered input",
+    "an exact older-expression copy stops before the next registered input",
+    "a second exact current-input echo stops before the next registered input",
+    "an unregistered native numeric level is preserved in evidence and rejected without coercion or retry",
+    "a failed required human criterion stops before the next registered input",
+    "the exact native outputs and expression are persisted before human adjudication",
+    "the E054 language implementation and shared E044 schema remain byte-identical",
+    "no provider, authority, persistence, tool, or action surface was added"
+  ],
+  "live_screen": {
+    "executed": false,
+    "reason": "The registered local server is started only after this runner admission is frozen."
+  },
+  "evidence_class": "E1 repository-self-evaluated measurement engineering evidence",
+  "result": "pass",
+  "interpretation": "The exact E055 runner subject passed its focused and full engineering gates. This admits the instrument for one contaminated development screen only; it establishes no language quality or model capability."
+}

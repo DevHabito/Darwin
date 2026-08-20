@@ -1,0 +1,7 @@
+{
+  "name": "Darwin",
+  "db_path": "darwin_home\\darwin.db",
+  "logs_dir": "darwin_home\\logs",
+  "snapshots_dir": "darwin_home\\snapshots",
+  "exports_dir": "darwin_home\\exports"
+}

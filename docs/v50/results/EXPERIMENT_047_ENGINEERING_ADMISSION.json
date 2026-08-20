@@ -1,0 +1,82 @@
+{
+  "schema": "darwin-e047-engineering-admission-v1",
+  "experiment": "E047",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "4368cd3f4aa15d055ebd3fa1fe073de24c7f4ad7",
+  "subject_commit": "a1d4e4f5fb92e7dec4bc5959ac3584c7b6d8f271",
+  "implementation_blobs": {
+    "src/darwin_v50/conversation/local_seed.py": "557f18fc727d87dfc3c34c2994a4f3f98140ff96",
+    "src/darwin_v50/conversation/__init__.py": "93d5a819d01229b670e3976c04d74f1dca7b174d",
+    "tests/test_v50_portable_local_language_seed.py": "45568920d61998d0a0cf4cc5b08afda33154d3d7",
+    "docs/v50/PORTABLE_LOCAL_LANGUAGE_SEED_GUIDE.md": "952a9d208566fd7d6d015e99e8856a0ebc201f3e"
+  },
+  "environment": {
+    "operating_system": "Windows",
+    "python": "3.12.13 (bundled Codex workspace Python)",
+    "python_path": "src",
+    "network_used_by_tests": "loopback-only hermetic HTTP fixtures"
+  },
+  "development_attempts_before_final_admission": [
+    {
+      "result": "not_executed",
+      "reason": "python was not present on PATH"
+    },
+    {
+      "result": "not_executed",
+      "reason": "the bundled Python did not include pytest; the repository's registered unittest runner was then used"
+    },
+    {
+      "result": "import_error",
+      "reason": "PYTHONPATH had not yet been set to src"
+    },
+    {
+      "tests_run": 21,
+      "failures": 1,
+      "errors": 0,
+      "reason": "a new test incorrectly expected runtime construction to perform the separately defined server probe"
+    },
+    {
+      "tests_run": 21,
+      "failures": 0,
+      "errors": 1,
+      "reason": "a new test referenced a nonexistent aggregate counter instead of comparing the eight frozen counters"
+    }
+  ],
+  "focused_admission": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -p test_v50_portable_local_language_seed.py -v",
+    "tests_run": 21,
+    "passed": 21,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "pass"
+  },
+  "repository_regression": {
+    "command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "duration_seconds": 489.796,
+    "tests_run": 494,
+    "passed": 493,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reason": "the existing Windows symlink test could not create a symlink because the process lacked the required OS privilege",
+    "result": "pass_with_declared_platform_skip"
+  },
+  "admitted_engineering_properties": [
+    "all earlier frozen protocol and evidence blobs named by the focused suite remained exact",
+    "each registered control marker was rejected in top-level, nested-object, nested-array, and object-key text",
+    "control-marker rejection occurred before either native inference endpoint was called",
+    "ordinary text containing angle brackets reached authenticated native completion",
+    "the error class did not echo the rejected marker or input",
+    "authenticated apply-template then completion ordering and explicit JSON Schema remained mandatory",
+    "a rejected turn wrote no temporary transcript and every authority mutation counter remained zero",
+    "explicit local mode retained no paid-provider fallback"
+  ],
+  "live_inference": {
+    "executed": false,
+    "reason": "Live evidence is recorded separately after this engineering gate is frozen."
+  },
+  "evidence_class": "E1 repository-self-evaluated engineering evidence",
+  "result": "pass",
+  "interpretation": "The E047 application-side input guard and the previously implemented authenticated native transport passed the registered hermetic engineering gate. This establishes no model-language quality, mobile suitability, or successful live turn."
+}

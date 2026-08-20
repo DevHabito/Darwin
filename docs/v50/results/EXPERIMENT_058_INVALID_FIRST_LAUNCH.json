@@ -1,0 +1,41 @@
+{
+  "schema": "darwin-e058-invalid-first-launch-v1",
+  "experiment": "E058",
+  "recorded_at_utc": "2026-08-18T02:12:18.8343652Z",
+  "pre_registration_commit": "bb1617ee6eee46e433ec89889b5a0290b345e32b",
+  "runner_admission_commit": "489e27bebddb915b10614a4147f2bd2bf8dcf48c",
+  "admitted_blobs": {
+    "shared_harness": "54c315a7870f36a55440b633c3b560bbe5ab9ac0",
+    "e058_launcher": "d72b39214408cb191fe15c82eb0f9364f424f223",
+    "e058_tests": "a97c3231d9ce238b9b16a365ad91707bc1f1f9b0"
+  },
+  "command": "python scripts/run_e058_h350m_edge_admission.py --repository .",
+  "environment": {
+    "pythonpath": "src",
+    "working_directory": "repository root"
+  },
+  "failure": {
+    "stage": "launcher module import before harness main",
+    "exception_class": "ModuleNotFoundError",
+    "message": "No module named 'scripts'",
+    "traceback_observed": true,
+    "exit_code_captured_by_runner": false
+  },
+  "post_failure_checks": {
+    "raw_result_file_created": false,
+    "listener_count_on_port_18058": 0,
+    "matching_server_or_model_process_count": 0,
+    "model_file_bytes": 222662560,
+    "model_file_sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb"
+  },
+  "model_execution": {
+    "server_started": false,
+    "load_attempted": false,
+    "benchmark_started": false,
+    "generation_requests": 0,
+    "user_text_used": false
+  },
+  "result": "invalid_launcher_import_before_measurement",
+  "model_evidence": "none",
+  "interpretation": "The direct script launcher could not resolve its package-style sibling import with PYTHONPATH limited to src. The failure occurred before the harness ran and supplies no evidence about the H-350M artifact."
+}

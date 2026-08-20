@@ -1,0 +1,53 @@
+{
+  "schema": "darwin-e045-first-live-turn-v1",
+  "experiment": "E045",
+  "recorded_at": "2026-08-17",
+  "artifact_lock_commit": "4eaeddb",
+  "load_probe_commit": "7c7ffbc",
+  "input": {
+    "locale": "pt-BR",
+    "text": "Oi, Darwin. Estou animado para conversar com você hoje. Como devemos começar?"
+  },
+  "execution": {
+    "entry_point": "python -m darwin_v50.conversation.local_cli",
+    "backend": "local",
+    "model_alias": "E045-Qwen3-0.6B-Q4_K_M-9acfc1e00131",
+    "endpoint": "http://127.0.0.1:18045",
+    "first_operation": "UNDERSTAND",
+    "express_operation_attempted": false
+  },
+  "direct_observations": {
+    "cli_result": "Darwin local turn failed closed: local_http_status_400",
+    "model_generated_output_received": false,
+    "server_error": "Failed to initialize samplers: Unexpected empty grammar stack after accepting piece: <think>",
+    "server_generation_prompt_contained_disabled_thinking_prefill": true,
+    "server_listener_warning": "CORS allowed all origins and no API key was configured",
+    "server_stopped_after_failure": true
+  },
+  "boundary_consequences": {
+    "successful_turns": 0,
+    "temporary_transcript_messages_committed": 0,
+    "persistent_memory_writes": 0,
+    "goal_changes": 0,
+    "rzs_changes": 0,
+    "sigma_changes": 0,
+    "identity_changes": 0,
+    "world_model_changes": 0,
+    "actions_dispatched": 0,
+    "actions_executed": 0
+  },
+  "diagnosis": {
+    "classification": "structured-generation integration failure",
+    "observed_boundary": "llama.cpp chat-template reasoning prefill plus JSON-schema grammar initialization",
+    "upstream_context": "https://github.com/ggml-org/llama.cpp/issues/20345",
+    "inference": "The observed sampler failure is consistent with the documented upstream Qwen3 thinking-template and grammar failure class. The log does not establish a Portuguese-language-quality result because generation never began."
+  },
+  "security_observation": {
+    "result": "not_admitted_for_persistent_background_use",
+    "reason": "An exact loopback bind was observed, but the runtime itself warned that wildcard CORS without an API key permits a same-host cross-origin attack surface."
+  },
+  "result": "fail",
+  "promotion": "refused",
+  "retry_with_changed_parameters_inside_e045": false,
+  "interpretation": "The exact frozen E045 model, runtime, server configuration, and chat-completions transport failed on the first UNDERSTAND request. E045 therefore does not establish a working local Darwin conversation. No model substitution, schema relaxation, or post-result parameter change is counted as an E045 pass."
+}

@@ -1,0 +1,194 @@
+{
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 44700,
+  "candidate_segment_success_rates": {
+    "base": 1.0,
+    "novel": 1.0,
+    "recurrent": 1.0,
+    "shifted": 1.0
+  },
+  "capability_claim": "deterministic online action-alignment inference with a frozen transition prior",
+  "claim_boundary": "external goals and segment schedule, known closed set of three deterministic rotations, unique observations, frozen transition prior, and unauthenticated local evaluator",
+  "criteria": {
+    "all_integrity_rates_equal_1": true,
+    "boundary_adaptation_delay_equals_1": true,
+    "candidate_cumulative_gap_equals_0_5": true,
+    "candidate_frozen_gap_equals_0_5": true,
+    "candidate_matches_oracle_success": true,
+    "candidate_shuffled_gap_equals_1": true,
+    "candidate_step_overhead_equals_0_125": true,
+    "candidate_success_equals_1": true,
+    "candidate_success_interval_low_equals_1": true,
+    "cumulative_success_equals_0_5": true,
+    "every_candidate_segment_success_equals_1": true,
+    "frozen_segment_pattern_is_exact": true,
+    "frozen_success_equals_0_5": true,
+    "oracle_success_equals_1": true,
+    "random_gap_interval_low_at_least_0_90": true,
+    "recurrent_candidate_matches_frozen": true,
+    "schedule_and_budgets_are_frozen": true,
+    "shuffled_success_equals_0": true,
+    "task_count_equals_1536": true,
+    "world_count_equals_64": true
+  },
+  "decision": "passed_locally",
+  "evidence_level": "E1_LOCAL_UNAUTHENTICATED_EVALUATOR",
+  "experiment": "039",
+  "final_seeds": [
+    44000,
+    44001,
+    44002,
+    44003,
+    44004,
+    44005,
+    44006,
+    44007,
+    44008,
+    44009,
+    44010,
+    44011,
+    44012,
+    44013,
+    44014,
+    44015,
+    44016,
+    44017,
+    44018,
+    44019,
+    44020,
+    44021,
+    44022,
+    44023,
+    44024,
+    44025,
+    44026,
+    44027,
+    44028,
+    44029,
+    44030,
+    44031,
+    44032,
+    44033,
+    44034,
+    44035,
+    44036,
+    44037,
+    44038,
+    44039,
+    44040,
+    44041,
+    44042,
+    44043,
+    44044,
+    44045,
+    44046,
+    44047,
+    44048,
+    44049,
+    44050,
+    44051,
+    44052,
+    44053,
+    44054,
+    44055,
+    44056,
+    44057,
+    44058,
+    44059,
+    44060,
+    44061,
+    44062,
+    44063
+  ],
+  "frozen_segment_success_rates": {
+    "base": 1.0,
+    "novel": 0.0,
+    "recurrent": 1.0,
+    "shifted": 0.0
+  },
+  "h50_l17_registered": true,
+  "hidden_rotations": [
+    0,
+    1,
+    0,
+    2
+  ],
+  "integrity": {
+    "action_observation_correlation_rate": 1.0,
+    "alignment_identification_rate": 1.0,
+    "archive_retention_rate": 1.0,
+    "integration_parity_rate": 1.0,
+    "kernel_lineage_rate": 1.0,
+    "no_premature_success_rate": 1.0,
+    "post_observation_alignment_rate": 1.0,
+    "prior_frozen_rate": 1.0,
+    "tracker_snapshot_rate": 1.0
+  },
+  "mean_boundary_adaptation_delay": 1.0,
+  "mean_candidate_steps": 4.125,
+  "mean_oracle_steps": 4.0,
+  "metrics": {
+    "boundary_adaptation_delay": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "candidate_minus_cumulative_success_rate": {
+      "high": 0.5,
+      "low": 0.5,
+      "mean": 0.5
+    },
+    "candidate_minus_frozen_success_rate": {
+      "high": 0.5,
+      "low": 0.5,
+      "mean": 0.5
+    },
+    "candidate_minus_oracle_success_rate": {
+      "high": 0.0,
+      "low": 0.0,
+      "mean": 0.0
+    },
+    "candidate_minus_random_success_rate": {
+      "high": 0.9680989583333334,
+      "low": 0.94921875,
+      "mean": 0.958984375
+    },
+    "candidate_minus_shuffled_success_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "candidate_step_overhead": {
+      "high": 0.125,
+      "low": 0.125,
+      "mean": 0.125
+    },
+    "candidate_success_rate": {
+      "high": 1.0,
+      "low": 1.0,
+      "mean": 1.0
+    },
+    "recurrent_candidate_minus_frozen_success_rate": {
+      "high": 0.0,
+      "low": 0.0,
+      "mean": 0.0
+    }
+  },
+  "segments": [
+    "base",
+    "shifted",
+    "recurrent",
+    "novel"
+  ],
+  "status": "confirmatory-h50-l17",
+  "success_rates": {
+    "candidate": 1.0,
+    "cumulative": 0.5,
+    "frozen": 0.5,
+    "oracle": 1.0,
+    "random": 0.041015625,
+    "shuffled": 0.0
+  },
+  "task_count": 1536,
+  "world_count": 64
+}

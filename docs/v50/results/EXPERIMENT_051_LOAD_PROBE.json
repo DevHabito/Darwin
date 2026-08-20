@@ -1,0 +1,66 @@
+{
+  "schema": "darwin-e051-load-probe-v1",
+  "experiment": "E051",
+  "recorded_at": "2026-08-17",
+  "pre_registration_commit": "65ade856270883c2b13fa7364360a81ed77eb143",
+  "engineering_admission_commit": "3c3dd32253f813e8416bc42e58a306df1f9d0630",
+  "candidate": {
+    "repository": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+    "revision": "62a8d092b0a1047016f3edbd0fde387598727aa5",
+    "filename": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "bytes": 1117320736,
+    "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+    "alias": "Qwen_Qwen2.5-1.5B-Instruct-Q4_K_M"
+  },
+  "runtime": {
+    "name": "llama.cpp llama-server",
+    "build": 10470,
+    "commit": "34af94cd9",
+    "compiler": "Clang 20.1.8",
+    "target": "Windows x86_64",
+    "server_sha256": "aa6b7907d3901f2e24892838e6f15243a47b22ad792eaccbdc0e2a4bccfd5283"
+  },
+  "configuration": {
+    "host": "127.0.0.1",
+    "port": 18051,
+    "authentication": "fresh random session bearer key inherited through LLAMA_API_KEY and not recorded",
+    "context_tokens": 4096,
+    "parallel_slots": 1,
+    "web_ui": false,
+    "ram_cache_megabytes": 0,
+    "warmup": false,
+    "reasoning": "off",
+    "reasoning_format": "none"
+  },
+  "observed_identity": {
+    "model_id": "Qwen_Qwen2.5-1.5B-Instruct-Q4_K_M",
+    "model_object": "model",
+    "owned_by": "llamacpp",
+    "model_alias": "Qwen_Qwen2.5-1.5B-Instruct-Q4_K_M",
+    "model_path_ended_with_fixed_filename": true,
+    "total_slots": 1,
+    "context_tokens": 4096,
+    "launched_pid_equaled_listener_pid": true
+  },
+  "admission_thresholds": {
+    "readiness_max_milliseconds": 60000,
+    "peak_working_set_max_bytes": 2750000000
+  },
+  "measurements": {
+    "readiness_milliseconds": 13368.713,
+    "peak_working_set_bytes": 1207160832,
+    "inference_requests": 0,
+    "language_outputs": 0,
+    "listener_count_after_stop": 0
+  },
+  "runtime_warnings": [
+    "llama.cpp reported that token 128247, </s>, looked like a control token but was not typed as one in the model and overrode its type",
+    "llama.cpp reported that cache-idle-slots requires cache-ram and disabled that behavior because cache-ram was zero"
+  ],
+  "warning_interpretation": "The warnings did not prevent exact model identity, readiness, slot, context, memory, authentication, or shutdown checks from passing. They are retained as observations and do not count as evidence of language quality.",
+  "paid_provider_used": false,
+  "monetary_cost_usd": 0,
+  "result": "pass",
+  "evidence_class": "E1 local desktop load observation",
+  "interpretation": "The fixed free 1.5B artifact loaded within the pre-registered desktop time and working-set ceilings and was then stopped without inference. This establishes load admission on this computer only; it does not establish conversational quality, held-out reliability, or mobile suitability."
+}

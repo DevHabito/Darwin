@@ -1,0 +1,93 @@
+{
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 10583319,
+  "causal_archive_rate": 1.0,
+  "evidence_level": "E1_LOCAL_DIAGNOSTIC",
+  "experiment": "H50-L12 failure audit",
+  "full_run": {
+    "candidate_minus_certainty_reward": {"lower_95": -0.021972656249999997, "mean": -0.016259765624999995, "upper_95": -0.010424804687500004},
+    "candidate_reward": {"lower_95": 0.2326171875, "mean": 0.289404296875, "upper_95": 0.3483160400390625},
+    "candidate_vs_map_disagreement_rate": {"lower_95": 0.1033447265625, "mean": 0.134033203125, "upper_95": 0.16538146972656248},
+    "certainty_equivalent_reward": {"lower_95": 0.25009582519531254, "mean": 0.3056640625, "upper_95": 0.36330688476562495},
+    "conditional_map_q_opportunity_cost": {"lower_95": 0.08573370095510702, "mean": 0.09871546952441108, "upper_95": 0.11331729046038468},
+    "mean_map_q_opportunity_cost": {"lower_95": 0.009427684864762066, "mean": 0.011582163470999622, "upper_95": 0.013745428263616424},
+    "mean_order_information_gain": {"lower_95": 0.0015101221291846487, "mean": 0.0019493630837809435, "upper_95": 0.002428221400815726},
+    "mean_order_posterior_entropy": {"lower_95": 0.06552863389974992, "mean": 0.07725499989616177, "upper_95": 0.08988393180863988},
+    "order_channel_disagreement_rate": {"lower_95": 0.0017083740234375006, "mean": 0.0044677734375, "upper_95": 0.0077880859375},
+    "parameter_channel_disagreement_rate": {"lower_95": 0.101658935546875, "mean": 0.1313232421875, "upper_95": 0.1619140625},
+    "parameter_minus_order_disagreement_rate": {"lower_95": 0.09873046875000001, "mean": 0.12685546875, "upper_95": 0.15598266601562497},
+    "sampled_order_map_mismatch_rate": {"lower_95": 0.026562500000000003, "mean": 0.03515625, "upper_95": 0.043750000000000004}
+  },
+  "interpretation": {
+    "dominant_action_change_channel": "parameter",
+    "model_implied_sampling_cost": "resolved_above_zero",
+    "reward_deficit_replication": "replicated"
+  },
+  "limitations": [
+    "This is a diagnostic follow-up, not a confirmatory experiment.",
+    "The Q opportunity cost is model-implied, not counterfactual reward.",
+    "Order and parameter channels are sequential, not additive causal effects.",
+    "The environment is synthetic, stationary, binary, and tabular.",
+    "The result cannot establish consciousness, personhood, AGI, or a Diana-like mind."
+  ],
+  "quarters": [
+    {
+      "candidate_minus_certainty_reward": {"lower_95": -0.03173828125, "mean": -0.01787109375, "upper_95": -0.003906249999999998},
+      "candidate_reward": {"lower_95": 0.17158203125, "mean": 0.22412109375, "upper_95": 0.2798828125},
+      "candidate_vs_map_disagreement_rate": {"lower_95": 0.18974609375, "mean": 0.22333984375, "upper_95": 0.2582055664062499},
+      "certainty_equivalent_reward": {"lower_95": 0.18232421875, "mean": 0.2419921875, "upper_95": 0.30400390625},
+      "conditional_map_q_opportunity_cost": {"lower_95": 0.07071855694100684, "mean": 0.08864070406409073, "upper_95": 0.1074553646896049},
+      "mean_map_q_opportunity_cost": {"lower_95": 0.014653502803199847, "mean": 0.018191088505634532, "upper_95": 0.02171274680080599},
+      "mean_order_information_gain": {"lower_95": 0.0054739065145167735, "mean": 0.0069164406305319845, "upper_95": 0.008441862425921329},
+      "mean_order_posterior_entropy": {"lower_95": 0.24662119882742226, "mean": 0.2811564566524257, "upper_95": 0.3168859278090625},
+      "order_channel_disagreement_rate": {"lower_95": 0.00439453125, "mean": 0.01123046875, "upper_95": 0.01953125},
+      "parameter_channel_disagreement_rate": {"lower_95": 0.18222412109375, "mean": 0.21328125, "upper_95": 0.247265625},
+      "parameter_minus_order_disagreement_rate": {"lower_95": 0.1712890625, "mean": 0.20205078125, "upper_95": 0.23594238281249993},
+      "sampled_order_map_mismatch_rate": {"lower_95": 0.1, "mean": 0.12812500000000002, "upper_95": 0.15625}
+    },
+    {
+      "candidate_minus_certainty_reward": {"lower_95": -0.03046875, "mean": -0.02109375, "upper_95": -0.012109375000000007},
+      "candidate_reward": {"lower_95": 0.23720458984375, "mean": 0.29853515625, "upper_95": 0.36171875},
+      "candidate_vs_map_disagreement_rate": {"lower_95": 0.08857177734375, "mean": 0.12705078125, "upper_95": 0.16660400390624996},
+      "certainty_equivalent_reward": {"lower_95": 0.26132568359375, "mean": 0.31962890625, "upper_95": 0.3792993164062499},
+      "conditional_map_q_opportunity_cost": {"lower_95": 0.09386985433635414, "mean": 0.124078827229047, "upper_95": 0.15851382706472936},
+      "mean_map_q_opportunity_cost": {"lower_95": 0.009158466225209988, "mean": 0.012407723370379492, "upper_95": 0.015654934641106052},
+      "mean_order_information_gain": {"lower_95": 0.0002545065048444027, "mean": 0.0008810040685122726, "upper_95": 0.0016266885014615757},
+      "mean_order_posterior_entropy": {"lower_95": 0.008520347323397957, "mean": 0.02785209485445686, "upper_95": 0.05105067060845188},
+      "order_channel_disagreement_rate": {"lower_95": 0.0, "mean": 0.006640625000000001, "upper_95": 0.0146484375},
+      "parameter_channel_disagreement_rate": {"lower_95": 0.08798828125, "mean": 0.12626953125, "upper_95": 0.16591796875},
+      "parameter_minus_order_disagreement_rate": {"lower_95": 0.08349609375, "mean": 0.11962890625, "upper_95": 0.1576171875},
+      "sampled_order_map_mismatch_rate": {"lower_95": 0.0, "mean": 0.0125, "upper_95": 0.028125}
+    },
+    {
+      "candidate_minus_certainty_reward": {"lower_95": -0.022949218750000007, "mean": -0.015429687500000006, "upper_95": -0.008105468750000008},
+      "candidate_reward": {"lower_95": 0.253515625, "mean": 0.3126953125, "upper_95": 0.37333984375},
+      "candidate_vs_map_disagreement_rate": {"lower_95": 0.0677734375, "mean": 0.105078125, "upper_95": 0.14365234375},
+      "certainty_equivalent_reward": {"lower_95": 0.27314453125, "mean": 0.328125, "upper_95": 0.38506347656249995},
+      "conditional_map_q_opportunity_cost": {"lower_95": 0.07171903449240964, "mean": 0.09466958484517055, "upper_95": 0.12271136191894637},
+      "mean_map_q_opportunity_cost": {"lower_95": 0.005692521622410473, "mean": 0.008573605068059834, "upper_95": 0.011613166109989312},
+      "mean_order_information_gain": {"lower_95": 2.0714531833208606e-10, "mean": 5.573504676971347e-09, "upper_95": 1.2988350458664944e-08},
+      "mean_order_posterior_entropy": {"lower_95": 3.426613561365991e-07, "mean": 8.273326910350732e-06, "upper_95": 2.2604848501947187e-05},
+      "order_channel_disagreement_rate": {"lower_95": 0.0, "mean": 0.0, "upper_95": 0.0},
+      "parameter_channel_disagreement_rate": {"lower_95": 0.0677734375, "mean": 0.105078125, "upper_95": 0.14365234375},
+      "parameter_minus_order_disagreement_rate": {"lower_95": 0.0677734375, "mean": 0.105078125, "upper_95": 0.14365234375},
+      "sampled_order_map_mismatch_rate": {"lower_95": 0.0, "mean": 0.0, "upper_95": 0.0}
+    },
+    {
+      "candidate_minus_certainty_reward": {"lower_95": -0.015722656249999998, "mean": -0.01064453125, "upper_95": -0.0056640625},
+      "candidate_reward": {"lower_95": 0.2638671875, "mean": 0.322265625, "upper_95": 0.3832055664062499},
+      "candidate_vs_map_disagreement_rate": {"lower_95": 0.05302734375, "mean": 0.0806640625, "upper_95": 0.10947265625},
+      "certainty_equivalent_reward": {"lower_95": 0.27734130859375, "mean": 0.33291015625, "upper_95": 0.391015625},
+      "conditional_map_q_opportunity_cost": {"lower_95": 0.05481603943515322, "mean": 0.07116687371323187, "upper_95": 0.08892715137024},
+      "mean_map_q_opportunity_cost": {"lower_95": 0.004448965334912521, "mean": 0.0071562369399246345, "upper_95": 0.010108971707717983},
+      "mean_order_information_gain": {"lower_95": 1.531044755015493e-11, "mean": 2.062574840096296e-09, "upper_95": 5.8480727055515644e-09},
+      "mean_order_posterior_entropy": {"lower_95": 5.8399234129850535e-08, "mean": 3.17475085419614e-06, "upper_95": 8.521801989950348e-06},
+      "order_channel_disagreement_rate": {"lower_95": 0.0, "mean": 0.0, "upper_95": 0.0},
+      "parameter_channel_disagreement_rate": {"lower_95": 0.05302734375, "mean": 0.0806640625, "upper_95": 0.10947265625},
+      "parameter_minus_order_disagreement_rate": {"lower_95": 0.05302734375, "mean": 0.0806640625, "upper_95": 0.10947265625},
+      "sampled_order_map_mismatch_rate": {"lower_95": 0.0, "mean": 0.0, "upper_95": 0.0}
+    }
+  ],
+  "resampling_length": 32,
+  "seeds": [23200, 23201, 23202, 23203, 23204, 23205, 23206, 23207, 23208, 23209, 23210, 23211, 23212, 23213, 23214, 23215, 23216, 23217, 23218, 23219, 23220, 23221, 23222, 23223, 23224, 23225, 23226, 23227, 23228, 23229, 23230, 23231]
+}
