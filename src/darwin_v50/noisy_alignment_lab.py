@@ -19,7 +19,10 @@ UNIFORM = (1.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0)
 def _finite_probability(value: object, *, low: float, name: str) -> float:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise ValueError(f"{name} must be a finite probability")
-    number = float(value)
+    try:
+        number = float(value)
+    except (OverflowError, ValueError) as error:
+        raise ValueError(f"{name} must be a finite probability") from error
     if not math.isfinite(number) or not low <= number <= 1.0:
         raise ValueError(f"{name} outside supported probability range")
     return number
@@ -46,6 +49,10 @@ def _canonical(payload: dict[str, Any]) -> bytes:
 
 def _digest(payload: dict[str, Any]) -> str:
     return hashlib.sha256(_canonical(payload)).hexdigest()
+
+
+def _reject_nonfinite_json(value: str) -> None:
+    raise ValueError(f"nonfinite JSON constant: {value}")
 
 
 @dataclass(frozen=True, slots=True)
@@ -160,7 +167,7 @@ class NoisyAlignmentBelief:
         if not isinstance(raw, str):
             raise ValueError("snapshot must be JSON text")
         try:
-            document = json.loads(raw, parse_constant=lambda _: (_ for _ in ()).throw(ValueError("nonfinite JSON")))
+            document = json.loads(raw, parse_constant=_reject_nonfinite_json)
             if type(document) is not dict or set(document) != {"body", "sha256"}:
                 raise ValueError("invalid snapshot envelope")
             body = document["body"]
