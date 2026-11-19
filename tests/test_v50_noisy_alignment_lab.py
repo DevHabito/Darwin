@@ -65,10 +65,10 @@ class NoisyAlignmentEngineeringTests(unittest.TestCase):
         self.assertEqual(tracker.snapshot(), before)
 
     def test_invalid_model_probabilities_are_rejected(self):
-        for value in (-0.1, 1.1, float("nan"), float("inf"), -float("inf"), True, None, "0.5"):
+        for value in (-0.1, 1.1, 10 ** 500, float("nan"), float("inf"), -float("inf"), True, None, "0.5"):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 self.make_filter(hazard=value)
-        for value in (-1, 0, 0.32, 1.1, float("nan"), float("inf"), False, "0.8"):
+        for value in (-1, 0, 0.32, 1.1, 10 ** 500, float("nan"), float("inf"), False, "0.8"):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 self.make_filter(sensor_correct=value)
 
