@@ -1,0 +1,141 @@
+{
+  "constraints": {
+    "e063_changed": false,
+    "estimator_changed": false,
+    "hidden_state_used_for_fit": false,
+    "kernel_changed": false,
+    "real_sensor_tested": false
+  },
+  "correlated_fit": {
+    "equality_rates": [
+      0.790984940984941,
+      0.6674910438039408,
+      0.5919557781578304
+    ],
+    "hazard": 0.1798950629929997,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": 0.577321060241881,
+    "sensor_correct": 0.9797515986647012,
+    "status": "FITTED"
+  },
+  "counterexample_conditions": {
+    "correlated_fit_exists": true,
+    "estimated_q_at_least_0_93": true,
+    "lag3_gap_at_most_0_018": true
+  },
+  "evidence_level": "E1_LOCAL_ADVERSARIAL_DEVELOPMENT",
+  "experiment": "E065",
+  "independent_control_fit": {
+    "equality_rates": [
+      0.5976902726902726,
+      0.5685861423220974,
+      0.5375437739229579
+    ],
+    "hazard": 0.07339604409848917,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": 0.5426862040078481,
+    "sensor_correct": 0.7783514348912774,
+    "status": "FITTED"
+  },
+  "independent_control_seeds": [
+    65200,
+    65201,
+    65202,
+    65203,
+    65204,
+    65205,
+    65206,
+    65207,
+    65208,
+    65209,
+    65210,
+    65211,
+    65212,
+    65213,
+    65214,
+    65215,
+    65216,
+    65217,
+    65218,
+    65219,
+    65220,
+    65221,
+    65222,
+    65223
+  ],
+  "interpretation": "Deliberately chosen model misspecification; not independent confirmation or a new Darwin H50-L capability.",
+  "mean_brier": {
+    "fitted": 0.41265518194806394,
+    "iid_oracle_parameters": 0.35675453364251336,
+    "last_cue": 0.3665973958333321
+  },
+  "registered_counterexample_observed": true,
+  "scoring_seeds": [
+    65100,
+    65101,
+    65102,
+    65103,
+    65104,
+    65105,
+    65106,
+    65107,
+    65108,
+    65109,
+    65110,
+    65111,
+    65112,
+    65113,
+    65114,
+    65115,
+    65116,
+    65117,
+    65118,
+    65119,
+    65120,
+    65121,
+    65122,
+    65123
+  ],
+  "scoring_steps_per_world": 256,
+  "status": "adversarial_development_audit_only",
+  "synthetic_assumptions": {
+    "h": 0.08,
+    "marginal_sensor_correct": 0.78,
+    "offset_persistence": 0.6
+  },
+  "training_seeds": [
+    65000,
+    65001,
+    65002,
+    65003,
+    65004,
+    65005,
+    65006,
+    65007,
+    65008,
+    65009,
+    65010,
+    65011,
+    65012,
+    65013,
+    65014,
+    65015,
+    65016,
+    65017,
+    65018,
+    65019,
+    65020,
+    65021,
+    65022,
+    65023
+  ],
+  "training_steps_per_world": 4096
+}
