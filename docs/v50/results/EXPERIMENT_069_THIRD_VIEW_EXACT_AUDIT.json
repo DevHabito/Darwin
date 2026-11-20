@@ -1,0 +1,269 @@
+{
+  "candidate_knows_real_independence": false,
+  "candidate_uses_true_source_label": false,
+  "criteria": {
+    "all_mechanism_hypothesis_masses_exactly_one": true,
+    "candidate_matches_independent_bayes": true,
+    "copied_third_has_no_source_information": true,
+    "falsely_independent_copy_is_overconfident": true,
+    "independent_agreement_rates_exact": true,
+    "informative_third_has_at_least_registered_tv": true,
+    "no_effectful_integration": true,
+    "two_view_laws_identical": true,
+    "uninformative_third_has_no_source_information": true,
+    "unit_tests_and_reference_checks": true
+  },
+  "enumeration": {
+    "hypotheses": 2,
+    "latent_quadruples_per_model": 81,
+    "mechanisms": 3,
+    "observable_triples": 27
+  },
+  "evidence_level": "E0_E1_FINITE_SYNTHETIC_MATHEMATICAL_BOUNDARY",
+  "experiment": "E069",
+  "interpretation": "A third view helps only under the declared independent observation mechanism; copied and uninformative views do not resolve the E068 equivalence. Independence is not established by the candidate, and the experiment is not a cognitive capability.",
+  "latent_truth_externally_supplied_to_candidate": false,
+  "metrics": {
+    "all_27_observable_triples": [
+      {
+        "A_copied": "61/200",
+        "A_independent": "1247/6000",
+        "B_copied": "61/200",
+        "B_independent": "15997/66000",
+        "readings": "000"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "001"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "002"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "010"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "011"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "012"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "020"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "021"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "022"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "100"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "101"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "102"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "110"
+      },
+      {
+        "A_copied": "61/200",
+        "A_independent": "1247/6000",
+        "B_copied": "61/200",
+        "B_independent": "15997/66000",
+        "readings": "111"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "112"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "120"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "121"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "122"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "200"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "201"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "202"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "1/500",
+        "B_copied": "0",
+        "B_independent": "17/11000",
+        "readings": "210"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "73/12000",
+        "B_copied": "0",
+        "B_independent": "833/132000",
+        "readings": "211"
+      },
+      {
+        "A_copied": "17/1200",
+        "A_independent": "73/12000",
+        "B_copied": "17/1200",
+        "B_independent": "833/132000",
+        "readings": "212"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "220"
+      },
+      {
+        "A_copied": "0",
+        "A_independent": "583/12000",
+        "B_copied": "0",
+        "B_independent": "4133/132000",
+        "readings": "221"
+      },
+      {
+        "A_copied": "61/200",
+        "A_independent": "1247/6000",
+        "B_copied": "61/200",
+        "B_independent": "15997/66000",
+        "readings": "222"
+      }
+    ],
+    "copied_as_independent_risk": {
+      "confidence_excess_over_accuracy": "34887939/972242080",
+      "expected_reported_confidence": "521008979/972242080",
+      "supported_copied_triples": "9",
+      "true_balanced_classification_accuracy": "1/2"
+    },
+    "hypotheses": {
+      "A": {
+        "copy_probability_alpha": "3/4",
+        "reliability_q": "4/5"
+      },
+      "B": {
+        "copy_probability_alpha": "9/77",
+        "reliability_q": "19/20"
+      }
+    },
+    "independent_matching_rate_A": "33/50",
+    "independent_matching_rate_B": "153/200",
+    "independent_matching_rate_difference": "21/200",
+    "independent_third_reliability": "4/5",
+    "mechanisms": {
+      "copied": {
+        "accuracy": "1/2",
+        "mass_A": "1",
+        "mass_B": "1",
+        "support_A": "9",
+        "support_B": "9",
+        "tv": "0"
+      },
+      "independent_informative": {
+        "accuracy": "1217/2200",
+        "mass_A": "1",
+        "mass_B": "1",
+        "support_A": "27",
+        "support_B": "27",
+        "tv": "117/1100"
+      },
+      "independent_uninformative": {
+        "accuracy": "1/2",
+        "mass_A": "1",
+        "mass_B": "1",
+        "support_A": "27",
+        "support_B": "27",
+        "tv": "0"
+      }
+    },
+    "pair_only_tv": "0"
+  },
+  "source_labels_evaluator_only": true,
+  "status": "PASS_EXACT_THIRD_VIEW_BOUNDARY",
+  "unit_tests_executed": 21
+}

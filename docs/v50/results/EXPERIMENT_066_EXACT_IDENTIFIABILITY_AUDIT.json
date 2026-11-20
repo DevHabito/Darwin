@@ -1,0 +1,112 @@
+{
+  "anchor": {
+    "A_joint_probability": "0",
+    "B_joint_probability": "7/6144",
+    "history": [
+      0,
+      1,
+      1,
+      2
+    ],
+    "trusted_R2": 0
+  },
+  "checks": {
+    "243_traces_enumerated": true,
+    "all_independent_joint_references_match": true,
+    "all_world_likelihoods_normalized_exactly": true,
+    "both_pairs_equal_likelihood_on_every_trace": true,
+    "both_pairs_equal_prior_ceiling_is_half": true,
+    "both_pairs_have_exactly_zero_total_variation": true,
+    "different_hidden_causes_share_visible_trace": true,
+    "independent_increment_convolution_exact": true,
+    "trusted_world_anchor_separates_pair": true
+  },
+  "enumerated_histories": 243,
+  "environment": "standard-library only, no Darwin runtime or database",
+  "evidence": "exact finite mathematical audit; not a Darwin learning capability",
+  "experiment": "E066",
+  "focused_tests": {
+    "executed": 21,
+    "exit_code": 0,
+    "passed": true,
+    "summary": "OK"
+  },
+  "history_length": 5,
+  "limitations": "model-class nonidentifiability under hidden additive sensor random walk; no real sensor, kernel, or inference",
+  "paired_witness": {
+    "observed": [
+      0,
+      1,
+      2,
+      1,
+      1,
+      0
+    ],
+    "observed_changes": 4,
+    "sensor_only": {
+      "O": [
+        0,
+        1,
+        2,
+        1,
+        1,
+        0
+      ],
+      "R": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "world_only": {
+      "O": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "R": [
+        0,
+        1,
+        2,
+        1,
+        1,
+        0
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "effective_hazard": "1/8",
+      "equal_prior_best_accuracy": "1/2",
+      "exact_total_variation": "0",
+      "pair": "A_world_only vs B_sensor_only",
+      "trace_likelihoods_equal": true
+    },
+    {
+      "effective_hazard": "29/120",
+      "equal_prior_best_accuracy": "1/2",
+      "exact_total_variation": "0",
+      "pair": "C_mixed vs D_world_only",
+      "trace_likelihoods_equal": true
+    }
+  ],
+  "registered_enumeration_started": true,
+  "source_sha256": {
+    "research/e066/e066_evaluate.py": "ed7b696946a5b493e42c397f84a3bd0ac28d88bbeffd1ea03cb5e8efc3be3fc0",
+    "src/darwin_v50/causal_source_identifiability_lab.py": "547199e60e18418fadeed24c5263c6e31abb922e0608c56beada27c0899c7ee2",
+    "tests/test_v50_causal_source_identifiability_lab.py": "06449e0a78dc6828445a851220f861e209894e6592906057d246fb8d2857830b"
+  },
+  "status": "PASS_NONIDENTIFIABILITY_BOUNDARY_EXACT",
+  "total_probability": {
+    "A_world_only": "1",
+    "B_sensor_only": "1",
+    "C_mixed": "1",
+    "D_world_only": "1"
+  }
+}

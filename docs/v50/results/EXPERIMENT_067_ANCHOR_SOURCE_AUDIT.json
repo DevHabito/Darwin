@@ -1,0 +1,46 @@
+{
+  "anchor_symbol_count": 3,
+  "candidate_checked_events": 729,
+  "checks": {
+    "all_24_engineering_tests_verified_separately": true,
+    "both_honest_source_distributions_normalize": true,
+    "candidate_equals_independent_nine_state_forward_reference": true,
+    "candidate_receives_no_realized_source_or_hidden_state": true,
+    "compromised_anchor_accuracy_below_half": true,
+    "coverage_nontrivial_and_equal_under_both_regimes": true,
+    "honest_anchor_accuracy_between_half_and_three_quarters": true,
+    "no_anchor_and_uniform_anchor_equal_half": true,
+    "no_effectful_integration_or_existing_source_mutation": true,
+    "selective_accuracy_equals_frozen_honest_and_corrupt_values": true
+  },
+  "declared_anchor_reliability": "4/5",
+  "evidence_class": "local exact mathematical evaluator; not Darwin cognition",
+  "experiment": "E067",
+  "joint_mass_sums": [
+    "1",
+    "1"
+  ],
+  "limitations": "Hypothetical declared reference accuracy; attack uses source-aware reference substitution; cannot certify sensor trust from one reading or establish a live Darwin capability.",
+  "scores": {
+    "compromised_accuracy": "48281/131072",
+    "compromised_assertion_coverage": "22185/65536",
+    "compromised_selective_accuracy": "1/9",
+    "honest_accuracy": "82791/131072",
+    "honest_assertion_coverage": "22185/65536",
+    "honest_selective_accuracy": "8/9",
+    "no_anchor_accuracy": "1/2",
+    "uniform_anchor_accuracy": "1/2"
+  },
+  "source_hypotheses": {
+    "sensor_only": [
+      "0",
+      "1/8"
+    ],
+    "world_only": [
+      "1/8",
+      "0"
+    ]
+  },
+  "status": "PASS_EXACT_FINITE_ANCHOR_BOUNDARY",
+  "trace_count": 243
+}
