@@ -1,0 +1,221 @@
+{
+  "conclusion": "development_gate_pass",
+  "criteria": {
+    "all_scored_e063_posteriors_valid_and_causal": true,
+    "both_negative_controls_abstain": true,
+    "cue_only_estimator": true,
+    "engineering_tests_pass": true,
+    "estimated_parameters_within_registered_tolerance": true,
+    "fitted_brier_beats_misspecified_by_at_least_0_010": true,
+    "fitted_brier_within_0_010_of_oracle": true,
+    "lag3_residual_below_registered_limit": true,
+    "no_runtime_or_database_side_effects": true,
+    "permutation_invariance": true
+  },
+  "evidence_ceiling": "E1_LOCAL_SYNTHETIC_DEVELOPMENT_ONLY",
+  "experiment": "E064",
+  "fitted": {
+    "equality_rates": [
+      0.5985347985347985,
+      0.5653802312326982,
+      0.538602492059614
+    ],
+    "hazard": 0.08334435426771059,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": 0.5363705329348263,
+    "sensor_correct": 0.7828464886092023,
+    "status": "FITTED"
+  },
+  "held_out_observation_count": 6144,
+  "limitations": [
+    "No external or independent evaluator; all worlds are synthetic.",
+    "Fit uses pooled historical cues and fixed stationary symmetric assumptions.",
+    "A failed fit is not replaced by a learned model; fallback used only to report non-admitted scores.",
+    "No H50-L registration, memory, kernel, action-authority or real sensor."
+  ],
+  "mean_brier": {
+    "fitted": 0.21130316953441375,
+    "misspecified": 0.2836221882832914,
+    "oracle": 0.2111951553974064
+  },
+  "memoryless_seeds": [
+    64300,
+    64301,
+    64302,
+    64303,
+    64304,
+    64305,
+    64306,
+    64307,
+    64308,
+    64309,
+    64310,
+    64311,
+    64312,
+    64313,
+    64314,
+    64315,
+    64316,
+    64317,
+    64318,
+    64319,
+    64320,
+    64321,
+    64322,
+    64323
+  ],
+  "model_assumptions": "stationary 3-mode symmetric Markov chain; iid emissions conditional on latent mode",
+  "null_sensor": {
+    "equality_rates": [
+      0.33144078144078143,
+      0.3322545188080117,
+      0.33185723593126476
+    ],
+    "hazard": null,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": null,
+    "sensor_correct": null,
+    "status": "UNIDENTIFIABLE"
+  },
+  "null_sensor_seeds": [
+    64200,
+    64201,
+    64202,
+    64203,
+    64204,
+    64205,
+    64206,
+    64207,
+    64208,
+    64209,
+    64210,
+    64211,
+    64212,
+    64213,
+    64214,
+    64215,
+    64216,
+    64217,
+    64218,
+    64219,
+    64220,
+    64221,
+    64222,
+    64223
+  ],
+  "null_transition": {
+    "equality_rates": [
+      0.3334961334961335,
+      0.3344935678228302,
+      0.3328548741754215
+    ],
+    "hazard": null,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": null,
+    "sensor_correct": null,
+    "status": "UNIDENTIFIABLE"
+  },
+  "paired_world_brier_delta": {
+    "fitted_minus_oracle": {
+      "bootstrap_95": [
+        -0.0002816936076362603,
+        0.00048383570310706406
+      ],
+      "point": 0.0001080141370073268
+    },
+    "misspecified_minus_fitted": {
+      "bootstrap_95": [
+        0.06722781835718648,
+        0.07710576785145483
+      ],
+      "point": 0.07231901874887767
+    }
+  },
+  "permuted": {
+    "equality_rates": [
+      0.5985347985347985,
+      0.5653802312326982,
+      0.538602492059614
+    ],
+    "hazard": 0.08334435426771059,
+    "pair_counts": [
+      98280,
+      98256,
+      98232
+    ],
+    "predicted_lag3": 0.5363705329348263,
+    "sensor_correct": 0.7828464886092023,
+    "status": "FITTED"
+  },
+  "registered_parameters": {
+    "hazard": 0.08,
+    "sensor_correct": 0.78
+  },
+  "research_claim_registered": false,
+  "score_seeds": [
+    64100,
+    64101,
+    64102,
+    64103,
+    64104,
+    64105,
+    64106,
+    64107,
+    64108,
+    64109,
+    64110,
+    64111,
+    64112,
+    64113,
+    64114,
+    64115,
+    64116,
+    64117,
+    64118,
+    64119,
+    64120,
+    64121,
+    64122,
+    64123
+  ],
+  "score_steps_per_world": 256,
+  "train_seeds": [
+    64000,
+    64001,
+    64002,
+    64003,
+    64004,
+    64005,
+    64006,
+    64007,
+    64008,
+    64009,
+    64010,
+    64011,
+    64012,
+    64013,
+    64014,
+    64015,
+    64016,
+    64017,
+    64018,
+    64019,
+    64020,
+    64021,
+    64022,
+    64023
+  ],
+  "train_steps_per_world": 4096
+}
